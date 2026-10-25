@@ -180,6 +180,27 @@
   }
   .special-reqs .text { color: var(--text); line-height: 1.5; word-break: break-word; }
 
+  .activity-chart {
+    display: flex; align-items: flex-end; gap: 4px;
+    height: 160px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 12px 10px;
+    margin-bottom: 8px;
+  }
+  .activity-bar {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-end; height: 100%; min-width: 0;
+  }
+  .activity-bar .bar {
+    width: 100%; max-width: 18px; height: var(--h);
+    background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px;
+  }
+  .activity-bar .bar-label {
+    font-size: 10px; color: var(--muted); margin-top: 6px; height: 14px;
+    white-space: nowrap;
+  }
+
   .index-header {
     display: flex; justify-content: space-between; align-items: flex-end;
     flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
@@ -609,7 +630,7 @@
     <div class="team-layout">
       
     <nav class="team-sidebar">
-      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity<span class="soon-tag">Soon</span></a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item active" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
+      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity</a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item active" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
       <div class="nav-section-label">Manage</div>
       <a class="nav-item" href="../admin/"><span class="nav-icon">⚙️</span>Team Admin</a>
     </nav>
@@ -617,7 +638,7 @@
     <div class="hero" style="background:#70c3ed;color:#ffffff">
       <div class="name">[NHS] Nitro Hype Squad</div>
       <div class="sub">
-        Captain: ✨superjoelzy✨ · 53 racers tracked · last synced 10/25/2026, 1:01:22 AM</div>
+        Captain: ✨superjoelzy✨ · 53 racers tracked · last synced 10/25/2026, 1:31:13 AM</div>
     </div>
     <h2 style="margin:28px 0 14px;">Tracker</h2>
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
@@ -659,8 +680,8 @@
             <img class="car-thumb" src="../../../assets/cars/painted-gtsprismav1_small_20.png" alt="" loading="lazy" onerror="this.remove()">
             review
           </td>
-          <td><span class="points">40,215.59</span></td>
-          <td>310</td>
+          <td><span class="points">39,046.94</span></td>
+          <td>301</td>
           <td>72</td>
           <td>97</td>
           <td><span class="pill ok">92.77%</span></td>
@@ -672,8 +693,8 @@
             
             Flood81
           </td>
-          <td><span class="points">31,408.5</span></td>
-          <td>190</td>
+          <td><span class="points">21,273.35</span></td>
+          <td>129</td>
           <td>132</td>
           <td>173</td>
           <td><span class="pill good">97.65%</span></td>
@@ -685,11 +706,11 @@
             <img class="car-thumb" src="../../../assets/cars/spirit_racers_paper_crane2_small.png" alt="" loading="lazy" onerror="this.remove()">
             Nosferatu
           </td>
-          <td><span class="points">15,341.85</span></td>
-          <td>126</td>
-          <td>57</td>
+          <td><span class="points">18,530.55</span></td>
+          <td>153</td>
+          <td>52</td>
           <td>101</td>
-          <td><span class="pill ok">92.19%</span></td>
+          <td><span class="pill ok">92.1%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">4</span></td>
@@ -734,14 +755,14 @@
           <td><span class="lb-rank">7</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(329 85% 65%)">D</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-underworld_small_200.png" alt="" loading="lazy" onerror="this.remove()">
+            <img class="car-thumb" src="../../../assets/cars/fuji_small.png" alt="" loading="lazy" onerror="this.remove()">
             Drifter -2k-
           </td>
-          <td><span class="points">8,239.56</span></td>
-          <td>65</td>
-          <td>68</td>
+          <td><span class="points">10,135.11</span></td>
+          <td>80</td>
+          <td>66</td>
           <td>89</td>
-          <td><span class="pill ok">93.35%</span></td>
+          <td><span class="pill ok">93.37%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">8</span></td>
@@ -832,6 +853,19 @@
         <tr>
           <td><span class="lb-rank">5</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(297 85% 65%)">N</span>
+            <img class="car-thumb" src="../../../assets/cars/spirit_racers_paper_crane2_small.png" alt="" loading="lazy" onerror="this.remove()">
+            Nosferatu
+          </td>
+          <td><span class="points">18,530.55</span></td>
+          <td>153</td>
+          <td>52</td>
+          <td>101</td>
+          <td><span class="pill ok">92.1%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">6</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(22 85% 65%)">S</span>
             <img class="car-thumb" src="../../../assets/cars/underworld_small.png" alt="" loading="lazy" onerror="this.remove()">
             S k y _ L i g h t
@@ -843,7 +877,20 @@
           <td><span class="pill low">89.14%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">6</span></td>
+          <td><span class="lb-rank">7</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(329 85% 65%)">D</span>
+            <img class="car-thumb" src="../../../assets/cars/fuji_small.png" alt="" loading="lazy" onerror="this.remove()">
+            Drifter -2k-
+          </td>
+          <td><span class="points">16,770.74</span></td>
+          <td>132</td>
+          <td>66</td>
+          <td>89</td>
+          <td><span class="pill ok">93.37%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">8</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(147 85% 65%)">G</span>
             <img class="car-thumb" src="../../../assets/cars/spirit_koi_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -854,32 +901,6 @@
           <td>53</td>
           <td>108</td>
           <td><span class="pill low">89.97%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">7</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(297 85% 65%)">N</span>
-            <img class="car-thumb" src="../../../assets/cars/spirit_racers_paper_crane2_small.png" alt="" loading="lazy" onerror="this.remove()">
-            Nosferatu
-          </td>
-          <td><span class="points">15,341.85</span></td>
-          <td>126</td>
-          <td>57</td>
-          <td>101</td>
-          <td><span class="pill ok">92.19%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">8</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(329 85% 65%)">D</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-underworld_small_200.png" alt="" loading="lazy" onerror="this.remove()">
-            Drifter -2k-
-          </td>
-          <td><span class="points">14,875.19</span></td>
-          <td>117</td>
-          <td>68</td>
-          <td>89</td>
-          <td><span class="pill ok">93.35%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">9</span></td>
@@ -1178,6 +1199,19 @@
         <tr>
           <td><span class="lb-rank">5</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(297 85% 65%)">N</span>
+            <img class="car-thumb" src="../../../assets/cars/spirit_racers_paper_crane2_small.png" alt="" loading="lazy" onerror="this.remove()">
+            Nosferatu
+          </td>
+          <td><span class="points">18,530.55</span></td>
+          <td>153</td>
+          <td>52</td>
+          <td>101</td>
+          <td><span class="pill ok">92.1%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">6</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(22 85% 65%)">S</span>
             <img class="car-thumb" src="../../../assets/cars/underworld_small.png" alt="" loading="lazy" onerror="this.remove()">
             S k y _ L i g h t
@@ -1189,7 +1223,20 @@
           <td><span class="pill low">89.14%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">6</span></td>
+          <td><span class="lb-rank">7</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(329 85% 65%)">D</span>
+            <img class="car-thumb" src="../../../assets/cars/fuji_small.png" alt="" loading="lazy" onerror="this.remove()">
+            Drifter -2k-
+          </td>
+          <td><span class="points">16,770.74</span></td>
+          <td>132</td>
+          <td>66</td>
+          <td>89</td>
+          <td><span class="pill ok">93.37%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">8</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(147 85% 65%)">G</span>
             <img class="car-thumb" src="../../../assets/cars/spirit_koi_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1200,32 +1247,6 @@
           <td>53</td>
           <td>108</td>
           <td><span class="pill low">89.97%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">7</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(297 85% 65%)">N</span>
-            <img class="car-thumb" src="../../../assets/cars/spirit_racers_paper_crane2_small.png" alt="" loading="lazy" onerror="this.remove()">
-            Nosferatu
-          </td>
-          <td><span class="points">15,341.85</span></td>
-          <td>126</td>
-          <td>57</td>
-          <td>101</td>
-          <td><span class="pill ok">92.19%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">8</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(329 85% 65%)">D</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-underworld_small_200.png" alt="" loading="lazy" onerror="this.remove()">
-            Drifter -2k-
-          </td>
-          <td><span class="points">14,875.19</span></td>
-          <td>117</td>
-          <td>68</td>
-          <td>89</td>
-          <td><span class="pill ok">93.35%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">9</span></td>
@@ -1524,6 +1545,19 @@
         <tr>
           <td><span class="lb-rank">5</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(297 85% 65%)">N</span>
+            <img class="car-thumb" src="../../../assets/cars/spirit_racers_paper_crane2_small.png" alt="" loading="lazy" onerror="this.remove()">
+            Nosferatu
+          </td>
+          <td><span class="points">18,530.55</span></td>
+          <td>153</td>
+          <td>52</td>
+          <td>101</td>
+          <td><span class="pill ok">92.1%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">6</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(22 85% 65%)">S</span>
             <img class="car-thumb" src="../../../assets/cars/underworld_small.png" alt="" loading="lazy" onerror="this.remove()">
             S k y _ L i g h t
@@ -1535,7 +1569,20 @@
           <td><span class="pill low">89.14%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">6</span></td>
+          <td><span class="lb-rank">7</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(329 85% 65%)">D</span>
+            <img class="car-thumb" src="../../../assets/cars/fuji_small.png" alt="" loading="lazy" onerror="this.remove()">
+            Drifter -2k-
+          </td>
+          <td><span class="points">16,770.74</span></td>
+          <td>132</td>
+          <td>66</td>
+          <td>89</td>
+          <td><span class="pill ok">93.37%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">8</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(147 85% 65%)">G</span>
             <img class="car-thumb" src="../../../assets/cars/spirit_koi_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1546,32 +1593,6 @@
           <td>53</td>
           <td>108</td>
           <td><span class="pill low">89.97%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">7</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(297 85% 65%)">N</span>
-            <img class="car-thumb" src="../../../assets/cars/spirit_racers_paper_crane2_small.png" alt="" loading="lazy" onerror="this.remove()">
-            Nosferatu
-          </td>
-          <td><span class="points">15,341.85</span></td>
-          <td>126</td>
-          <td>57</td>
-          <td>101</td>
-          <td><span class="pill ok">92.19%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">8</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(329 85% 65%)">D</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-underworld_small_200.png" alt="" loading="lazy" onerror="this.remove()">
-            Drifter -2k-
-          </td>
-          <td><span class="points">14,875.19</span></td>
-          <td>117</td>
-          <td>68</td>
-          <td>89</td>
-          <td><span class="pill ok">93.35%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">9</span></td>
@@ -1811,6 +1832,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T01:15:02.502Z</footer>
+<footer class="site">Generated 2026-10-25T01:32:54.641Z</footer>
 </body>
 </html>

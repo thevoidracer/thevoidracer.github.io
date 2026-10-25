@@ -180,6 +180,27 @@
   }
   .special-reqs .text { color: var(--text); line-height: 1.5; word-break: break-word; }
 
+  .activity-chart {
+    display: flex; align-items: flex-end; gap: 4px;
+    height: 160px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 12px 10px;
+    margin-bottom: 8px;
+  }
+  .activity-bar {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-end; height: 100%; min-width: 0;
+  }
+  .activity-bar .bar {
+    width: 100%; max-width: 18px; height: var(--h);
+    background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px;
+  }
+  .activity-bar .bar-label {
+    font-size: 10px; color: var(--muted); margin-top: 6px; height: 14px;
+    white-space: nowrap;
+  }
+
   .index-header {
     display: flex; justify-content: space-between; align-items: flex-end;
     flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
@@ -609,7 +630,7 @@
     <div class="team-layout">
       
     <nav class="team-sidebar">
-      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity<span class="soon-tag">Soon</span></a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item active" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
+      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity</a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item active" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
       <div class="nav-section-label">Manage</div>
       <a class="nav-item" href="../admin/"><span class="nav-icon">⚙️</span>Team Admin</a>
     </nav>
@@ -659,8 +680,8 @@
             <img class="car-thumb" src="../../../assets/cars/painted-spirit_racers_final_seal_small_320.png" alt="" loading="lazy" onerror="this.remove()">
             NoRetreatNoSurrender
           </td>
-          <td><span class="points">137,209.52</span></td>
-          <td>838</td>
+          <td><span class="points">125,261.12</span></td>
+          <td>766</td>
           <td>152</td>
           <td>189</td>
           <td><span class="pill good">97.35%</span></td>
@@ -685,8 +706,8 @@
             <img class="car-thumb" src="../../../assets/cars/painted-spirit_koi_small_40.png" alt="" loading="lazy" onerror="this.remove()">
             - A E T E R N U M -
           </td>
-          <td><span class="points">44,571.11</span></td>
-          <td>305</td>
+          <td><span class="points">44,275.69</span></td>
+          <td>303</td>
           <td>104</td>
           <td>139</td>
           <td><span class="pill good">95.21%</span></td>
@@ -785,19 +806,6 @@
         <tr>
           <td><span class="lb-rank">11</span></td>
           <td class="racer">
-            <span class="avatar" style="background:hsl(81 85% 65%)">F</span>
-            
-            Farmbell
-          </td>
-          <td><span class="points">16,788.78</span></td>
-          <td>116</td>
-          <td>101</td>
-          <td>132</td>
-          <td><span class="pill good">95.83%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">12</span></td>
-          <td class="racer">
             <span class="avatar" style="background:hsl(101 85% 65%)">-</span>
             
             -BaggyCarpet-
@@ -809,7 +817,7 @@
           <td><span class="pill ok">94.74%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">13</span></td>
+          <td><span class="lb-rank">12</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(150 85% 65%)">R</span>
             
@@ -822,17 +830,30 @@
           <td><span class="pill good">96%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">14</span></td>
+          <td><span class="lb-rank">13</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(125 85% 65%)">M</span>
             
             Monster_ii
           </td>
-          <td><span class="points">14,261.49</span></td>
-          <td>101</td>
+          <td><span class="points">13,568.49</span></td>
+          <td>96</td>
           <td>95</td>
           <td>114</td>
           <td><span class="pill ok">94.61%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">14</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(81 85% 65%)">F</span>
+            
+            Farmbell
+          </td>
+          <td><span class="points">10,561.09</span></td>
+          <td>73</td>
+          <td>101</td>
+          <td>132</td>
+          <td><span class="pill good">95.83%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">15</span></td>
@@ -2773,6 +2794,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T01:14:56.002Z</footer>
+<footer class="site">Generated 2026-10-25T01:32:51.884Z</footer>
 </body>
 </html>

@@ -180,6 +180,27 @@
   }
   .special-reqs .text { color: var(--text); line-height: 1.5; word-break: break-word; }
 
+  .activity-chart {
+    display: flex; align-items: flex-end; gap: 4px;
+    height: 160px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 12px 10px;
+    margin-bottom: 8px;
+  }
+  .activity-bar {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-end; height: 100%; min-width: 0;
+  }
+  .activity-bar .bar {
+    width: 100%; max-width: 18px; height: var(--h);
+    background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px;
+  }
+  .activity-bar .bar-label {
+    font-size: 10px; color: var(--muted); margin-top: 6px; height: 14px;
+    white-space: nowrap;
+  }
+
   .index-header {
     display: flex; justify-content: space-between; align-items: flex-end;
     flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
@@ -609,7 +630,7 @@
     <div class="team-layout">
       
     <nav class="team-sidebar">
-      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity<span class="soon-tag">Soon</span></a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
+      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity</a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
       <div class="nav-section-label">Manage</div>
       <a class="nav-item active" href="../admin/"><span class="nav-icon">⚙️</span>Team Admin</a>
     </nav>
@@ -617,7 +638,7 @@
     <div class="hero" style="background:#5b52a3;color:#ffffff">
       <div class="name">[NH] Nephilims</div>
       <div class="sub">
-        Captain: megladon · 45 racers tracked · last synced 10/25/2026, 1:01:08 AM</div>
+        Captain: megladon · 46 racers tracked · last synced 10/25/2026, 1:30:59 AM</div>
     </div>
     <div data-admin-panel data-team-tag="NH" data-captain-nt-user-id="39625162">
       <h2 style="margin:28px 0 14px;">Team Admin</h2>
@@ -640,7 +661,7 @@
             </table>
           </div>
           <form data-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
-            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="64763446">-hugoNT-</option><option value="39280544">-_- t-i-r-e-d -_-</option><option value="48693769">-hugoNT-</option><option value="58742594">-Infinity-</option><option value="6047270">⚡F-L-Ⓐ-S-H-Y⚡</option><option value="40005890">5HRKBAIT</option><option value="49186733">account made in 2021</option><option value="31677733">Aurora</option><option value="90176656">BRO_phpbender</option><option value="41610275">C L A Y</option><option value="59077866">Chaos_Pixie</option><option value="82562183">colors_of_the_wind</option><option value="37286734">DA FLAME BACK</option><option value="45421150">DatboiJacob</option><option value="62381832">FOWLER08</option><option value="37786260">franchesca</option><option value="90738620">hajira love</option><option value="68595344">henna love</option><option value="40126090">ilovetypos</option><option value="50256455">itypewith2fingers</option><option value="87692265">J A R V I S</option><option value="44543791">Jesus is the way</option><option value="89610559">John von Jean</option><option value="31752250">maxthekitty</option><option value="40419576">Mcgee,</option><option value="39625162">megladon</option><option value="49206450">Meltocrazy</option><option value="89409377">MnkyDLuffy</option><option value="59219319">nodalgem</option><option value="61522872">nospeedlimit</option><option value="81516422">platypus</option><option value="91737354">PracticalAquaNarwhal</option><option value="28045074">riyaaaaaaa</option><option value="69848477">Satoru Gojo</option><option value="90765414">Space　</option><option value="37455170">Subject_0</option><option value="50226428">superior rd to 100k</option><option value="24798875">tell a vision</option><option value="85363102">thank u, next</option><option value="53545037">Tiktok_dc4lyk</option><option value="60773281">vanilla</option><option value="30429321">wefwef</option><option value="69586613">yo soy trippieredd</option><option value="25423496">zoe   </option><option value="72855883">zyprex</option></select>
+            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="64763446">-hugoNT-</option><option value="39280544">-_- t-i-r-e-d -_-</option><option value="48693769">-hugoNT-</option><option value="58742594">-Infinity-</option><option value="6047270">⚡F-L-Ⓐ-S-H-Y⚡</option><option value="40005890">5HRKBAIT</option><option value="49186733">account made in 2021</option><option value="31677733">Aurora</option><option value="90176656">BRO_phpbender</option><option value="41610275">C L A Y</option><option value="59077866">Chaos_Pixie</option><option value="82562183">colors_of_the_wind</option><option value="37286734">DA FLAME BACK</option><option value="45421150">DatboiJacob</option><option value="66427221">Dreamskiy</option><option value="62381832">FOWLER08</option><option value="37786260">franchesca</option><option value="90738620">hajira love</option><option value="68595344">henna love</option><option value="40126090">ilovetypos</option><option value="50256455">itypewith2fingers</option><option value="87692265">J A R V I S</option><option value="44543791">Jesus is the way</option><option value="89610559">John von Jean</option><option value="31752250">maxthekitty</option><option value="40419576">Mcgee,</option><option value="39625162">megladon</option><option value="49206450">Meltocrazy</option><option value="89409377">MnkyDLuffy</option><option value="59219319">nodalgem</option><option value="61522872">nospeedlimit</option><option value="81516422">platypus</option><option value="91737354">PracticalAquaNarwhal</option><option value="28045074">riyaaaaaaa</option><option value="69848477">Satoru Gojo</option><option value="90765414">Space　</option><option value="37455170">Subject_0</option><option value="50226428">superior rd to 100k</option><option value="24798875">tell a vision</option><option value="85363102">thank u, next</option><option value="53545037">Tiktok_dc4lyk</option><option value="60773281">vanilla</option><option value="30429321">wefwef</option><option value="69586613">yo soy trippieredd</option><option value="25423496">zoe   </option><option value="72855883">zyprex</option></select>
             <button type="submit" class="btn-primary">Make officer</button>
           </form>
         </div>
@@ -746,6 +767,12 @@
           </tr>
           <tr data-squad-roster-row="45421150">
             <td>DatboiJacob</td>
+            <td data-squad-roster-select-cell>
+              <select class="form-input" data-squad-roster-select disabled><option value="">No squad</option></select>
+            </td>
+          </tr>
+          <tr data-squad-roster-row="66427221">
+            <td>Dreamskiy</td>
             <td data-squad-roster-select-cell>
               <select class="form-input" data-squad-roster-select disabled><option value="">No squad</option></select>
             </td>
@@ -976,6 +1003,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T01:15:12.560Z</footer>
+<footer class="site">Generated 2026-10-25T01:32:58.586Z</footer>
 </body>
 </html>

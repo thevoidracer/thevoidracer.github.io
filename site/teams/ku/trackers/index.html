@@ -180,6 +180,27 @@
   }
   .special-reqs .text { color: var(--text); line-height: 1.5; word-break: break-word; }
 
+  .activity-chart {
+    display: flex; align-items: flex-end; gap: 4px;
+    height: 160px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 12px 10px;
+    margin-bottom: 8px;
+  }
+  .activity-bar {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-end; height: 100%; min-width: 0;
+  }
+  .activity-bar .bar {
+    width: 100%; max-width: 18px; height: var(--h);
+    background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px;
+  }
+  .activity-bar .bar-label {
+    font-size: 10px; color: var(--muted); margin-top: 6px; height: 14px;
+    white-space: nowrap;
+  }
+
   .index-header {
     display: flex; justify-content: space-between; align-items: flex-end;
     flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
@@ -609,7 +630,7 @@
     <div class="team-layout">
       
     <nav class="team-sidebar">
-      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity<span class="soon-tag">Soon</span></a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item active" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
+      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity</a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item active" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
       <div class="nav-section-label">Manage</div>
       <a class="nav-item" href="../admin/"><span class="nav-icon">⚙️</span>Team Admin</a>
     </nav>
@@ -617,7 +638,7 @@
     <div class="hero" style="background:#fba51a;color:#ffffff">
       <div class="name">[KU] Ketsui</div>
       <div class="sub">
-        Captain: Ketsui · 54 racers tracked · last synced 10/25/2026, 1:00:38 AM</div>
+        Captain: Ketsui · 54 racers tracked · last synced 10/25/2026, 1:30:30 AM</div>
     </div>
     <h2 style="margin:28px 0 14px;">Tracker</h2>
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
@@ -659,8 +680,8 @@
             
             Calhoun
           </td>
-          <td><span class="points">168,083.22</span></td>
-          <td>1,148</td>
+          <td><span class="points">158,044.61</span></td>
+          <td>1,081</td>
           <td>90</td>
           <td>167</td>
           <td><span class="pill ok">94.34%</span></td>
@@ -672,11 +693,11 @@
             
             Randora
           </td>
-          <td><span class="points">159,452.44</span></td>
-          <td>1,161</td>
-          <td>77</td>
+          <td><span class="points">156,497.6</span></td>
+          <td>1,142</td>
+          <td>79</td>
           <td>182</td>
-          <td><span class="pill good">96.87%</span></td>
+          <td><span class="pill good">96.86%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top3">3</span></td>
@@ -685,27 +706,14 @@
             
             LovelyLyrica
           </td>
-          <td><span class="points">118,332.54</span></td>
-          <td>850</td>
+          <td><span class="points">115,817.54</span></td>
+          <td>832</td>
           <td>79</td>
           <td>123</td>
           <td><span class="pill good">98.09%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">4</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(343 85% 65%)">T</span>
-            <img class="car-thumb" src="../../../assets/cars/spirit_racers_final_seal_small.png" alt="" loading="lazy" onerror="this.remove()">
-            Talan 88k
-          </td>
-          <td><span class="points">66,329.85</span></td>
-          <td>490</td>
-          <td>78</td>
-          <td>107</td>
-          <td><span class="pill good">96.7%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">5</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(112 85% 65%)">A</span>
             
@@ -718,7 +726,7 @@
           <td><span class="pill good">97.09%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">6</span></td>
+          <td><span class="lb-rank">5</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(133 85% 65%)">B</span>
             <img class="car-thumb" src="../../../assets/cars/ksmith_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -731,14 +739,27 @@
           <td><span class="pill good">96.21%</span></td>
         </tr>
         <tr>
+          <td><span class="lb-rank">6</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(343 85% 65%)">T</span>
+            <img class="car-thumb" src="../../../assets/cars/spirit_racers_final_seal_small.png" alt="" loading="lazy" onerror="this.remove()">
+            Talan 88k
+          </td>
+          <td><span class="points">57,107.69</span></td>
+          <td>422</td>
+          <td>78</td>
+          <td>107</td>
+          <td><span class="pill good">96.7%</span></td>
+        </tr>
+        <tr>
           <td><span class="lb-rank">7</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(144 85% 65%)">E</span>
             
             EM    
           </td>
-          <td><span class="points">55,048.44</span></td>
-          <td>309</td>
+          <td><span class="points">54,137.94</span></td>
+          <td>304</td>
           <td>157</td>
           <td>199</td>
           <td><span class="pill good">98.64%</span></td>
@@ -759,6 +780,19 @@
         <tr>
           <td><span class="lb-rank">9</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(130 85% 65%)">S</span>
+            
+            SNT MADE ME 2011
+          </td>
+          <td><span class="points">34,417.26</span></td>
+          <td>223</td>
+          <td>123</td>
+          <td>131</td>
+          <td><span class="pill good">97.45%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">10</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(34 85% 65%)">$</span>
             
             $$$Mason$$$
@@ -768,19 +802,6 @@
           <td>129</td>
           <td>178</td>
           <td><span class="pill good">95.86%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">10</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(130 85% 65%)">S</span>
-            
-            SNT MADE ME 2011
-          </td>
-          <td><span class="points">34,099.36</span></td>
-          <td>221</td>
-          <td>122</td>
-          <td>131</td>
-          <td><span class="pill good">97.44%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">11</span></td>
@@ -824,6 +845,19 @@
         <tr>
           <td><span class="lb-rank">14</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(43 85% 65%)">⚡</span>
+            <img class="car-thumb" src="../../../assets/cars/meowwww_small.png" alt="" loading="lazy" onerror="this.remove()">
+            ⚡Ⱳîzard⚡
+          </td>
+          <td><span class="points">19,285.52</span></td>
+          <td>104</td>
+          <td>180</td>
+          <td>208</td>
+          <td><span class="pill good">96.45%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">15</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(213 85% 65%)">I</span>
             
             IVI 
@@ -833,19 +867,6 @@
           <td>117</td>
           <td>184</td>
           <td><span class="pill good">98.89%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">15</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(43 85% 65%)">⚡</span>
-            <img class="car-thumb" src="../../../assets/cars/meowwww_small.png" alt="" loading="lazy" onerror="this.remove()">
-            ⚡Ⱳîzard⚡
-          </td>
-          <td><span class="points">17,301.68</span></td>
-          <td>94</td>
-          <td>177</td>
-          <td>208</td>
-          <td><span class="pill good">96.45%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">16</span></td>
@@ -867,11 +888,11 @@
             <img class="car-thumb" src="../../../assets/cars/painted-neon_small_80.png" alt="" loading="lazy" onerror="this.remove()">
              Pure 
           </td>
-          <td><span class="points">10,806.46</span></td>
-          <td>76</td>
-          <td>86</td>
+          <td><span class="points">11,522.96</span></td>
+          <td>81</td>
+          <td>91</td>
           <td>122</td>
-          <td><span class="pill good">97.85%</span></td>
+          <td><span class="pill good">97.8%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">18</span></td>
@@ -979,14 +1000,27 @@
             
             Randora
           </td>
-          <td><span class="points">313,424.83</span></td>
-          <td>2,265</td>
-          <td>77</td>
+          <td><span class="points">319,697.39</span></td>
+          <td>2,311</td>
+          <td>79</td>
           <td>182</td>
-          <td><span class="pill good">96.87%</span></td>
+          <td><span class="pill good">96.86%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top2">2</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(193 85% 65%)">L</span>
+            
+            LovelyLyrica
+          </td>
+          <td><span class="points">218,971.57</span></td>
+          <td>1,579</td>
+          <td>79</td>
+          <td>123</td>
+          <td><span class="pill good">98.09%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(70 85% 65%)">C</span>
             
@@ -997,19 +1031,6 @@
           <td>90</td>
           <td>167</td>
           <td><span class="pill ok">94.34%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank top3">3</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(193 85% 65%)">L</span>
-            
-            LovelyLyrica
-          </td>
-          <td><span class="points">216,219.77</span></td>
-          <td>1,559</td>
-          <td>79</td>
-          <td>123</td>
-          <td><span class="pill good">98.09%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">4</span></td>
@@ -1027,6 +1048,19 @@
         <tr>
           <td><span class="lb-rank">5</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(43 85% 65%)">⚡</span>
+            <img class="car-thumb" src="../../../assets/cars/meowwww_small.png" alt="" loading="lazy" onerror="this.remove()">
+            ⚡Ⱳîzard⚡
+          </td>
+          <td><span class="points">79,126.46</span></td>
+          <td>430</td>
+          <td>180</td>
+          <td>208</td>
+          <td><span class="pill good">96.45%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">6</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(144 85% 65%)">E</span>
             
             EM    
@@ -1038,7 +1072,7 @@
           <td><span class="pill good">98.64%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">6</span></td>
+          <td><span class="lb-rank">7</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(112 85% 65%)">A</span>
             
@@ -1049,19 +1083,6 @@
           <td>106</td>
           <td>196</td>
           <td><span class="pill good">97.09%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">7</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(43 85% 65%)">⚡</span>
-            <img class="car-thumb" src="../../../assets/cars/meowwww_small.png" alt="" loading="lazy" onerror="this.remove()">
-            ⚡Ⱳîzard⚡
-          </td>
-          <td><span class="points">70,922.66</span></td>
-          <td>386</td>
-          <td>177</td>
-          <td>208</td>
-          <td><span class="pill good">96.45%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">8</span></td>
@@ -1148,11 +1169,11 @@
             
             SNT MADE ME 2011
           </td>
-          <td><span class="points">34,099.36</span></td>
-          <td>221</td>
-          <td>122</td>
+          <td><span class="points">34,417.26</span></td>
+          <td>223</td>
+          <td>123</td>
           <td>131</td>
-          <td><span class="pill good">97.44%</span></td>
+          <td><span class="pill good">97.45%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">15</span></td>
@@ -1213,11 +1234,11 @@
             <img class="car-thumb" src="../../../assets/cars/painted-neon_small_80.png" alt="" loading="lazy" onerror="this.remove()">
              Pure 
           </td>
-          <td><span class="points">10,806.46</span></td>
-          <td>76</td>
-          <td>86</td>
+          <td><span class="points">11,522.96</span></td>
+          <td>81</td>
+          <td>91</td>
           <td>122</td>
-          <td><span class="pill good">97.85%</span></td>
+          <td><span class="pill good">97.8%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">20</span></td>
@@ -1364,14 +1385,27 @@
             
             Randora
           </td>
-          <td><span class="points">313,424.83</span></td>
-          <td>2,265</td>
-          <td>77</td>
+          <td><span class="points">319,697.39</span></td>
+          <td>2,311</td>
+          <td>79</td>
           <td>182</td>
-          <td><span class="pill good">96.87%</span></td>
+          <td><span class="pill good">96.86%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top2">2</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(193 85% 65%)">L</span>
+            
+            LovelyLyrica
+          </td>
+          <td><span class="points">218,971.57</span></td>
+          <td>1,579</td>
+          <td>79</td>
+          <td>123</td>
+          <td><span class="pill good">98.09%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(70 85% 65%)">C</span>
             
@@ -1382,19 +1416,6 @@
           <td>90</td>
           <td>167</td>
           <td><span class="pill ok">94.34%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank top3">3</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(193 85% 65%)">L</span>
-            
-            LovelyLyrica
-          </td>
-          <td><span class="points">216,219.77</span></td>
-          <td>1,559</td>
-          <td>79</td>
-          <td>123</td>
-          <td><span class="pill good">98.09%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">4</span></td>
@@ -1412,6 +1433,19 @@
         <tr>
           <td><span class="lb-rank">5</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(43 85% 65%)">⚡</span>
+            <img class="car-thumb" src="../../../assets/cars/meowwww_small.png" alt="" loading="lazy" onerror="this.remove()">
+            ⚡Ⱳîzard⚡
+          </td>
+          <td><span class="points">79,126.46</span></td>
+          <td>430</td>
+          <td>180</td>
+          <td>208</td>
+          <td><span class="pill good">96.45%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">6</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(144 85% 65%)">E</span>
             
             EM    
@@ -1423,7 +1457,7 @@
           <td><span class="pill good">98.64%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">6</span></td>
+          <td><span class="lb-rank">7</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(112 85% 65%)">A</span>
             
@@ -1434,19 +1468,6 @@
           <td>106</td>
           <td>196</td>
           <td><span class="pill good">97.09%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">7</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(43 85% 65%)">⚡</span>
-            <img class="car-thumb" src="../../../assets/cars/meowwww_small.png" alt="" loading="lazy" onerror="this.remove()">
-            ⚡Ⱳîzard⚡
-          </td>
-          <td><span class="points">70,922.66</span></td>
-          <td>386</td>
-          <td>177</td>
-          <td>208</td>
-          <td><span class="pill good">96.45%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">8</span></td>
@@ -1533,11 +1554,11 @@
             
             SNT MADE ME 2011
           </td>
-          <td><span class="points">34,099.36</span></td>
-          <td>221</td>
-          <td>122</td>
+          <td><span class="points">34,417.26</span></td>
+          <td>223</td>
+          <td>123</td>
           <td>131</td>
-          <td><span class="pill good">97.44%</span></td>
+          <td><span class="pill good">97.45%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">15</span></td>
@@ -1598,11 +1619,11 @@
             <img class="car-thumb" src="../../../assets/cars/painted-neon_small_80.png" alt="" loading="lazy" onerror="this.remove()">
              Pure 
           </td>
-          <td><span class="points">10,806.46</span></td>
-          <td>76</td>
-          <td>86</td>
+          <td><span class="points">11,522.96</span></td>
+          <td>81</td>
+          <td>91</td>
           <td>122</td>
-          <td><span class="pill good">97.85%</span></td>
+          <td><span class="pill good">97.8%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">20</span></td>
@@ -1749,14 +1770,27 @@
             
             Randora
           </td>
-          <td><span class="points">313,424.83</span></td>
-          <td>2,265</td>
-          <td>77</td>
+          <td><span class="points">319,697.39</span></td>
+          <td>2,311</td>
+          <td>79</td>
           <td>182</td>
-          <td><span class="pill good">96.87%</span></td>
+          <td><span class="pill good">96.86%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top2">2</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(193 85% 65%)">L</span>
+            
+            LovelyLyrica
+          </td>
+          <td><span class="points">218,971.57</span></td>
+          <td>1,579</td>
+          <td>79</td>
+          <td>123</td>
+          <td><span class="pill good">98.09%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(70 85% 65%)">C</span>
             
@@ -1767,19 +1801,6 @@
           <td>90</td>
           <td>167</td>
           <td><span class="pill ok">94.34%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank top3">3</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(193 85% 65%)">L</span>
-            
-            LovelyLyrica
-          </td>
-          <td><span class="points">216,219.77</span></td>
-          <td>1,559</td>
-          <td>79</td>
-          <td>123</td>
-          <td><span class="pill good">98.09%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">4</span></td>
@@ -1797,6 +1818,19 @@
         <tr>
           <td><span class="lb-rank">5</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(43 85% 65%)">⚡</span>
+            <img class="car-thumb" src="../../../assets/cars/meowwww_small.png" alt="" loading="lazy" onerror="this.remove()">
+            ⚡Ⱳîzard⚡
+          </td>
+          <td><span class="points">79,126.46</span></td>
+          <td>430</td>
+          <td>180</td>
+          <td>208</td>
+          <td><span class="pill good">96.45%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">6</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(144 85% 65%)">E</span>
             
             EM    
@@ -1808,7 +1842,7 @@
           <td><span class="pill good">98.64%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">6</span></td>
+          <td><span class="lb-rank">7</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(112 85% 65%)">A</span>
             
@@ -1819,19 +1853,6 @@
           <td>106</td>
           <td>196</td>
           <td><span class="pill good">97.09%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">7</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(43 85% 65%)">⚡</span>
-            <img class="car-thumb" src="../../../assets/cars/meowwww_small.png" alt="" loading="lazy" onerror="this.remove()">
-            ⚡Ⱳîzard⚡
-          </td>
-          <td><span class="points">70,922.66</span></td>
-          <td>386</td>
-          <td>177</td>
-          <td>208</td>
-          <td><span class="pill good">96.45%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">8</span></td>
@@ -1918,11 +1939,11 @@
             
             SNT MADE ME 2011
           </td>
-          <td><span class="points">34,099.36</span></td>
-          <td>221</td>
-          <td>122</td>
+          <td><span class="points">34,417.26</span></td>
+          <td>223</td>
+          <td>123</td>
           <td>131</td>
-          <td><span class="pill good">97.44%</span></td>
+          <td><span class="pill good">97.45%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">15</span></td>
@@ -1983,11 +2004,11 @@
             <img class="car-thumb" src="../../../assets/cars/painted-neon_small_80.png" alt="" loading="lazy" onerror="this.remove()">
              Pure 
           </td>
-          <td><span class="points">10,806.46</span></td>
-          <td>76</td>
-          <td>86</td>
+          <td><span class="points">11,522.96</span></td>
+          <td>81</td>
+          <td>91</td>
           <td>122</td>
-          <td><span class="pill good">97.85%</span></td>
+          <td><span class="pill good">97.8%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">20</span></td>
@@ -2123,6 +2144,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T01:14:54.320Z</footer>
+<footer class="site">Generated 2026-10-25T01:32:51.073Z</footer>
 </body>
 </html>

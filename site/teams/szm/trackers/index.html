@@ -180,6 +180,27 @@
   }
   .special-reqs .text { color: var(--text); line-height: 1.5; word-break: break-word; }
 
+  .activity-chart {
+    display: flex; align-items: flex-end; gap: 4px;
+    height: 160px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 12px 10px;
+    margin-bottom: 8px;
+  }
+  .activity-bar {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-end; height: 100%; min-width: 0;
+  }
+  .activity-bar .bar {
+    width: 100%; max-width: 18px; height: var(--h);
+    background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px;
+  }
+  .activity-bar .bar-label {
+    font-size: 10px; color: var(--muted); margin-top: 6px; height: 14px;
+    white-space: nowrap;
+  }
+
   .index-header {
     display: flex; justify-content: space-between; align-items: flex-end;
     flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
@@ -609,7 +630,7 @@
     <div class="team-layout">
       
     <nav class="team-sidebar">
-      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity<span class="soon-tag">Soon</span></a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item active" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
+      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity</a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item active" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
       <div class="nav-section-label">Manage</div>
       <a class="nav-item" href="../admin/"><span class="nav-icon">⚙️</span>Team Admin</a>
     </nav>
@@ -659,8 +680,8 @@
             
             Sparverius
           </td>
-          <td><span class="points">29,189.69</span></td>
-          <td>198</td>
+          <td><span class="points">27,704.69</span></td>
+          <td>188</td>
           <td>97</td>
           <td>117</td>
           <td><span class="pill good">98.48%</span></td>
@@ -681,19 +702,6 @@
         <tr>
           <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
-            <span class="avatar" style="background:hsl(309 85% 65%)">R</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-scream_small_320.png" alt="" loading="lazy" onerror="this.remove()">
-            red_core
-          </td>
-          <td><span class="points">13,109.41</span></td>
-          <td>94</td>
-          <td>84</td>
-          <td>116</td>
-          <td><span class="pill ok">94.84%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">4</span></td>
-          <td class="racer">
             <span class="avatar" style="background:hsl(323 85% 65%)">D</span>
             
             diddyjohnson
@@ -703,6 +711,19 @@
           <td>63</td>
           <td>85</td>
           <td><span class="pill ok">92.06%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">4</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(309 85% 65%)">R</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-scream_small_320.png" alt="" loading="lazy" onerror="this.remove()">
+            red_core
+          </td>
+          <td><span class="points">12,400.46</span></td>
+          <td>89</td>
+          <td>84</td>
+          <td>116</td>
+          <td><span class="pill ok">94.84%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">5</span></td>
@@ -1954,6 +1975,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T01:15:05.820Z</footer>
+<footer class="site">Generated 2026-10-25T01:32:55.952Z</footer>
 </body>
 </html>

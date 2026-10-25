@@ -180,6 +180,27 @@
   }
   .special-reqs .text { color: var(--text); line-height: 1.5; word-break: break-word; }
 
+  .activity-chart {
+    display: flex; align-items: flex-end; gap: 4px;
+    height: 160px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 12px 10px;
+    margin-bottom: 8px;
+  }
+  .activity-bar {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-end; height: 100%; min-width: 0;
+  }
+  .activity-bar .bar {
+    width: 100%; max-width: 18px; height: var(--h);
+    background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px;
+  }
+  .activity-bar .bar-label {
+    font-size: 10px; color: var(--muted); margin-top: 6px; height: 14px;
+    white-space: nowrap;
+  }
+
   .index-header {
     display: flex; justify-content: space-between; align-items: flex-end;
     flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
@@ -609,7 +630,7 @@
     <div class="team-layout">
       
     <nav class="team-sidebar">
-      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity<span class="soon-tag">Soon</span></a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item active" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
+      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity</a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item active" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
       <div class="nav-section-label">Manage</div>
       <a class="nav-item" href="../admin/"><span class="nav-icon">⚙️</span>Team Admin</a>
     </nav>
@@ -617,7 +638,7 @@
     <div class="hero" style="background:#ea1979;color:#ffffff">
       <div class="name">[PR2W] P1nks R2 W1ld</div>
       <div class="sub">
-        Captain: pinkyboo · 48 racers tracked · last synced 10/25/2026, 1:02:48 AM</div>
+        Captain: pinkyboo · 48 racers tracked · last synced 10/25/2026, 1:32:39 AM</div>
     </div>
     <h2 style="margin:28px 0 14px;">Tracker</h2>
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
@@ -659,9 +680,9 @@
             <img class="car-thumb" src="../../../assets/cars/painted-yacht_small_340.png" alt="" loading="lazy" onerror="this.remove()">
             GREEK BANANA
           </td>
-          <td><span class="points">122,514.72</span></td>
-          <td>944</td>
-          <td>72</td>
+          <td><span class="points">128,225.04</span></td>
+          <td>988</td>
+          <td>74</td>
           <td>103</td>
           <td><span class="pill ok">92.78%</span></td>
         </tr>
@@ -672,9 +693,9 @@
             <img class="car-thumb" src="../../../assets/cars/painted-wflower_small_340.png" alt="" loading="lazy" onerror="this.remove()">
             ✨꧁⚽WF⚽꧂✨
           </td>
-          <td><span class="points">78,988.06</span></td>
-          <td>597</td>
-          <td>69</td>
+          <td><span class="points">76,584.42</span></td>
+          <td>579</td>
+          <td>65</td>
           <td>120</td>
           <td><span class="pill good">97.98%</span></td>
         </tr>
@@ -694,15 +715,15 @@
         <tr>
           <td><span class="lb-rank">4</span></td>
           <td class="racer">
-            <span class="avatar" style="background:hsl(210 85% 65%)">A</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-gtsprismav1_small_100.png" alt="" loading="lazy" onerror="this.remove()">
-            Arentix -Drip-
+            <span class="avatar" style="background:hsl(28 85% 65%)">A</span>
+            
+            Arctic
           </td>
-          <td><span class="points">27,289.27</span></td>
-          <td>177</td>
-          <td>116</td>
-          <td>169</td>
-          <td><span class="pill good">95.27%</span></td>
+          <td><span class="points">21,333.44</span></td>
+          <td>146</td>
+          <td>101</td>
+          <td>152</td>
+          <td><span class="pill ok">94.64%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">5</span></td>
@@ -720,15 +741,15 @@
         <tr>
           <td><span class="lb-rank">6</span></td>
           <td class="racer">
-            <span class="avatar" style="background:hsl(28 85% 65%)">A</span>
-            
-            Arctic
+            <span class="avatar" style="background:hsl(210 85% 65%)">A</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-gtsprismav1_small_100.png" alt="" loading="lazy" onerror="this.remove()">
+            Arentix -Drip-
           </td>
-          <td><span class="points">15,092.42</span></td>
-          <td>103</td>
-          <td>100</td>
-          <td>152</td>
-          <td><span class="pill ok">94.64%</span></td>
+          <td><span class="points">20,368.15</span></td>
+          <td>132</td>
+          <td>116</td>
+          <td>169</td>
+          <td><span class="pill good">95.27%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">7</span></td>
@@ -750,8 +771,8 @@
             <img class="car-thumb" src="../../../assets/cars/underworld_small.png" alt="" loading="lazy" onerror="this.remove()">
             jackybo
           </td>
-          <td><span class="points">11,614.95</span></td>
-          <td>93</td>
+          <td><span class="points">11,124.63</span></td>
+          <td>89</td>
           <td>65</td>
           <td>88</td>
           <td><span class="pill ok">93.14%</span></td>
@@ -992,9 +1013,9 @@
             <img class="car-thumb" src="../../../assets/cars/painted-yacht_small_340.png" alt="" loading="lazy" onerror="this.remove()">
             GREEK BANANA
           </td>
-          <td><span class="points">161,530.73</span></td>
-          <td>1,244</td>
-          <td>72</td>
+          <td><span class="points">167,241.05</span></td>
+          <td>1,288</td>
+          <td>74</td>
           <td>103</td>
           <td><span class="pill ok">92.78%</span></td>
         </tr>
@@ -1005,9 +1026,9 @@
             <img class="car-thumb" src="../../../assets/cars/painted-wflower_small_340.png" alt="" loading="lazy" onerror="this.remove()">
             ✨꧁⚽WF⚽꧂✨
           </td>
-          <td><span class="points">81,780.64</span></td>
-          <td>618</td>
-          <td>69</td>
+          <td><span class="points">86,608.4</span></td>
+          <td>655</td>
+          <td>65</td>
           <td>120</td>
           <td><span class="pill good">97.98%</span></td>
         </tr>
@@ -1018,8 +1039,8 @@
             <img class="car-thumb" src="../../../assets/cars/painted-gtsprismav1_small_100.png" alt="" loading="lazy" onerror="this.remove()">
             Arentix -Drip-
           </td>
-          <td><span class="points">66,270.63</span></td>
-          <td>429</td>
+          <td><span class="points">66,577.17</span></td>
+          <td>431</td>
           <td>116</td>
           <td>169</td>
           <td><span class="pill good">95.27%</span></td>
@@ -1066,6 +1087,19 @@
         <tr>
           <td><span class="lb-rank">7</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(28 85% 65%)">A</span>
+            
+            Arctic
+          </td>
+          <td><span class="points">22,064.14</span></td>
+          <td>151</td>
+          <td>101</td>
+          <td>152</td>
+          <td><span class="pill ok">94.64%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">8</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(194 85% 65%)">S</span>
             
             SalmonBlast
@@ -1077,7 +1111,7 @@
           <td><span class="pill ok">91.75%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">8</span></td>
+          <td><span class="lb-rank">9</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(327 85% 65%)">J</span>
             <img class="car-thumb" src="../../../assets/cars/underworld_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1088,19 +1122,6 @@
           <td>65</td>
           <td>88</td>
           <td><span class="pill ok">93.14%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">9</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(28 85% 65%)">A</span>
-            
-            Arctic
-          </td>
-          <td><span class="points">15,823.12</span></td>
-          <td>108</td>
-          <td>100</td>
-          <td>152</td>
-          <td><span class="pill ok">94.64%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">10</span></td>
@@ -1429,9 +1450,9 @@
             <img class="car-thumb" src="../../../assets/cars/painted-yacht_small_340.png" alt="" loading="lazy" onerror="this.remove()">
             GREEK BANANA
           </td>
-          <td><span class="points">161,530.73</span></td>
-          <td>1,244</td>
-          <td>72</td>
+          <td><span class="points">167,241.05</span></td>
+          <td>1,288</td>
+          <td>74</td>
           <td>103</td>
           <td><span class="pill ok">92.78%</span></td>
         </tr>
@@ -1442,9 +1463,9 @@
             <img class="car-thumb" src="../../../assets/cars/painted-wflower_small_340.png" alt="" loading="lazy" onerror="this.remove()">
             ✨꧁⚽WF⚽꧂✨
           </td>
-          <td><span class="points">81,780.64</span></td>
-          <td>618</td>
-          <td>69</td>
+          <td><span class="points">86,608.4</span></td>
+          <td>655</td>
+          <td>65</td>
           <td>120</td>
           <td><span class="pill good">97.98%</span></td>
         </tr>
@@ -1455,8 +1476,8 @@
             <img class="car-thumb" src="../../../assets/cars/painted-gtsprismav1_small_100.png" alt="" loading="lazy" onerror="this.remove()">
             Arentix -Drip-
           </td>
-          <td><span class="points">66,270.63</span></td>
-          <td>429</td>
+          <td><span class="points">66,577.17</span></td>
+          <td>431</td>
           <td>116</td>
           <td>169</td>
           <td><span class="pill good">95.27%</span></td>
@@ -1503,6 +1524,19 @@
         <tr>
           <td><span class="lb-rank">7</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(28 85% 65%)">A</span>
+            
+            Arctic
+          </td>
+          <td><span class="points">22,064.14</span></td>
+          <td>151</td>
+          <td>101</td>
+          <td>152</td>
+          <td><span class="pill ok">94.64%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">8</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(194 85% 65%)">S</span>
             
             SalmonBlast
@@ -1514,7 +1548,7 @@
           <td><span class="pill ok">91.75%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">8</span></td>
+          <td><span class="lb-rank">9</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(327 85% 65%)">J</span>
             <img class="car-thumb" src="../../../assets/cars/underworld_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1525,19 +1559,6 @@
           <td>65</td>
           <td>88</td>
           <td><span class="pill ok">93.14%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">9</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(28 85% 65%)">A</span>
-            
-            Arctic
-          </td>
-          <td><span class="points">15,823.12</span></td>
-          <td>108</td>
-          <td>100</td>
-          <td>152</td>
-          <td><span class="pill ok">94.64%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">10</span></td>
@@ -1866,9 +1887,9 @@
             <img class="car-thumb" src="../../../assets/cars/painted-yacht_small_340.png" alt="" loading="lazy" onerror="this.remove()">
             GREEK BANANA
           </td>
-          <td><span class="points">161,530.73</span></td>
-          <td>1,244</td>
-          <td>72</td>
+          <td><span class="points">167,241.05</span></td>
+          <td>1,288</td>
+          <td>74</td>
           <td>103</td>
           <td><span class="pill ok">92.78%</span></td>
         </tr>
@@ -1879,9 +1900,9 @@
             <img class="car-thumb" src="../../../assets/cars/painted-wflower_small_340.png" alt="" loading="lazy" onerror="this.remove()">
             ✨꧁⚽WF⚽꧂✨
           </td>
-          <td><span class="points">81,780.64</span></td>
-          <td>618</td>
-          <td>69</td>
+          <td><span class="points">86,608.4</span></td>
+          <td>655</td>
+          <td>65</td>
           <td>120</td>
           <td><span class="pill good">97.98%</span></td>
         </tr>
@@ -1892,8 +1913,8 @@
             <img class="car-thumb" src="../../../assets/cars/painted-gtsprismav1_small_100.png" alt="" loading="lazy" onerror="this.remove()">
             Arentix -Drip-
           </td>
-          <td><span class="points">66,270.63</span></td>
-          <td>429</td>
+          <td><span class="points">66,577.17</span></td>
+          <td>431</td>
           <td>116</td>
           <td>169</td>
           <td><span class="pill good">95.27%</span></td>
@@ -1940,6 +1961,19 @@
         <tr>
           <td><span class="lb-rank">7</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(28 85% 65%)">A</span>
+            
+            Arctic
+          </td>
+          <td><span class="points">22,064.14</span></td>
+          <td>151</td>
+          <td>101</td>
+          <td>152</td>
+          <td><span class="pill ok">94.64%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">8</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(194 85% 65%)">S</span>
             
             SalmonBlast
@@ -1951,7 +1985,7 @@
           <td><span class="pill ok">91.75%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">8</span></td>
+          <td><span class="lb-rank">9</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(327 85% 65%)">J</span>
             <img class="car-thumb" src="../../../assets/cars/underworld_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1962,19 +1996,6 @@
           <td>65</td>
           <td>88</td>
           <td><span class="pill ok">93.14%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">9</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(28 85% 65%)">A</span>
-            
-            Arctic
-          </td>
-          <td><span class="points">15,823.12</span></td>
-          <td>108</td>
-          <td>100</td>
-          <td>152</td>
-          <td><span class="pill ok">94.64%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">10</span></td>
@@ -2292,6 +2313,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T01:14:56.817Z</footer>
+<footer class="site">Generated 2026-10-25T01:32:52.217Z</footer>
 </body>
 </html>

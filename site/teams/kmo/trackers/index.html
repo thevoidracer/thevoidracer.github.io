@@ -180,6 +180,27 @@
   }
   .special-reqs .text { color: var(--text); line-height: 1.5; word-break: break-word; }
 
+  .activity-chart {
+    display: flex; align-items: flex-end; gap: 4px;
+    height: 160px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 12px 10px;
+    margin-bottom: 8px;
+  }
+  .activity-bar {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-end; height: 100%; min-width: 0;
+  }
+  .activity-bar .bar {
+    width: 100%; max-width: 18px; height: var(--h);
+    background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px;
+  }
+  .activity-bar .bar-label {
+    font-size: 10px; color: var(--muted); margin-top: 6px; height: 14px;
+    white-space: nowrap;
+  }
+
   .index-header {
     display: flex; justify-content: space-between; align-items: flex-end;
     flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
@@ -609,7 +630,7 @@
     <div class="team-layout">
       
     <nav class="team-sidebar">
-      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity<span class="soon-tag">Soon</span></a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item active" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
+      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity</a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item active" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
       <div class="nav-section-label">Manage</div>
       <a class="nav-item" href="../admin/"><span class="nav-icon">⚙️</span>Team Admin</a>
     </nav>
@@ -617,7 +638,7 @@
     <div class="hero" style="background:#8750a0;color:#ffffff">
       <div class="name">[KMO] TypingBulldogs</div>
       <div class="sub">
-        Captain: Sheharuma · 52 racers tracked · last synced 10/25/2026, 1:00:21 AM</div>
+        Captain: Sheharuma · 52 racers tracked · last synced 10/25/2026, 1:30:13 AM</div>
     </div>
     <h2 style="margin:28px 0 14px;">Tracker</h2>
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
@@ -659,9 +680,9 @@
             <img class="car-thumb" src="../../../assets/cars/shadow_dragon_small.png" alt="" loading="lazy" onerror="this.remove()">
             Thing 1 Fr0sty
           </td>
-          <td><span class="points">19,946.24</span></td>
-          <td>138</td>
-          <td>91</td>
+          <td><span class="points">17,196.37</span></td>
+          <td>119</td>
+          <td>92</td>
           <td>168</td>
           <td><span class="pill good">98.73%</span></td>
         </tr>
@@ -681,6 +702,19 @@
         <tr>
           <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(353 85% 65%)">T</span>
+            <img class="car-thumb" src="../../../assets/cars/scream_small.png" alt="" loading="lazy" onerror="this.remove()">
+            TheOneAndOnlyDragon
+          </td>
+          <td><span class="points">4,236.94</span></td>
+          <td>35</td>
+          <td>86</td>
+          <td>113</td>
+          <td><span class="pill low">75.7%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">4</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(299 85% 65%)">F</span>
             <img class="car-thumb" src="../../../assets/cars/painted-gtsprismav1_small_200.png" alt="" loading="lazy" onerror="this.remove()">
             fastest7ever
@@ -690,19 +724,6 @@
           <td>39</td>
           <td>53</td>
           <td><span class="pill ok">91.81%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">4</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(353 85% 65%)">T</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-tbutler56a_small_300.png" alt="" loading="lazy" onerror="this.remove()">
-            TheOneAndOnlyDragon
-          </td>
-          <td><span class="points">2,337.74</span></td>
-          <td>19</td>
-          <td>92</td>
-          <td>113</td>
-          <td><span class="pill low">75.67%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">5</span></td>
@@ -810,9 +831,9 @@
             <img class="car-thumb" src="../../../assets/cars/shadow_dragon_small.png" alt="" loading="lazy" onerror="this.remove()">
             Thing 1 Fr0sty
           </td>
-          <td><span class="points">35,702.81</span></td>
-          <td>247</td>
-          <td>91</td>
+          <td><span class="points">36,426.46</span></td>
+          <td>252</td>
+          <td>92</td>
           <td>168</td>
           <td><span class="pill good">98.73%</span></td>
         </tr>
@@ -846,14 +867,14 @@
           <td><span class="lb-rank">4</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(353 85% 65%)">T</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-tbutler56a_small_300.png" alt="" loading="lazy" onerror="this.remove()">
+            <img class="car-thumb" src="../../../assets/cars/scream_small.png" alt="" loading="lazy" onerror="this.remove()">
             TheOneAndOnlyDragon
           </td>
-          <td><span class="points">6,090.14</span></td>
-          <td>49</td>
-          <td>92</td>
+          <td><span class="points">7,989.34</span></td>
+          <td>65</td>
+          <td>86</td>
           <td>113</td>
-          <td><span class="pill low">75.67%</span></td>
+          <td><span class="pill low">75.7%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">5</span></td>
@@ -1143,9 +1164,9 @@
             <img class="car-thumb" src="../../../assets/cars/shadow_dragon_small.png" alt="" loading="lazy" onerror="this.remove()">
             Thing 1 Fr0sty
           </td>
-          <td><span class="points">35,702.81</span></td>
-          <td>247</td>
-          <td>91</td>
+          <td><span class="points">36,426.46</span></td>
+          <td>252</td>
+          <td>92</td>
           <td>168</td>
           <td><span class="pill good">98.73%</span></td>
         </tr>
@@ -1179,14 +1200,14 @@
           <td><span class="lb-rank">4</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(353 85% 65%)">T</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-tbutler56a_small_300.png" alt="" loading="lazy" onerror="this.remove()">
+            <img class="car-thumb" src="../../../assets/cars/scream_small.png" alt="" loading="lazy" onerror="this.remove()">
             TheOneAndOnlyDragon
           </td>
-          <td><span class="points">6,090.14</span></td>
-          <td>49</td>
-          <td>92</td>
+          <td><span class="points">7,989.34</span></td>
+          <td>65</td>
+          <td>86</td>
           <td>113</td>
-          <td><span class="pill low">75.67%</span></td>
+          <td><span class="pill low">75.7%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">5</span></td>
@@ -1476,9 +1497,9 @@
             <img class="car-thumb" src="../../../assets/cars/shadow_dragon_small.png" alt="" loading="lazy" onerror="this.remove()">
             Thing 1 Fr0sty
           </td>
-          <td><span class="points">35,702.81</span></td>
-          <td>247</td>
-          <td>91</td>
+          <td><span class="points">36,426.46</span></td>
+          <td>252</td>
+          <td>92</td>
           <td>168</td>
           <td><span class="pill good">98.73%</span></td>
         </tr>
@@ -1512,14 +1533,14 @@
           <td><span class="lb-rank">4</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(353 85% 65%)">T</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-tbutler56a_small_300.png" alt="" loading="lazy" onerror="this.remove()">
+            <img class="car-thumb" src="../../../assets/cars/scream_small.png" alt="" loading="lazy" onerror="this.remove()">
             TheOneAndOnlyDragon
           </td>
-          <td><span class="points">6,090.14</span></td>
-          <td>49</td>
-          <td>92</td>
+          <td><span class="points">7,989.34</span></td>
+          <td>65</td>
+          <td>86</td>
           <td>113</td>
-          <td><span class="pill low">75.67%</span></td>
+          <td><span class="pill low">75.7%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">5</span></td>
@@ -1798,6 +1819,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T01:15:16.604Z</footer>
+<footer class="site">Generated 2026-10-25T01:33:00.115Z</footer>
 </body>
 </html>

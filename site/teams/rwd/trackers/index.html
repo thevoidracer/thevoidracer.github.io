@@ -180,6 +180,27 @@
   }
   .special-reqs .text { color: var(--text); line-height: 1.5; word-break: break-word; }
 
+  .activity-chart {
+    display: flex; align-items: flex-end; gap: 4px;
+    height: 160px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 12px 10px;
+    margin-bottom: 8px;
+  }
+  .activity-bar {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-end; height: 100%; min-width: 0;
+  }
+  .activity-bar .bar {
+    width: 100%; max-width: 18px; height: var(--h);
+    background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px;
+  }
+  .activity-bar .bar-label {
+    font-size: 10px; color: var(--muted); margin-top: 6px; height: 14px;
+    white-space: nowrap;
+  }
+
   .index-header {
     display: flex; justify-content: space-between; align-items: flex-end;
     flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
@@ -609,7 +630,7 @@
     <div class="team-layout">
       
     <nav class="team-sidebar">
-      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity<span class="soon-tag">Soon</span></a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item active" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
+      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity</a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item active" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
       <div class="nav-section-label">Manage</div>
       <a class="nav-item" href="../admin/"><span class="nav-icon">⚙️</span>Team Admin</a>
     </nav>
@@ -617,7 +638,7 @@
     <div class="hero" style="background:#ee1f25;color:#ffffff">
       <div class="name">[RWD] NT Rewind</div>
       <div class="sub">
-        Captain: RoadToGoodAcc · 51 racers tracked · last synced 10/25/2026, 1:03:16 AM</div>
+        Captain: RoadToGoodAcc · 50 racers tracked · last synced 10/25/2026, 1:03:16 AM</div>
     </div>
     <h2 style="margin:28px 0 14px;">Tracker</h2>
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
@@ -759,19 +780,6 @@
         <tr>
           <td><span class="lb-rank">9</span></td>
           <td class="racer">
-            <span class="avatar" style="background:hsl(303 85% 65%)">A</span>
-            <img class="car-thumb" src="../../../assets/cars/spirit_racers_paper_crane2_small.png" alt="" loading="lazy" onerror="this.remove()">
-            A Z U R E
-          </td>
-          <td><span class="points">2,707.57</span></td>
-          <td>21</td>
-          <td>75</td>
-          <td>101</td>
-          <td><span class="pill ok">91.17%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">10</span></td>
-          <td class="racer">
             <span class="avatar" style="background:hsl(298 85% 65%)">N</span>
             <img class="car-thumb" src="../../../assets/cars/ship_of_line_small.png" alt="" loading="lazy" onerror="this.remove()">
             Nytro3l1
@@ -783,7 +791,7 @@
           <td><span class="pill ok">91.73%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">11</span></td>
+          <td><span class="lb-rank">10</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(41 85% 65%)">D</span>
             
@@ -796,7 +804,7 @@
           <td><span class="pill low">87.82%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">12</span></td>
+          <td><span class="lb-rank">11</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(310 85% 65%)">R</span>
             <img class="car-thumb" src="../../../assets/cars/gtsprismav1_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -807,6 +815,19 @@
           <td>53</td>
           <td>123</td>
           <td><span class="pill low">78.31%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">12</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(303 85% 65%)">A</span>
+            <img class="car-thumb" src="../../../assets/cars/spirit_racers_paper_crane2_small.png" alt="" loading="lazy" onerror="this.remove()">
+            A Z U R E
+          </td>
+          <td><span class="points">1,286.7</span></td>
+          <td>10</td>
+          <td>75</td>
+          <td>101</td>
+          <td><span class="pill ok">91.17%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">13</span></td>
@@ -824,19 +845,6 @@
         <tr>
           <td><span class="lb-rank">14</span></td>
           <td class="racer">
-            <span class="avatar" style="background:hsl(305 85% 65%)">G</span>
-            <img class="car-thumb" src="../../../assets/cars/gtsprismav1_small.png" alt="" loading="lazy" onerror="this.remove()">
-            Gamergirl BTW
-          </td>
-          <td><span class="points">359.1</span></td>
-          <td>3</td>
-          <td>59</td>
-          <td>85</td>
-          <td><span class="pill ok">90.2%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">15</span></td>
-          <td class="racer">
             <span class="avatar" style="background:hsl(138 85% 65%)">S</span>
             
             Sub 2 PickleNT on YT
@@ -848,7 +856,7 @@
           <td><span class="pill good">98.64%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">16</span></td>
+          <td><span class="lb-rank">15</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(254 85% 65%)">D</span>
             <img class="car-thumb" src="../../../assets/cars/painted-atv2_small_220.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1222,19 +1230,6 @@
         <tr>
           <td><span class="lb-rank">28</span></td>
           <td class="racer">
-            <span class="avatar" style="background:hsl(165 85% 65%)">K</span>
-            
-            Kai_Alt
-          </td>
-          <td><span class="points">544.12</span></td>
-          <td>5</td>
-          <td>37</td>
-          <td>75</td>
-          <td><span class="pill low">89.4%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">29</span></td>
-          <td class="racer">
             <span class="avatar" style="background:hsl(138 85% 65%)">S</span>
             
             Sub 2 PickleNT on YT
@@ -1246,7 +1241,7 @@
           <td><span class="pill good">98.64%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">30</span></td>
+          <td><span class="lb-rank">29</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(9 85% 65%)">R</span>
             <img class="car-thumb" src="../../../assets/cars/painted-ultima_small_20.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1259,7 +1254,7 @@
           <td><span class="pill good">96.31%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">31</span></td>
+          <td><span class="lb-rank">30</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(17 85% 65%)">L</span>
             
@@ -1272,7 +1267,7 @@
           <td><span class="pill ok">94.56%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">32</span></td>
+          <td><span class="lb-rank">31</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(192 85% 65%)">M</span>
             <img class="car-thumb" src="../../../assets/cars/kurov1_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1646,19 +1641,6 @@
         <tr>
           <td><span class="lb-rank">28</span></td>
           <td class="racer">
-            <span class="avatar" style="background:hsl(165 85% 65%)">K</span>
-            
-            Kai_Alt
-          </td>
-          <td><span class="points">544.12</span></td>
-          <td>5</td>
-          <td>37</td>
-          <td>75</td>
-          <td><span class="pill low">89.4%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">29</span></td>
-          <td class="racer">
             <span class="avatar" style="background:hsl(138 85% 65%)">S</span>
             
             Sub 2 PickleNT on YT
@@ -1670,7 +1652,7 @@
           <td><span class="pill good">98.64%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">30</span></td>
+          <td><span class="lb-rank">29</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(9 85% 65%)">R</span>
             <img class="car-thumb" src="../../../assets/cars/painted-ultima_small_20.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1683,7 +1665,7 @@
           <td><span class="pill good">96.31%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">31</span></td>
+          <td><span class="lb-rank">30</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(17 85% 65%)">L</span>
             
@@ -1696,7 +1678,7 @@
           <td><span class="pill ok">94.56%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">32</span></td>
+          <td><span class="lb-rank">31</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(192 85% 65%)">M</span>
             <img class="car-thumb" src="../../../assets/cars/kurov1_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -2070,19 +2052,6 @@
         <tr>
           <td><span class="lb-rank">28</span></td>
           <td class="racer">
-            <span class="avatar" style="background:hsl(165 85% 65%)">K</span>
-            
-            Kai_Alt
-          </td>
-          <td><span class="points">544.12</span></td>
-          <td>5</td>
-          <td>37</td>
-          <td>75</td>
-          <td><span class="pill low">89.4%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">29</span></td>
-          <td class="racer">
             <span class="avatar" style="background:hsl(138 85% 65%)">S</span>
             
             Sub 2 PickleNT on YT
@@ -2094,7 +2063,7 @@
           <td><span class="pill good">98.64%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">30</span></td>
+          <td><span class="lb-rank">29</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(9 85% 65%)">R</span>
             <img class="car-thumb" src="../../../assets/cars/painted-ultima_small_20.png" alt="" loading="lazy" onerror="this.remove()">
@@ -2107,7 +2076,7 @@
           <td><span class="pill good">96.31%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">31</span></td>
+          <td><span class="lb-rank">30</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(17 85% 65%)">L</span>
             
@@ -2120,7 +2089,7 @@
           <td><span class="pill ok">94.56%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">32</span></td>
+          <td><span class="lb-rank">31</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(192 85% 65%)">M</span>
             <img class="car-thumb" src="../../../assets/cars/kurov1_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -2136,6 +2105,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T01:15:04.132Z</footer>
+<footer class="site">Generated 2026-10-25T01:32:55.318Z</footer>
 </body>
 </html>

@@ -180,6 +180,27 @@
   }
   .special-reqs .text { color: var(--text); line-height: 1.5; word-break: break-word; }
 
+  .activity-chart {
+    display: flex; align-items: flex-end; gap: 4px;
+    height: 160px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 12px 10px;
+    margin-bottom: 8px;
+  }
+  .activity-bar {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-end; height: 100%; min-width: 0;
+  }
+  .activity-bar .bar {
+    width: 100%; max-width: 18px; height: var(--h);
+    background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px;
+  }
+  .activity-bar .bar-label {
+    font-size: 10px; color: var(--muted); margin-top: 6px; height: 14px;
+    white-space: nowrap;
+  }
+
   .index-header {
     display: flex; justify-content: space-between; align-items: flex-end;
     flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
@@ -609,7 +630,7 @@
     <div class="team-layout">
       
     <nav class="team-sidebar">
-      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity<span class="soon-tag">Soon</span></a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item active" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
+      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity</a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item active" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
       <div class="nav-section-label">Manage</div>
       <a class="nav-item" href="../admin/"><span class="nav-icon">⚙️</span>Team Admin</a>
     </nav>
@@ -617,7 +638,7 @@
     <div class="hero" style="background:#5b52a3;color:#ffffff">
       <div class="name">[IMT] Immortal Legends 🌟</div>
       <div class="sub">
-        Captain: Void Racer · 51 racers tracked · last synced 10/25/2026, 12:59:50 AM</div>
+        Captain: Void Racer · 52 racers tracked · last synced 10/25/2026, 1:29:42 AM</div>
     </div>
     <h2 style="margin:28px 0 14px;">Tracker</h2>
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
@@ -659,8 +680,8 @@
             <img class="car-thumb" src="../../../assets/cars/ship_of_line_small.png" alt="" loading="lazy" onerror="this.remove()">
             rorok09
           </td>
-          <td><span class="points">60,801.41</span></td>
-          <td>430</td>
+          <td><span class="points">57,961.41</span></td>
+          <td>410</td>
           <td>89</td>
           <td>111</td>
           <td><span class="pill good">96.99%</span></td>
@@ -672,11 +693,11 @@
             <img class="car-thumb" src="../../../assets/cars/fuji_small.png" alt="" loading="lazy" onerror="this.remove()">
             Void Racer
           </td>
-          <td><span class="points">12,735.44</span></td>
+          <td><span class="points">14,428.82</span></td>
+          <td>105</td>
           <td>93</td>
-          <td>91</td>
           <td>127</td>
-          <td><span class="pill ok">92.02%</span></td>
+          <td><span class="pill ok">92.04%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top3">3</span></td>
@@ -784,11 +805,11 @@
             <img class="car-thumb" src="../../../assets/cars/fuji_small.png" alt="" loading="lazy" onerror="this.remove()">
             Void Racer
           </td>
-          <td><span class="points">26,065.94</span></td>
-          <td>189</td>
-          <td>91</td>
+          <td><span class="points">29,806.52</span></td>
+          <td>216</td>
+          <td>93</td>
           <td>127</td>
-          <td><span class="pill ok">92.02%</span></td>
+          <td><span class="pill ok">92.04%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top3">3</span></td>
@@ -1195,11 +1216,11 @@
             <img class="car-thumb" src="../../../assets/cars/fuji_small.png" alt="" loading="lazy" onerror="this.remove()">
             Void Racer
           </td>
-          <td><span class="points">26,065.94</span></td>
-          <td>189</td>
-          <td>91</td>
+          <td><span class="points">29,806.52</span></td>
+          <td>216</td>
+          <td>93</td>
           <td>127</td>
-          <td><span class="pill ok">92.02%</span></td>
+          <td><span class="pill ok">92.04%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top3">3</span></td>
@@ -1606,11 +1627,11 @@
             <img class="car-thumb" src="../../../assets/cars/fuji_small.png" alt="" loading="lazy" onerror="this.remove()">
             Void Racer
           </td>
-          <td><span class="points">26,065.94</span></td>
-          <td>189</td>
-          <td>91</td>
+          <td><span class="points">29,806.52</span></td>
+          <td>216</td>
+          <td>93</td>
           <td>127</td>
-          <td><span class="pill ok">92.02%</span></td>
+          <td><span class="pill ok">92.04%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top3">3</span></td>
@@ -1993,6 +2014,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T01:15:09.378Z</footer>
+<footer class="site">Generated 2026-10-25T01:32:57.185Z</footer>
 </body>
 </html>

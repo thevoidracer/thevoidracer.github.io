@@ -180,6 +180,27 @@
   }
   .special-reqs .text { color: var(--text); line-height: 1.5; word-break: break-word; }
 
+  .activity-chart {
+    display: flex; align-items: flex-end; gap: 4px;
+    height: 160px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 12px 10px;
+    margin-bottom: 8px;
+  }
+  .activity-bar {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-end; height: 100%; min-width: 0;
+  }
+  .activity-bar .bar {
+    width: 100%; max-width: 18px; height: var(--h);
+    background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px;
+  }
+  .activity-bar .bar-label {
+    font-size: 10px; color: var(--muted); margin-top: 6px; height: 14px;
+    white-space: nowrap;
+  }
+
   .index-header {
     display: flex; justify-content: space-between; align-items: flex-end;
     flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
@@ -609,7 +630,7 @@
     <div class="team-layout">
       
     <nav class="team-sidebar">
-      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity<span class="soon-tag">Soon</span></a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item active" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
+      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity</a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item active" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
       <div class="nav-section-label">Manage</div>
       <a class="nav-item" href="../admin/"><span class="nav-icon">⚙️</span>Team Admin</a>
     </nav>
@@ -617,7 +638,7 @@
     <div class="hero" style="background:#fba51a;color:#ffffff">
       <div class="name">[NOHOPE] Maybe just a little</div>
       <div class="sub">
-        Captain: One Life - One Cycle · 57 racers tracked · last synced 10/25/2026, 1:01:38 AM</div>
+        Captain: One Life - One Cycle · 57 racers tracked · last synced 10/25/2026, 1:31:29 AM</div>
     </div>
     <h2 style="margin:28px 0 14px;">Tracker</h2>
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
@@ -659,8 +680,8 @@
             <img class="car-thumb" src="../../../assets/cars/painted-shadow_dragon_small_160.png" alt="" loading="lazy" onerror="this.remove()">
             -Storm
           </td>
-          <td><span class="points">23,370</span></td>
-          <td>146</td>
+          <td><span class="points">22,573.85</span></td>
+          <td>141</td>
           <td>127</td>
           <td>162</td>
           <td><span class="pill good">95.25%</span></td>
@@ -759,6 +780,19 @@
         <tr>
           <td><span class="lb-rank">9</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(281 85% 65%)">B</span>
+            <img class="car-thumb" src="../../../assets/cars/blimpp_small.png" alt="" loading="lazy" onerror="this.remove()">
+            blowry
+          </td>
+          <td><span class="points">3,584.46</span></td>
+          <td>21</td>
+          <td>155</td>
+          <td>175</td>
+          <td><span class="pill good">97.96%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">10</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(246 85% 65%)">P</span>
             <img class="car-thumb" src="../../../assets/cars/painted-fully_leaded_small_340.png" alt="" loading="lazy" onerror="this.remove()">
             Puddle
@@ -770,7 +804,7 @@
           <td><span class="pill good">96.06%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">10</span></td>
+          <td><span class="lb-rank">11</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(39 85% 65%)">O</span>
             
@@ -783,20 +817,20 @@
           <td><span class="pill good">97%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">11</span></td>
+          <td><span class="lb-rank">12</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(127 85% 65%)">L</span>
             <img class="car-thumb" src="../../../assets/cars/grid_small.png" alt="" loading="lazy" onerror="this.remove()">
             lansan
           </td>
-          <td><span class="points">2,539.13</span></td>
-          <td>18</td>
+          <td><span class="points">2,396.77</span></td>
+          <td>17</td>
           <td>92</td>
           <td>116</td>
           <td><span class="pill ok">94.87%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">12</span></td>
+          <td><span class="lb-rank">13</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(290 85% 65%)">N</span>
             <img class="car-thumb" src="../../../assets/cars/painted-gtr1_small_60.png" alt="" loading="lazy" onerror="this.remove()">
@@ -809,7 +843,7 @@
           <td><span class="pill ok">93.92%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">13</span></td>
+          <td><span class="lb-rank">14</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(191 85% 65%)">P</span>
             <img class="car-thumb" src="../../../assets/cars/underworld_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -820,19 +854,6 @@
           <td>91</td>
           <td>118</td>
           <td><span class="pill good">97.77%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">14</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(281 85% 65%)">B</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-hurricania_small_340.png" alt="" loading="lazy" onerror="this.remove()">
-            blowry
-          </td>
-          <td><span class="points">601.64</span></td>
-          <td>4</td>
-          <td>105</td>
-          <td>123</td>
-          <td><span class="pill good">97.91%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">15</span></td>
@@ -1105,6 +1126,19 @@
         <tr>
           <td><span class="lb-rank">18</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(281 85% 65%)">B</span>
+            <img class="car-thumb" src="../../../assets/cars/blimpp_small.png" alt="" loading="lazy" onerror="this.remove()">
+            blowry
+          </td>
+          <td><span class="points">3,584.46</span></td>
+          <td>21</td>
+          <td>155</td>
+          <td>175</td>
+          <td><span class="pill good">97.96%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">19</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(191 85% 65%)">P</span>
             <img class="car-thumb" src="../../../assets/cars/underworld_small.png" alt="" loading="lazy" onerror="this.remove()">
             Pedal2Metal
@@ -1116,7 +1150,7 @@
           <td><span class="pill good">97.77%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">19</span></td>
+          <td><span class="lb-rank">20</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(176 85% 65%)">A</span>
             <img class="car-thumb" src="../../../assets/cars/mephisto_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1129,7 +1163,7 @@
           <td><span class="pill ok">93.75%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">20</span></td>
+          <td><span class="lb-rank">21</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(290 85% 65%)">N</span>
             <img class="car-thumb" src="../../../assets/cars/painted-gtr1_small_60.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1142,7 +1176,7 @@
           <td><span class="pill ok">93.92%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">21</span></td>
+          <td><span class="lb-rank">22</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(57 85% 65%)">R</span>
             
@@ -1155,7 +1189,7 @@
           <td><span class="pill ok">94.5%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">22</span></td>
+          <td><span class="lb-rank">23</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(257 85% 65%)">S</span>
             <img class="car-thumb" src="../../../assets/cars/painted-rally_small_320.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1168,7 +1202,7 @@
           <td><span class="pill good">96.8%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">23</span></td>
+          <td><span class="lb-rank">24</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(74 85% 65%)">N</span>
             <img class="car-thumb" src="../../../assets/cars/meowwww_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1181,7 +1215,7 @@
           <td><span class="pill ok">94.73%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">24</span></td>
+          <td><span class="lb-rank">25</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(344 85% 65%)">D</span>
             <img class="car-thumb" src="../../../assets/cars/zeusasdfgh_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1194,7 +1228,7 @@
           <td><span class="pill good">95.55%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">25</span></td>
+          <td><span class="lb-rank">26</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(267 85% 65%)">J</span>
             <img class="car-thumb" src="../../../assets/cars/painted-ksmith_small_20.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1207,7 +1241,7 @@
           <td><span class="pill good">96.76%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">26</span></td>
+          <td><span class="lb-rank">27</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(13 85% 65%)">E</span>
             
@@ -1220,7 +1254,7 @@
           <td><span class="pill ok">91.55%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">27</span></td>
+          <td><span class="lb-rank">28</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(286 85% 65%)">K</span>
             
@@ -1233,7 +1267,7 @@
           <td><span class="pill ok">92.15%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">28</span></td>
+          <td><span class="lb-rank">29</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(258 85% 65%)">F</span>
             <img class="car-thumb" src="../../../assets/cars/f35_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1244,19 +1278,6 @@
           <td>94</td>
           <td>122</td>
           <td><span class="pill ok">92.81%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">29</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(281 85% 65%)">B</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-hurricania_small_340.png" alt="" loading="lazy" onerror="this.remove()">
-            blowry
-          </td>
-          <td><span class="points">601.64</span></td>
-          <td>4</td>
-          <td>105</td>
-          <td>123</td>
-          <td><span class="pill good">97.91%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">30</span></td>
@@ -1581,6 +1602,19 @@
         <tr>
           <td><span class="lb-rank">18</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(281 85% 65%)">B</span>
+            <img class="car-thumb" src="../../../assets/cars/blimpp_small.png" alt="" loading="lazy" onerror="this.remove()">
+            blowry
+          </td>
+          <td><span class="points">3,584.46</span></td>
+          <td>21</td>
+          <td>155</td>
+          <td>175</td>
+          <td><span class="pill good">97.96%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">19</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(191 85% 65%)">P</span>
             <img class="car-thumb" src="../../../assets/cars/underworld_small.png" alt="" loading="lazy" onerror="this.remove()">
             Pedal2Metal
@@ -1592,7 +1626,7 @@
           <td><span class="pill good">97.77%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">19</span></td>
+          <td><span class="lb-rank">20</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(176 85% 65%)">A</span>
             <img class="car-thumb" src="../../../assets/cars/mephisto_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1605,7 +1639,7 @@
           <td><span class="pill ok">93.75%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">20</span></td>
+          <td><span class="lb-rank">21</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(290 85% 65%)">N</span>
             <img class="car-thumb" src="../../../assets/cars/painted-gtr1_small_60.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1618,7 +1652,7 @@
           <td><span class="pill ok">93.92%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">21</span></td>
+          <td><span class="lb-rank">22</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(57 85% 65%)">R</span>
             
@@ -1631,7 +1665,7 @@
           <td><span class="pill ok">94.5%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">22</span></td>
+          <td><span class="lb-rank">23</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(257 85% 65%)">S</span>
             <img class="car-thumb" src="../../../assets/cars/painted-rally_small_320.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1644,7 +1678,7 @@
           <td><span class="pill good">96.8%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">23</span></td>
+          <td><span class="lb-rank">24</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(74 85% 65%)">N</span>
             <img class="car-thumb" src="../../../assets/cars/meowwww_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1657,7 +1691,7 @@
           <td><span class="pill ok">94.73%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">24</span></td>
+          <td><span class="lb-rank">25</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(344 85% 65%)">D</span>
             <img class="car-thumb" src="../../../assets/cars/zeusasdfgh_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1670,7 +1704,7 @@
           <td><span class="pill good">95.55%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">25</span></td>
+          <td><span class="lb-rank">26</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(267 85% 65%)">J</span>
             <img class="car-thumb" src="../../../assets/cars/painted-ksmith_small_20.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1683,7 +1717,7 @@
           <td><span class="pill good">96.76%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">26</span></td>
+          <td><span class="lb-rank">27</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(13 85% 65%)">E</span>
             
@@ -1696,7 +1730,7 @@
           <td><span class="pill ok">91.55%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">27</span></td>
+          <td><span class="lb-rank">28</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(286 85% 65%)">K</span>
             
@@ -1709,7 +1743,7 @@
           <td><span class="pill ok">92.15%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">28</span></td>
+          <td><span class="lb-rank">29</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(258 85% 65%)">F</span>
             <img class="car-thumb" src="../../../assets/cars/f35_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1720,19 +1754,6 @@
           <td>94</td>
           <td>122</td>
           <td><span class="pill ok">92.81%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">29</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(281 85% 65%)">B</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-hurricania_small_340.png" alt="" loading="lazy" onerror="this.remove()">
-            blowry
-          </td>
-          <td><span class="points">601.64</span></td>
-          <td>4</td>
-          <td>105</td>
-          <td>123</td>
-          <td><span class="pill good">97.91%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">30</span></td>
@@ -2057,6 +2078,19 @@
         <tr>
           <td><span class="lb-rank">18</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(281 85% 65%)">B</span>
+            <img class="car-thumb" src="../../../assets/cars/blimpp_small.png" alt="" loading="lazy" onerror="this.remove()">
+            blowry
+          </td>
+          <td><span class="points">3,584.46</span></td>
+          <td>21</td>
+          <td>155</td>
+          <td>175</td>
+          <td><span class="pill good">97.96%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">19</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(191 85% 65%)">P</span>
             <img class="car-thumb" src="../../../assets/cars/underworld_small.png" alt="" loading="lazy" onerror="this.remove()">
             Pedal2Metal
@@ -2068,7 +2102,7 @@
           <td><span class="pill good">97.77%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">19</span></td>
+          <td><span class="lb-rank">20</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(176 85% 65%)">A</span>
             <img class="car-thumb" src="../../../assets/cars/mephisto_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -2081,7 +2115,7 @@
           <td><span class="pill ok">93.75%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">20</span></td>
+          <td><span class="lb-rank">21</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(290 85% 65%)">N</span>
             <img class="car-thumb" src="../../../assets/cars/painted-gtr1_small_60.png" alt="" loading="lazy" onerror="this.remove()">
@@ -2094,7 +2128,7 @@
           <td><span class="pill ok">93.92%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">21</span></td>
+          <td><span class="lb-rank">22</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(57 85% 65%)">R</span>
             
@@ -2107,7 +2141,7 @@
           <td><span class="pill ok">94.5%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">22</span></td>
+          <td><span class="lb-rank">23</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(257 85% 65%)">S</span>
             <img class="car-thumb" src="../../../assets/cars/painted-rally_small_320.png" alt="" loading="lazy" onerror="this.remove()">
@@ -2120,7 +2154,7 @@
           <td><span class="pill good">96.8%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">23</span></td>
+          <td><span class="lb-rank">24</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(74 85% 65%)">N</span>
             <img class="car-thumb" src="../../../assets/cars/meowwww_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -2133,7 +2167,7 @@
           <td><span class="pill ok">94.73%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">24</span></td>
+          <td><span class="lb-rank">25</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(344 85% 65%)">D</span>
             <img class="car-thumb" src="../../../assets/cars/zeusasdfgh_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -2146,7 +2180,7 @@
           <td><span class="pill good">95.55%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">25</span></td>
+          <td><span class="lb-rank">26</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(267 85% 65%)">J</span>
             <img class="car-thumb" src="../../../assets/cars/painted-ksmith_small_20.png" alt="" loading="lazy" onerror="this.remove()">
@@ -2159,7 +2193,7 @@
           <td><span class="pill good">96.76%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">26</span></td>
+          <td><span class="lb-rank">27</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(13 85% 65%)">E</span>
             
@@ -2172,7 +2206,7 @@
           <td><span class="pill ok">91.55%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">27</span></td>
+          <td><span class="lb-rank">28</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(286 85% 65%)">K</span>
             
@@ -2185,7 +2219,7 @@
           <td><span class="pill ok">92.15%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">28</span></td>
+          <td><span class="lb-rank">29</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(258 85% 65%)">F</span>
             <img class="car-thumb" src="../../../assets/cars/f35_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -2196,19 +2230,6 @@
           <td>94</td>
           <td>122</td>
           <td><span class="pill ok">92.81%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">29</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(281 85% 65%)">B</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-hurricania_small_340.png" alt="" loading="lazy" onerror="this.remove()">
-            blowry
-          </td>
-          <td><span class="points">601.64</span></td>
-          <td>4</td>
-          <td>105</td>
-          <td>123</td>
-          <td><span class="pill good">97.91%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">30</span></td>
@@ -2305,6 +2326,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T01:15:07.450Z</footer>
+<footer class="site">Generated 2026-10-25T01:32:56.623Z</footer>
 </body>
 </html>

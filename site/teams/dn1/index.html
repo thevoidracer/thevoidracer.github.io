@@ -180,6 +180,27 @@
   }
   .special-reqs .text { color: var(--text); line-height: 1.5; word-break: break-word; }
 
+  .activity-chart {
+    display: flex; align-items: flex-end; gap: 4px;
+    height: 160px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 12px 10px;
+    margin-bottom: 8px;
+  }
+  .activity-bar {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-end; height: 100%; min-width: 0;
+  }
+  .activity-bar .bar {
+    width: 100%; max-width: 18px; height: var(--h);
+    background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px;
+  }
+  .activity-bar .bar-label {
+    font-size: 10px; color: var(--muted); margin-top: 6px; height: 14px;
+    white-space: nowrap;
+  }
+
   .index-header {
     display: flex; justify-content: space-between; align-items: flex-end;
     flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
@@ -609,7 +630,7 @@
     <div class="team-layout">
       
     <nav class="team-sidebar">
-      <a class="nav-item active" href="./"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="activity/"><span class="nav-icon">📈</span>Activity<span class="soon-tag">Soon</span></a><a class="nav-item" href="tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item" href="trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="notifications/"><span class="nav-icon">🔔</span>Notifications</a>
+      <a class="nav-item active" href="./"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="activity/"><span class="nav-icon">📈</span>Activity</a><a class="nav-item" href="tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item" href="trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="notifications/"><span class="nav-icon">🔔</span>Notifications</a>
       <div class="nav-section-label">Manage</div>
       <a class="nav-item" href="admin/"><span class="nav-icon">⚙️</span>Team Admin</a>
     </nav>
@@ -617,11 +638,11 @@
     <div class="hero" style="background:#40b8ea;color:#ffffff">
       <div class="name">[DN1] Division 1</div>
       <div class="sub">
-        Captain: mysonstein · 62 racers tracked · last synced 10/25/2026, 12:59:34 AM</div>
+        Captain: mysonstein · 63 racers tracked · last synced 10/25/2026, 1:29:26 AM</div>
     </div>
     
     <div class="req-bar">
-      <div class="req">Members <b>47</b></div>
+      <div class="req">Members <b>48</b></div>
       <div class="req">Formed <b>Sep 3, 2026</b></div>
       <div class="req">Enrollment <b>auto</b></div>
       <div class="req">Min races <b>0</b></div>
@@ -855,7 +876,7 @@ https://discord.gg/Xgd7n9eQc</div>
           <td>Oct 7, 2026</td>
           <td>69</td>
           <td>101</td>
-          <td>9,479</td>
+          <td>9,482</td>
           <td><span class="pill ok">90.18%</span></td>
         </tr>
         <tr>
@@ -1004,6 +1025,18 @@ https://discord.gg/Xgd7n9eQc</div>
         </tr>
         <tr>
           <td class="racer">
+            <span class="avatar" style="background:hsl(165 85% 65%)">K</span>
+            <img class="car-thumb" src="../../assets/cars/painted-hurricania_small_80.png" alt="" loading="lazy" onerror="this.remove()">
+            Kai_Alt
+          </td>
+          <td>Oct 25, 2026</td>
+          <td>50</td>
+          <td>83</td>
+          <td>471</td>
+          <td><span class="pill na">—</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
             <span class="avatar" style="background:hsl(148 85% 65%)">K</span>
             <img class="car-thumb" src="../../assets/cars/painted-auttier8_small_120.png" alt="" loading="lazy" onerror="this.remove()">
             KFcfriendchic1
@@ -1117,10 +1150,10 @@ https://discord.gg/Xgd7n9eQc</div>
             mysonstein<span class="role-pill captain">Captain</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Sep 3, 2026</td>
-          <td>99</td>
+          <td>103</td>
           <td>172</td>
-          <td>40,249</td>
-          <td><span class="pill good">95.73%</span></td>
+          <td>40,274</td>
+          <td><span class="pill good">95.72%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1201,9 +1234,9 @@ https://discord.gg/Xgd7n9eQc</div>
             PrOsPeRiTyRd_2_100k<span class="role-pill gold">Gold</span>
           </td>
           <td>Sep 9, 2026</td>
-          <td>101</td>
+          <td>100</td>
           <td>125</td>
-          <td>21,282</td>
+          <td>21,299</td>
           <td><span class="pill good">97.24%</span></td>
         </tr>
         <tr>
@@ -1391,6 +1424,6 @@ https://discord.gg/Xgd7n9eQc</div>
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T01:14:57.627Z</footer>
+<footer class="site">Generated 2026-10-25T01:32:52.571Z</footer>
 </body>
 </html>

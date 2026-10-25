@@ -180,6 +180,27 @@
   }
   .special-reqs .text { color: var(--text); line-height: 1.5; word-break: break-word; }
 
+  .activity-chart {
+    display: flex; align-items: flex-end; gap: 4px;
+    height: 160px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 12px 10px;
+    margin-bottom: 8px;
+  }
+  .activity-bar {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-end; height: 100%; min-width: 0;
+  }
+  .activity-bar .bar {
+    width: 100%; max-width: 18px; height: var(--h);
+    background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px;
+  }
+  .activity-bar .bar-label {
+    font-size: 10px; color: var(--muted); margin-top: 6px; height: 14px;
+    white-space: nowrap;
+  }
+
   .index-header {
     display: flex; justify-content: space-between; align-items: flex-end;
     flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
@@ -609,7 +630,7 @@
     <div class="team-layout">
       
     <nav class="team-sidebar">
-      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity<span class="soon-tag">Soon</span></a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item active" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
+      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity</a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item active" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
       <div class="nav-section-label">Manage</div>
       <a class="nav-item" href="../admin/"><span class="nav-icon">⚙️</span>Team Admin</a>
     </nav>
@@ -659,8 +680,8 @@
             <img class="car-thumb" src="../../../assets/cars/spirit_racers_final_seal_small.png" alt="" loading="lazy" onerror="this.remove()">
             SlimJimPingu
           </td>
-          <td><span class="points">52,181.7</span></td>
-          <td>346</td>
+          <td><span class="points">48,969.75</span></td>
+          <td>325</td>
           <td>117</td>
           <td>161</td>
           <td><span class="pill ok">94.45%</span></td>
@@ -681,19 +702,6 @@
         <tr>
           <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
-            <span class="avatar" style="background:hsl(224 85% 65%)">A</span>
-            <img class="car-thumb" src="../../../assets/cars/shadow_dragon_small.png" alt="" loading="lazy" onerror="this.remove()">
-            Ark13TheGoat
-          </td>
-          <td><span class="points">15,279.04</span></td>
-          <td>106</td>
-          <td>121</td>
-          <td>167</td>
-          <td><span class="pill ok">92.57%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">4</span></td>
-          <td class="racer">
             <span class="avatar" style="background:hsl(178 85% 65%)">C</span>
             
             CoolPingu
@@ -705,7 +713,7 @@
           <td><span class="pill ok">93.67%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">5</span></td>
+          <td><span class="lb-rank">4</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(170 85% 65%)"> </span>
             <img class="car-thumb" src="../../../assets/cars/painted-spirit_racers_ink_fox_small_120.png" alt="" loading="lazy" onerror="this.remove()">
@@ -718,7 +726,7 @@
           <td><span class="pill good">99.54%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">6</span></td>
+          <td><span class="lb-rank">5</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(50 85% 65%)">B</span>
             
@@ -731,7 +739,7 @@
           <td><span class="pill ok">93.41%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">7</span></td>
+          <td><span class="lb-rank">6</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(108 85% 65%)">T</span>
             
@@ -742,6 +750,19 @@
           <td>109</td>
           <td>159</td>
           <td><span class="pill ok">94.75%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">7</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(224 85% 65%)">A</span>
+            <img class="car-thumb" src="../../../assets/cars/shadow_dragon_small.png" alt="" loading="lazy" onerror="this.remove()">
+            Ark13TheGoat
+          </td>
+          <td><span class="points">10,272.16</span></td>
+          <td>70</td>
+          <td>121</td>
+          <td>167</td>
+          <td><span class="pill ok">92.57%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">8</span></td>
@@ -898,19 +919,6 @@
           <td>104</td>
           <td>132</td>
           <td><span class="pill ok">91.64%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">20</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(7 85% 65%)">I</span>
-            <img class="car-thumb" src="../../../assets/cars/spirit_racers_final_seal_small.png" alt="" loading="lazy" onerror="this.remove()">
-            ILOVESOPHIERAIN
-          </td>
-          <td><span class="points">279.36</span></td>
-          <td>2</td>
-          <td>98</td>
-          <td>121</td>
-          <td><span class="pill ok">90.68%</span></td>
         </tr></tbody>
       </table>
     </div></div><div class="trk-panel" data-range="weekly" hidden>
@@ -2383,6 +2391,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T01:15:00.884Z</footer>
+<footer class="site">Generated 2026-10-25T01:32:53.985Z</footer>
 </body>
 </html>

@@ -180,6 +180,27 @@
   }
   .special-reqs .text { color: var(--text); line-height: 1.5; word-break: break-word; }
 
+  .activity-chart {
+    display: flex; align-items: flex-end; gap: 4px;
+    height: 160px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 12px 10px;
+    margin-bottom: 8px;
+  }
+  .activity-bar {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-end; height: 100%; min-width: 0;
+  }
+  .activity-bar .bar {
+    width: 100%; max-width: 18px; height: var(--h);
+    background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px;
+  }
+  .activity-bar .bar-label {
+    font-size: 10px; color: var(--muted); margin-top: 6px; height: 14px;
+    white-space: nowrap;
+  }
+
   .index-header {
     display: flex; justify-content: space-between; align-items: flex-end;
     flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
@@ -609,7 +630,7 @@
     <div class="team-layout">
       
     <nav class="team-sidebar">
-      <a class="nav-item active" href="./"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="activity/"><span class="nav-icon">📈</span>Activity<span class="soon-tag">Soon</span></a><a class="nav-item" href="tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item" href="trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="notifications/"><span class="nav-icon">🔔</span>Notifications</a>
+      <a class="nav-item active" href="./"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="activity/"><span class="nav-icon">📈</span>Activity</a><a class="nav-item" href="tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item" href="trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="notifications/"><span class="nav-icon">🔔</span>Notifications</a>
       <div class="nav-section-label">Manage</div>
       <a class="nav-item" href="admin/"><span class="nav-icon">⚙️</span>Team Admin</a>
     </nav>
@@ -617,7 +638,7 @@
     <div class="hero" style="background:#ee1f25;color:#ffffff">
       <div class="name">[BN8] BENEVOLENCE</div>
       <div class="sub">
-        Captain: L3G3NDARY · 57 racers tracked · last synced 10/25/2026, 12:59:00 AM</div>
+        Captain: L3G3NDARY · 57 racers tracked · last synced 10/25/2026, 1:28:53 AM</div>
     </div>
     
     <div class="req-bar">
@@ -719,9 +740,9 @@
             B1ACKhornet<span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 23, 2026</td>
-          <td>101</td>
+          <td>103</td>
           <td>182</td>
-          <td>16,691</td>
+          <td>16,700</td>
           <td><span class="pill ok">93.6%</span></td>
         </tr>
         <tr>
@@ -815,9 +836,9 @@
             BicentricFir13<span class="role-pill officer">Officer</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Sep 8, 2026</td>
-          <td>79</td>
+          <td>84</td>
           <td>108</td>
-          <td>11,911</td>
+          <td>11,933</td>
           <td><span class="pill good">95.77%</span></td>
         </tr>
         <tr>
@@ -995,10 +1016,10 @@
             GreenWizardBEN<span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 23, 2026</td>
-          <td>47</td>
+          <td>51</td>
           <td>70</td>
-          <td>7,644</td>
-          <td><span class="pill low">86.14%</span></td>
+          <td>7,667</td>
+          <td><span class="pill low">85.87%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1031,9 +1052,9 @@
             ITypeWith2Fingers<span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 10, 2026</td>
-          <td>138</td>
+          <td>139</td>
           <td>178</td>
-          <td>41,448</td>
+          <td>41,477</td>
           <td><span class="pill good">95.55%</span></td>
         </tr>
         <tr>
@@ -1063,13 +1084,13 @@
         <tr>
           <td class="racer">
             <span class="avatar" style="background:hsl(119 85% 65%)">M</span>
-            <img class="car-thumb" src="../../assets/cars/ghost_catcher_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <img class="car-thumb" src="../../assets/cars/scream_small.png" alt="" loading="lazy" onerror="this.remove()">
             MagicKio -_-
           </td>
           <td>Oct 22, 2026</td>
-          <td>71</td>
+          <td>72</td>
           <td>89</td>
-          <td>1,941</td>
+          <td>1,951</td>
           <td><span class="pill ok">94.26%</span></td>
         </tr>
         <tr>
@@ -1079,9 +1100,9 @@
             mightyox<span class="role-pill gold">Gold</span>
           </td>
           <td>Jun 29, 2026</td>
-          <td>72</td>
+          <td>74</td>
           <td>90</td>
-          <td>18,719</td>
+          <td>18,746</td>
           <td><span class="pill good">96.38%</span></td>
         </tr>
         <tr>
@@ -1175,10 +1196,10 @@
             OriginalTanBoar
           </td>
           <td>Sep 17, 2026</td>
-          <td>47</td>
+          <td>49</td>
           <td>64</td>
-          <td>7,195</td>
-          <td><span class="pill good">97.49%</span></td>
+          <td>7,218</td>
+          <td><span class="pill good">97.5%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1329,6 +1350,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T01:14:55.163Z</footer>
+<footer class="site">Generated 2026-10-25T01:32:51.464Z</footer>
 </body>
 </html>

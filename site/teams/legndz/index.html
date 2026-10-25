@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>[LEGNDZ] Legendary Typerz</title>
+  <title>[LEGNDZ] Legendary-Typerz</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Rajdhani:wght@600;700&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -179,6 +179,27 @@
     color: var(--muted); font-weight: 700; margin-bottom: 6px;
   }
   .special-reqs .text { color: var(--text); line-height: 1.5; word-break: break-word; }
+
+  .activity-chart {
+    display: flex; align-items: flex-end; gap: 4px;
+    height: 160px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 12px 10px;
+    margin-bottom: 8px;
+  }
+  .activity-bar {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-end; height: 100%; min-width: 0;
+  }
+  .activity-bar .bar {
+    width: 100%; max-width: 18px; height: var(--h);
+    background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px;
+  }
+  .activity-bar .bar-label {
+    font-size: 10px; color: var(--muted); margin-top: 6px; height: 14px;
+    white-space: nowrap;
+  }
 
   .index-header {
     display: flex; justify-content: space-between; align-items: flex-end;
@@ -609,15 +630,15 @@
     <div class="team-layout">
       
     <nav class="team-sidebar">
-      <a class="nav-item active" href="./"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="activity/"><span class="nav-icon">📈</span>Activity<span class="soon-tag">Soon</span></a><a class="nav-item" href="tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item" href="trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="notifications/"><span class="nav-icon">🔔</span>Notifications</a>
+      <a class="nav-item active" href="./"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="activity/"><span class="nav-icon">📈</span>Activity</a><a class="nav-item" href="tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item" href="trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="notifications/"><span class="nav-icon">🔔</span>Notifications</a>
       <div class="nav-section-label">Manage</div>
       <a class="nav-item" href="admin/"><span class="nav-icon">⚙️</span>Team Admin</a>
     </nav>
       <div class="team-content">
-    <div class="hero" style="background:#fba51a;color:#ffffff">
-      <div class="name">[LEGNDZ] Legendary Typerz</div>
+    <div class="hero" style="background:#5b52a3;color:#ffffff">
+      <div class="name">[LEGNDZ] Legendary-Typerz</div>
       <div class="sub">
-        Captain: Dedicated2NT · 37 racers tracked · last synced 10/25/2026, 1:00:55 AM</div>
+        Captain: Dedicated2NT · 37 racers tracked · last synced 10/25/2026, 1:30:46 AM</div>
     </div>
     
     <div class="req-bar">
@@ -732,10 +753,10 @@ Competitive Team |90+% |co-cap/Flowerboy |top/racers=officer |races=cash |NTC se
             Dedicated2NT<span class="role-pill captain">Captain</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Mar 16, 2026</td>
-          <td>91</td>
+          <td>82</td>
           <td>118</td>
-          <td>21,691</td>
-          <td><span class="pill ok">94.69%</span></td>
+          <td>21,707</td>
+          <td><span class="pill ok">94.66%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -744,10 +765,10 @@ Competitive Team |90+% |co-cap/Flowerboy |top/racers=officer |races=cash |NTC se
             EpicFailure82
           </td>
           <td>Oct 21, 2026</td>
-          <td>81</td>
+          <td>82</td>
           <td>97</td>
-          <td>786</td>
-          <td><span class="pill good">95.88%</span></td>
+          <td>787</td>
+          <td><span class="pill good">95.94%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -984,10 +1005,10 @@ Competitive Team |90+% |co-cap/Flowerboy |top/racers=officer |races=cash |NTC se
             mike4532fxfx
           </td>
           <td>Oct 20, 2026</td>
-          <td>69</td>
+          <td>70</td>
           <td>90</td>
-          <td>10,170</td>
-          <td><span class="pill low">88.77%</span></td>
+          <td>10,174</td>
+          <td><span class="pill low">88.76%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1020,9 +1041,9 @@ Competitive Team |90+% |co-cap/Flowerboy |top/racers=officer |races=cash |NTC se
             OKBruv<span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 22, 2026</td>
-          <td>89</td>
+          <td>91</td>
           <td>113</td>
-          <td>7,181</td>
+          <td>7,194</td>
           <td><span class="pill good">96.17%</span></td>
         </tr>
         <tr>
@@ -1090,6 +1111,6 @@ Competitive Team |90+% |co-cap/Flowerboy |top/racers=officer |races=cash |NTC se
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T01:15:04.930Z</footer>
+<footer class="site">Generated 2026-10-25T01:32:55.620Z</footer>
 </body>
 </html>
