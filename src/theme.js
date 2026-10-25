@@ -1205,13 +1205,18 @@ function teamAdminBody(tag, captainNtUserId, racers, squads) {
         <p class="meta-row" data-admin-role-note></p>
         <div class="seg" style="margin-bottom:16px;">
           <button type="button" class="seg-btn active" data-admin-tab-btn="officers">Officers</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="admins">Team Admins</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="squads">Squads</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="events">Events</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="tournaments">Tournaments</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="settings">Settings</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="notifications">Notifications</button>
         </div>
 
         <div data-admin-tabpanel="officers">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A badge shown on the roster — doesn't grant any extra access on this page. For that, see Team Admins.
+          </div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Officer</th><th></th></tr></thead>
@@ -1221,6 +1226,22 @@ function teamAdminBody(tag, captainNtUserId, racers, squads) {
           <form data-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
             <select class="form-input" name="nt_user_id" style="flex:1;">${rosterOptions}</select>
             <button type="submit" class="btn-primary">Make officer</button>
+          </form>
+        </div>
+
+        <div data-admin-tabpanel="admins" style="display:none;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A Team Admin can do everything you can on this page — Events, Squads, Tournaments, Officers, Settings, Notifications — except add or remove other Team Admins. Only you, the real captain, can do that.
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Admin</th><th></th></tr></thead>
+              <tbody data-admin-admin-rows><tr><td colspan="2" style="color:var(--muted);">No team admins appointed yet.</td></tr></tbody>
+            </table>
+          </div>
+          <form data-admin-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
+            <select class="form-input" name="nt_user_id" style="flex:1;">${rosterOptions}</select>
+            <button type="submit" class="btn-primary">Make admin</button>
           </form>
         </div>
 
@@ -1278,6 +1299,13 @@ function teamAdminBody(tag, captainNtUserId, racers, squads) {
             <input class="form-input" type="text" data-admin-emoji-input placeholder="🏁" maxlength="8" style="max-width:120px;">
           </label>
           <button type="button" class="btn-primary" data-admin-settings-save style="display:none;">Save settings</button>
+        </div>
+
+        <div data-admin-tabpanel="notifications" style="display:none;max-width:480px;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            Turn off any of these auto-detected kinds for [${escapeHtml(tag)}] — this only affects new notifications going forward, existing ones in the feed stay as they are.
+          </div>
+          <div data-admin-notification-rows style="display:flex;flex-direction:column;gap:12px;">Loading…</div>
         </div>
 
         <div data-admin-error class="form-error" style="display:none;margin-top:10px;"></div>

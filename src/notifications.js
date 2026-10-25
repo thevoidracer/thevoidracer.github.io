@@ -44,7 +44,37 @@ async function fetchPreviousTeamRaces(userId, teamTag) {
   return Number(rows[0].total);
 }
 
+// See team_notification_settings in schema.sql - a captain or admin can
+// turn off one of these three kinds for their own team from the Team
+// Admin page's Notifications tab. No row for a (team, kind) means
+// "enabled" (today's unconfigurable default, from before that table
+// existed), so a missing row is NOT treated as disabled.
+//
+// Cached per (team_tag, kind) for the lifetime of this process - ingest.js
+// runs one short-lived sync per invocation and calls recordNotification up
+// to a few times per racer, so without this every racer on a team would
+// re-query the same handful of settings rows. A setting changed mid-run
+// (someone toggling it in another tab while a sync is in flight) simply
+// takes effect starting with the NEXT sync, same as any other config read
+// once per run elsewhere in this codebase (e.g. team sync_interval_minutes).
+const notificationSettingsCache = new Map();
+
+async function isNotificationKindEnabled(teamTag, kind) {
+  const cacheKey = `${teamTag}\u0000${kind}`;
+  if (notificationSettingsCache.has(cacheKey)) {
+    return notificationSettingsCache.get(cacheKey);
+  }
+  const { rows } = await pool.query(
+    `select enabled from team_notification_settings where team_tag = $1 and kind = $2`,
+    [teamTag, kind]
+  );
+  const enabled = rows[0] ? rows[0].enabled : true;
+  notificationSettingsCache.set(cacheKey, enabled);
+  return enabled;
+}
+
 async function recordNotification(teamTag, { kind, userId, dedupKey, headline }) {
+  if (!(await isNotificationKindEnabled(teamTag, kind))) return;
   await pool.query(
     `insert into notifications (team_tag, kind, nt_user_id, dedup_key, headline)
      values ($1, $2, $3, $4, $5)
@@ -115,6 +145,7 @@ module.exports = {
   MILESTONES,
   crossedMilestones,
   fetchPreviousTeamTag,
+  isNotificationKindEnabled,
   recordNotifications,
   queryNotifications,
 };
