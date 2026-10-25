@@ -631,6 +631,35 @@
   .form-error { color: var(--low); font-size: 12.5px; }
   .form-note { font-size: 12.5px; }
   .site-nav-link[data-account-nav] { white-space: nowrap; }
+
+  .showdown-list { display: flex; flex-direction: column; gap: 18px; }
+  .showdown-card { padding: 18px 20px; }
+  .showdown-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .showdown-vs-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 14px;
+    margin: 14px 0 16px;
+  }
+  .showdown-team { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14.5px; }
+  .showdown-team-right { justify-content: flex-end; text-align: right; }
+  .showdown-score {
+    font-family: "Rajdhani", "Manrope", sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    color: var(--velocity);
+    white-space: nowrap;
+  }
+  .showdown-score-sep { color: var(--muted); font-weight: 600; margin: 0 2px; }
+  .showdown-cat-label { color: var(--muted); }
+  .showdown-cat-val { font-weight: 600; }
+  .showdown-cat-lead { color: var(--good); font-weight: 800; }
+  @media (max-width: 560px) {
+    .showdown-vs-row { grid-template-columns: 1fr; text-align: center; }
+    .showdown-team-right { justify-content: center; text-align: center; }
+    .showdown-score { justify-self: center; }
+  }
 </style>
 </head>
 <body>
@@ -642,6 +671,8 @@
       <nav class="site-nav">
         <a class="site-nav-link active" href="../../">Teams</a>
         <a class="site-nav-link" href="../../leaderboards/">Leaderboards</a>
+        <a class="site-nav-link" href="../../showdown/">Showdown</a>
+        <a class="site-nav-link" href="../../events/">Events</a>
         <a class="site-nav-link" href="../../account/" data-account-nav>Account</a>
       </nav>
     </header>
@@ -659,7 +690,7 @@
     <div class="hero" style="background:#40b8ea;color:#ffffff">
       <div class="name">[XREVX] The Rev Guys</div>
       <div class="sub">
-        Captain: Revented 28K · 38 racers tracked · last synced 10/25/2026, 5:36:14 PM</div>
+        Captain: Revented 28K · 38 racers tracked · last synced 10/25/2026, 7:31:02 PM</div>
     </div>
     
     <div class="req-bar">
@@ -871,12 +902,12 @@
             <a href="https://www.nitrotype.com/racer/c686006ec57a6c96c45028e74438fbdc" target="_blank" rel="noopener" title="View on Nitro Type">F1 mclaren</a> <a class="stats-link" href="racer/64501939/" title="F1 mclaren's stats on TypeTrack">📊</a>
           </td>
           <td>Aug 31, 2026</td>
-          <td><span class="points"><span title="Includes ~2,218 races from before this racer was tracked here, estimated from their average speed at the time.">~243,004.08</span></span></td>
-          <td><span title="Includes ~2,218 races from before this racer was tracked here, estimated from their average speed at the time.">~2,218</span></td>
-          <td>45</td>
+          <td><span class="points"><span title="Includes ~2,218 races from before this racer was tracked here, estimated from their average speed at the time.">~245,056.48</span></span></td>
+          <td><span title="Includes ~2,218 races from before this racer was tracked here, estimated from their average speed at the time.">~2,237</span></td>
+          <td>41</td>
           <td>108</td>
-          <td><span class="pill low">87.06%</span></td>
-          <td><span class="pill na" title="No races tracked for this racer yet - too new to tell.">New</span></td>
+          <td><span class="pill low">87.15%</span></td>
+          <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1219,6 +1250,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:31:41.166Z</footer>
+<footer class="site">Generated 2026-10-25T19:50:33.720Z</footer>
 </body>
 </html>

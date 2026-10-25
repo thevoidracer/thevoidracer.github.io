@@ -631,6 +631,35 @@
   .form-error { color: var(--low); font-size: 12.5px; }
   .form-note { font-size: 12.5px; }
   .site-nav-link[data-account-nav] { white-space: nowrap; }
+
+  .showdown-list { display: flex; flex-direction: column; gap: 18px; }
+  .showdown-card { padding: 18px 20px; }
+  .showdown-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .showdown-vs-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 14px;
+    margin: 14px 0 16px;
+  }
+  .showdown-team { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14.5px; }
+  .showdown-team-right { justify-content: flex-end; text-align: right; }
+  .showdown-score {
+    font-family: "Rajdhani", "Manrope", sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    color: var(--velocity);
+    white-space: nowrap;
+  }
+  .showdown-score-sep { color: var(--muted); font-weight: 600; margin: 0 2px; }
+  .showdown-cat-label { color: var(--muted); }
+  .showdown-cat-val { font-weight: 600; }
+  .showdown-cat-lead { color: var(--good); font-weight: 800; }
+  @media (max-width: 560px) {
+    .showdown-vs-row { grid-template-columns: 1fr; text-align: center; }
+    .showdown-team-right { justify-content: center; text-align: center; }
+    .showdown-score { justify-self: center; }
+  }
 </style>
 </head>
 <body>
@@ -642,6 +671,8 @@
       <nav class="site-nav">
         <a class="site-nav-link active" href="../../">Teams</a>
         <a class="site-nav-link" href="../../leaderboards/">Leaderboards</a>
+        <a class="site-nav-link" href="../../showdown/">Showdown</a>
+        <a class="site-nav-link" href="../../events/">Events</a>
         <a class="site-nav-link" href="../../account/" data-account-nav>Account</a>
       </nav>
     </header>
@@ -659,7 +690,7 @@
     <div class="hero" style="background:#70c3ed;color:#ffffff">
       <div class="name">[NHS] Nitro Hype Squad</div>
       <div class="sub">
-        Captain: ✨superjoelzy✨ · 53 racers tracked · last synced 10/25/2026, 6:01:47 PM</div>
+        Captain: ✨superjoelzy✨ · 53 racers tracked · last synced 10/25/2026, 7:25:58 PM</div>
     </div>
     
     <div class="req-bar">
@@ -1100,7 +1131,7 @@
           <td>83</td>
           <td>102</td>
           <td><span class="pill ok">94.14%</span></td>
-          <td><span class="pill good" title="Last tracked race: Oct 23, 2026">1 day ago</span></td>
+          <td><span class="pill good" title="Last tracked race: Oct 23, 2026">2 days ago</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1151,11 +1182,11 @@
             <a href="https://www.nitrotype.com/racer/marquistthomas" target="_blank" rel="noopener" title="View on Nitro Type">Marsky</a> <a class="stats-link" href="racer/55379739/" title="Marsky's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 22, 2026</td>
-          <td><span class="points"><span title="Includes ~7,179 races from before this racer was tracked here, estimated from their average speed at the time.">~1,075,193.97</span></span></td>
-          <td><span title="Includes ~7,179 races from before this racer was tracked here, estimated from their average speed at the time.">~7,258</span></td>
-          <td>113</td>
+          <td><span class="points"><span title="Includes ~7,179 races from before this racer was tracked here, estimated from their average speed at the time.">~1,081,308.36</span></span></td>
+          <td><span title="Includes ~7,179 races from before this racer was tracked here, estimated from their average speed at the time.">~7,297</span></td>
+          <td>123</td>
           <td>141</td>
-          <td><span class="pill good">97.03%</span></td>
+          <td><span class="pill good">97.15%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
@@ -1189,15 +1220,15 @@
         <tr>
           <td class="racer">
             <span class="avatar" style="background:hsl(297 85% 65%)">N</span>
-            
+            <img class="car-thumb" src="../../assets/cars/covenant_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/f12e19599957d9c65c8d7609af78698d" target="_blank" rel="noopener" title="View on Nitro Type">Nosferatu</a> <a class="stats-link" href="racer/90513374/" title="Nosferatu's stats on TypeTrack">📊</a>
           </td>
           <td>Oct 24, 2026</td>
-          <td><span class="points"><span>31,524.52</span></span></td>
-          <td><span>2,371</span></td>
-          <td>51</td>
+          <td><span class="points"><span>34,673.34</span></span></td>
+          <td><span>2,397</span></td>
+          <td>58</td>
           <td>101</td>
-          <td><span class="pill ok">92.08%</span></td>
+          <td><span class="pill ok">92.09%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
@@ -1296,7 +1327,7 @@
           <td>70</td>
           <td>89</td>
           <td><span class="pill low">89.14%</span></td>
-          <td><span class="pill good" title="Last tracked race: Oct 24, 2026">Today</span></td>
+          <td><span class="pill good" title="Last tracked race: Oct 24, 2026">1 day ago</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1429,6 +1460,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:31:15.063Z</footer>
+<footer class="site">Generated 2026-10-25T19:50:09.263Z</footer>
 </body>
 </html>

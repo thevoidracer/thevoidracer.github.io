@@ -631,6 +631,35 @@
   .form-error { color: var(--low); font-size: 12.5px; }
   .form-note { font-size: 12.5px; }
   .site-nav-link[data-account-nav] { white-space: nowrap; }
+
+  .showdown-list { display: flex; flex-direction: column; gap: 18px; }
+  .showdown-card { padding: 18px 20px; }
+  .showdown-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .showdown-vs-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 14px;
+    margin: 14px 0 16px;
+  }
+  .showdown-team { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14.5px; }
+  .showdown-team-right { justify-content: flex-end; text-align: right; }
+  .showdown-score {
+    font-family: "Rajdhani", "Manrope", sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    color: var(--velocity);
+    white-space: nowrap;
+  }
+  .showdown-score-sep { color: var(--muted); font-weight: 600; margin: 0 2px; }
+  .showdown-cat-label { color: var(--muted); }
+  .showdown-cat-val { font-weight: 600; }
+  .showdown-cat-lead { color: var(--good); font-weight: 800; }
+  @media (max-width: 560px) {
+    .showdown-vs-row { grid-template-columns: 1fr; text-align: center; }
+    .showdown-team-right { justify-content: center; text-align: center; }
+    .showdown-score { justify-self: center; }
+  }
 </style>
 </head>
 <body>
@@ -642,6 +671,8 @@
       <nav class="site-nav">
         <a class="site-nav-link active" href="../../">Teams</a>
         <a class="site-nav-link" href="../../leaderboards/">Leaderboards</a>
+        <a class="site-nav-link" href="../../showdown/">Showdown</a>
+        <a class="site-nav-link" href="../../events/">Events</a>
         <a class="site-nav-link" href="../../account/" data-account-nav>Account</a>
       </nav>
     </header>
@@ -659,11 +690,11 @@
     <div class="hero" style="background:#5b52a3;color:#ffffff">
       <div class="name">[NH] Nephilims</div>
       <div class="sub">
-        Captain: megladon · 48 racers tracked · last synced 10/25/2026, 6:31:07 PM</div>
+        Captain: megladon · 49 racers tracked · last synced 10/25/2026, 7:25:50 PM</div>
     </div>
     
     <div class="req-bar">
-      <div class="req">Members <b>46</b></div>
+      <div class="req">Members <b>47</b></div>
       <div class="req">Formed <b>Mar 13, 2026</b></div>
       <div class="req">Enrollment <b>open</b></div>
       <div class="req">Min races <b>500</b></div>
@@ -689,9 +720,9 @@
             <a href="https://www.nitrotype.com/racer/hugont" target="_blank" rel="noopener" title="View on Nitro Type">-hugoNT-</a> <a class="stats-link" href="racer/64763446/" title="-hugoNT-'s stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 14, 2026</td>
-          <td><span class="points"><span title="Includes ~62,592 races from before this racer was tracked here, estimated from their average speed at the time.">~9,520,077.62</span></span></td>
-          <td><span title="Includes ~62,592 races from before this racer was tracked here, estimated from their average speed at the time.">~62,723</span></td>
-          <td>109</td>
+          <td><span class="points"><span title="Includes ~62,592 races from before this racer was tracked here, estimated from their average speed at the time.">~9,520,688.34</span></span></td>
+          <td><span title="Includes ~62,592 races from before this racer was tracked here, estimated from their average speed at the time.">~62,727</span></td>
+          <td>113</td>
           <td>167</td>
           <td><span class="pill good">96.18%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
@@ -815,11 +846,11 @@
             <a href="https://www.nitrotype.com/racer/83754c" target="_blank" rel="noopener" title="View on Nitro Type">C L A Y</a> <a class="stats-link" href="racer/41610275/" title="C L A Y's stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 18, 2026</td>
-          <td><span class="points"><span title="Includes ~49,066 races from before this racer was tracked here, estimated from their average speed at the time.">~7,331,618.22</span></span></td>
-          <td><span title="Includes ~49,066 races from before this racer was tracked here, estimated from their average speed at the time.">~49,200</span></td>
-          <td>111</td>
+          <td><span class="points"><span title="Includes ~49,066 races from before this racer was tracked here, estimated from their average speed at the time.">~7,333,525.18</span></span></td>
+          <td><span title="Includes ~49,066 races from before this racer was tracked here, estimated from their average speed at the time.">~49,213</span></td>
+          <td>105</td>
           <td>136</td>
-          <td><span class="pill ok">93.41%</span></td>
+          <td><span class="pill ok">93.42%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
@@ -867,7 +898,7 @@
         <tr>
           <td class="racer">
             <span class="avatar" style="background:hsl(227 85% 65%)">D</span>
-            
+            <img class="car-thumb" src="../../assets/cars/painted-gtr1_small_160.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/immsussus" target="_blank" rel="noopener" title="View on Nitro Type">Dreamskiy</a> <a class="stats-link" href="racer/66427221/" title="Dreamskiy's stats on TypeTrack">📊</a>
           </td>
           <td>Oct 25, 2026</td>
@@ -1025,9 +1056,9 @@
             <a href="https://www.nitrotype.com/racer/imnotthatinnocent" target="_blank" rel="noopener" title="View on Nitro Type">megladon</a> <a class="stats-link" href="racer/39625162/" title="megladon's stats on TypeTrack">📊</a><span class="role-pill captain">Captain</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Mar 13, 2026</td>
-          <td><span class="points"><span title="Includes ~10,030 races from before this racer was tracked here, estimated from their average speed at the time.">~1,710,488.48</span></span></td>
-          <td><span title="Includes ~10,030 races from before this racer was tracked here, estimated from their average speed at the time.">~10,034</span></td>
-          <td>142</td>
+          <td><span class="points"><span title="Includes ~10,030 races from before this racer was tracked here, estimated from their average speed at the time.">~1,710,825.42</span></span></td>
+          <td><span title="Includes ~10,030 races from before this racer was tracked here, estimated from their average speed at the time.">~10,036</span></td>
+          <td>143</td>
           <td>193</td>
           <td><span class="pill good">96.97%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
@@ -1123,11 +1154,11 @@
             <a href="https://www.nitrotype.com/racer/904349" target="_blank" rel="noopener" title="View on Nitro Type">platypus</a> <a class="stats-link" href="racer/81516422/" title="platypus's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 11, 2026</td>
-          <td><span class="points"><span title="Includes ~2,806 races from before this racer was tracked here, estimated from their average speed at the time.">~380,496.87</span></span></td>
-          <td><span title="Includes ~2,806 races from before this racer was tracked here, estimated from their average speed at the time.">~3,103</span></td>
-          <td>68</td>
+          <td><span class="points"><span title="Includes ~2,806 races from before this racer was tracked here, estimated from their average speed at the time.">~382,103.28</span></span></td>
+          <td><span title="Includes ~2,806 races from before this racer was tracked here, estimated from their average speed at the time.">~3,116</span></td>
+          <td>67</td>
           <td>99</td>
-          <td><span class="pill ok">90.06%</span></td>
+          <td><span class="pill ok">90.07%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
@@ -1156,6 +1187,20 @@
           <td>110</td>
           <td>153</td>
           <td><span class="pill good">97.43%</span></td>
+          <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(149 85% 65%)">R</span>
+            
+            <a href="https://www.nitrotype.com/racer/themomiscool2" target="_blank" rel="noopener" title="View on Nitro Type">RandoraV2</a> <a class="stats-link" href="racer/12740682/" title="RandoraV2's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
+          </td>
+          <td>Oct 25, 2026</td>
+          <td><span class="points"><span title="Includes ~49,327 races from before this racer was tracked here, estimated from their average speed at the time.">~7,254,715.75</span></span></td>
+          <td><span title="Includes ~49,327 races from before this racer was tracked here, estimated from their average speed at the time.">~49,335</span></td>
+          <td>99</td>
+          <td>114</td>
+          <td><span class="pill good">98.05%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
@@ -1225,7 +1270,7 @@
           <td><span title="Includes ~75,760 races from before this racer was tracked here, estimated from their average speed at the time.">~75,764</span></td>
           <td>101</td>
           <td>159</td>
-          <td><span class="pill ok">94.91%</span></td>
+          <td><span class="pill ok">94.95%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
@@ -1249,9 +1294,9 @@
             <a href="https://www.nitrotype.com/racer/theonlyone232" target="_blank" rel="noopener" title="View on Nitro Type">Tiktok_dc4lyk</a> <a class="stats-link" href="racer/53545037/" title="Tiktok_dc4lyk's stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 21, 2026</td>
-          <td><span class="points"><span title="Includes ~12,075 races from before this racer was tracked here, estimated from their average speed at the time.">~1,524,572.57</span></span></td>
-          <td><span title="Includes ~12,075 races from before this racer was tracked here, estimated from their average speed at the time.">~12,259</span></td>
-          <td>66</td>
+          <td><span class="points"><span title="Includes ~12,075 races from before this racer was tracked here, estimated from their average speed at the time.">~1,527,398.61</span></span></td>
+          <td><span title="Includes ~12,075 races from before this racer was tracked here, estimated from their average speed at the time.">~12,282</span></td>
+          <td>58</td>
           <td>179</td>
           <td><span class="pill ok">92.48%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
@@ -1359,6 +1404,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:31:18.646Z</footer>
+<footer class="site">Generated 2026-10-25T19:50:13.497Z</footer>
 </body>
 </html>

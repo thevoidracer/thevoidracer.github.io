@@ -631,6 +631,35 @@
   .form-error { color: var(--low); font-size: 12.5px; }
   .form-note { font-size: 12.5px; }
   .site-nav-link[data-account-nav] { white-space: nowrap; }
+
+  .showdown-list { display: flex; flex-direction: column; gap: 18px; }
+  .showdown-card { padding: 18px 20px; }
+  .showdown-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .showdown-vs-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 14px;
+    margin: 14px 0 16px;
+  }
+  .showdown-team { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14.5px; }
+  .showdown-team-right { justify-content: flex-end; text-align: right; }
+  .showdown-score {
+    font-family: "Rajdhani", "Manrope", sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    color: var(--velocity);
+    white-space: nowrap;
+  }
+  .showdown-score-sep { color: var(--muted); font-weight: 600; margin: 0 2px; }
+  .showdown-cat-label { color: var(--muted); }
+  .showdown-cat-val { font-weight: 600; }
+  .showdown-cat-lead { color: var(--good); font-weight: 800; }
+  @media (max-width: 560px) {
+    .showdown-vs-row { grid-template-columns: 1fr; text-align: center; }
+    .showdown-team-right { justify-content: center; text-align: center; }
+    .showdown-score { justify-self: center; }
+  }
 </style>
 </head>
 <body>
@@ -642,6 +671,8 @@
       <nav class="site-nav">
         <a class="site-nav-link active" href="../../../">Teams</a>
         <a class="site-nav-link" href="../../../leaderboards/">Leaderboards</a>
+        <a class="site-nav-link" href="../../../showdown/">Showdown</a>
+        <a class="site-nav-link" href="../../../events/">Events</a>
         <a class="site-nav-link" href="../../../account/" data-account-nav>Account</a>
       </nav>
     </header>
@@ -659,7 +690,7 @@
     <div class="hero" style="background:#8750a0;color:#ffffff">
       <div class="name">[ZH] Zero Hour</div>
       <div class="sub">
-        Captain: smooktober · 39 racers tracked · last synced 10/25/2026, 5:36:30 PM</div>
+        Captain: smooktober · 39 racers tracked · last synced 10/25/2026, 7:31:29 PM</div>
     </div>
     <h2 style="margin:28px 0 14px;">Tracker</h2>
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
@@ -701,9 +732,9 @@
             
             <a href="https://www.nitrotype.com/racer/microjam" target="_blank" rel="noopener" title="View on Nitro Type">Gadget</a> <a class="stats-link" href="../racer/62531759/" title="Gadget's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">24,764.03</span></td>
-          <td>189</td>
-          <td>72</td>
+          <td><span class="points">27,197.04</span></td>
+          <td>208</td>
+          <td>70</td>
           <td>114</td>
           <td><span class="pill ok">93.79%</span></td>
         </tr>
@@ -722,6 +753,32 @@
         </tr>
         <tr>
           <td><span class="lb-rank top3">3</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(347 85% 65%)">E</span>
+            <img class="car-thumb" src="../../../assets/cars/ultima_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/etz_21" target="_blank" rel="noopener" title="View on Nitro Type">ETZ_21</a> <a class="stats-link" href="../racer/52918488/" title="ETZ_21's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">3,931.5</span></td>
+          <td>25</td>
+          <td>120</td>
+          <td>147</td>
+          <td><span class="pill good">97.26%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">4</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(191 85% 65%)">L</span>
+            
+            <a href="https://www.nitrotype.com/racer/tsubasacaptain" target="_blank" rel="noopener" title="View on Nitro Type">Lucasloverivals</a> <a class="stats-link" href="../racer/68709667/" title="Lucasloverivals's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">664.75</span></td>
+          <td>5</td>
+          <td>82</td>
+          <td>109</td>
+          <td><span class="pill ok">91.95%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">5</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(325 85% 65%)">U</span>
             <img class="car-thumb" src="../../../assets/cars/painted-spirit_koi_small_180.png" alt="" loading="lazy" onerror="this.remove()">
@@ -748,9 +805,9 @@
             
             <a href="https://www.nitrotype.com/racer/microjam" target="_blank" rel="noopener" title="View on Nitro Type">Gadget</a> <a class="stats-link" href="../racer/62531759/" title="Gadget's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">24,764.03</span></td>
-          <td>189</td>
-          <td>72</td>
+          <td><span class="points">27,197.04</span></td>
+          <td>208</td>
+          <td>70</td>
           <td>114</td>
           <td><span class="pill ok">93.79%</span></td>
         </tr>
@@ -769,6 +826,32 @@
         </tr>
         <tr>
           <td><span class="lb-rank top3">3</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(347 85% 65%)">E</span>
+            <img class="car-thumb" src="../../../assets/cars/ultima_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/etz_21" target="_blank" rel="noopener" title="View on Nitro Type">ETZ_21</a> <a class="stats-link" href="../racer/52918488/" title="ETZ_21's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">3,931.5</span></td>
+          <td>25</td>
+          <td>120</td>
+          <td>147</td>
+          <td><span class="pill good">97.26%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">4</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(191 85% 65%)">L</span>
+            
+            <a href="https://www.nitrotype.com/racer/tsubasacaptain" target="_blank" rel="noopener" title="View on Nitro Type">Lucasloverivals</a> <a class="stats-link" href="../racer/68709667/" title="Lucasloverivals's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">664.75</span></td>
+          <td>5</td>
+          <td>82</td>
+          <td>109</td>
+          <td><span class="pill ok">91.95%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">5</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(325 85% 65%)">U</span>
             <img class="car-thumb" src="../../../assets/cars/painted-spirit_koi_small_180.png" alt="" loading="lazy" onerror="this.remove()">
@@ -795,9 +878,9 @@
             
             <a href="https://www.nitrotype.com/racer/microjam" target="_blank" rel="noopener" title="View on Nitro Type">Gadget</a> <a class="stats-link" href="../racer/62531759/" title="Gadget's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">24,764.03</span></td>
-          <td>189</td>
-          <td>72</td>
+          <td><span class="points">27,197.04</span></td>
+          <td>208</td>
+          <td>70</td>
           <td>114</td>
           <td><span class="pill ok">93.79%</span></td>
         </tr>
@@ -816,6 +899,32 @@
         </tr>
         <tr>
           <td><span class="lb-rank top3">3</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(347 85% 65%)">E</span>
+            <img class="car-thumb" src="../../../assets/cars/ultima_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/etz_21" target="_blank" rel="noopener" title="View on Nitro Type">ETZ_21</a> <a class="stats-link" href="../racer/52918488/" title="ETZ_21's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">3,931.5</span></td>
+          <td>25</td>
+          <td>120</td>
+          <td>147</td>
+          <td><span class="pill good">97.26%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">4</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(191 85% 65%)">L</span>
+            
+            <a href="https://www.nitrotype.com/racer/tsubasacaptain" target="_blank" rel="noopener" title="View on Nitro Type">Lucasloverivals</a> <a class="stats-link" href="../racer/68709667/" title="Lucasloverivals's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">664.75</span></td>
+          <td>5</td>
+          <td>82</td>
+          <td>109</td>
+          <td><span class="pill ok">91.95%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">5</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(325 85% 65%)">U</span>
             <img class="car-thumb" src="../../../assets/cars/painted-spirit_koi_small_180.png" alt="" loading="lazy" onerror="this.remove()">
@@ -842,9 +951,9 @@
             
             <a href="https://www.nitrotype.com/racer/microjam" target="_blank" rel="noopener" title="View on Nitro Type">Gadget</a> <a class="stats-link" href="../racer/62531759/" title="Gadget's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">24,764.03</span></td>
-          <td>189</td>
-          <td>72</td>
+          <td><span class="points">27,197.04</span></td>
+          <td>208</td>
+          <td>70</td>
           <td>114</td>
           <td><span class="pill ok">93.79%</span></td>
         </tr>
@@ -864,6 +973,32 @@
         <tr>
           <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(347 85% 65%)">E</span>
+            <img class="car-thumb" src="../../../assets/cars/ultima_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/etz_21" target="_blank" rel="noopener" title="View on Nitro Type">ETZ_21</a> <a class="stats-link" href="../racer/52918488/" title="ETZ_21's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">3,931.5</span></td>
+          <td>25</td>
+          <td>120</td>
+          <td>147</td>
+          <td><span class="pill good">97.26%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">4</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(191 85% 65%)">L</span>
+            
+            <a href="https://www.nitrotype.com/racer/tsubasacaptain" target="_blank" rel="noopener" title="View on Nitro Type">Lucasloverivals</a> <a class="stats-link" href="../racer/68709667/" title="Lucasloverivals's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">664.75</span></td>
+          <td>5</td>
+          <td>82</td>
+          <td>109</td>
+          <td><span class="pill ok">91.95%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">5</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(325 85% 65%)">U</span>
             <img class="car-thumb" src="../../../assets/cars/painted-spirit_koi_small_180.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/urasai_5" target="_blank" rel="noopener" title="View on Nitro Type">URASAI_5</a> <a class="stats-link" href="../racer/91510036/" title="URASAI_5's stats on TypeTrack">📊</a>
@@ -878,6 +1013,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:31:26.306Z</footer>
+<footer class="site">Generated 2026-10-25T19:50:20.075Z</footer>
 </body>
 </html>

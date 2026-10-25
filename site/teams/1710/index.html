@@ -631,6 +631,35 @@
   .form-error { color: var(--low); font-size: 12.5px; }
   .form-note { font-size: 12.5px; }
   .site-nav-link[data-account-nav] { white-space: nowrap; }
+
+  .showdown-list { display: flex; flex-direction: column; gap: 18px; }
+  .showdown-card { padding: 18px 20px; }
+  .showdown-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .showdown-vs-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 14px;
+    margin: 14px 0 16px;
+  }
+  .showdown-team { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14.5px; }
+  .showdown-team-right { justify-content: flex-end; text-align: right; }
+  .showdown-score {
+    font-family: "Rajdhani", "Manrope", sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    color: var(--velocity);
+    white-space: nowrap;
+  }
+  .showdown-score-sep { color: var(--muted); font-weight: 600; margin: 0 2px; }
+  .showdown-cat-label { color: var(--muted); }
+  .showdown-cat-val { font-weight: 600; }
+  .showdown-cat-lead { color: var(--good); font-weight: 800; }
+  @media (max-width: 560px) {
+    .showdown-vs-row { grid-template-columns: 1fr; text-align: center; }
+    .showdown-team-right { justify-content: center; text-align: center; }
+    .showdown-score { justify-self: center; }
+  }
 </style>
 </head>
 <body>
@@ -642,6 +671,8 @@
       <nav class="site-nav">
         <a class="site-nav-link active" href="../../">Teams</a>
         <a class="site-nav-link" href="../../leaderboards/">Leaderboards</a>
+        <a class="site-nav-link" href="../../showdown/">Showdown</a>
+        <a class="site-nav-link" href="../../events/">Events</a>
         <a class="site-nav-link" href="../../account/" data-account-nav>Account</a>
       </nav>
     </header>
@@ -659,7 +690,7 @@
     <div class="hero" style="background:#d1499b;color:#ffffff">
       <div class="name">[1710] Smitherines</div>
       <div class="sub">
-        Captain: YayJay · 49 racers tracked · last synced 10/25/2026, 5:59:30 PM</div>
+        Captain: YayJay · 49 racers tracked · last synced 10/25/2026, 7:49:46 PM</div>
     </div>
     
     <div class="req-bar">
@@ -852,6 +883,20 @@
         </tr>
         <tr>
           <td class="racer">
+            <span class="avatar" style="background:hsl(262 85% 65%)">C</span>
+            <img class="car-thumb" src="../../assets/cars/painted-fuji_small_40.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/cutify808" target="_blank" rel="noopener" title="View on Nitro Type">cutify808</a> <a class="stats-link" href="racer/79591207/" title="cutify808's stats on TypeTrack">📊</a>
+          </td>
+          <td>Sep 17, 2026</td>
+          <td><span class="points"><span title="Includes ~1,817 races from before this racer was tracked here, estimated from their average speed at the time.">~214,985.3</span></span></td>
+          <td><span title="Includes ~1,817 races from before this racer was tracked here, estimated from their average speed at the time.">~1,821</span></td>
+          <td>47</td>
+          <td>83</td>
+          <td><span class="pill ok">94.07%</span></td>
+          <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
             <span class="avatar" style="background:hsl(281 85% 65%)">D</span>
             <img class="car-thumb" src="../../assets/cars/asteroncartoncar2_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/dysnots" target="_blank" rel="noopener" title="View on Nitro Type">Dr league</a> <a class="stats-link" href="racer/90143753/" title="Dr league's stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span>
@@ -955,12 +1000,12 @@
             <a href="https://www.nitrotype.com/racer/1bff85e1d99ef1010cc238576d069a0d" target="_blank" rel="noopener" title="View on Nitro Type">Iebron james</a> <a class="stats-link" href="racer/53374601/" title="Iebron james's stats on TypeTrack">📊</a>
           </td>
           <td>Oct 19, 2026</td>
-          <td><span class="points"><span title="Includes ~636 races from before this racer was tracked here, estimated from their average speed at the time.">~82,349.28</span></span></td>
-          <td><span title="Includes ~636 races from before this racer was tracked here, estimated from their average speed at the time.">~636</span></td>
-          <td>71</td>
+          <td><span class="points"><span title="Includes ~636 races from before this racer was tracked here, estimated from their average speed at the time.">~85,078.44</span></span></td>
+          <td><span title="Includes ~636 races from before this racer was tracked here, estimated from their average speed at the time.">~657</span></td>
+          <td>72</td>
           <td>179</td>
-          <td><span class="pill ok">93.98%</span></td>
-          <td><span class="pill na" title="No races tracked for this racer yet - too new to tell.">New</span></td>
+          <td><span class="pill ok">93.96%</span></td>
+          <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1016,20 +1061,6 @@
           <td>92</td>
           <td>113</td>
           <td><span class="pill ok">93.08%</span></td>
-          <td><span class="pill na" title="No races tracked for this racer yet - too new to tell.">New</span></td>
-        </tr>
-        <tr>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(275 85% 65%)">L</span>
-            <img class="car-thumb" src="../../assets/cars/painted-fuji_small_40.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/cutify808" target="_blank" rel="noopener" title="View on Nitro Type">legendary</a> <a class="stats-link" href="racer/79591207/" title="legendary's stats on TypeTrack">📊</a>
-          </td>
-          <td>Sep 17, 2026</td>
-          <td><span class="points"><span title="Includes ~1,817 races from before this racer was tracked here, estimated from their average speed at the time.">~214,515.02</span></span></td>
-          <td><span title="Includes ~1,817 races from before this racer was tracked here, estimated from their average speed at the time.">~1,817</span></td>
-          <td>48</td>
-          <td>83</td>
-          <td><span class="pill ok">94.06%</span></td>
           <td><span class="pill na" title="No races tracked for this racer yet - too new to tell.">New</span></td>
         </tr>
         <tr>
@@ -1373,6 +1404,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:31:32.627Z</footer>
+<footer class="site">Generated 2026-10-25T19:50:27.557Z</footer>
 </body>
 </html>

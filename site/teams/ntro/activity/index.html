@@ -631,6 +631,35 @@
   .form-error { color: var(--low); font-size: 12.5px; }
   .form-note { font-size: 12.5px; }
   .site-nav-link[data-account-nav] { white-space: nowrap; }
+
+  .showdown-list { display: flex; flex-direction: column; gap: 18px; }
+  .showdown-card { padding: 18px 20px; }
+  .showdown-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .showdown-vs-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 14px;
+    margin: 14px 0 16px;
+  }
+  .showdown-team { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14.5px; }
+  .showdown-team-right { justify-content: flex-end; text-align: right; }
+  .showdown-score {
+    font-family: "Rajdhani", "Manrope", sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    color: var(--velocity);
+    white-space: nowrap;
+  }
+  .showdown-score-sep { color: var(--muted); font-weight: 600; margin: 0 2px; }
+  .showdown-cat-label { color: var(--muted); }
+  .showdown-cat-val { font-weight: 600; }
+  .showdown-cat-lead { color: var(--good); font-weight: 800; }
+  @media (max-width: 560px) {
+    .showdown-vs-row { grid-template-columns: 1fr; text-align: center; }
+    .showdown-team-right { justify-content: center; text-align: center; }
+    .showdown-score { justify-self: center; }
+  }
 </style>
 </head>
 <body>
@@ -642,6 +671,8 @@
       <nav class="site-nav">
         <a class="site-nav-link active" href="../../../">Teams</a>
         <a class="site-nav-link" href="../../../leaderboards/">Leaderboards</a>
+        <a class="site-nav-link" href="../../../showdown/">Showdown</a>
+        <a class="site-nav-link" href="../../../events/">Events</a>
         <a class="site-nav-link" href="../../../account/" data-account-nav>Account</a>
       </nav>
     </header>
@@ -659,25 +690,21 @@
     <div class="hero" style="background:#f5eb21;color:#0b1220">
       <div class="name">[NTRO] The Nitro Federation</div>
       <div class="sub">
-        Captain: -Isaac- · 23 racers tracked · last synced 10/25/2026, 5:34:47 PM</div>
+        Captain: -Isaac- · 23 racers tracked · last synced 10/25/2026, 7:27:04 PM</div>
     </div>
     <h1>Activity</h1>
     <p class="meta-row">A live look at the last 24 hours — race volume by hour (UTC) and who's been racing, from the same points ledger behind the Tracker and Leaderboards.</p>
     
     <div class="req-bar">
-      <div class="req">Races (24h) <b>86</b></div>
-      <div class="req">Active racers <b>3</b></div>
-      <div class="req">Busiest hour <b>14:00 UTC</b></div>
+      <div class="req">Races (24h) <b>131</b></div>
+      <div class="req">Active racers <b>4</b></div>
+      <div class="req">Busiest hour <b>19:00 UTC</b></div>
     </div>
     <h2 style="margin:28px 0 14px;">Races per hour</h2>
     <div class="activity-chart">
-        <div class="activity-bar" style="--h:1%" title="19:00 UTC — 0 races">
-          <div class="bar"></div>
-          <div class="bar-label">19:00</div>
-        </div>
         <div class="activity-bar" style="--h:1%" title="20:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">20:00</div>
         </div>
         <div class="activity-bar" style="--h:1%" title="21:00 UTC — 0 races">
           <div class="bar"></div>
@@ -685,11 +712,11 @@
         </div>
         <div class="activity-bar" style="--h:1%" title="22:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label">22:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:1%" title="23:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">23:00</div>
         </div>
         <div class="activity-bar" style="--h:1%" title="00:00 UTC — 0 races">
           <div class="bar"></div>
@@ -697,11 +724,11 @@
         </div>
         <div class="activity-bar" style="--h:1%" title="01:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label">01:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:1%" title="02:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">02:00</div>
         </div>
         <div class="activity-bar" style="--h:1%" title="03:00 UTC — 0 races">
           <div class="bar"></div>
@@ -709,11 +736,11 @@
         </div>
         <div class="activity-bar" style="--h:1%" title="04:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label">04:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:1%" title="05:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">05:00</div>
         </div>
         <div class="activity-bar" style="--h:1%" title="06:00 UTC — 0 races">
           <div class="bar"></div>
@@ -721,11 +748,11 @@
         </div>
         <div class="activity-bar" style="--h:1%" title="07:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label">07:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:1%" title="08:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">08:00</div>
         </div>
         <div class="activity-bar" style="--h:1%" title="09:00 UTC — 0 races">
           <div class="bar"></div>
@@ -733,37 +760,41 @@
         </div>
         <div class="activity-bar" style="--h:1%" title="10:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label">10:00</div>
+          <div class="bar-label"></div>
         </div>
-        <div class="activity-bar" style="--h:92%" title="11:00 UTC — 23 races">
+        <div class="activity-bar" style="--h:62%" title="11:00 UTC — 23 races">
+          <div class="bar"></div>
+          <div class="bar-label">11:00</div>
+        </div>
+        <div class="activity-bar" style="--h:59%" title="12:00 UTC — 22 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
-        <div class="activity-bar" style="--h:88%" title="12:00 UTC — 22 races">
+        <div class="activity-bar" style="--h:22%" title="13:00 UTC — 8 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
-        <div class="activity-bar" style="--h:32%" title="13:00 UTC — 8 races">
+        <div class="activity-bar" style="--h:68%" title="14:00 UTC — 25 races">
           <div class="bar"></div>
-          <div class="bar-label">13:00</div>
+          <div class="bar-label">14:00</div>
         </div>
-        <div class="activity-bar" style="--h:100%" title="14:00 UTC — 25 races">
-          <div class="bar"></div>
-          <div class="bar-label"></div>
-        </div>
-        <div class="activity-bar" style="--h:32%" title="15:00 UTC — 8 races">
+        <div class="activity-bar" style="--h:22%" title="15:00 UTC — 8 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:1%" title="16:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label">16:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:1%" title="17:00 UTC — 0 races">
           <div class="bar"></div>
+          <div class="bar-label">17:00</div>
+        </div>
+        <div class="activity-bar" style="--h:22%" title="18:00 UTC — 8 races">
+          <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
-        <div class="activity-bar" style="--h:1%" title="18:00 UTC — 0 races">
+        <div class="activity-bar" style="--h:100%" title="19:00 UTC — 37 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div></div>
@@ -781,9 +812,9 @@
             
             <a href="https://www.nitrotype.com/racer/trainyt" target="_blank" rel="noopener" title="View on Nitro Type">trainyt</a> <a class="stats-link" href="../racer/62295547/" title="trainyt's stats on TypeTrack">📊</a>
           </td>
-          <td>45</td>
-          <td><span class="points">7,518.7</span></td>
-          <td>139</td>
+          <td>53</td>
+          <td><span class="points">8,843.18</span></td>
+          <td>138.6</td>
           <td><span class="pill good">97.56%</span></td>
         </tr>
         <tr>
@@ -801,6 +832,18 @@
         <tr>
           <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(217 85% 65%)">-</span>
+            
+            <a href="https://www.nitrotype.com/racer/25isaac_tower" target="_blank" rel="noopener" title="View on Nitro Type">-Isaac-</a> <a class="stats-link" href="../racer/25467084/" title="-Isaac-'s stats on TypeTrack">📊</a>
+          </td>
+          <td>37</td>
+          <td><span class="points">6,165.31</span></td>
+          <td>144</td>
+          <td><span class="pill ok">94.63%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">4</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(188 85% 65%)">A</span>
             <img class="car-thumb" src="../../../assets/cars/underworld_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/aurahaker" target="_blank" rel="noopener" title="View on Nitro Type">aurahaker</a> <a class="stats-link" href="../racer/90361653/" title="aurahaker's stats on TypeTrack">📊</a>
@@ -814,6 +857,6 @@
        </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:31:31.281Z</footer>
+<footer class="site">Generated 2026-10-25T19:50:23.366Z</footer>
 </body>
 </html>

@@ -631,6 +631,35 @@
   .form-error { color: var(--low); font-size: 12.5px; }
   .form-note { font-size: 12.5px; }
   .site-nav-link[data-account-nav] { white-space: nowrap; }
+
+  .showdown-list { display: flex; flex-direction: column; gap: 18px; }
+  .showdown-card { padding: 18px 20px; }
+  .showdown-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .showdown-vs-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 14px;
+    margin: 14px 0 16px;
+  }
+  .showdown-team { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14.5px; }
+  .showdown-team-right { justify-content: flex-end; text-align: right; }
+  .showdown-score {
+    font-family: "Rajdhani", "Manrope", sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    color: var(--velocity);
+    white-space: nowrap;
+  }
+  .showdown-score-sep { color: var(--muted); font-weight: 600; margin: 0 2px; }
+  .showdown-cat-label { color: var(--muted); }
+  .showdown-cat-val { font-weight: 600; }
+  .showdown-cat-lead { color: var(--good); font-weight: 800; }
+  @media (max-width: 560px) {
+    .showdown-vs-row { grid-template-columns: 1fr; text-align: center; }
+    .showdown-team-right { justify-content: center; text-align: center; }
+    .showdown-score { justify-self: center; }
+  }
 </style>
 </head>
 <body>
@@ -642,6 +671,8 @@
       <nav class="site-nav">
         <a class="site-nav-link active" href="../../../../">Teams</a>
         <a class="site-nav-link" href="../../../../leaderboards/">Leaderboards</a>
+        <a class="site-nav-link" href="../../../../showdown/">Showdown</a>
+        <a class="site-nav-link" href="../../../../events/">Events</a>
         <a class="site-nav-link" href="../../../../account/" data-account-nav>Account</a>
       </nav>
     </header>
@@ -670,15 +701,15 @@
         <div class="meta-row" style="margin:4px 0 0;">
           <a href="../../" style="color:inherit;">[S0RC]</a>
           Solar   Racers
-          · Joined Jul 24, 2026 · Last synced 10/25/2026, 6:04:14 PM
+          · Joined Jul 24, 2026 · Last synced 10/25/2026, 7:28:14 PM
         </div>
       </div>
     </div>
     
     <div class="req-bar">
-      <div class="req">Avg speed <b>99</b></div>
+      <div class="req">Avg speed <b>101</b></div>
       <div class="req">Highest speed <b>127</b></div>
-      <div class="req">Lifetime races tracked <b>12,972</b></div>
+      <div class="req">Lifetime races tracked <b>12,997</b></div>
       <div class="req">Accuracy <b><span class="pill good">98.97%</span></b></div>
     </div>
     <h2 style="margin:28px 0 14px;">Points by window</h2>
@@ -686,43 +717,46 @@
       <table>
         <thead><tr><th>Window</th><th>Points</th><th>Races</th><th>Avg speed</th><th>Accuracy</th></tr></thead>
         <tbody>
-        <tr>
-          <td>Hourly</td>
-          <td colspan="4" style="color:var(--muted);">No points earned in this window yet.</td>
-        </tr>
+      <tr>
+        <td>Hourly</td>
+        <td><span class="points">1,644.17</span></td>
+        <td>11</td>
+        <td>101</td>
+        <td><span class="pill good">98.97%</span></td>
+      </tr>
       <tr>
         <td>Daily</td>
-        <td><span class="points">14,914.46</span></td>
-        <td>100</td>
-        <td>100.4</td>
-        <td><span class="pill good">98.96%</span></td>
+        <td><span class="points">18,686.21</span></td>
+        <td>125</td>
+        <td>101</td>
+        <td><span class="pill good">98.97%</span></td>
       </tr>
       <tr>
         <td>Weekly</td>
-        <td><span class="points">32,659.24</span></td>
-        <td>220</td>
-        <td>99</td>
+        <td><span class="points">36,430.99</span></td>
+        <td>245</td>
+        <td>99.5</td>
         <td><span class="pill good">98.96%</span></td>
       </tr>
       <tr>
         <td>Monthly</td>
-        <td><span class="points">32,659.24</span></td>
-        <td>220</td>
-        <td>99</td>
+        <td><span class="points">36,430.99</span></td>
+        <td>245</td>
+        <td>99.5</td>
         <td><span class="pill good">98.96%</span></td>
       </tr>
       <tr>
         <td>Seasonal</td>
-        <td><span class="points">32,659.24</span></td>
-        <td>220</td>
-        <td>99</td>
+        <td><span class="points">36,430.99</span></td>
+        <td>245</td>
+        <td>99.5</td>
         <td><span class="pill good">98.96%</span></td>
       </tr>
       <tr>
         <td>All-Time</td>
-        <td><span class="points">32,659.24</span></td>
-        <td>220</td>
-        <td>99</td>
+        <td><span class="points">36,430.99</span></td>
+        <td>245</td>
+        <td>99.5</td>
         <td><span class="pill good">98.96%</span></td>
       </tr></tbody>
       </table>
@@ -730,6 +764,6 @@
     <p class="lb-score-note">Tracks Nitro Type's own current season, "Spirit Racers" (Oct 18 – Nov 29).</p></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:31:13.439Z</footer>
+<footer class="site">Generated 2026-10-25T19:50:07.655Z</footer>
 </body>
 </html>

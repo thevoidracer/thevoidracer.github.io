@@ -939,6 +939,82 @@
   }
 
   // ---------------------------------------------------------------------
+  // Showdown (see showdowns in schema.sql / src/showdown-data.js) - a
+  // scheduled team-vs-team head-to-head. Unlike Events/Tournaments the
+  // score itself is never written from here (and couldn't be - RLS has no
+  // insert policy that writes a score column, because there isn't one);
+  // this tab only lets a captain or admin schedule/cancel the matchup
+  // itself. The actual live score is computed server-side and shown on
+  // the site-wide Showdown page, same "don't duplicate the computation in
+  // the browser" call already made for the Tournaments bracket.
+  // ---------------------------------------------------------------------
+  function loadTeamShowdowns(teamTag, cb) {
+    withClient(function (sb) {
+      sb.from("showdowns")
+        .select("id, team_a_tag, team_b_tag, title, start_stamp, end_stamp")
+        .eq("team_a_tag", teamTag)
+        .order("start_stamp", { ascending: false })
+        .then(function (res) {
+          cb(res.error ? res.error.message : null, res.data || []);
+        });
+    });
+  }
+
+  function createShowdown(teamTag, payload, cb) {
+    withClient(function (sb) {
+      sb.from("showdowns")
+        .insert({
+          team_a_tag: teamTag,
+          team_b_tag: payload.opponent,
+          title: payload.title || null,
+          start_stamp: payload.start,
+          end_stamp: payload.end,
+        })
+        .then(function (res) {
+          cb(res.error ? res.error.message : null);
+        });
+    });
+  }
+
+  function deleteShowdown(id, cb) {
+    withClient(function (sb) {
+      sb.from("showdowns").delete().eq("id", id).then(function (res) {
+        cb(res.error ? res.error.message : null);
+      });
+    });
+  }
+
+  function renderAdminShowdowns(container, teamTag, showdowns, refresh) {
+    container.innerHTML = "";
+    var list = el("div", { style: "display:flex;flex-direction:column;gap:10px;" });
+    if (!showdowns.length) {
+      list.innerHTML = '<div style="color:var(--muted);font-size:13px;">No showdowns scheduled by [' + escapeHtml(teamTag) + '] yet.</div>';
+    } else {
+      showdowns.forEach(function (sd) {
+        var row = el("div", { class: "card", style: "padding:12px;" });
+        row.innerHTML =
+          "<div style='font-weight:700;'>" +
+          (sd.title ? escapeHtml(sd.title) + " — " : "") +
+          "[" + escapeHtml(sd.team_a_tag) + "] vs [" + escapeHtml(sd.team_b_tag) + "]" +
+          "</div><div style='color:var(--muted);font-size:12.5px;margin:2px 0 8px;'>" +
+          fmtDate(sd.start_stamp) + " → " + fmtDate(sd.end_stamp) +
+          "</div>";
+        var delBtn = el("button", { type: "button", class: "btn-danger", text: "Cancel" });
+        delBtn.addEventListener("click", function () {
+          if (!confirm("Cancel this showdown?")) return;
+          deleteShowdown(sd.id, function (err) {
+            if (err) { alert("Could not cancel: " + err); return; }
+            refresh();
+          });
+        });
+        row.appendChild(delBtn);
+        list.appendChild(row);
+      });
+    }
+    container.appendChild(list);
+  }
+
+  // ---------------------------------------------------------------------
   // Team Admin: captain edits officers, officer views read-only, anyone
   // else gets no content at all - see theme.js's teamAdminBody for the
   // static shell this fills in.
@@ -1152,6 +1228,8 @@
     var adminRowsEl = panel.querySelector("[data-admin-admin-rows]");
     var adminAppointForm = panel.querySelector("[data-admin-admin-appoint-form]");
     var notificationRowsEl = panel.querySelector("[data-admin-notification-rows]");
+    var showdownManageEl = panel.querySelector("[data-admin-showdown-manage]");
+    var showdownForm = panel.querySelector("[data-admin-showdown-form]");
 
     // Tabs are just show/hide - wiring this up doesn't depend on who's
     // looking, so it can happen before the access check below resolves.
@@ -1316,6 +1394,57 @@
           }
           refreshTournaments();
 
+          // Showdown tab: like Events/Tournaments, a captain or admin can
+          // schedule/cancel; an officer-only visitor sees the list but no
+          // form. Unlike those, there's no public per-team Showdown page -
+          // the live score for every showdown (whether this team is a
+          // party to it or not) lives on the site-wide /showdown/ page.
+          function refreshShowdowns() {
+            if (!showdownManageEl) return;
+            loadTeamShowdowns(teamTag, function (err, showdowns) {
+              if (err) return;
+              renderAdminShowdowns(showdownManageEl, teamTag, showdowns, refreshShowdowns);
+              if (isManager && showdownForm) showdownForm.style.display = "flex";
+            });
+          }
+          refreshShowdowns();
+
+          if (showdownForm) {
+            var showdownStart = showdownForm.querySelector('[name="start"]');
+            var showdownEnd = showdownForm.querySelector('[name="end"]');
+            if (showdownStart && !showdownStart.value) showdownStart.value = toLocalInputValue();
+            if (showdownEnd && !showdownEnd.value) showdownEnd.value = toLocalInputValue(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString());
+            showdownForm.addEventListener("submit", function (e) {
+              e.preventDefault();
+              var fd = new FormData(showdownForm);
+              var opponent = (fd.get("opponent") || "").toString().trim().toUpperCase();
+              var title = (fd.get("title") || "").toString().trim();
+              var start = fd.get("start");
+              var end = fd.get("end");
+              var sdErrorEl = showdownForm.querySelector(".form-error");
+              sdErrorEl.style.display = "none";
+              if (!opponent || !start || !end) return;
+              var startIso = new Date(start).toISOString();
+              var endIso = new Date(end).toISOString();
+              if (endIso <= startIso) {
+                sdErrorEl.textContent = "End must be after start.";
+                sdErrorEl.style.display = "";
+                return;
+              }
+              createShowdown(teamTag, { opponent: opponent, title: title, start: startIso, end: endIso }, function (err7) {
+                if (err7) {
+                  sdErrorEl.textContent = err7;
+                  sdErrorEl.style.display = "";
+                  return;
+                }
+                showdownForm.reset();
+                showdownStart.value = toLocalInputValue();
+                showdownEnd.value = toLocalInputValue(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString());
+                refreshShowdowns();
+              });
+            });
+          }
+
           if (squadForm) {
             squadForm.addEventListener("submit", function (e) {
               e.preventDefault();
@@ -1453,6 +1582,9 @@
     removeTeamAdmin: removeTeamAdmin,
     loadNotificationSettings: loadNotificationSettings,
     setNotificationSetting: setNotificationSetting,
+    loadTeamShowdowns: loadTeamShowdowns,
+    createShowdown: createShowdown,
+    deleteShowdown: deleteShowdown,
     resolveTeamRole: resolveTeamRole,
     startVerification: startVerification,
     checkVerification: checkVerification,

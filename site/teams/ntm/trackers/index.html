@@ -631,6 +631,35 @@
   .form-error { color: var(--low); font-size: 12.5px; }
   .form-note { font-size: 12.5px; }
   .site-nav-link[data-account-nav] { white-space: nowrap; }
+
+  .showdown-list { display: flex; flex-direction: column; gap: 18px; }
+  .showdown-card { padding: 18px 20px; }
+  .showdown-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .showdown-vs-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 14px;
+    margin: 14px 0 16px;
+  }
+  .showdown-team { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14.5px; }
+  .showdown-team-right { justify-content: flex-end; text-align: right; }
+  .showdown-score {
+    font-family: "Rajdhani", "Manrope", sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    color: var(--velocity);
+    white-space: nowrap;
+  }
+  .showdown-score-sep { color: var(--muted); font-weight: 600; margin: 0 2px; }
+  .showdown-cat-label { color: var(--muted); }
+  .showdown-cat-val { font-weight: 600; }
+  .showdown-cat-lead { color: var(--good); font-weight: 800; }
+  @media (max-width: 560px) {
+    .showdown-vs-row { grid-template-columns: 1fr; text-align: center; }
+    .showdown-team-right { justify-content: center; text-align: center; }
+    .showdown-score { justify-self: center; }
+  }
 </style>
 </head>
 <body>
@@ -642,6 +671,8 @@
       <nav class="site-nav">
         <a class="site-nav-link active" href="../../../">Teams</a>
         <a class="site-nav-link" href="../../../leaderboards/">Leaderboards</a>
+        <a class="site-nav-link" href="../../../showdown/">Showdown</a>
+        <a class="site-nav-link" href="../../../events/">Events</a>
         <a class="site-nav-link" href="../../../account/" data-account-nav>Account</a>
       </nav>
     </header>
@@ -659,7 +690,7 @@
     <div class="hero" style="background:#8750a0;color:#ffffff">
       <div class="name">[NTM] Nitro  Type Masters</div>
       <div class="sub">
-        Captain: Vielle · 44 racers tracked · last synced 10/25/2026, 6:02:09 PM</div>
+        Captain: Vielle · 44 racers tracked · last synced 10/25/2026, 7:26:34 PM</div>
     </div>
     <h2 style="margin:28px 0 14px;">Tracker</h2>
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
@@ -727,9 +758,9 @@
             
             <a href="https://www.nitrotype.com/racer/liquid_force" target="_blank" rel="noopener" title="View on Nitro Type">Liqud_Force</a> <a class="stats-link" href="../racer/87526121/" title="Liqud_Force's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">2,311.26</span></td>
-          <td>16</td>
-          <td>97</td>
+          <td><span class="points">1,894.77</span></td>
+          <td>13</td>
+          <td>100</td>
           <td>121</td>
           <td><span class="pill good">96.83%</span></td>
         </tr></tbody>
@@ -774,9 +805,9 @@
             
             <a href="https://www.nitrotype.com/racer/liquid_force" target="_blank" rel="noopener" title="View on Nitro Type">Liqud_Force</a> <a class="stats-link" href="../racer/87526121/" title="Liqud_Force's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">2,884.57</span></td>
-          <td>20</td>
-          <td>97</td>
+          <td><span class="points">3,618.72</span></td>
+          <td>25</td>
+          <td>100</td>
           <td>121</td>
           <td><span class="pill good">96.83%</span></td>
         </tr></tbody>
@@ -821,9 +852,9 @@
             
             <a href="https://www.nitrotype.com/racer/liquid_force" target="_blank" rel="noopener" title="View on Nitro Type">Liqud_Force</a> <a class="stats-link" href="../racer/87526121/" title="Liqud_Force's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">2,884.57</span></td>
-          <td>20</td>
-          <td>97</td>
+          <td><span class="points">3,618.72</span></td>
+          <td>25</td>
+          <td>100</td>
           <td>121</td>
           <td><span class="pill good">96.83%</span></td>
         </tr></tbody>
@@ -868,9 +899,9 @@
             
             <a href="https://www.nitrotype.com/racer/liquid_force" target="_blank" rel="noopener" title="View on Nitro Type">Liqud_Force</a> <a class="stats-link" href="../racer/87526121/" title="Liqud_Force's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">2,884.57</span></td>
-          <td>20</td>
-          <td>97</td>
+          <td><span class="points">3,618.72</span></td>
+          <td>25</td>
+          <td>100</td>
           <td>121</td>
           <td><span class="pill good">96.83%</span></td>
         </tr></tbody>
@@ -878,6 +909,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:31:27.194Z</footer>
+<footer class="site">Generated 2026-10-25T19:50:21.960Z</footer>
 </body>
 </html>
