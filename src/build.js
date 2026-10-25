@@ -20,7 +20,6 @@ const {
   trackerBody,
   activityBody,
   eventsBody,
-  eventsViewerBody,
   tournamentsBody,
   showdownsBody,
   racerStatsBody,
@@ -38,7 +37,7 @@ const {
 const { loadLeaderboardData, loadTeamTracker, loadTeamRacerWindows } = require("./leaderboard-data");
 const { teamActivity } = require("./activity-data");
 const { queryNotifications } = require("./notifications");
-const { eventsForTeam, allEvents } = require("./events-data");
+const { eventsForTeam } = require("./events-data");
 const { tournamentsForTeam, bracketsForTournaments } = require("./tournaments-data");
 const { allShowdowns, teamShowdownRecord } = require("./showdown-data");
 const { accountIndexBody, accountConnectBody, signInBody } = require("./account-pages");
@@ -292,34 +291,6 @@ function buildShowdownPage(showdowns, teams) {
   );
 }
 
-// Site-wide events viewer, same depth as /leaderboards/ and /showdown/ -
-// every event across every tracked team in one place, so someone doesn't
-// have to check 130+ team pages one at a time to see what's happening.
-// Events are still scheduled from each team's own Team Admin page and
-// still show on that team's own Events page too - this is purely an
-// additional read-only aggregate view.
-function buildEventsPage(events) {
-  const dir = path.join(OUT_DIR, "events");
-  fs.mkdirSync(dir, { recursive: true });
-
-  const teamHref = (tag) => `../teams/${encodeURIComponent(tag.toLowerCase())}/`;
-  const body = eventsViewerBody(events, teamHref);
-
-  fs.writeFileSync(
-    path.join(dir, "index.html"),
-    pageShell({
-      title: "Events — TypeTrack",
-      body,
-      crumb: `<a href="../">← all teams</a>`,
-      teamsHref: "../",
-      leaderboardsHref: "../leaderboards/",
-      showdownHref: "../showdown/",
-      eventsHref: "./",
-      active: "events",
-    })
-  );
-}
-
 // Account pages (sign up/in + connect-your-Nitro-Type-account) sit at
 // site/account/ and site/account/connect/ - same "depth from site root"
 // convention as everywhere else in this file, so pageShell's teamsHref
@@ -533,7 +504,6 @@ async function main() {
   const leaderboardData = await loadLeaderboardData(pool);
   buildLeaderboardsPage(leaderboardData);
   buildShowdownPage(await allShowdowns(pool), teams);
-  buildEventsPage(await allEvents(pool));
   buildAccountPages();
 
   console.log(`Built ${teams.length} team page(s) into ${OUT_DIR}`);

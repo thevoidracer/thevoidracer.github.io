@@ -1320,64 +1320,6 @@ function showdownsBody(showdowns, teamHref) {
     </div>`;
 }
 
-// ---------------------------------------------------------------------
-// Events viewer: every event across every tracked team in one place (see
-// src/events-data.js's allEvents). A captain/admin still schedules events
-// from their own Team Admin page and they still show on that team's own
-// Events page - this is purely an additional, read-only, site-wide view,
-// the same "doesn't own the data, just surfaces it across every team"
-// relationship the Showdown page has to the showdowns a captain creates.
-// ---------------------------------------------------------------------
-function eventViewerRow(ev, teamHref) {
-  const bg = teamColor(ev.team_tag, ev.team_color);
-  return `
-    <tr>
-      <td>
-        <b>${escapeHtml(ev.title)}</b>
-        ${ev.description ? `<div style="color:var(--muted);font-size:12.5px;margin-top:3px;max-width:380px;white-space:normal;">${escapeHtml(ev.description)}</div>` : ""}
-      </td>
-      <td class="racer">
-        <span class="avatar" style="background:${bg};color:${textOnColor(bg)}">${escapeHtml((ev.team_tag || "?").slice(0, 1).toUpperCase())}</span>
-        <a href="${teamHref(ev.team_tag)}">[${escapeHtml(ev.team_tag)}]</a> ${escapeHtml(ev.team_name || "")}${teamEmojiSuffix(ev.team_emoji)}
-      </td>
-      <td>${formatEventDate(ev.start)}</td>
-      <td>${formatEventDate(ev.end)}</td>
-    </tr>`;
-}
-
-function eventViewerSection(title, events, teamHref, emptyNote) {
-  if (!events.length) {
-    return `<h3 style="margin:22px 0 10px;font-size:15px;">${escapeHtml(title)}</h3><div class="empty" style="padding:20px 24px;">${escapeHtml(emptyNote)}</div>`;
-  }
-  return `
-    <h3 style="margin:22px 0 10px;font-size:15px;">${escapeHtml(title)} <span style="color:var(--muted);font-weight:600;">(${events.length})</span></h3>
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>Event</th><th>Team</th><th>Starts</th><th>Ends</th></tr></thead>
-        <tbody>${events.map((ev) => eventViewerRow(ev, teamHref)).join("")}</tbody>
-      </table>
-    </div>`;
-}
-
-function eventsViewerBody(events, teamHref) {
-  if (!events.length) {
-    return `
-      <h2 style="margin:28px 0 14px;">Events</h2>
-      <div class="empty" style="padding:40px 24px;">
-        No events scheduled anywhere yet — a team's captain or admin can add one from their Team Admin page.
-      </div>`;
-  }
-  const live = events.filter((e) => e.status === "active");
-  const upcoming = events.filter((e) => e.status === "pending");
-  const past = events.filter((e) => e.status === "ended").slice(0, 30);
-  return `
-    <h2 style="margin:28px 0 14px;">Events</h2>
-    <p class="meta-row">Every scheduled event across every tracked team — set up from each team's own Team Admin page.</p>
-    ${eventViewerSection("Happening now", live, teamHref, "Nothing live right now.")}
-    ${eventViewerSection("Upcoming", upcoming, teamHref, "Nothing scheduled yet.")}
-    ${eventViewerSection("Recently ended", past, teamHref, "No past events yet.")}`;
-}
-
 const SCORING_FIELD_LABELS = {
   points: "Points",
   races: "Races",
@@ -2450,7 +2392,7 @@ const BASE_CSS = `
 // pages need a relative path back up to each top-level section (depth
 // varies per page), while server.js's Express routes just use fixed
 // absolute paths. `active` highlights whichever one the current page is.
-function siteHeader({ teamsHref = "./", leaderboardsHref = "leaderboards/", showdownHref = "showdown/", eventsHref = "events/", accountHref = "account/", active = "" } = {}) {
+function siteHeader({ teamsHref = "./", leaderboardsHref = "leaderboards/", showdownHref = "showdown/", accountHref = "account/", active = "" } = {}) {
   return `
     <header class="site">
       <div class="mark">T</div>
@@ -2459,22 +2401,20 @@ function siteHeader({ teamsHref = "./", leaderboardsHref = "leaderboards/", show
         <a class="site-nav-link${active === "teams" ? " active" : ""}" href="${teamsHref}">Teams</a>
         <a class="site-nav-link${active === "leaderboards" ? " active" : ""}" href="${leaderboardsHref}">Leaderboards</a>
         <a class="site-nav-link${active === "showdown" ? " active" : ""}" href="${showdownHref}">Showdown</a>
-        <a class="site-nav-link${active === "events" ? " active" : ""}" href="${eventsHref}">Events</a>
         <a class="site-nav-link${active === "account" ? " active" : ""}" href="${accountHref}" data-account-nav>Account</a>
       </nav>
     </header>`;
 }
 
 // build.js's teamsHref is always "however many ../ segments get back to
-// the site root", so showdownHref/eventsHref/accountHref and the shared
-// client script's URL can all be derived from it there without a caller
-// having to pass them in. server.js's routes use fixed absolute paths
-// instead ("/teams", not a relative depth), so it passes
-// showdownHref/eventsHref/accountHref/assetsHref explicitly rather than
-// relying on this derivation.
-function pageShell({ title, body, crumb, teamsHref, leaderboardsHref, showdownHref, eventsHref, accountHref, assetsHref, active }) {
+// the site root", so showdownHref/accountHref and the shared client
+// script's URL can all be derived from it there without a caller having
+// to pass them in. server.js's routes use fixed absolute paths instead
+// ("/teams", not a relative depth), so it passes
+// showdownHref/accountHref/assetsHref explicitly rather than relying on
+// this derivation.
+function pageShell({ title, body, crumb, teamsHref, leaderboardsHref, showdownHref, accountHref, assetsHref, active }) {
   if (showdownHref == null) showdownHref = `${teamsHref}showdown/`;
-  if (eventsHref == null) eventsHref = `${teamsHref}events/`;
   if (accountHref == null) accountHref = `${teamsHref}account/`;
   if (assetsHref == null) assetsHref = `${teamsHref}assets/app.js`;
   return `<!doctype html>
@@ -2490,7 +2430,7 @@ function pageShell({ title, body, crumb, teamsHref, leaderboardsHref, showdownHr
 </head>
 <body>
 <script src="${assetsHref}"></script>
-${siteHeader({ teamsHref, leaderboardsHref, showdownHref, eventsHref, accountHref, active })}
+${siteHeader({ teamsHref, leaderboardsHref, showdownHref, accountHref, active })}
 <main>
 ${crumb ? `<div class="crumb">${crumb}</div>` : ""}
 ${body}
@@ -2533,7 +2473,6 @@ module.exports = {
   trackerBody,
   activityBody,
   eventsBody,
-  eventsViewerBody,
   tournamentsBody,
   showdownsBody,
   racerStatsBody,
