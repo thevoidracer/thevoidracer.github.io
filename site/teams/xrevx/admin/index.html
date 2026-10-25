@@ -668,13 +668,18 @@
         <p class="meta-row" data-admin-role-note></p>
         <div class="seg" style="margin-bottom:16px;">
           <button type="button" class="seg-btn active" data-admin-tab-btn="officers">Officers</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="admins">Team Admins</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="squads">Squads</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="events">Events</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="tournaments">Tournaments</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="settings">Settings</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="notifications">Notifications</button>
         </div>
 
         <div data-admin-tabpanel="officers">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A badge shown on the roster — doesn't grant any extra access on this page. For that, see Team Admins.
+          </div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Officer</th><th></th></tr></thead>
@@ -684,6 +689,22 @@
           <form data-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
             <select class="form-input" name="nt_user_id" style="flex:1;"><option value="58429795">--Hippo--</option><option value="63663377">--Kim--</option><option value="44729611">30Trekho45</option><option value="90982774">ActivePlutonium</option><option value="90594177">aidanashleigh</option><option value="46249502">Apollo Blaze</option><option value="70280398">BountifulSapphireKoala</option><option value="66773408">burnt potato</option><option value="88723256">C14rzz</option><option value="64094616">Collin</option><option value="34585438">DaneJ</option><option value="90267343">driftermifter</option><option value="56591375">Elizabeth_925</option><option value="64501939">F1 mclaren</option><option value="91351928">gkjngiortb</option><option value="69733762">GreatOR</option><option value="90567400">HazenM</option><option value="66427428">Hounders</option><option value="84673994">jacksonaceandresaz</option><option value="91622064">JustMaroonCatfish</option><option value="48833155">Karnath61</option><option value="91679502">lets go</option><option value="69035631">LightGrayOrangutan</option><option value="91187706">Luisito23</option><option value="32360385">MASHTHISPOTATO2</option><option value="76778592">MightyRookiePlayzz</option><option value="89828455">N1troTyp3B0T</option><option value="86046702">NFL MASTER</option><option value="90688455">petra the donut mom</option><option value="80277240">PurpleTurquoiseBoar</option><option value="21417873">Revented 28K</option><option value="55442052">SlimyBeigeBuzzard</option><option value="61295502">speed_blitz</option><option value="86928450">starlingcarat</option><option value="90792472">SupportiveTurquoiseGibbon</option><option value="81874943">The True GOAT</option><option value="59613711">Trading</option><option value="90455115">typestuff</option></select>
             <button type="submit" class="btn-primary">Make officer</button>
+          </form>
+        </div>
+
+        <div data-admin-tabpanel="admins" style="display:none;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A Team Admin can do everything you can on this page — Events, Squads, Tournaments, Officers, Settings, Notifications — except add or remove other Team Admins. Only you, the real captain, can do that.
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Admin</th><th></th></tr></thead>
+              <tbody data-admin-admin-rows><tr><td colspan="2" style="color:var(--muted);">No team admins appointed yet.</td></tr></tbody>
+            </table>
+          </div>
+          <form data-admin-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
+            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="58429795">--Hippo--</option><option value="63663377">--Kim--</option><option value="44729611">30Trekho45</option><option value="90982774">ActivePlutonium</option><option value="90594177">aidanashleigh</option><option value="46249502">Apollo Blaze</option><option value="70280398">BountifulSapphireKoala</option><option value="66773408">burnt potato</option><option value="88723256">C14rzz</option><option value="64094616">Collin</option><option value="34585438">DaneJ</option><option value="90267343">driftermifter</option><option value="56591375">Elizabeth_925</option><option value="64501939">F1 mclaren</option><option value="91351928">gkjngiortb</option><option value="69733762">GreatOR</option><option value="90567400">HazenM</option><option value="66427428">Hounders</option><option value="84673994">jacksonaceandresaz</option><option value="91622064">JustMaroonCatfish</option><option value="48833155">Karnath61</option><option value="91679502">lets go</option><option value="69035631">LightGrayOrangutan</option><option value="91187706">Luisito23</option><option value="32360385">MASHTHISPOTATO2</option><option value="76778592">MightyRookiePlayzz</option><option value="89828455">N1troTyp3B0T</option><option value="86046702">NFL MASTER</option><option value="90688455">petra the donut mom</option><option value="80277240">PurpleTurquoiseBoar</option><option value="21417873">Revented 28K</option><option value="55442052">SlimyBeigeBuzzard</option><option value="61295502">speed_blitz</option><option value="86928450">starlingcarat</option><option value="90792472">SupportiveTurquoiseGibbon</option><option value="81874943">The True GOAT</option><option value="59613711">Trading</option><option value="90455115">typestuff</option></select>
+            <button type="submit" class="btn-primary">Make admin</button>
           </form>
         </div>
 
@@ -971,11 +992,18 @@
           <button type="button" class="btn-primary" data-admin-settings-save style="display:none;">Save settings</button>
         </div>
 
+        <div data-admin-tabpanel="notifications" style="display:none;max-width:480px;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            Turn off any of these auto-detected kinds for [XREVX] — this only affects new notifications going forward, existing ones in the feed stay as they are.
+          </div>
+          <div data-admin-notification-rows style="display:flex;flex-direction:column;gap:12px;">Loading…</div>
+        </div>
+
         <div data-admin-error class="form-error" style="display:none;margin-top:10px;"></div>
       </div>
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:19:56.685Z</footer>
+<footer class="site">Generated 2026-10-25T18:31:41.175Z</footer>
 </body>
 </html>

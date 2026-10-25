@@ -668,13 +668,18 @@
         <p class="meta-row" data-admin-role-note></p>
         <div class="seg" style="margin-bottom:16px;">
           <button type="button" class="seg-btn active" data-admin-tab-btn="officers">Officers</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="admins">Team Admins</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="squads">Squads</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="events">Events</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="tournaments">Tournaments</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="settings">Settings</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="notifications">Notifications</button>
         </div>
 
         <div data-admin-tabpanel="officers">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A badge shown on the roster — doesn't grant any extra access on this page. For that, see Team Admins.
+          </div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Officer</th><th></th></tr></thead>
@@ -684,6 +689,22 @@
           <form data-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
             <select class="form-input" name="nt_user_id" style="flex:1;"><option value="70326662">_Kensei</option><option value="88373489">- KK TH3 PR0</option><option value="89908386">-belive in f a i t h</option><option value="73958634">-Galaxy- pls 1mil</option><option value="26772762">-nemo-</option><option value="81489188">, q ,1</option><option value="90780099">10674271</option><option value="73920965">A U R A</option><option value="81442237">Aband_KiDx2</option><option value="90594755">Alura   </option><option value="88854331">AxSolar</option><option value="35452992">back95</option><option value="22727218">bobthebldr1313</option><option value="87359024">Chase_Pls_nt_money</option><option value="90449407">Christinaaaa</option><option value="85915785">Cricket Rules</option><option value="87479443">Deltis_</option><option value="60747098">DR4G0N_YT</option><option value="85169243">Fortune</option><option value="32373470">freshtoes</option><option value="4214090">gabbin1500</option><option value="89369224">Hyoma_Chigiri</option><option value="66213673">ice coffee</option><option value="90324257">Incendius</option><option value="70904187">IZZYTHEDUDE</option><option value="82749136">JoblessAiko</option><option value="62268770">JSN_11</option><option value="52584387">KavinLegend</option><option value="20798937">LandoOnaBoat</option><option value="56642646">mcu94rw942</option><option value="81920609">mmm_not_ramen</option><option value="82661340">Mr King</option><option value="53059365">Neutrino_18 on yt</option><option value="84480452">NightRiderXW</option><option value="90410643">Nights D Icarus</option><option value="61497104">Orb_362</option><option value="83549531">Rentenna</option><option value="90417029">sara10_alt</option><option value="91017783">The Phantom Knight</option><option value="81743123">TheobaldTheBirdr2 8k</option><option value="62928027">Toasty</option><option value="53093902">Trueno</option><option value="56512005">TunnelVision</option><option value="32406891">Unnamed</option><option value="83573943">V4Flower</option><option value="85943083">Vision</option><option value="70552274">void - almost 25k</option><option value="80649191">WEALTHY_AHHH_BOI</option><option value="89463120">X-Wave For Life</option><option value="90295284">xc0untxb4c0nx</option><option value="52975646">xProton_</option><option value="68579103">Xx -B r o- xX</option><option value="58053948">YN MON</option></select>
             <button type="submit" class="btn-primary">Make officer</button>
+          </form>
+        </div>
+
+        <div data-admin-tabpanel="admins" style="display:none;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A Team Admin can do everything you can on this page — Events, Squads, Tournaments, Officers, Settings, Notifications — except add or remove other Team Admins. Only you, the real captain, can do that.
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Admin</th><th></th></tr></thead>
+              <tbody data-admin-admin-rows><tr><td colspan="2" style="color:var(--muted);">No team admins appointed yet.</td></tr></tbody>
+            </table>
+          </div>
+          <form data-admin-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
+            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="70326662">_Kensei</option><option value="88373489">- KK TH3 PR0</option><option value="89908386">-belive in f a i t h</option><option value="73958634">-Galaxy- pls 1mil</option><option value="26772762">-nemo-</option><option value="81489188">, q ,1</option><option value="90780099">10674271</option><option value="73920965">A U R A</option><option value="81442237">Aband_KiDx2</option><option value="90594755">Alura   </option><option value="88854331">AxSolar</option><option value="35452992">back95</option><option value="22727218">bobthebldr1313</option><option value="87359024">Chase_Pls_nt_money</option><option value="90449407">Christinaaaa</option><option value="85915785">Cricket Rules</option><option value="87479443">Deltis_</option><option value="60747098">DR4G0N_YT</option><option value="85169243">Fortune</option><option value="32373470">freshtoes</option><option value="4214090">gabbin1500</option><option value="89369224">Hyoma_Chigiri</option><option value="66213673">ice coffee</option><option value="90324257">Incendius</option><option value="70904187">IZZYTHEDUDE</option><option value="82749136">JoblessAiko</option><option value="62268770">JSN_11</option><option value="52584387">KavinLegend</option><option value="20798937">LandoOnaBoat</option><option value="56642646">mcu94rw942</option><option value="81920609">mmm_not_ramen</option><option value="82661340">Mr King</option><option value="53059365">Neutrino_18 on yt</option><option value="84480452">NightRiderXW</option><option value="90410643">Nights D Icarus</option><option value="61497104">Orb_362</option><option value="83549531">Rentenna</option><option value="90417029">sara10_alt</option><option value="91017783">The Phantom Knight</option><option value="81743123">TheobaldTheBirdr2 8k</option><option value="62928027">Toasty</option><option value="53093902">Trueno</option><option value="56512005">TunnelVision</option><option value="32406891">Unnamed</option><option value="83573943">V4Flower</option><option value="85943083">Vision</option><option value="70552274">void - almost 25k</option><option value="80649191">WEALTHY_AHHH_BOI</option><option value="89463120">X-Wave For Life</option><option value="90295284">xc0untxb4c0nx</option><option value="52975646">xProton_</option><option value="68579103">Xx -B r o- xX</option><option value="58053948">YN MON</option></select>
+            <button type="submit" class="btn-primary">Make admin</button>
           </form>
         </div>
 
@@ -1061,11 +1082,18 @@
           <button type="button" class="btn-primary" data-admin-settings-save style="display:none;">Save settings</button>
         </div>
 
+        <div data-admin-tabpanel="notifications" style="display:none;max-width:480px;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            Turn off any of these auto-detected kinds for [XW] — this only affects new notifications going forward, existing ones in the feed stay as they are.
+          </div>
+          <div data-admin-notification-rows style="display:flex;flex-direction:column;gap:12px;">Loading…</div>
+        </div>
+
         <div data-admin-error class="form-error" style="display:none;margin-top:10px;"></div>
       </div>
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:19:12.556Z</footer>
+<footer class="site">Generated 2026-10-25T18:31:14.551Z</footer>
 </body>
 </html>

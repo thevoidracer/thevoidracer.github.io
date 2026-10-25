@@ -659,7 +659,7 @@
     <div class="hero" style="background:#ee1f25;color:#ffffff">
       <div class="name">[DRPT] ÐrivenRapidTypists</div>
       <div class="sub">
-        Captain: slowcolt · 36 racers tracked · last synced 10/25/2026, 5:32:13 PM</div>
+        Captain: slowcolt · 36 racers tracked · last synced 10/25/2026, 6:27:49 PM</div>
     </div>
     <div data-admin-panel data-team-tag="DRPT" data-captain-nt-user-id="43324377">
       <h2 style="margin:28px 0 14px;">Team Admin</h2>
@@ -668,13 +668,18 @@
         <p class="meta-row" data-admin-role-note></p>
         <div class="seg" style="margin-bottom:16px;">
           <button type="button" class="seg-btn active" data-admin-tab-btn="officers">Officers</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="admins">Team Admins</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="squads">Squads</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="events">Events</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="tournaments">Tournaments</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="settings">Settings</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="notifications">Notifications</button>
         </div>
 
         <div data-admin-tabpanel="officers">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A badge shown on the roster — doesn't grant any extra access on this page. For that, see Team Admins.
+          </div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Officer</th><th></th></tr></thead>
@@ -684,6 +689,22 @@
           <form data-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
             <select class="form-input" name="nt_user_id" style="flex:1;"><option value="24746770">_Vurxe</option><option value="7008155">--RR--</option><option value="13307975">-eagle-</option><option value="51146057">04buick</option><option value="43213653">Blopist</option><option value="11945077">Cactus</option><option value="26604532">CalcPanda123</option><option value="12260588">CCZO6</option><option value="45979068">chelsie</option><option value="21079580">Cloudy Skies</option><option value="42870193">cool goat</option><option value="55217887">damian1332</option><option value="43397974">Efran the Man</option><option value="25489526">Efranix</option><option value="35812385">Efrantastic</option><option value="37585263">EthanB43</option><option value="37156856">guineapig25</option><option value="5065799">ItssSkye</option><option value="88299581">keyboard kat</option><option value="25647282">Lane-a</option><option value="47068026">lil baby</option><option value="36095439">Lotus007</option><option value="85333782">MARCOisAtaikonaut</option><option value="65030009">miaxues</option><option value="45378998">mk5sai</option><option value="38715140">Nolie65 7K</option><option value="20766205">OG Efranix</option><option value="6463565">Parallax</option><option value="58331202">Pro Typist</option><option value="43946780">RallyElite</option><option value="43324377">slowcolt</option><option value="46973016">Someone</option><option value="88233773">ThisIsJohn</option><option value="21901555">type to earth</option><option value="30343340">Vievww</option><option value="5789809">XClutch2</option></select>
             <button type="submit" class="btn-primary">Make officer</button>
+          </form>
+        </div>
+
+        <div data-admin-tabpanel="admins" style="display:none;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A Team Admin can do everything you can on this page — Events, Squads, Tournaments, Officers, Settings, Notifications — except add or remove other Team Admins. Only you, the real captain, can do that.
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Admin</th><th></th></tr></thead>
+              <tbody data-admin-admin-rows><tr><td colspan="2" style="color:var(--muted);">No team admins appointed yet.</td></tr></tbody>
+            </table>
+          </div>
+          <form data-admin-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
+            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="24746770">_Vurxe</option><option value="7008155">--RR--</option><option value="13307975">-eagle-</option><option value="51146057">04buick</option><option value="43213653">Blopist</option><option value="11945077">Cactus</option><option value="26604532">CalcPanda123</option><option value="12260588">CCZO6</option><option value="45979068">chelsie</option><option value="21079580">Cloudy Skies</option><option value="42870193">cool goat</option><option value="55217887">damian1332</option><option value="43397974">Efran the Man</option><option value="25489526">Efranix</option><option value="35812385">Efrantastic</option><option value="37585263">EthanB43</option><option value="37156856">guineapig25</option><option value="5065799">ItssSkye</option><option value="88299581">keyboard kat</option><option value="25647282">Lane-a</option><option value="47068026">lil baby</option><option value="36095439">Lotus007</option><option value="85333782">MARCOisAtaikonaut</option><option value="65030009">miaxues</option><option value="45378998">mk5sai</option><option value="38715140">Nolie65 7K</option><option value="20766205">OG Efranix</option><option value="6463565">Parallax</option><option value="58331202">Pro Typist</option><option value="43946780">RallyElite</option><option value="43324377">slowcolt</option><option value="46973016">Someone</option><option value="88233773">ThisIsJohn</option><option value="21901555">type to earth</option><option value="30343340">Vievww</option><option value="5789809">XClutch2</option></select>
+            <button type="submit" class="btn-primary">Make admin</button>
           </form>
         </div>
 
@@ -959,11 +980,18 @@
           <button type="button" class="btn-primary" data-admin-settings-save style="display:none;">Save settings</button>
         </div>
 
+        <div data-admin-tabpanel="notifications" style="display:none;max-width:480px;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            Turn off any of these auto-detected kinds for [DRPT] — this only affects new notifications going forward, existing ones in the feed stay as they are.
+          </div>
+          <div data-admin-notification-rows style="display:flex;flex-direction:column;gap:12px;">Loading…</div>
+        </div>
+
         <div data-admin-error class="form-error" style="display:none;margin-top:10px;"></div>
       </div>
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:20:18.202Z</footer>
+<footer class="site">Generated 2026-10-25T18:31:53.893Z</footer>
 </body>
 </html>

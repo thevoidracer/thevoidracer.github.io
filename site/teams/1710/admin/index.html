@@ -668,13 +668,18 @@
         <p class="meta-row" data-admin-role-note></p>
         <div class="seg" style="margin-bottom:16px;">
           <button type="button" class="seg-btn active" data-admin-tab-btn="officers">Officers</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="admins">Team Admins</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="squads">Squads</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="events">Events</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="tournaments">Tournaments</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="settings">Settings</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="notifications">Notifications</button>
         </div>
 
         <div data-admin-tabpanel="officers">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A badge shown on the roster — doesn't grant any extra access on this page. For that, see Team Admins.
+          </div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Officer</th><th></th></tr></thead>
@@ -684,6 +689,22 @@
           <form data-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
             <select class="form-input" name="nt_user_id" style="flex:1;"><option value="37322319">__milky</option><option value="61643245">_soda_</option><option value="88984190">9IO-286-O993</option><option value="64332766">aksel245</option><option value="61372936">AmirPioneer</option><option value="80107546">AsherAero 7k</option><option value="89061481">BeeBee</option><option value="28002264">BellaStyx</option><option value="85903206">BIGPAPI03</option><option value="69618585">Casper</option><option value="66765451">champion</option><option value="44621841">chedder</option><option value="90143753">Dr league</option><option value="90172787">dragon of chaos</option><option value="91217060">Dustu04</option><option value="65243293">Eclipx_0</option><option value="90774734">erenjaeger</option><option value="53507918">Hobbes119</option><option value="89610762">hobbestheracer</option><option value="53374601">Iebron james</option><option value="90433602">ILikeCheeseAlt</option><option value="70291927">jack nelson 10k</option><option value="68681063">JOB JOB JOB SAHUR</option><option value="64814957">L3GENDARY RACER</option><option value="79591207">legendary</option><option value="64581298">LittleTile9311</option><option value="82517537">LRHC_CoffeeCooker</option><option value="85575942">lrhc_v2</option><option value="79972854">mickchickenfries</option><option value="90554538">MIKE WAZOWSKY</option><option value="83732148">new day</option><option value="41013723">nolobo21</option><option value="83255813">OriginalAquaJellyfish</option><option value="85737204">ParrotRex</option><option value="63297923">Rektway</option><option value="65463399">Semicolon X</option><option value="82534856">Smitherine For Life</option><option value="70879726">Sparkythehappygiraf</option><option value="90867122">SpunkyTealCobra</option><option value="81395366">Sub2OkYoshi</option><option value="82764179">THE ULTIMATE TYPER</option><option value="45327256">the wes 10</option><option value="61560038">Toze2727</option><option value="62928782">Tralalero</option><option value="41431836">Visionss</option><option value="60005809">YayJay</option><option value="54715842">yoruuu</option><option value="43522253">zaddylemmewin</option><option value="82649095">Zerstoren</option></select>
             <button type="submit" class="btn-primary">Make officer</button>
+          </form>
+        </div>
+
+        <div data-admin-tabpanel="admins" style="display:none;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A Team Admin can do everything you can on this page — Events, Squads, Tournaments, Officers, Settings, Notifications — except add or remove other Team Admins. Only you, the real captain, can do that.
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Admin</th><th></th></tr></thead>
+              <tbody data-admin-admin-rows><tr><td colspan="2" style="color:var(--muted);">No team admins appointed yet.</td></tr></tbody>
+            </table>
+          </div>
+          <form data-admin-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
+            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="37322319">__milky</option><option value="61643245">_soda_</option><option value="88984190">9IO-286-O993</option><option value="64332766">aksel245</option><option value="61372936">AmirPioneer</option><option value="80107546">AsherAero 7k</option><option value="89061481">BeeBee</option><option value="28002264">BellaStyx</option><option value="85903206">BIGPAPI03</option><option value="69618585">Casper</option><option value="66765451">champion</option><option value="44621841">chedder</option><option value="90143753">Dr league</option><option value="90172787">dragon of chaos</option><option value="91217060">Dustu04</option><option value="65243293">Eclipx_0</option><option value="90774734">erenjaeger</option><option value="53507918">Hobbes119</option><option value="89610762">hobbestheracer</option><option value="53374601">Iebron james</option><option value="90433602">ILikeCheeseAlt</option><option value="70291927">jack nelson 10k</option><option value="68681063">JOB JOB JOB SAHUR</option><option value="64814957">L3GENDARY RACER</option><option value="79591207">legendary</option><option value="64581298">LittleTile9311</option><option value="82517537">LRHC_CoffeeCooker</option><option value="85575942">lrhc_v2</option><option value="79972854">mickchickenfries</option><option value="90554538">MIKE WAZOWSKY</option><option value="83732148">new day</option><option value="41013723">nolobo21</option><option value="83255813">OriginalAquaJellyfish</option><option value="85737204">ParrotRex</option><option value="63297923">Rektway</option><option value="65463399">Semicolon X</option><option value="82534856">Smitherine For Life</option><option value="70879726">Sparkythehappygiraf</option><option value="90867122">SpunkyTealCobra</option><option value="81395366">Sub2OkYoshi</option><option value="82764179">THE ULTIMATE TYPER</option><option value="45327256">the wes 10</option><option value="61560038">Toze2727</option><option value="62928782">Tralalero</option><option value="41431836">Visionss</option><option value="60005809">YayJay</option><option value="54715842">yoruuu</option><option value="43522253">zaddylemmewin</option><option value="82649095">Zerstoren</option></select>
+            <button type="submit" class="btn-primary">Make admin</button>
           </form>
         </div>
 
@@ -1037,11 +1058,18 @@
           <button type="button" class="btn-primary" data-admin-settings-save style="display:none;">Save settings</button>
         </div>
 
+        <div data-admin-tabpanel="notifications" style="display:none;max-width:480px;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            Turn off any of these auto-detected kinds for [1710] — this only affects new notifications going forward, existing ones in the feed stay as they are.
+          </div>
+          <div data-admin-notification-rows style="display:flex;flex-direction:column;gap:12px;">Loading…</div>
+        </div>
+
         <div data-admin-error class="form-error" style="display:none;margin-top:10px;"></div>
       </div>
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:19:42.456Z</footer>
+<footer class="site">Generated 2026-10-25T18:31:32.637Z</footer>
 </body>
 </html>

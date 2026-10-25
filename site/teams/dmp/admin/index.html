@@ -659,7 +659,7 @@
     <div class="hero" style="background:#5b52a3;color:#ffffff">
       <div class="name">[DMP] Divine Empire</div>
       <div class="sub">
-        Captain: princewarrior · 41 racers tracked · last synced 10/25/2026, 5:32:01 PM</div>
+        Captain: princewarrior · 41 racers tracked · last synced 10/25/2026, 6:27:26 PM</div>
     </div>
     <div data-admin-panel data-team-tag="DMP" data-captain-nt-user-id="64551410">
       <h2 style="margin:28px 0 14px;">Team Admin</h2>
@@ -668,13 +668,18 @@
         <p class="meta-row" data-admin-role-note></p>
         <div class="seg" style="margin-bottom:16px;">
           <button type="button" class="seg-btn active" data-admin-tab-btn="officers">Officers</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="admins">Team Admins</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="squads">Squads</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="events">Events</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="tournaments">Tournaments</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="settings">Settings</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="notifications">Notifications</button>
         </div>
 
         <div data-admin-tabpanel="officers">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A badge shown on the roster — doesn't grant any extra access on this page. For that, see Team Admins.
+          </div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Officer</th><th></th></tr></thead>
@@ -684,6 +689,22 @@
           <form data-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
             <select class="form-input" name="nt_user_id" style="flex:1;"><option value="46311589">Agent Infinity</option><option value="42447172">Jaffeworld Crong</option><option value="51843503">_MVP_TankCommander</option><option value="60122135">- vic -</option><option value="64191069">1c3yCold</option><option value="89813637">adairm11</option><option value="85846667">architect</option><option value="54638596">Cal1zz</option><option value="90240559">Cholaboonefan123</option><option value="89021977">d8rd2nqm2lfi</option><option value="89103027">drewcallaci</option><option value="86754907">El Soul Shaker</option><option value="81173932">Elias 15</option><option value="89703635">Elliptical</option><option value="46769700">G         30k                                     </option><option value="86751043">girlzluh</option><option value="77327938">idkwhyimhere</option><option value="84501033">INPHIC</option><option value="58945083">King Keyboard</option><option value="82687569">magnet fisher</option><option value="62113697">Mint and Sky</option><option value="89539287">nvuaervu</option><option value="55460219">Please give 1mil</option><option value="61284537">popnlock</option><option value="81443915">prince-_-warriors</option><option value="64551410">princewarrior</option><option value="64438046">PW x Odai</option><option value="85433822">pxseidon</option><option value="90220279">pxseidon</option><option value="87725459">Queen Mothra Lucis</option><option value="80820010">romandominator15</option><option value="81659531">runner</option><option value="79917510">SE_Shredder</option><option value="32121169">Souni812</option><option value="86652134">STARLIGHT_XO_COSMO</option><option value="90124421">SubtleTurquoiseSalmon</option><option value="84010033">The legend</option><option value="51028563">TonTonXD</option><option value="84339528">VDN MADE ME</option><option value="62964531">xetezz</option><option value="62940379">zephster</option></select>
             <button type="submit" class="btn-primary">Make officer</button>
+          </form>
+        </div>
+
+        <div data-admin-tabpanel="admins" style="display:none;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A Team Admin can do everything you can on this page — Events, Squads, Tournaments, Officers, Settings, Notifications — except add or remove other Team Admins. Only you, the real captain, can do that.
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Admin</th><th></th></tr></thead>
+              <tbody data-admin-admin-rows><tr><td colspan="2" style="color:var(--muted);">No team admins appointed yet.</td></tr></tbody>
+            </table>
+          </div>
+          <form data-admin-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
+            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="46311589">Agent Infinity</option><option value="42447172">Jaffeworld Crong</option><option value="51843503">_MVP_TankCommander</option><option value="60122135">- vic -</option><option value="64191069">1c3yCold</option><option value="89813637">adairm11</option><option value="85846667">architect</option><option value="54638596">Cal1zz</option><option value="90240559">Cholaboonefan123</option><option value="89021977">d8rd2nqm2lfi</option><option value="89103027">drewcallaci</option><option value="86754907">El Soul Shaker</option><option value="81173932">Elias 15</option><option value="89703635">Elliptical</option><option value="46769700">G         30k                                     </option><option value="86751043">girlzluh</option><option value="77327938">idkwhyimhere</option><option value="84501033">INPHIC</option><option value="58945083">King Keyboard</option><option value="82687569">magnet fisher</option><option value="62113697">Mint and Sky</option><option value="89539287">nvuaervu</option><option value="55460219">Please give 1mil</option><option value="61284537">popnlock</option><option value="81443915">prince-_-warriors</option><option value="64551410">princewarrior</option><option value="64438046">PW x Odai</option><option value="85433822">pxseidon</option><option value="90220279">pxseidon</option><option value="87725459">Queen Mothra Lucis</option><option value="80820010">romandominator15</option><option value="81659531">runner</option><option value="79917510">SE_Shredder</option><option value="32121169">Souni812</option><option value="86652134">STARLIGHT_XO_COSMO</option><option value="90124421">SubtleTurquoiseSalmon</option><option value="84010033">The legend</option><option value="51028563">TonTonXD</option><option value="84339528">VDN MADE ME</option><option value="62964531">xetezz</option><option value="62940379">zephster</option></select>
+            <button type="submit" class="btn-primary">Make admin</button>
           </form>
         </div>
 
@@ -989,11 +1010,18 @@
           <button type="button" class="btn-primary" data-admin-settings-save style="display:none;">Save settings</button>
         </div>
 
+        <div data-admin-tabpanel="notifications" style="display:none;max-width:480px;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            Turn off any of these auto-detected kinds for [DMP] — this only affects new notifications going forward, existing ones in the feed stay as they are.
+          </div>
+          <div data-admin-notification-rows style="display:flex;flex-direction:column;gap:12px;">Loading…</div>
+        </div>
+
         <div data-admin-error class="form-error" style="display:none;margin-top:10px;"></div>
       </div>
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:20:17.448Z</footer>
+<footer class="site">Generated 2026-10-25T18:31:53.448Z</footer>
 </body>
 </html>

@@ -668,13 +668,18 @@
         <p class="meta-row" data-admin-role-note></p>
         <div class="seg" style="margin-bottom:16px;">
           <button type="button" class="seg-btn active" data-admin-tab-btn="officers">Officers</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="admins">Team Admins</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="squads">Squads</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="events">Events</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="tournaments">Tournaments</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="settings">Settings</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="notifications">Notifications</button>
         </div>
 
         <div data-admin-tabpanel="officers">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A badge shown on the roster — doesn't grant any extra access on this page. For that, see Team Admins.
+          </div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Officer</th><th></th></tr></thead>
@@ -684,6 +689,22 @@
           <form data-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
             <select class="form-input" name="nt_user_id" style="flex:1;"><option value="57159679">__shi2__</option><option value="8016879">-Rheuh-</option><option value="6729612">23trusson</option><option value="32696946">Air_Neo</option><option value="64915702">Andrewl</option><option value="79517942">CaringGreenFerret</option><option value="89986013">cinner850</option><option value="70255087">Crossed</option><option value="86438927">Detached</option><option value="14442374">dimaislazy</option><option value="90177246">gfsdfgsdfgsdfgsfgs</option><option value="86824553">HarmonicLimeMarlin</option><option value="53722942">Howard</option><option value="63736077">huntertyping</option><option value="12578407">its henry</option><option value="37964994">lenz god</option><option value="66673289">Littletraveso</option><option value="90159594">made4aviation</option><option value="89065581">monkeykid6776_123</option><option value="83883394">PenguinKnight5</option><option value="86923429">placement peter</option><option value="87436494">rawr23001</option><option value="83598459">sarabara</option><option value="4765475">teaquangyin</option><option value="49885150">Trevor_N</option><option value="45528906">Vyrens</option></select>
             <button type="submit" class="btn-primary">Make officer</button>
+          </form>
+        </div>
+
+        <div data-admin-tabpanel="admins" style="display:none;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A Team Admin can do everything you can on this page — Events, Squads, Tournaments, Officers, Settings, Notifications — except add or remove other Team Admins. Only you, the real captain, can do that.
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Admin</th><th></th></tr></thead>
+              <tbody data-admin-admin-rows><tr><td colspan="2" style="color:var(--muted);">No team admins appointed yet.</td></tr></tbody>
+            </table>
+          </div>
+          <form data-admin-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
+            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="57159679">__shi2__</option><option value="8016879">-Rheuh-</option><option value="6729612">23trusson</option><option value="32696946">Air_Neo</option><option value="64915702">Andrewl</option><option value="79517942">CaringGreenFerret</option><option value="89986013">cinner850</option><option value="70255087">Crossed</option><option value="86438927">Detached</option><option value="14442374">dimaislazy</option><option value="90177246">gfsdfgsdfgsdfgsfgs</option><option value="86824553">HarmonicLimeMarlin</option><option value="53722942">Howard</option><option value="63736077">huntertyping</option><option value="12578407">its henry</option><option value="37964994">lenz god</option><option value="66673289">Littletraveso</option><option value="90159594">made4aviation</option><option value="89065581">monkeykid6776_123</option><option value="83883394">PenguinKnight5</option><option value="86923429">placement peter</option><option value="87436494">rawr23001</option><option value="83598459">sarabara</option><option value="4765475">teaquangyin</option><option value="49885150">Trevor_N</option><option value="45528906">Vyrens</option></select>
+            <button type="submit" class="btn-primary">Make admin</button>
           </form>
         </div>
 
@@ -899,11 +920,18 @@
           <button type="button" class="btn-primary" data-admin-settings-save style="display:none;">Save settings</button>
         </div>
 
+        <div data-admin-tabpanel="notifications" style="display:none;max-width:480px;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            Turn off any of these auto-detected kinds for [OVRMEN] — this only affects new notifications going forward, existing ones in the feed stay as they are.
+          </div>
+          <div data-admin-notification-rows style="display:flex;flex-direction:column;gap:12px;">Loading…</div>
+        </div>
+
         <div data-admin-error class="form-error" style="display:none;margin-top:10px;"></div>
       </div>
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:19:44.708Z</footer>
+<footer class="site">Generated 2026-10-25T18:31:34.886Z</footer>
 </body>
 </html>

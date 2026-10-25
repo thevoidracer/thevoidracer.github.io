@@ -668,13 +668,18 @@
         <p class="meta-row" data-admin-role-note></p>
         <div class="seg" style="margin-bottom:16px;">
           <button type="button" class="seg-btn active" data-admin-tab-btn="officers">Officers</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="admins">Team Admins</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="squads">Squads</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="events">Events</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="tournaments">Tournaments</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="settings">Settings</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="notifications">Notifications</button>
         </div>
 
         <div data-admin-tabpanel="officers">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A badge shown on the roster — doesn't grant any extra access on this page. For that, see Team Admins.
+          </div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Officer</th><th></th></tr></thead>
@@ -684,6 +689,22 @@
           <form data-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
             <select class="form-input" name="nt_user_id" style="flex:1;"><option value="88939073">_Solar_</option><option value="25426444">✨No.1✨</option><option value="4103837">✨superjoelzy✨</option><option value="86315326">Adam and Karin</option><option value="69967674">Adlxr be grindin</option><option value="43690835">Ardiel</option><option value="63628651">Ay2sos</option><option value="52664157">bubbles</option><option value="82048261">chromi</option><option value="80149193">Cobalt_21</option><option value="89078116">creeperking1200</option><option value="47890544">Crusader20k</option><option value="68584789">CURRRYFAN30</option><option value="86461589">DIVINE</option><option value="80836841">doodlebobsquaresocks</option><option value="90800000">Drifter -2k-</option><option value="43247579">Ferrari Enzo</option><option value="44778570">Flood81</option><option value="91566044">FreeFlyer</option><option value="90700114">Gambit</option><option value="90785580">Go Barcelona</option><option value="68828564">GO MADRID_ Enzo</option><option value="83275912">guayete</option><option value="79392439">H1M0THY</option><option value="44606019">HANDSOME KING</option><option value="64911470">Im not good</option><option value="60960460">IM2SLOW4U</option><option value="82091395">Imnotatryhard</option><option value="68624596">ItsNBAopeningweek</option><option value="43538198">jariae n tj</option><option value="26168032">JoeyMax22</option><option value="9179514">Life is Time</option><option value="90870478">lordprettyflackojody</option><option value="55379739">Marsky</option><option value="51488897">Mathewtheimposter</option><option value="56544842">Mormadable</option><option value="90513374">Nosferatu</option><option value="44463085">O_V_E_R_D_R_I_V_E</option><option value="62521655">PhantomTyper</option><option value="56200159">r-a-i-n</option><option value="80710172">Real Madrid</option><option value="80204258">Reesespieces0508</option><option value="22942636">review</option><option value="88873612">S k y _ L i g h t</option><option value="79617759">Snake </option><option value="79594369">THE_WINNER_RACER_</option><option value="90790874">Titans44</option><option value="86463826">Tnush615</option><option value="90647220">type faster</option><option value="90785571">Voidzzz</option><option value="91074642">wklime</option><option value="83954984">Xmaxx Dream</option><option value="91849617">Zoneray</option></select>
             <button type="submit" class="btn-primary">Make officer</button>
+          </form>
+        </div>
+
+        <div data-admin-tabpanel="admins" style="display:none;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A Team Admin can do everything you can on this page — Events, Squads, Tournaments, Officers, Settings, Notifications — except add or remove other Team Admins. Only you, the real captain, can do that.
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Admin</th><th></th></tr></thead>
+              <tbody data-admin-admin-rows><tr><td colspan="2" style="color:var(--muted);">No team admins appointed yet.</td></tr></tbody>
+            </table>
+          </div>
+          <form data-admin-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
+            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="88939073">_Solar_</option><option value="25426444">✨No.1✨</option><option value="4103837">✨superjoelzy✨</option><option value="86315326">Adam and Karin</option><option value="69967674">Adlxr be grindin</option><option value="43690835">Ardiel</option><option value="63628651">Ay2sos</option><option value="52664157">bubbles</option><option value="82048261">chromi</option><option value="80149193">Cobalt_21</option><option value="89078116">creeperking1200</option><option value="47890544">Crusader20k</option><option value="68584789">CURRRYFAN30</option><option value="86461589">DIVINE</option><option value="80836841">doodlebobsquaresocks</option><option value="90800000">Drifter -2k-</option><option value="43247579">Ferrari Enzo</option><option value="44778570">Flood81</option><option value="91566044">FreeFlyer</option><option value="90700114">Gambit</option><option value="90785580">Go Barcelona</option><option value="68828564">GO MADRID_ Enzo</option><option value="83275912">guayete</option><option value="79392439">H1M0THY</option><option value="44606019">HANDSOME KING</option><option value="64911470">Im not good</option><option value="60960460">IM2SLOW4U</option><option value="82091395">Imnotatryhard</option><option value="68624596">ItsNBAopeningweek</option><option value="43538198">jariae n tj</option><option value="26168032">JoeyMax22</option><option value="9179514">Life is Time</option><option value="90870478">lordprettyflackojody</option><option value="55379739">Marsky</option><option value="51488897">Mathewtheimposter</option><option value="56544842">Mormadable</option><option value="90513374">Nosferatu</option><option value="44463085">O_V_E_R_D_R_I_V_E</option><option value="62521655">PhantomTyper</option><option value="56200159">r-a-i-n</option><option value="80710172">Real Madrid</option><option value="80204258">Reesespieces0508</option><option value="22942636">review</option><option value="88873612">S k y _ L i g h t</option><option value="79617759">Snake </option><option value="79594369">THE_WINNER_RACER_</option><option value="90790874">Titans44</option><option value="86463826">Tnush615</option><option value="90647220">type faster</option><option value="90785571">Voidzzz</option><option value="91074642">wklime</option><option value="83954984">Xmaxx Dream</option><option value="91849617">Zoneray</option></select>
+            <button type="submit" class="btn-primary">Make admin</button>
           </form>
         </div>
 
@@ -1061,11 +1082,18 @@
           <button type="button" class="btn-primary" data-admin-settings-save style="display:none;">Save settings</button>
         </div>
 
+        <div data-admin-tabpanel="notifications" style="display:none;max-width:480px;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            Turn off any of these auto-detected kinds for [NHS] — this only affects new notifications going forward, existing ones in the feed stay as they are.
+          </div>
+          <div data-admin-notification-rows style="display:flex;flex-direction:column;gap:12px;">Loading…</div>
+        </div>
+
         <div data-admin-error class="form-error" style="display:none;margin-top:10px;"></div>
       </div>
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:19:13.371Z</footer>
+<footer class="site">Generated 2026-10-25T18:31:15.091Z</footer>
 </body>
 </html>

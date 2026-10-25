@@ -659,7 +659,7 @@
     <div class="hero" style="background:#f5eb21;color:#0b1220">
       <div class="name">[MEYBO] legends222</div>
       <div class="sub">
-        Captain: Augman · 16 racers tracked · last synced 10/25/2026, 5:33:58 PM</div>
+        Captain: Augman · 16 racers tracked · last synced 10/25/2026, 6:30:55 PM</div>
     </div>
     <div data-admin-panel data-team-tag="MEYBO" data-captain-nt-user-id="42658561">
       <h2 style="margin:28px 0 14px;">Team Admin</h2>
@@ -668,13 +668,18 @@
         <p class="meta-row" data-admin-role-note></p>
         <div class="seg" style="margin-bottom:16px;">
           <button type="button" class="seg-btn active" data-admin-tab-btn="officers">Officers</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="admins">Team Admins</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="squads">Squads</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="events">Events</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="tournaments">Tournaments</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="settings">Settings</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="notifications">Notifications</button>
         </div>
 
         <div data-admin-tabpanel="officers">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A badge shown on the roster — doesn't grant any extra access on this page. For that, see Team Admins.
+          </div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Officer</th><th></th></tr></thead>
@@ -684,6 +689,22 @@
           <form data-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
             <select class="form-input" name="nt_user_id" style="flex:1;"><option value="25898926">Augman</option><option value="42658561">Augman</option><option value="60390111">Chase_71239</option><option value="91368956">coolbeanzzzzzzz</option><option value="14351649">drastical</option><option value="51382862">for the Empire</option><option value="44035063">josephbuckz_</option><option value="37796896">KingOfCalamity</option><option value="29198">MajesticAmberLion</option><option value="90670505">monkeymay04</option><option value="31498234">opgamer42</option><option value="80621548">racer673</option><option value="67760472">santa little typer</option><option value="9341423">TY                                                </option><option value="26306428">xXHenry$_$Xx</option><option value="44439385">You_are_Loved_Jesus</option></select>
             <button type="submit" class="btn-primary">Make officer</button>
+          </form>
+        </div>
+
+        <div data-admin-tabpanel="admins" style="display:none;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A Team Admin can do everything you can on this page — Events, Squads, Tournaments, Officers, Settings, Notifications — except add or remove other Team Admins. Only you, the real captain, can do that.
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Admin</th><th></th></tr></thead>
+              <tbody data-admin-admin-rows><tr><td colspan="2" style="color:var(--muted);">No team admins appointed yet.</td></tr></tbody>
+            </table>
+          </div>
+          <form data-admin-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
+            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="25898926">Augman</option><option value="42658561">Augman</option><option value="60390111">Chase_71239</option><option value="91368956">coolbeanzzzzzzz</option><option value="14351649">drastical</option><option value="51382862">for the Empire</option><option value="44035063">josephbuckz_</option><option value="37796896">KingOfCalamity</option><option value="29198">MajesticAmberLion</option><option value="90670505">monkeymay04</option><option value="31498234">opgamer42</option><option value="80621548">racer673</option><option value="67760472">santa little typer</option><option value="9341423">TY                                                </option><option value="26306428">xXHenry$_$Xx</option><option value="44439385">You_are_Loved_Jesus</option></select>
+            <button type="submit" class="btn-primary">Make admin</button>
           </form>
         </div>
 
@@ -839,11 +860,18 @@
           <button type="button" class="btn-primary" data-admin-settings-save style="display:none;">Save settings</button>
         </div>
 
+        <div data-admin-tabpanel="notifications" style="display:none;max-width:480px;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            Turn off any of these auto-detected kinds for [MEYBO] — this only affects new notifications going forward, existing ones in the feed stay as they are.
+          </div>
+          <div data-admin-notification-rows style="display:flex;flex-direction:column;gap:12px;">Loading…</div>
+        </div>
+
         <div data-admin-error class="form-error" style="display:none;margin-top:10px;"></div>
       </div>
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:20:26.274Z</footer>
+<footer class="site">Generated 2026-10-25T18:31:58.609Z</footer>
 </body>
 </html>

@@ -668,13 +668,18 @@
         <p class="meta-row" data-admin-role-note></p>
         <div class="seg" style="margin-bottom:16px;">
           <button type="button" class="seg-btn active" data-admin-tab-btn="officers">Officers</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="admins">Team Admins</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="squads">Squads</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="events">Events</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="tournaments">Tournaments</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="settings">Settings</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="notifications">Notifications</button>
         </div>
 
         <div data-admin-tabpanel="officers">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A badge shown on the roster — doesn't grant any extra access on this page. For that, see Team Admins.
+          </div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Officer</th><th></th></tr></thead>
@@ -684,6 +689,22 @@
           <form data-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
             <select class="form-input" name="nt_user_id" style="flex:1;"><option value="56422483">2fastfingers</option><option value="80633873">67 david</option><option value="47296136">67CHICKENSTARSMANGO</option><option value="86525483">AAAAAAAAA</option><option value="86578526">antiairmisl3</option><option value="90855800">babyc5</option><option value="89020104">cantguardme</option><option value="86357142">Ceasar</option><option value="87181873">cool_guy 123</option><option value="85454586">DaPerson16</option><option value="38700606">dcheese</option><option value="87866270">duong27101</option><option value="87109395">Eden kim</option><option value="86573809">Elliot</option><option value="90610901">ERIC7777</option><option value="89290455">FairSilverAlpaca</option><option value="56659716">FastPeachDog</option><option value="85914064">FREEDAPRESS</option><option value="86065900">gggtrshsh</option><option value="66172988">gospodstvie</option><option value="88147371">hahahahahah</option><option value="81716509">Hytlir</option><option value="83568736">I Love Cars</option><option value="83368164">jahgetoff</option><option value="65271993">JUICE WRLD REMBER</option><option value="90761349">kobegoat</option><option value="83618220">LeBron</option><option value="46489308">Light-kira</option><option value="87898486">Lil_Strawberry</option><option value="84082296">LovelyRedBee</option><option value="90696422">Megan Katseye</option><option value="87186967">mu wap</option><option value="79446903">neffex1</option><option value="80389281">no67in the school</option><option value="90045234">Not annoying orange</option><option value="86357151">Onolande Grande</option><option value="62707414">Proud Ferret Parent</option><option value="89442199">psychoaccount</option><option value="88635350">Sam_Sam</option><option value="88473738">snkplsmc</option><option value="86118068">SPONGEBOB is thebest</option><option value="87187165">stormchaser</option><option value="90297663">taylorbarberelizabe</option><option value="53149519">TheOneAndOnly</option><option value="87414543">thisisks</option><option value="87634901">Threnody</option><option value="85169113">Verstappen</option><option value="80161025">W D Gaster</option><option value="89614364">wampus_deleter</option><option value="43262033">Xx_J0hnsn_xX</option></select>
             <button type="submit" class="btn-primary">Make officer</button>
+          </form>
+        </div>
+
+        <div data-admin-tabpanel="admins" style="display:none;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A Team Admin can do everything you can on this page — Events, Squads, Tournaments, Officers, Settings, Notifications — except add or remove other Team Admins. Only you, the real captain, can do that.
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Admin</th><th></th></tr></thead>
+              <tbody data-admin-admin-rows><tr><td colspan="2" style="color:var(--muted);">No team admins appointed yet.</td></tr></tbody>
+            </table>
+          </div>
+          <form data-admin-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
+            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="56422483">2fastfingers</option><option value="80633873">67 david</option><option value="47296136">67CHICKENSTARSMANGO</option><option value="86525483">AAAAAAAAA</option><option value="86578526">antiairmisl3</option><option value="90855800">babyc5</option><option value="89020104">cantguardme</option><option value="86357142">Ceasar</option><option value="87181873">cool_guy 123</option><option value="85454586">DaPerson16</option><option value="38700606">dcheese</option><option value="87866270">duong27101</option><option value="87109395">Eden kim</option><option value="86573809">Elliot</option><option value="90610901">ERIC7777</option><option value="89290455">FairSilverAlpaca</option><option value="56659716">FastPeachDog</option><option value="85914064">FREEDAPRESS</option><option value="86065900">gggtrshsh</option><option value="66172988">gospodstvie</option><option value="88147371">hahahahahah</option><option value="81716509">Hytlir</option><option value="83568736">I Love Cars</option><option value="83368164">jahgetoff</option><option value="65271993">JUICE WRLD REMBER</option><option value="90761349">kobegoat</option><option value="83618220">LeBron</option><option value="46489308">Light-kira</option><option value="87898486">Lil_Strawberry</option><option value="84082296">LovelyRedBee</option><option value="90696422">Megan Katseye</option><option value="87186967">mu wap</option><option value="79446903">neffex1</option><option value="80389281">no67in the school</option><option value="90045234">Not annoying orange</option><option value="86357151">Onolande Grande</option><option value="62707414">Proud Ferret Parent</option><option value="89442199">psychoaccount</option><option value="88635350">Sam_Sam</option><option value="88473738">snkplsmc</option><option value="86118068">SPONGEBOB is thebest</option><option value="87187165">stormchaser</option><option value="90297663">taylorbarberelizabe</option><option value="53149519">TheOneAndOnly</option><option value="87414543">thisisks</option><option value="87634901">Threnody</option><option value="85169113">Verstappen</option><option value="80161025">W D Gaster</option><option value="89614364">wampus_deleter</option><option value="43262033">Xx_J0hnsn_xX</option></select>
+            <button type="submit" class="btn-primary">Make admin</button>
           </form>
         </div>
 
@@ -1043,11 +1064,18 @@
           <button type="button" class="btn-primary" data-admin-settings-save style="display:none;">Save settings</button>
         </div>
 
+        <div data-admin-tabpanel="notifications" style="display:none;max-width:480px;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            Turn off any of these auto-detected kinds for [THISKS] — this only affects new notifications going forward, existing ones in the feed stay as they are.
+          </div>
+          <div data-admin-notification-rows style="display:flex;flex-direction:column;gap:12px;">Loading…</div>
+        </div>
+
         <div data-admin-error class="form-error" style="display:none;margin-top:10px;"></div>
       </div>
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:19:47.662Z</footer>
+<footer class="site">Generated 2026-10-25T18:31:36.213Z</footer>
 </body>
 </html>

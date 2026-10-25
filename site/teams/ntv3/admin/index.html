@@ -668,13 +668,18 @@
         <p class="meta-row" data-admin-role-note></p>
         <div class="seg" style="margin-bottom:16px;">
           <button type="button" class="seg-btn active" data-admin-tab-btn="officers">Officers</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="admins">Team Admins</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="squads">Squads</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="events">Events</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="tournaments">Tournaments</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="settings">Settings</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="notifications">Notifications</button>
         </div>
 
         <div data-admin-tabpanel="officers">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A badge shown on the roster — doesn't grant any extra access on this page. For that, see Team Admins.
+          </div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Officer</th><th></th></tr></thead>
@@ -684,6 +689,22 @@
           <form data-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
             <select class="form-input" name="nt_user_id" style="flex:1;"><option value="25791831">Anomaly</option><option value="70681425">bubblegumvr</option><option value="91614291">CJ_23_LOOKATEP1K</option><option value="58333766">CoolGuyOliver</option><option value="87173121">CR7 67</option><option value="91079943">demoraiss33139</option><option value="89087162">Frenchy_da_fastest67</option><option value="79693791">Harmonic</option><option value="54232961">I like Boxes</option><option value="46917807">IanLyinnImSoLoaded</option><option value="56822039">Key Board Crusher</option><option value="12063644">kjesse1234</option><option value="56821911">Lightning</option><option value="87092453">Saitama</option><option value="88919449">speedy gonzala</option><option value="67213126">YFR_GHXST ALT 10K</option></select>
             <button type="submit" class="btn-primary">Make officer</button>
+          </form>
+        </div>
+
+        <div data-admin-tabpanel="admins" style="display:none;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A Team Admin can do everything you can on this page — Events, Squads, Tournaments, Officers, Settings, Notifications — except add or remove other Team Admins. Only you, the real captain, can do that.
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Admin</th><th></th></tr></thead>
+              <tbody data-admin-admin-rows><tr><td colspan="2" style="color:var(--muted);">No team admins appointed yet.</td></tr></tbody>
+            </table>
+          </div>
+          <form data-admin-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
+            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="25791831">Anomaly</option><option value="70681425">bubblegumvr</option><option value="91614291">CJ_23_LOOKATEP1K</option><option value="58333766">CoolGuyOliver</option><option value="87173121">CR7 67</option><option value="91079943">demoraiss33139</option><option value="89087162">Frenchy_da_fastest67</option><option value="79693791">Harmonic</option><option value="54232961">I like Boxes</option><option value="46917807">IanLyinnImSoLoaded</option><option value="56822039">Key Board Crusher</option><option value="12063644">kjesse1234</option><option value="56821911">Lightning</option><option value="87092453">Saitama</option><option value="88919449">speedy gonzala</option><option value="67213126">YFR_GHXST ALT 10K</option></select>
+            <button type="submit" class="btn-primary">Make admin</button>
           </form>
         </div>
 
@@ -839,11 +860,18 @@
           <button type="button" class="btn-primary" data-admin-settings-save style="display:none;">Save settings</button>
         </div>
 
+        <div data-admin-tabpanel="notifications" style="display:none;max-width:480px;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            Turn off any of these auto-detected kinds for [NTV3] — this only affects new notifications going forward, existing ones in the feed stay as they are.
+          </div>
+          <div data-admin-notification-rows style="display:flex;flex-direction:column;gap:12px;">Loading…</div>
+        </div>
+
         <div data-admin-error class="form-error" style="display:none;margin-top:10px;"></div>
       </div>
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:20:07.148Z</footer>
+<footer class="site">Generated 2026-10-25T18:31:47.399Z</footer>
 </body>
 </html>

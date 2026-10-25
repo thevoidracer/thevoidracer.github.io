@@ -310,6 +310,96 @@
   }
 
   // ---------------------------------------------------------------------
+  // Team Admins (see team_admins in schema.sql) - a second captain-
+  // appointed tier, alongside officers above, but one that actually
+  // grants write access: the server-side is_team_manager() RLS check
+  // (used by events/squads/tournaments/team_officers/teams-settings/
+  // team_notification_settings) accepts the real captain OR anyone in
+  // this table for their team. Only the real captain can write THIS
+  // table though (see its own RLS policy in schema.sql) - an admin can't
+  // appoint or remove another admin, including themselves.
+  // ---------------------------------------------------------------------
+  function isTeamAdmin(teamTag, ntUserId, cb) {
+    withClient(function (sb) {
+      sb.from("team_admins")
+        .select("nt_user_id")
+        .eq("team_tag", teamTag)
+        .eq("nt_user_id", ntUserId)
+        .maybeSingle()
+        .then(function (res) {
+          cb(res.error ? res.error.message : null, !!res.data);
+        });
+    });
+  }
+
+  function listTeamAdmins(teamTag, cb) {
+    withClient(function (sb) {
+      sb.from("team_admins")
+        .select("nt_user_id")
+        .eq("team_tag", teamTag)
+        .then(function (res) {
+          cb(res.error ? res.error.message : null, (res.data || []).map(function (r) { return r.nt_user_id; }));
+        });
+    });
+  }
+
+  function addTeamAdmin(teamTag, ntUserId, cb) {
+    withClient(function (sb) {
+      sb.from("team_admins")
+        .insert({ team_tag: teamTag, nt_user_id: ntUserId })
+        .then(function (res) {
+          cb(res.error ? res.error.message : null);
+        });
+    });
+  }
+
+  function removeTeamAdmin(teamTag, ntUserId, cb) {
+    withClient(function (sb) {
+      sb.from("team_admins")
+        .delete()
+        .eq("team_tag", teamTag)
+        .eq("nt_user_id", ntUserId)
+        .then(function (res) {
+          cb(res.error ? res.error.message : null);
+        });
+    });
+  }
+
+  // ---------------------------------------------------------------------
+  // Notification settings (see team_notification_settings in schema.sql)
+  // - per-team on/off toggle for each auto-detected notification kind.
+  // No row for a (team, kind) means "enabled" (today's unconfigurable
+  // behavior), so this reads every kind as enabled unless a row says
+  // otherwise, rather than requiring one to exist for every team.
+  // ---------------------------------------------------------------------
+  var NOTIFICATION_KINDS = ["new_member", "lifetime_milestone", "team_milestone"];
+
+  function loadNotificationSettings(teamTag, cb) {
+    withClient(function (sb) {
+      sb.from("team_notification_settings")
+        .select("kind, enabled")
+        .eq("team_tag", teamTag)
+        .then(function (res) {
+          if (res.error) return cb(res.error.message);
+          var byKind = {};
+          NOTIFICATION_KINDS.forEach(function (k) { byKind[k] = true; });
+          (res.data || []).forEach(function (row) { byKind[row.kind] = row.enabled; });
+          cb(null, byKind);
+        });
+    });
+  }
+
+  function setNotificationSetting(teamTag, kind, enabled, cb) {
+    withClient(function (sb) {
+      sb.from("team_notification_settings")
+        .upsert({ team_tag: teamTag, kind: kind, enabled: enabled }, { onConflict: "team_tag,kind" })
+        .then(function (res) {
+          cb(res.error ? res.error.message : null);
+        });
+    });
+  }
+
+  // ---------------------------------------------------------------------
   // Squads (see team_squads in schema.sql) - a captain's own sub-groups
   // within their team. Same ownership-via-RLS model as officers: anyone
   // can read, only that team's own verified captain can write, enforced
@@ -363,11 +453,17 @@
     });
   }
 
-  // "captain" | "officer" | "member" - the three tiers the latest design
-  // calls out. Captain is decided purely from teams.captain_nt_user_id
-  // (the same source of truth events.js's RLS policy itself trusts);
-  // officer from team_officers; anything else (including a racer who
-  // isn't currently on team_tag's team at all) is "member".
+  // "captain" | "admin" | "officer" | "member" - priority in that order,
+  // since a racer can hold more than one tier at once (e.g. an officer
+  // the captain also made an admin) and only the highest one matters for
+  // what this page shows them. Captain is decided purely from
+  // teams.captain_nt_user_id (the same source of truth events.js's RLS
+  // policy itself trusts); admin from team_admins (see is_team_manager()
+  // in schema.sql - the same table the server-side write checks use, so
+  // this never drifts from what the RLS policies actually allow); officer
+  // from team_officers (a badge only - see its own comment above);
+  // anything else (including a racer who isn't currently on team_tag's
+  // team at all) is "member".
   function resolveTeamRole(teamTag, ntUserId, captainNtUserId, cb) {
     if (captainNtUserId != null && String(ntUserId) === String(captainNtUserId)) {
       cb(null, "captain");
@@ -377,8 +473,14 @@
       cb(null, "member");
       return;
     }
-    isTeamOfficer(teamTag, ntUserId, function (err, isOfficer) {
-      cb(err, isOfficer ? "officer" : "member");
+    isTeamAdmin(teamTag, ntUserId, function (errA, admin) {
+      if (admin) {
+        cb(errA, "admin");
+        return;
+      }
+      isTeamOfficer(teamTag, ntUserId, function (err, isOfficer) {
+        cb(errA || err, isOfficer ? "officer" : "member");
+      });
     });
   }
 
@@ -872,6 +974,77 @@
     });
   }
 
+  // Team Admins tab - same shape as renderOfficerRows above, but Remove
+  // is gated by isCaptain specifically (not isManager/isAdmin): per the
+  // table's own RLS policy, an admin can't remove another admin, so
+  // showing them a button that would just fail server-side would be
+  // misleading - better to not offer it at all.
+  function renderAdminRows(tbody, teamTag, adminIds, racersById, isCaptain, refresh) {
+    if (!adminIds.length) {
+      tbody.innerHTML = '<tr><td colspan="2" style="color:var(--muted);">No team admins appointed yet.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = "";
+    adminIds.forEach(function (ntUserId) {
+      var racer = racersById[ntUserId];
+      var name = (racer && (racer.display_name || racer.username)) || "racer " + ntUserId;
+      var tr = document.createElement("tr");
+      var nameTd = document.createElement("td");
+      nameTd.textContent = name;
+      tr.appendChild(nameTd);
+      var actionTd = document.createElement("td");
+      if (isCaptain) {
+        var btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "btn-danger";
+        btn.textContent = "Remove";
+        btn.addEventListener("click", function () {
+          removeTeamAdmin(teamTag, ntUserId, function (err) {
+            if (!err) refresh();
+          });
+        });
+        actionTd.appendChild(btn);
+      }
+      tr.appendChild(actionTd);
+      tbody.appendChild(tr);
+    });
+  }
+
+  // Notifications tab - one row per kind with a checkbox bound straight
+  // to team_notification_settings; isManager (captain or admin) can
+  // toggle it, an officer just sees the current state disabled.
+  var NOTIFICATION_SETTING_LABEL = {
+    new_member: "New member welcomes",
+    lifetime_milestone: "Lifetime race milestones",
+    team_milestone: "Team race milestones",
+  };
+  function renderNotificationSettings(container, teamTag, settingsByKind, isManager, refresh) {
+    container.innerHTML = "";
+    NOTIFICATION_KINDS.forEach(function (kind) {
+      var label = document.createElement("label");
+      label.style.display = "flex";
+      label.style.alignItems = "center";
+      label.style.gap = "10px";
+      label.style.fontSize = "14px";
+      var checkbox = document.createElement("input");
+      checkbox.type = "checkbox";
+      checkbox.checked = settingsByKind[kind] !== false;
+      if (!isManager) checkbox.setAttribute("disabled", "disabled");
+      checkbox.addEventListener("change", function () {
+        setNotificationSetting(teamTag, kind, checkbox.checked, function (err) {
+          if (err) {
+            checkbox.checked = !checkbox.checked;
+            return;
+          }
+          refresh();
+        });
+      });
+      label.appendChild(checkbox);
+      label.appendChild(document.createTextNode(NOTIFICATION_SETTING_LABEL[kind] || kind));
+      container.appendChild(label);
+    });
+  }
+
   // squads: [{id, name, color}]. Builds both the squad list table (with a
   // racer count per squad and a captain-only Delete button) and the
   // option list every per-racer <select> in the roster below reuses -
@@ -976,6 +1149,9 @@
     var squadRosterRowsEl = panel.querySelector("[data-admin-squad-roster-rows]");
     var eventsManageEl = panel.querySelector("[data-admin-events-manage]");
     var tournamentsManageEl = panel.querySelector("[data-admin-tournaments-manage]");
+    var adminRowsEl = panel.querySelector("[data-admin-admin-rows]");
+    var adminAppointForm = panel.querySelector("[data-admin-admin-appoint-form]");
+    var notificationRowsEl = panel.querySelector("[data-admin-notification-rows]");
 
     // Tabs are just show/hide - wiring this up doesn't depend on who's
     // looking, so it can happen before the access check below resolves.
@@ -1000,16 +1176,23 @@
           return;
         }
         resolveTeamRole(teamTag, link.nt_user_id, captainNtUserId, function (err2, role) {
-          if (role !== "captain" && role !== "officer") {
+          if (role !== "captain" && role !== "admin" && role !== "officer") {
             gate.textContent = "You don't have access to this team's admin page.";
             return;
           }
           gate.style.display = "none";
           content.style.display = "";
           var isCaptain = role === "captain";
+          // isManager (captain or admin) is who actually gets write access
+          // everywhere on this page per is_team_manager() in schema.sql -
+          // an officer-only visitor sees everything but can't change it,
+          // same as before admins existed.
+          var isManager = isCaptain || role === "admin";
           roleNote.textContent = isCaptain
-            ? "You're this team's captain — appoint or remove officers below."
-            : "You're an officer on this team — you can view this page, but only the captain can make changes.";
+            ? "You're this team's captain — you (and any Team Admins you appoint) manage everything below."
+            : role === "admin"
+              ? "You're a Team Admin — you can manage everything below except who else is a Team Admin."
+              : "You're an officer on this team — you can view this page, but only the captain or a Team Admin can make changes.";
 
           function refresh() {
             withClient(function (sb) {
@@ -1020,12 +1203,59 @@
                 var officerIds = (results[0].data || []).map(function (r) { return r.nt_user_id; });
                 var racersById = {};
                 (results[1].data || []).forEach(function (r) { racersById[r.nt_user_id] = r; });
-                renderOfficerRows(rowsEl, teamTag, officerIds, racersById, isCaptain, refresh);
-                if (isCaptain) appointForm.style.display = "flex";
+                renderOfficerRows(rowsEl, teamTag, officerIds, racersById, isManager, refresh);
+                if (isManager) appointForm.style.display = "flex";
               });
             });
           }
           refresh();
+
+          // Team Admins tab: captain-only write (see renderAdminRows'
+          // own comment on why Remove is isCaptain-gated, not isManager).
+          function refreshAdmins() {
+            if (!adminRowsEl) return;
+            withClient(function (sb) {
+              Promise.all([
+                sb.from("team_admins").select("nt_user_id").eq("team_tag", teamTag),
+                sb.from("racers").select("nt_user_id, username, display_name").eq("team_tag", teamTag),
+              ]).then(function (results) {
+                var adminIds = (results[0].data || []).map(function (r) { return r.nt_user_id; });
+                var racersById = {};
+                (results[1].data || []).forEach(function (r) { racersById[r.nt_user_id] = r; });
+                renderAdminRows(adminRowsEl, teamTag, adminIds, racersById, isCaptain, refreshAdmins);
+                if (isCaptain && adminAppointForm) adminAppointForm.style.display = "flex";
+              });
+            });
+          }
+          refreshAdmins();
+
+          if (adminAppointForm) {
+            adminAppointForm.addEventListener("submit", function (e) {
+              e.preventDefault();
+              var ntUserId = adminAppointForm.nt_user_id.value;
+              if (!ntUserId) return;
+              errorEl.style.display = "none";
+              addTeamAdmin(teamTag, Number(ntUserId), function (err5) {
+                if (err5) {
+                  errorEl.textContent = err5;
+                  errorEl.style.display = "";
+                  return;
+                }
+                refreshAdmins();
+              });
+            });
+          }
+
+          // Notifications tab: isManager can toggle each kind on/off;
+          // an officer-only visitor sees the current state, disabled.
+          function refreshNotificationSettings() {
+            if (!notificationRowsEl) return;
+            loadNotificationSettings(teamTag, function (err6, byKind) {
+              if (err6) return;
+              renderNotificationSettings(notificationRowsEl, teamTag, byKind, isManager, refreshNotificationSettings);
+            });
+          }
+          refreshNotificationSettings();
 
           // Squads tab: fetches its own squads + full roster (not just
           // officers) independently of the Officers tab's refresh() above
@@ -1042,9 +1272,9 @@
                 var racers = results[1].data || [];
                 var racersById = {};
                 racers.forEach(function (r) { racersById[r.nt_user_id] = r; });
-                if (squadRowsEl) renderSquadRows(squadRowsEl, teamTag, squads, racersById, isCaptain, refreshSquads);
-                if (squadRosterRowsEl) renderSquadRosterRows(squadRosterRowsEl, teamTag, squads, racers, isCaptain, refreshSquads);
-                if (isCaptain && squadForm) squadForm.style.display = "flex";
+                if (squadRowsEl) renderSquadRows(squadRowsEl, teamTag, squads, racersById, isManager, refreshSquads);
+                if (squadRosterRowsEl) renderSquadRosterRows(squadRosterRowsEl, teamTag, squads, racers, isManager, refreshSquads);
+                if (isManager && squadForm) squadForm.style.display = "flex";
               });
             });
           }
@@ -1052,14 +1282,14 @@
 
           // Events tab: reuses the same loadTeamEvents/renderCaptainManager
           // the (now read-only) public Events page's table rendering comes
-          // from - only the mount point moves here, and only a captain
-          // (not an officer) gets the editable form; an officer just sees
-          // the plain table.
+          // from - only the mount point moves here, and only a captain or
+          // admin (not an officer) gets the editable form; an officer just
+          // sees the plain table.
           function refreshEvents() {
             if (!eventsManageEl) return;
             loadTeamEvents(teamTag, function (err, events) {
               if (err) return;
-              if (isCaptain) {
+              if (isManager) {
                 renderCaptainManager(eventsManageEl, teamTag, events, refreshEvents);
               } else {
                 eventsManageEl.innerHTML = renderEventsTable(events);
@@ -1068,14 +1298,14 @@
           }
           refreshEvents();
 
-          // Tournaments tab: captain-only create/delete; an officer sees
-          // the same tournaments read-only (summaries, not the full
+          // Tournaments tab: captain-or-admin create/delete; an officer
+          // sees the same tournaments read-only (summaries, not the full
           // bracket - that's the public Tournaments page's job).
           function refreshTournaments() {
             if (!tournamentsManageEl) return;
             loadAdminTournaments(teamTag, function (err, tournaments) {
               if (err) return;
-              if (isCaptain) {
+              if (isManager) {
                 renderAdminTournaments(tournamentsManageEl, teamTag, tournaments, refreshTournaments);
               } else {
                 tournamentsManageEl.innerHTML = tournaments.length
@@ -1108,8 +1338,8 @@
           // Settings tab: discord_invite_url/team_emoji are the only two
           // `teams` columns a captain can write (see schema.sql's
           // column-scoped grant) - read is public, same as every other
-          // team-profile field, so both captain and officer see the
-          // current values; only the captain gets an editable form.
+          // team-profile field, so everyone sees the current values;
+          // only a captain or admin gets an editable form.
           withClient(function (sb) {
             sb.from("teams")
               .select("discord_invite_url, team_emoji")
@@ -1121,7 +1351,7 @@
                 if (emojiInput) emojiInput.value = res.data.team_emoji || "";
               });
           });
-          if (isCaptain) {
+          if (isManager) {
             if (discordInput) discordInput.removeAttribute("disabled");
             if (emojiInput) emojiInput.removeAttribute("disabled");
             if (settingsSaveBtn) settingsSaveBtn.style.display = "";
@@ -1217,6 +1447,12 @@
     listTeamOfficers: listTeamOfficers,
     addTeamOfficer: addTeamOfficer,
     removeTeamOfficer: removeTeamOfficer,
+    isTeamAdmin: isTeamAdmin,
+    listTeamAdmins: listTeamAdmins,
+    addTeamAdmin: addTeamAdmin,
+    removeTeamAdmin: removeTeamAdmin,
+    loadNotificationSettings: loadNotificationSettings,
+    setNotificationSetting: setNotificationSetting,
     resolveTeamRole: resolveTeamRole,
     startVerification: startVerification,
     checkVerification: checkVerification,

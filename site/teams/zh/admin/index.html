@@ -668,13 +668,18 @@
         <p class="meta-row" data-admin-role-note></p>
         <div class="seg" style="margin-bottom:16px;">
           <button type="button" class="seg-btn active" data-admin-tab-btn="officers">Officers</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="admins">Team Admins</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="squads">Squads</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="events">Events</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="tournaments">Tournaments</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="settings">Settings</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="notifications">Notifications</button>
         </div>
 
         <div data-admin-tabpanel="officers">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A badge shown on the roster — doesn't grant any extra access on this page. For that, see Team Admins.
+          </div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Officer</th><th></th></tr></thead>
@@ -684,6 +689,22 @@
           <form data-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
             <select class="form-input" name="nt_user_id" style="flex:1;"><option value="47821159"> Morrality </option><option value="45438325">-Talented-</option><option value="82947452">1nonlyrandom</option><option value="6381904">2016 was a vibe</option><option value="33715029">ascend nd forget</option><option value="54332116">balenciaga</option><option value="90325335">Beast01</option><option value="89345613">ccgotmefr13d</option><option value="55187624">ChatBLT</option><option value="42271603">Cryptixx</option><option value="67666236">Dawson</option><option value="66307638">Donquavious boykins</option><option value="66901493">esteshyper</option><option value="52918488">ETZ_21</option><option value="62531759">Gadget</option><option value="30186473">Henrik</option><option value="58831879">hihihi</option><option value="42869384">jacobb</option><option value="61397721">Joker7k</option><option value="32132914">Lebonbon</option><option value="68709667">Lucasloverivals</option><option value="82366463">mcbrayden</option><option value="47212863">r o b e r t</option><option value="64891294">reached pinnacle</option><option value="25990325">Romantic</option><option value="37050159">Rowlet the Birb</option><option value="39228823">Shua Tree</option><option value="68040797">smiley</option><option value="59307565">smooktober</option><option value="54275004">sophiez</option><option value="60923843">SUP3RSON1C</option><option value="91267988">thailerbro</option><option value="80446752">The_Silent_Dragon</option><option value="65378353">time2day</option><option value="41437685">titanfall2player</option><option value="89841755">Traceur THE GOAT</option><option value="91510036">URASAI_5</option><option value="35621268">UShouldSeeMyOtherCar</option><option value="47204329">vortexx</option></select>
             <button type="submit" class="btn-primary">Make officer</button>
+          </form>
+        </div>
+
+        <div data-admin-tabpanel="admins" style="display:none;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A Team Admin can do everything you can on this page — Events, Squads, Tournaments, Officers, Settings, Notifications — except add or remove other Team Admins. Only you, the real captain, can do that.
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Admin</th><th></th></tr></thead>
+              <tbody data-admin-admin-rows><tr><td colspan="2" style="color:var(--muted);">No team admins appointed yet.</td></tr></tbody>
+            </table>
+          </div>
+          <form data-admin-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
+            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="47821159"> Morrality </option><option value="45438325">-Talented-</option><option value="82947452">1nonlyrandom</option><option value="6381904">2016 was a vibe</option><option value="33715029">ascend nd forget</option><option value="54332116">balenciaga</option><option value="90325335">Beast01</option><option value="89345613">ccgotmefr13d</option><option value="55187624">ChatBLT</option><option value="42271603">Cryptixx</option><option value="67666236">Dawson</option><option value="66307638">Donquavious boykins</option><option value="66901493">esteshyper</option><option value="52918488">ETZ_21</option><option value="62531759">Gadget</option><option value="30186473">Henrik</option><option value="58831879">hihihi</option><option value="42869384">jacobb</option><option value="61397721">Joker7k</option><option value="32132914">Lebonbon</option><option value="68709667">Lucasloverivals</option><option value="82366463">mcbrayden</option><option value="47212863">r o b e r t</option><option value="64891294">reached pinnacle</option><option value="25990325">Romantic</option><option value="37050159">Rowlet the Birb</option><option value="39228823">Shua Tree</option><option value="68040797">smiley</option><option value="59307565">smooktober</option><option value="54275004">sophiez</option><option value="60923843">SUP3RSON1C</option><option value="91267988">thailerbro</option><option value="80446752">The_Silent_Dragon</option><option value="65378353">time2day</option><option value="41437685">titanfall2player</option><option value="89841755">Traceur THE GOAT</option><option value="91510036">URASAI_5</option><option value="35621268">UShouldSeeMyOtherCar</option><option value="47204329">vortexx</option></select>
+            <button type="submit" class="btn-primary">Make admin</button>
           </form>
         </div>
 
@@ -977,11 +998,18 @@
           <button type="button" class="btn-primary" data-admin-settings-save style="display:none;">Save settings</button>
         </div>
 
+        <div data-admin-tabpanel="notifications" style="display:none;max-width:480px;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            Turn off any of these auto-detected kinds for [ZH] — this only affects new notifications going forward, existing ones in the feed stay as they are.
+          </div>
+          <div data-admin-notification-rows style="display:flex;flex-direction:column;gap:12px;">Loading…</div>
+        </div>
+
         <div data-admin-error class="form-error" style="display:none;margin-top:10px;"></div>
       </div>
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:19:31.579Z</footer>
+<footer class="site">Generated 2026-10-25T18:31:26.311Z</footer>
 </body>
 </html>

@@ -668,13 +668,18 @@
         <p class="meta-row" data-admin-role-note></p>
         <div class="seg" style="margin-bottom:16px;">
           <button type="button" class="seg-btn active" data-admin-tab-btn="officers">Officers</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="admins">Team Admins</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="squads">Squads</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="events">Events</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="tournaments">Tournaments</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="settings">Settings</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="notifications">Notifications</button>
         </div>
 
         <div data-admin-tabpanel="officers">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A badge shown on the roster — doesn't grant any extra access on this page. For that, see Team Admins.
+          </div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Officer</th><th></th></tr></thead>
@@ -684,6 +689,22 @@
           <form data-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
             <select class="form-input" name="nt_user_id" style="flex:1;"><option value="42595198">Keys2theLacan</option><option value="46802475">Swifty_YT</option><option value="44674242">_Quantum_</option><option value="66615456">-_-ezra8kcomingsoon</option><option value="14877673">✨ŞȾṞƗǷɆ✨</option><option value="55219613">A5 got motion</option><option value="67169173">Benny albrete gonsal</option><option value="64953892">BYESEEYOU</option><option value="66958775">Chat I cook</option><option value="49582442">conner</option><option value="57375916">CreativeBronzeChicken</option><option value="84443006">doafliponit</option><option value="23307094">E46Landon</option><option value="60904871">femqls</option><option value="85411628">Germanscientist677</option><option value="87766650">GODSPEED 1st</option><option value="5904518">Golden_Man</option><option value="61639708">I like vampire bats</option><option value="65544249">ILikeFood</option><option value="67272165">imamokkey</option><option value="66931253">Jordan</option><option value="66648676">Justyn RAAAHHHHH</option><option value="84964725">LightningDash</option><option value="47424060">lux got motion</option><option value="88534895">Maj2tuff</option><option value="47779328">montype2fasts</option><option value="74583297">Price is not write</option><option value="52497730">Ses_mic-retired4now</option><option value="66926631">Stezzykelion</option><option value="66852106">The Melon Man</option><option value="30872697">TheTyper</option><option value="83065248">Thing Number 1</option><option value="87464195">Vioraa</option><option value="7788493">Way2Swift</option><option value="58011856">Whats poppin</option><option value="53916563">Xen Felix</option></select>
             <button type="submit" class="btn-primary">Make officer</button>
+          </form>
+        </div>
+
+        <div data-admin-tabpanel="admins" style="display:none;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A Team Admin can do everything you can on this page — Events, Squads, Tournaments, Officers, Settings, Notifications — except add or remove other Team Admins. Only you, the real captain, can do that.
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Admin</th><th></th></tr></thead>
+              <tbody data-admin-admin-rows><tr><td colspan="2" style="color:var(--muted);">No team admins appointed yet.</td></tr></tbody>
+            </table>
+          </div>
+          <form data-admin-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
+            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="42595198">Keys2theLacan</option><option value="46802475">Swifty_YT</option><option value="44674242">_Quantum_</option><option value="66615456">-_-ezra8kcomingsoon</option><option value="14877673">✨ŞȾṞƗǷɆ✨</option><option value="55219613">A5 got motion</option><option value="67169173">Benny albrete gonsal</option><option value="64953892">BYESEEYOU</option><option value="66958775">Chat I cook</option><option value="49582442">conner</option><option value="57375916">CreativeBronzeChicken</option><option value="84443006">doafliponit</option><option value="23307094">E46Landon</option><option value="60904871">femqls</option><option value="85411628">Germanscientist677</option><option value="87766650">GODSPEED 1st</option><option value="5904518">Golden_Man</option><option value="61639708">I like vampire bats</option><option value="65544249">ILikeFood</option><option value="67272165">imamokkey</option><option value="66931253">Jordan</option><option value="66648676">Justyn RAAAHHHHH</option><option value="84964725">LightningDash</option><option value="47424060">lux got motion</option><option value="88534895">Maj2tuff</option><option value="47779328">montype2fasts</option><option value="74583297">Price is not write</option><option value="52497730">Ses_mic-retired4now</option><option value="66926631">Stezzykelion</option><option value="66852106">The Melon Man</option><option value="30872697">TheTyper</option><option value="83065248">Thing Number 1</option><option value="87464195">Vioraa</option><option value="7788493">Way2Swift</option><option value="58011856">Whats poppin</option><option value="53916563">Xen Felix</option></select>
+            <button type="submit" class="btn-primary">Make admin</button>
           </form>
         </div>
 
@@ -959,11 +980,18 @@
           <button type="button" class="btn-primary" data-admin-settings-save style="display:none;">Save settings</button>
         </div>
 
+        <div data-admin-tabpanel="notifications" style="display:none;max-width:480px;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            Turn off any of these auto-detected kinds for [TVX] — this only affects new notifications going forward, existing ones in the feed stay as they are.
+          </div>
+          <div data-admin-notification-rows style="display:flex;flex-direction:column;gap:12px;">Loading…</div>
+        </div>
+
         <div data-admin-error class="form-error" style="display:none;margin-top:10px;"></div>
       </div>
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:20:41.013Z</footer>
+<footer class="site">Generated 2026-10-25T18:32:07.274Z</footer>
 </body>
 </html>

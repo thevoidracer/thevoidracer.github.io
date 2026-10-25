@@ -668,13 +668,18 @@
         <p class="meta-row" data-admin-role-note></p>
         <div class="seg" style="margin-bottom:16px;">
           <button type="button" class="seg-btn active" data-admin-tab-btn="officers">Officers</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="admins">Team Admins</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="squads">Squads</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="events">Events</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="tournaments">Tournaments</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="settings">Settings</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="notifications">Notifications</button>
         </div>
 
         <div data-admin-tabpanel="officers">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A badge shown on the roster — doesn't grant any extra access on this page. For that, see Team Admins.
+          </div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Officer</th><th></th></tr></thead>
@@ -684,6 +689,22 @@
           <form data-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
             <select class="form-input" name="nt_user_id" style="flex:1;"><option value="82310522">Mwaza11</option><option value="25467084">-Isaac-</option><option value="85676756">-Savana Banana- 7k -</option><option value="60578536">Alashtar</option><option value="90361653">aurahaker</option><option value="68869823">BARRYALLEN</option><option value="41892284">CallTheGhostTypers</option><option value="79703656">ClearPeachCaribou</option><option value="81670715">DontForgetAboutMe</option><option value="91803825">FriendlyTyperNT</option><option value="84954343">goomba_doggy770</option><option value="70704739">guyismyname</option><option value="43504983">Kritical</option><option value="90986559">MBNjack</option><option value="50541068">MobileTyperNT</option><option value="28840574">Pizza_lover5</option><option value="87388453">Shift_Type</option><option value="84954712">Sirius</option><option value="88381702">snoww_-</option><option value="86750682">TheIcarus</option><option value="62215576">TikTok Bel Retired</option><option value="62295547">trainyt</option><option value="89006490">vlad_the_champion10</option></select>
             <button type="submit" class="btn-primary">Make officer</button>
+          </form>
+        </div>
+
+        <div data-admin-tabpanel="admins" style="display:none;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A Team Admin can do everything you can on this page — Events, Squads, Tournaments, Officers, Settings, Notifications — except add or remove other Team Admins. Only you, the real captain, can do that.
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Admin</th><th></th></tr></thead>
+              <tbody data-admin-admin-rows><tr><td colspan="2" style="color:var(--muted);">No team admins appointed yet.</td></tr></tbody>
+            </table>
+          </div>
+          <form data-admin-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
+            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="82310522">Mwaza11</option><option value="25467084">-Isaac-</option><option value="85676756">-Savana Banana- 7k -</option><option value="60578536">Alashtar</option><option value="90361653">aurahaker</option><option value="68869823">BARRYALLEN</option><option value="41892284">CallTheGhostTypers</option><option value="79703656">ClearPeachCaribou</option><option value="81670715">DontForgetAboutMe</option><option value="91803825">FriendlyTyperNT</option><option value="84954343">goomba_doggy770</option><option value="70704739">guyismyname</option><option value="43504983">Kritical</option><option value="90986559">MBNjack</option><option value="50541068">MobileTyperNT</option><option value="28840574">Pizza_lover5</option><option value="87388453">Shift_Type</option><option value="84954712">Sirius</option><option value="88381702">snoww_-</option><option value="86750682">TheIcarus</option><option value="62215576">TikTok Bel Retired</option><option value="62295547">trainyt</option><option value="89006490">vlad_the_champion10</option></select>
+            <button type="submit" class="btn-primary">Make admin</button>
           </form>
         </div>
 
@@ -881,11 +902,18 @@
           <button type="button" class="btn-primary" data-admin-settings-save style="display:none;">Save settings</button>
         </div>
 
+        <div data-admin-tabpanel="notifications" style="display:none;max-width:480px;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            Turn off any of these auto-detected kinds for [NTRO] — this only affects new notifications going forward, existing ones in the feed stay as they are.
+          </div>
+          <div data-admin-notification-rows style="display:flex;flex-direction:column;gap:12px;">Loading…</div>
+        </div>
+
         <div data-admin-error class="form-error" style="display:none;margin-top:10px;"></div>
       </div>
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:19:40.209Z</footer>
+<footer class="site">Generated 2026-10-25T18:31:31.296Z</footer>
 </body>
 </html>

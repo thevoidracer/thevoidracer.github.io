@@ -668,13 +668,18 @@
         <p class="meta-row" data-admin-role-note></p>
         <div class="seg" style="margin-bottom:16px;">
           <button type="button" class="seg-btn active" data-admin-tab-btn="officers">Officers</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="admins">Team Admins</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="squads">Squads</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="events">Events</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="tournaments">Tournaments</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="settings">Settings</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="notifications">Notifications</button>
         </div>
 
         <div data-admin-tabpanel="officers">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A badge shown on the roster — doesn't grant any extra access on this page. For that, see Team Admins.
+          </div>
           <div class="table-wrap">
             <table>
               <thead><tr><th>Officer</th><th></th></tr></thead>
@@ -684,6 +689,22 @@
           <form data-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
             <select class="form-input" name="nt_user_id" style="flex:1;"><option value="42085876">~Typing_Cat~</option><option value="81851068">~Typing_Kitty~</option><option value="86026459">5 lil nugggts</option><option value="60245417">AndrewSas</option><option value="81884337">B00MSHAKALAKA</option><option value="91078933">baseball1212121267</option><option value="88881369">Casper the ghost</option><option value="54667341">ChatGTT LKG Ahh</option><option value="80767590">Cool_Ninja</option><option value="35691228">FRACTURE</option><option value="90756159">Fsoerealm YT</option><option value="85120149">Gia Phat Nitro</option><option value="27077252">greenTacos575</option><option value="85887054">i love jessus</option><option value="91088608">I race</option><option value="65056960">jesus is my saver</option><option value="38755471">jimmythejaguar</option><option value="67723633">KG4BALLER</option><option value="88089990">kingston</option><option value="90934763">LAgirl_inthebigworld</option><option value="67570221">LeBron James 23</option><option value="62785910">lll_1111</option><option value="81412115">mason33 the GOAT</option><option value="91059228">ntont0p</option><option value="91288995">olivac12345</option><option value="91350490">OutgoingScarletSquirrel</option><option value="91259093">PlayfulMagentaMeerkat</option><option value="67598855">RFTP_Discord_When</option><option value="80795136">RFTPTEAMISTHEBEST</option><option value="80736524">Rich kid 67 kid</option><option value="67836986">risty2023</option><option value="86866827">scalerup</option><option value="90936087">tgthebaby</option><option value="67952798">W1SHLY-_-SPL1X</option><option value="91244331">willhq</option><option value="79833680">xen 12 king__</option><option value="64246614">Xest_clipz</option><option value="44341089">Yessiranay yt</option><option value="91497095">zora_4567_5</option></select>
             <button type="submit" class="btn-primary">Make officer</button>
+          </form>
+        </div>
+
+        <div data-admin-tabpanel="admins" style="display:none;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            A Team Admin can do everything you can on this page — Events, Squads, Tournaments, Officers, Settings, Notifications — except add or remove other Team Admins. Only you, the real captain, can do that.
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Admin</th><th></th></tr></thead>
+              <tbody data-admin-admin-rows><tr><td colspan="2" style="color:var(--muted);">No team admins appointed yet.</td></tr></tbody>
+            </table>
+          </div>
+          <form data-admin-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
+            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="42085876">~Typing_Cat~</option><option value="81851068">~Typing_Kitty~</option><option value="86026459">5 lil nugggts</option><option value="60245417">AndrewSas</option><option value="81884337">B00MSHAKALAKA</option><option value="91078933">baseball1212121267</option><option value="88881369">Casper the ghost</option><option value="54667341">ChatGTT LKG Ahh</option><option value="80767590">Cool_Ninja</option><option value="35691228">FRACTURE</option><option value="90756159">Fsoerealm YT</option><option value="85120149">Gia Phat Nitro</option><option value="27077252">greenTacos575</option><option value="85887054">i love jessus</option><option value="91088608">I race</option><option value="65056960">jesus is my saver</option><option value="38755471">jimmythejaguar</option><option value="67723633">KG4BALLER</option><option value="88089990">kingston</option><option value="90934763">LAgirl_inthebigworld</option><option value="67570221">LeBron James 23</option><option value="62785910">lll_1111</option><option value="81412115">mason33 the GOAT</option><option value="91059228">ntont0p</option><option value="91288995">olivac12345</option><option value="91350490">OutgoingScarletSquirrel</option><option value="91259093">PlayfulMagentaMeerkat</option><option value="67598855">RFTP_Discord_When</option><option value="80795136">RFTPTEAMISTHEBEST</option><option value="80736524">Rich kid 67 kid</option><option value="67836986">risty2023</option><option value="86866827">scalerup</option><option value="90936087">tgthebaby</option><option value="67952798">W1SHLY-_-SPL1X</option><option value="91244331">willhq</option><option value="79833680">xen 12 king__</option><option value="64246614">Xest_clipz</option><option value="44341089">Yessiranay yt</option><option value="91497095">zora_4567_5</option></select>
+            <button type="submit" class="btn-primary">Make admin</button>
           </form>
         </div>
 
@@ -977,11 +998,18 @@
           <button type="button" class="btn-primary" data-admin-settings-save style="display:none;">Save settings</button>
         </div>
 
+        <div data-admin-tabpanel="notifications" style="display:none;max-width:480px;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            Turn off any of these auto-detected kinds for [RFTP] — this only affects new notifications going forward, existing ones in the feed stay as they are.
+          </div>
+          <div data-admin-notification-rows style="display:flex;flex-direction:column;gap:12px;">Loading…</div>
+        </div>
+
         <div data-admin-error class="form-error" style="display:none;margin-top:10px;"></div>
       </div>
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T18:20:32.878Z</footer>
+<footer class="site">Generated 2026-10-25T18:32:02.476Z</footer>
 </body>
 </html>
