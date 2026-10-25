@@ -518,6 +518,32 @@
     margin: 10px 2px 0;
   }
 
+  /* Tournament bracket - a side-scrolling row of round columns, each
+     column's matches spaced out with flex gap rather than real connector
+     lines (no SVG/canvas tree) - a deliberate simplification given no
+     fixed per-match height to route lines between. */
+  .bracket-wrap { overflow-x: auto; padding-bottom: 6px; }
+  .bracket-grid { display: flex; gap: 26px; min-width: max-content; }
+  .bracket-col { display: flex; flex-direction: column; justify-content: space-around; gap: 14px; min-width: 172px; }
+  .bracket-col-title {
+    font-size: 11.5px; font-weight: 800; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.05em;
+    margin-bottom: 8px; text-align: center;
+  }
+  .bracket-match { display: flex; flex-direction: column; gap: 3px; }
+  .bracket-slot {
+    display: flex; align-items: center; gap: 6px;
+    padding: 7px 9px; border-radius: 7px;
+    background: var(--panel-2); border: 1px solid var(--border);
+    font-size: 12.5px; white-space: nowrap;
+  }
+  .bracket-slot-empty { color: var(--muted); justify-content: center; }
+  .bracket-slot-winner { border-color: var(--accent); background: rgba(255,176,32,0.12); font-weight: 700; }
+  .bracket-seed { color: var(--muted); font-size: 11px; width: 16px; flex: none; }
+  .bracket-name { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+  .bracket-score { color: var(--velocity); font-weight: 700; font-size: 12px; flex: none; }
+  .bracket-dnq { color: var(--low); font-size: 10px; font-weight: 800; flex: none; }
+
   footer.site {
     text-align: center;
     color: var(--muted);
@@ -622,6 +648,6 @@
     <div class="trk-panel" data-range="daily"><div class="empty" style="padding:40px 24px;">No one on this team earned any points in the Daily window yet — this fills in as more syncs run.</div></div><div class="trk-panel" data-range="weekly" hidden><div class="empty" style="padding:40px 24px;">No one on this team earned any points in the Weekly window yet — this fills in as more syncs run.</div></div><div class="trk-panel" data-range="seasonal" hidden><div class="empty" style="padding:40px 24px;">No one on this team earned any points in the Season window yet — this fills in as more syncs run.</div><p class="lb-score-note">Tracks Nitro Type's own current season, "Spirit Racers" (Oct 18 – Nov 29).</p></div><div class="trk-panel" data-range="alltime" hidden><div class="empty" style="padding:40px 24px;">No one on this team earned any points in the All-Time window yet — this fills in as more syncs run.</div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T01:07:21.129Z</footer>
+<footer class="site">Generated 2026-10-25T01:12:41.399Z</footer>
 </body>
 </html>
