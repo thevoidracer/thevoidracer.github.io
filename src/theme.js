@@ -215,7 +215,7 @@ function racerRosterRows(racers, team, assetsHref = "/assets/") {
 const NAV_ITEMS = [
   { key: "roster", label: "Roster", icon: "\u{1F465}", built: true },
   { key: "events", label: "Events", icon: "\u{1F4C5}", built: true },
-  { key: "activity", label: "Activity", icon: "\u{1F4C8}", built: false },
+  { key: "activity", label: "Activity", icon: "\u{1F4C8}", built: true },
   { key: "tournaments", label: "Tournaments", icon: "\u{1F3C6}", built: true },
   { key: "trackers", label: "Trackers", icon: "\u{1F4CC}", built: true },
   { key: "notifications", label: "Notifications", icon: "\u{1F514}", built: true },
@@ -572,6 +572,101 @@ function trackerBody(data, assetsHref = "/assets/") {
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
     ${trackerControls()}
     ${panels}`;
+}
+
+// ---------------------------------------------------------------------
+// Activity: an hourly view of the last 24 hours, modeled on Startrack's
+// own Activity page but built from this project's own racer_points ledger
+// (see activity-data.js) rather than scraping theirs. Timestamps are shown
+// in UTC, not the visitor's local time - this is a server-rendered static
+// page with no reliable way to know a visitor's timezone at build time,
+// and a plainly-labeled UTC hour is more honest than guessing.
+// ---------------------------------------------------------------------
+function utcHourLabel(stamp) {
+  const h = new Date(stamp).getUTCHours();
+  return `${String(h).padStart(2, "0")}:00`;
+}
+
+function activityChart(hours) {
+  const max = Math.max(1, ...hours.map((h) => Number(h.races)));
+  const bars = hours
+    .map((h, i) => {
+      const races = Number(h.races);
+      const pct = Math.max(races > 0 ? 4 : 1, Math.round((races / max) * 100));
+      const label = utcHourLabel(h.hour);
+      // A label under every bar would overlap at 24 columns - show one
+      // every 3 hours (8 labels total) and leave the rest blank; the full
+      // hour is still in the title tooltip for anyone who hovers.
+      const showLabel = i % 3 === 0;
+      return `
+        <div class="activity-bar" style="--h:${pct}%" title="${label} UTC — ${formatNumber(races)} race${races === 1 ? "" : "s"}">
+          <div class="bar"></div>
+          <div class="bar-label">${showLabel ? label : ""}</div>
+        </div>`;
+    })
+    .join("");
+  return `<div class="activity-chart">${bars}</div>`;
+}
+
+function activityRacerRows(rows, assetsHref) {
+  return rows
+    .map((r, i) => {
+      const rank = i + 1;
+      const name = r.display_name || r.username;
+      const accClass = accuracyClass(r.accuracy);
+      const accLabel = r.accuracy == null ? "—" : `${r.accuracy}%`;
+      return `
+        <tr>
+          <td><span class="lb-rank${rankBadgeClass(rank)}">${rank}</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:${avatarColor(name)}">${escapeHtml((name || "?").slice(0, 1).toUpperCase())}</span>
+            ${carThumb(r.car_id, r.car_hue_angle, assetsHref)}
+            ${escapeHtml(name)}
+          </td>
+          <td>${formatNumber(r.races)}</td>
+          <td><span class="points">${formatNumber(r.points)}</span></td>
+          <td>${formatNumber(r.avg_speed ?? "-")}</td>
+          <td><span class="pill ${accClass}">${accLabel}</span></td>
+        </tr>`;
+    })
+    .join("");
+}
+
+// `activity` is activity-data.js's teamActivity() result:
+// { hours, racers, totalRaces, activeRacers, busiestHour }.
+function activityBody(tag, activity, assetsHref = "/assets/") {
+  const { hours, racers, totalRaces, activeRacers, busiestHour } = activity;
+
+  const statBar = `
+    <div class="req-bar">
+      <div class="req">Races (24h) <b>${formatNumber(totalRaces)}</b></div>
+      <div class="req">Active racers <b>${formatNumber(activeRacers)}</b></div>
+      <div class="req">Busiest hour <b>${busiestHour != null ? `${utcHourLabel(busiestHour)} UTC` : "—"}</b></div>
+    </div>`;
+
+  const chart = totalRaces
+    ? activityChart(hours)
+    : `<div class="empty" style="padding:40px 24px;">No races tracked in the last 24 hours yet — this fills in as syncs run.</div>`;
+
+  const table = racers.length
+    ? `<div class="table-wrap">
+         <table>
+           <thead>
+             <tr><th>#</th><th>Racer</th><th>Races</th><th>Points</th><th>Avg speed</th><th>Accuracy</th></tr>
+           </thead>
+           <tbody>${activityRacerRows(racers, assetsHref)}</tbody>
+         </table>
+       </div>`
+    : `<div class="empty" style="padding:40px 24px;">No one on this team raced in the last 24 hours yet.</div>`;
+
+  return `
+    <h1>Activity</h1>
+    <p class="meta-row">A live look at the last 24 hours — race volume by hour (UTC) and who's been racing, from the same points ledger behind the Tracker and Leaderboards.</p>
+    ${statBar}
+    <h2 style="margin:28px 0 14px;">Races per hour</h2>
+    ${chart}
+    <h2 style="margin:28px 0 14px;">Most active (24h)</h2>
+    ${table}`;
 }
 
 // ---------------------------------------------------------------------
@@ -1108,6 +1203,27 @@ const BASE_CSS = `
   }
   .special-reqs .text { color: var(--text); line-height: 1.5; word-break: break-word; }
 
+  .activity-chart {
+    display: flex; align-items: flex-end; gap: 4px;
+    height: 160px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 12px 10px;
+    margin-bottom: 8px;
+  }
+  .activity-bar {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-end; height: 100%; min-width: 0;
+  }
+  .activity-bar .bar {
+    width: 100%; max-width: 18px; height: var(--h);
+    background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px;
+  }
+  .activity-bar .bar-label {
+    font-size: 10px; color: var(--muted); margin-top: 6px; height: 14px;
+    white-space: nowrap;
+  }
+
   .index-header {
     display: flex; justify-content: space-between; align-items: flex-end;
     flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
@@ -1596,6 +1712,7 @@ module.exports = {
   leaderboardsBody,
   TRACKER_RANGES,
   trackerBody,
+  activityBody,
   eventsBody,
   tournamentsBody,
   notificationsBody,

@@ -18,6 +18,7 @@ const {
   racerRosterRows,
   leaderboardsBody,
   trackerBody,
+  activityBody,
   eventsBody,
   tournamentsBody,
   notificationsBody,
@@ -29,6 +30,7 @@ const {
   teamEmojiSuffix,
 } = require("./theme");
 const { loadLeaderboardData, loadTeamTracker } = require("./leaderboard-data");
+const { teamActivity } = require("./activity-data");
 const { queryNotifications } = require("./notifications");
 const { eventsForTeam } = require("./events-data");
 const { tournamentsForTeam, bracketsForTournaments } = require("./tournaments-data");
@@ -45,6 +47,7 @@ function sectionContent(key, sectionData) {
   // Section pages (teams/<tag>/<key>/index.html) sit one level deeper than
   // the roster page, so they need their own, one-level-further assetsHref.
   if (key === "trackers") return trackerBody(sectionData.tracker, "../../../assets/");
+  if (key === "activity") return activityBody(sectionData.tag, sectionData.activity, "../../../assets/");
   if (key === "notifications") return notificationsBody(sectionData.tag, sectionData.notifications);
   if (key === "admin") return teamAdminBody(sectionData.tag, sectionData.captainNtUserId, sectionData.racers || [], sectionData.squads || []);
   return null;
@@ -389,6 +392,7 @@ async function main() {
     const sectionData = {
       tag: team.tag,
       tracker: await loadTeamTracker(pool, team.tag),
+      activity: await teamActivity(pool, team.tag),
       notifications: await queryNotifications(pool, team.tag),
       events: await eventsForTeam(pool, team.tag),
       tournaments,

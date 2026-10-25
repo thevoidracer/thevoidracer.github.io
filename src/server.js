@@ -14,6 +14,7 @@ const {
   racerRosterRows,
   leaderboardsBody,
   trackerBody,
+  activityBody,
   eventsBody,
   tournamentsBody,
   notificationsBody,
@@ -23,6 +24,7 @@ const {
   teamEmojiSuffix,
 } = require("./theme");
 const { loadLeaderboardData, loadTeamTracker } = require("./leaderboard-data");
+const { teamActivity } = require("./activity-data");
 const { queryNotifications } = require("./notifications");
 const { eventsForTeam } = require("./events-data");
 const { tournamentsForTeam, bracketsForTournaments } = require("./tournaments-data");
@@ -40,6 +42,7 @@ async function sectionContent(key, tag, captainNtUserId) {
     return tournamentsBody(tag, tournaments, brackets, "/assets/");
   }
   if (key === "trackers") return trackerBody(await loadTeamTracker(pool, tag), "/assets/");
+  if (key === "activity") return activityBody(tag, await teamActivity(pool, tag), "/assets/");
   if (key === "notifications") return notificationsBody(tag, await queryNotifications(pool, tag));
   if (key === "admin") {
     const racers = await pool.query(
