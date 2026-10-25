@@ -15,6 +15,7 @@ const {
   leaderboardsBody,
   trackerBody,
   eventsBody,
+  tournamentsBody,
   notificationsBody,
   teamAdminBody,
   pageShell,
@@ -24,6 +25,7 @@ const {
 const { loadLeaderboardData, loadTeamTracker } = require("./leaderboard-data");
 const { queryNotifications } = require("./notifications");
 const { eventsForTeam } = require("./events-data");
+const { tournamentsForTeam, standingsForTournaments } = require("./tournaments-data");
 const { accountIndexBody, accountConnectBody, signInBody } = require("./account-pages");
 
 // Built, non-roster sections render their own content - async because (unlike
@@ -32,6 +34,11 @@ const { accountIndexBody, accountConnectBody, signInBody } = require("./account-
 // just ran without waiting for the next scheduled rebuild.
 async function sectionContent(key, tag, captainNtUserId) {
   if (key === "events") return eventsBody(tag, await eventsForTeam(pool, tag), captainNtUserId);
+  if (key === "tournaments") {
+    const tournaments = await tournamentsForTeam(pool, tag);
+    const standings = await standingsForTournaments(pool, tag, tournaments);
+    return tournamentsBody(tag, tournaments, standings, captainNtUserId, "/assets/");
+  }
   if (key === "trackers") return trackerBody(await loadTeamTracker(pool, tag), "/assets/");
   if (key === "notifications") return notificationsBody(tag, await queryNotifications(pool, tag));
   if (key === "admin") {

@@ -216,7 +216,7 @@ const NAV_ITEMS = [
   { key: "roster", label: "Roster", icon: "\u{1F465}", built: true },
   { key: "events", label: "Events", icon: "\u{1F4C5}", built: true },
   { key: "activity", label: "Activity", icon: "\u{1F4C8}", built: false },
-  { key: "tournaments", label: "Tournaments", icon: "\u{1F3C6}", built: false },
+  { key: "tournaments", label: "Tournaments", icon: "\u{1F3C6}", built: true },
   { key: "trackers", label: "Trackers", icon: "\u{1F4CC}", built: true },
   { key: "notifications", label: "Notifications", icon: "\u{1F514}", built: true },
 ];
@@ -636,6 +636,78 @@ function eventsBody(tag, events, captainNtUserId) {
       <div data-events-list>${initialRows}</div>
       <p class="lb-score-note">Signed in as this team's real captain? Sign in from the Account page, then come back here to add or edit events — changes go live immediately.</p>
       <div data-events-manage></div>
+    </div>`;
+}
+
+// A tournament's standings (see queryTournamentStandings in
+// leaderboard-data.js) - visually the same racer-rank table every other
+// leaderboard on this site uses, just without the team-tag link (every row
+// already belongs to the one team the tournament is on) and with its own
+// empty-state wording, since "no races yet" reads differently for a
+// deliberately narrow, dated window than for an all-time board.
+function tournamentStandingsTable(rows, assetsHref = "/assets/") {
+  if (!rows.length) {
+    return `<div class="empty" style="padding:16px 4px;font-size:13px;">No races tracked yet in this window.</div>`;
+  }
+  const body = rows
+    .map((r, i) => {
+      const rank = i + 1;
+      const name = r.display_name || r.username;
+      const accClass = accuracyClass(r.accuracy);
+      const accLabel = r.accuracy == null ? "—" : `${r.accuracy}%`;
+      return `
+        <tr>
+          <td><span class="lb-rank${rankBadgeClass(rank)}">${rank}</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:${avatarColor(name)}">${escapeHtml((name || "?").slice(0, 1).toUpperCase())}</span>
+            ${carThumb(r.car_id, r.car_hue_angle, assetsHref)}
+            ${escapeHtml(name)}
+          </td>
+          <td><span class="points">${formatNumber(r.points)}</span></td>
+          <td>${formatNumber(r.races)}</td>
+          <td>${formatNumber(r.avg_speed ?? "-")}</td>
+          <td><span class="pill ${accClass}">${accLabel}</span></td>
+        </tr>`;
+    })
+    .join("");
+  return `
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>#</th><th>Racer</th><th>Points</th><th>Races</th><th>Avg speed</th><th>Accuracy</th></tr></thead>
+        <tbody>${body}</tbody>
+      </table>
+    </div>`;
+}
+
+// Tournaments: same shape/pattern as Events above (a team_tournaments row
+// is schema-identical to an events row - see schema.sql), with one
+// addition - a standings table computed from the racer_points ledger over
+// the tournament's own [start, end] window. `standingsById` is a plain
+// object keyed by tournament id -> already-queried standings rows (build.js/
+// server.js compute these once up front, the same "server snapshot for
+// first paint" idea eventsBody already uses); src/client/app.js's
+// initTournamentsPage() re-fetches both the list and each tournament's
+// standings live on page load, same as events' own live re-fetch.
+function tournamentsBody(tag, tournaments, standingsById, captainNtUserId, assetsHref = "/assets/") {
+  const initialRows = !tournaments.length
+    ? `<div class="empty" style="padding:40px 24px;">No tournaments scheduled for [${escapeHtml(tag)}] yet.</div>`
+    : tournaments
+        .map(
+          (t) => `
+        <div class="card" style="margin-bottom:16px;" data-tournament-card="${escapeHtml(t.id)}">
+          <div style="font-weight:700;font-size:15px;">${escapeHtml(t.title)} ${eventStatusPill(t.status)}</div>
+          <div class="meta-row" style="margin:3px 0 10px;">${formatEventDate(t.start)} → ${formatEventDate(t.end)}</div>
+          ${t.description ? `<div style="color:var(--muted);font-size:13px;margin-bottom:12px;max-width:520px;">${escapeHtml(t.description)}</div>` : ""}
+          <div data-tournament-standings>${tournamentStandingsTable(standingsById[t.id] || [], assetsHref)}</div>
+        </div>`
+        )
+        .join("");
+  return `
+    <div data-tournaments-panel data-team-tag="${escapeHtml(tag)}" data-captain-nt-user-id="${escapeHtml(captainNtUserId ?? "")}">
+      <h2 style="margin:28px 0 14px;">Tournaments</h2>
+      <div data-tournaments-list>${initialRows}</div>
+      <p class="lb-score-note">Standings are the same points formula as every other leaderboard on this site, scoped to the tournament's own dates. Signed in as this team's real captain? Sign in from the Account page, then come back here to add or edit tournaments — changes go live immediately.</p>
+      <div data-tournaments-manage></div>
     </div>`;
 }
 
@@ -1464,6 +1536,8 @@ module.exports = {
   TRACKER_RANGES,
   trackerBody,
   eventsBody,
+  tournamentsBody,
+  tournamentStandingsTable,
   notificationsBody,
   pageShell,
   carImageSourceUrl,

@@ -511,6 +511,56 @@ create policy "only a racer's own team's verified captain assigns its squad" on 
     )
   );
 
+-- Tournaments: same shape and same ownership model as events above (a
+-- named, dated thing a captain schedules for their own team) - the one
+-- difference is tournaments also get a standings table computed from the
+-- racer_points ledger over [start_stamp, end_stamp] (see
+-- queryTournamentStandings in leaderboard-data.js), the same points
+-- formula every other leaderboard on this site already uses. No bracket/
+-- match data: Nitro Type's API doesn't expose individual races, so there's
+-- nothing to build a real bracket from - a scoped leaderboard is the
+-- honest version of "who's winning this tournament" we can actually show.
+create table if not exists team_tournaments (
+  id          bigserial primary key,
+  team_tag    text not null references teams(tag) on delete cascade,
+  title       text not null,
+  description text,
+  start_stamp timestamptz not null,
+  end_stamp   timestamptz not null,
+  created_by  uuid references auth.users(id) on delete set null,
+  created_at  timestamptz not null default now()
+);
+
+create index if not exists team_tournaments_team_time on team_tournaments (team_tag, start_stamp desc);
+
+alter table team_tournaments enable row level security;
+
+drop policy if exists "team_tournaments are publicly readable" on team_tournaments;
+create policy "team_tournaments are publicly readable" on team_tournaments
+  for select using (true);
+
+drop policy if exists "only a team's own verified captain manages its tournaments" on team_tournaments;
+create policy "only a team's own verified captain manages its tournaments" on team_tournaments
+  for all
+  using (
+    exists (
+      select 1
+      from account_links al
+      join teams t on t.tag = team_tournaments.team_tag
+      where al.auth_user_id = auth.uid()
+        and al.nt_user_id = t.captain_nt_user_id
+    )
+  )
+  with check (
+    exists (
+      select 1
+      from account_links al
+      join teams t on t.tag = team_tournaments.team_tag
+      where al.auth_user_id = auth.uid()
+        and al.nt_user_id = t.captain_nt_user_id
+    )
+  );
+
 -- Profiles: the display identity for a TypeTrack account, separate from
 -- its Supabase Auth email (which, per the connect-flow redesign, is a
 -- synthetic address the user never sees or picks - see src/client/app.js).

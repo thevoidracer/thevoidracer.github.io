@@ -604,6 +604,243 @@
   }
 
   // ---------------------------------------------------------------------
+  // Tournaments (see team_tournaments in schema.sql) - same shape and
+  // same ownership-via-RLS model as Events above, plus a per-tournament
+  // standings table computed live from racer_points, the same points
+  // formula every other leaderboard on this site uses, just windowed to
+  // that tournament's own [start, end] (clipped to now() server-side).
+  // ---------------------------------------------------------------------
+  function loadTeamTournaments(teamTag, cb) {
+    withClient(function (sb) {
+      sb.from("team_tournaments")
+        .select("id, title, description, start_stamp, end_stamp")
+        .eq("team_tag", teamTag)
+        .order("start_stamp", { ascending: false })
+        .then(function (res) {
+          cb(res.error ? res.error.message : null, res.data || []);
+        });
+    });
+  }
+
+  // Mirrors leaderboard-data.js's queryTournamentStandings exactly (same
+  // join, same points/races sums, same 25-row limit) but run client-side
+  // via PostgREST so a tournament's standings reflect the latest sync
+  // immediately, not just whatever build.js/server.js computed when the
+  // page was generated.
+  function loadTournamentStandings(teamTag, startStamp, endStamp, cb) {
+    withClient(function (sb) {
+      var endClipped = new Date(Math.min(new Date(endStamp).getTime(), Date.now())).toISOString();
+      // Two separate queries + a client-side join, same pattern the
+      // Officers/Squads tabs already use (rather than a PostgREST embedded-
+      // resource select) - racer_points has no display name of its own, so
+      // the racers lookup fills that in by nt_user_id afterward.
+      sb.from("racer_points")
+        .select("nt_user_id, points, races_delta")
+        .eq("team_tag", teamTag)
+        .gte("captured_at", startStamp)
+        .lte("captured_at", endClipped)
+        .then(function (pointsRes) {
+          if (pointsRes.error) {
+            cb(pointsRes.error.message, []);
+            return;
+          }
+          var totals = {};
+          (pointsRes.data || []).forEach(function (row) {
+            var t = totals[row.nt_user_id] || { points: 0, races: 0 };
+            t.points += Number(row.points) || 0;
+            t.races += Number(row.races_delta) || 0;
+            totals[row.nt_user_id] = t;
+          });
+          var ids = Object.keys(totals);
+          if (!ids.length) {
+            cb(null, []);
+            return;
+          }
+          sb.from("racers")
+            .select("nt_user_id, username, display_name")
+            .in("nt_user_id", ids)
+            .then(function (racersRes) {
+              var byId = {};
+              (racersRes.data || []).forEach(function (r) { byId[r.nt_user_id] = r; });
+              var rows = ids
+                .map(function (id) {
+                  var racer = byId[id] || {};
+                  return { username: racer.username, display_name: racer.display_name, points: totals[id].points, races: totals[id].races };
+                })
+                .filter(function (r) { return r.points > 0; })
+                .sort(function (a, b) { return b.points - a.points; })
+                .slice(0, 25);
+              cb(null, rows);
+            });
+        });
+    });
+  }
+
+  function renderTournamentStandingsTable(rows) {
+    if (!rows.length) {
+      return '<div class="empty" style="padding:16px 4px;font-size:13px;">No races tracked yet in this window.</div>';
+    }
+    var body = rows
+      .map(function (r, i) {
+        return (
+          "<tr><td><span class='lb-rank'>" + (i + 1) + "</span></td>" +
+          "<td class='racer'>" + escapeHtml(r.display_name || r.username) + "</td>" +
+          "<td><span class='points'>" + Math.round(r.points * 100) / 100 + "</span></td>" +
+          "<td>" + r.races + "</td></tr>"
+        );
+      })
+      .join("");
+    return (
+      '<div class="table-wrap"><table><thead><tr><th>#</th><th>Racer</th><th>Points</th><th>Races</th></tr></thead><tbody>' +
+      body +
+      "</tbody></table></div>"
+    );
+  }
+
+  function renderTournamentsList(container, tournaments) {
+    if (!tournaments.length) {
+      container.innerHTML = '<div class="empty" style="padding:40px 24px;">No tournaments scheduled for this team yet.</div>';
+      return;
+    }
+    container.innerHTML = tournaments
+      .map(function (t) {
+        return (
+          '<div class="card" style="margin-bottom:16px;" data-tournament-card="' + t.id + '">' +
+          "<div style='font-weight:700;font-size:15px;'>" + escapeHtml(t.title) + " " + statusPill(eventStatus({ start_stamp: t.start_stamp, end_stamp: t.end_stamp })) + "</div>" +
+          "<div class='meta-row' style='margin:3px 0 10px;'>" + fmtDate(t.start_stamp) + " → " + fmtDate(t.end_stamp) + "</div>" +
+          (t.description ? "<div style='color:var(--muted);font-size:13px;margin-bottom:12px;max-width:520px;'>" + escapeHtml(t.description) + "</div>" : "") +
+          "<div data-tournament-standings='" + t.id + "'>Loading standings…</div>" +
+          "</div>"
+        );
+      })
+      .join("");
+    tournaments.forEach(function (t) {
+      loadTournamentStandings(container.getAttribute("data-team-tag"), t.start_stamp, t.end_stamp, function (err, rows) {
+        var slot = container.querySelector('[data-tournament-standings="' + t.id + '"]');
+        if (!slot) return;
+        slot.innerHTML = err ? "" : renderTournamentStandingsTable(rows);
+      });
+    });
+  }
+
+  function renderTournamentCaptainManager(container, teamTag, tournaments, refresh) {
+    container.innerHTML = "";
+    var wrap = el("div", { class: "card", style: "margin-top:18px;max-width:640px;" });
+    wrap.appendChild(el("div", { style: "font-weight:700;margin-bottom:10px;", text: "Manage tournaments (captain)" }));
+
+    var list = el("div", { style: "display:flex;flex-direction:column;gap:10px;margin-bottom:16px;" });
+    tournaments.forEach(function (t) {
+      var row = el("div", { class: "card", style: "padding:12px;" });
+      row.innerHTML =
+        "<div style='font-weight:700;'>" +
+        escapeHtml(t.title) +
+        "</div><div style='color:var(--muted);font-size:12.5px;margin:2px 0 8px;'>" +
+        fmtDate(t.start_stamp) +
+        " → " +
+        fmtDate(t.end_stamp) +
+        (t.description ? "<br>" + escapeHtml(t.description) : "") +
+        "</div>";
+      var delBtn = el("button", { type: "button", class: "btn-danger", text: "Delete" });
+      delBtn.addEventListener("click", function () {
+        if (!confirm('Delete "' + t.title + '"?')) return;
+        withClient(function (sb) {
+          sb.from("team_tournaments")
+            .delete()
+            .eq("id", t.id)
+            .then(function (res) {
+              if (res.error) {
+                alert("Could not delete: " + res.error.message);
+                return;
+              }
+              refresh();
+            });
+        });
+      });
+      row.appendChild(delBtn);
+      list.appendChild(row);
+    });
+    wrap.appendChild(list);
+
+    var form = el("form", { style: "display:flex;flex-direction:column;gap:8px;" });
+    form.innerHTML =
+      '<input class="form-input" name="title" placeholder="Tournament title" required>' +
+      '<textarea class="form-input" name="description" placeholder="Description (optional)" rows="2"></textarea>' +
+      '<label style="font-size:12px;color:var(--muted);">Starts<input class="form-input" name="start" type="datetime-local" required value="' +
+      toLocalInputValue() +
+      '"></label>' +
+      '<label style="font-size:12px;color:var(--muted);">Ends<input class="form-input" name="end" type="datetime-local" required value="' +
+      toLocalInputValue(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString()) +
+      '"></label>' +
+      '<button type="submit" class="btn-primary">Add tournament</button>' +
+      '<div class="form-error" style="display:none;"></div>';
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var fd = new FormData(form);
+      var title = (fd.get("title") || "").toString().trim();
+      var description = (fd.get("description") || "").toString().trim();
+      var start = fd.get("start");
+      var end = fd.get("end");
+      var errorEl = form.querySelector(".form-error");
+      errorEl.style.display = "none";
+      if (!title || !start || !end) return;
+      withClient(function (sb) {
+        sb.from("team_tournaments")
+          .insert({
+            team_tag: teamTag,
+            title: title,
+            description: description || null,
+            start_stamp: new Date(start).toISOString(),
+            end_stamp: new Date(end).toISOString(),
+          })
+          .then(function (res) {
+            if (res.error) {
+              errorEl.textContent = res.error.message;
+              errorEl.style.display = "";
+              return;
+            }
+            form.reset();
+            refresh();
+          });
+      });
+    });
+    wrap.appendChild(form);
+    container.appendChild(wrap);
+  }
+
+  function initTournamentsPage() {
+    var panel = document.querySelector("[data-tournaments-panel]");
+    if (!panel) return;
+    var teamTag = panel.getAttribute("data-team-tag");
+    var captainNtUserId = panel.getAttribute("data-captain-nt-user-id") || "";
+    var listTarget = panel.querySelector("[data-tournaments-list]");
+    var manageTarget = panel.querySelector("[data-tournaments-manage]");
+    if (listTarget) listTarget.setAttribute("data-team-tag", teamTag);
+
+    function refresh() {
+      loadTeamTournaments(teamTag, function (err, tournaments) {
+        if (err) return;
+        if (listTarget) renderTournamentsList(listTarget, tournaments);
+        if (manageTarget && manageTarget.getAttribute("data-is-captain") === "1") {
+          renderTournamentCaptainManager(manageTarget, teamTag, tournaments, refresh);
+        }
+      });
+    }
+
+    refresh();
+
+    if (!captainNtUserId) return;
+    getSession(function (session) {
+      if (!session) return;
+      getMyLink(session.user.id, function (err, link) {
+        if (err || !link) return;
+        if (String(link.nt_user_id) !== String(captainNtUserId)) return;
+        if (manageTarget) manageTarget.setAttribute("data-is-captain", "1");
+        refresh();
+      });
+    });
+  }
+
+  // ---------------------------------------------------------------------
   // Team Admin: captain edits officers, officer views read-only, anyone
   // else gets no content at all - see theme.js's teamAdminBody for the
   // static shell this fills in.
@@ -925,6 +1162,7 @@
   document.addEventListener("DOMContentLoaded", function () {
     initHeaderStatus();
     initEventsPage();
+    initTournamentsPage();
     initTeamAdminPage();
   });
 

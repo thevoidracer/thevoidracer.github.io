@@ -19,6 +19,7 @@ const {
   leaderboardsBody,
   trackerBody,
   eventsBody,
+  tournamentsBody,
   notificationsBody,
   teamAdminBody,
   pageShell,
@@ -30,6 +31,7 @@ const {
 const { loadLeaderboardData, loadTeamTracker } = require("./leaderboard-data");
 const { queryNotifications } = require("./notifications");
 const { eventsForTeam } = require("./events-data");
+const { tournamentsForTeam, standingsForTournaments } = require("./tournaments-data");
 const { accountIndexBody, accountConnectBody, signInBody } = require("./account-pages");
 
 // Built, non-roster sections render their own content from already-queried
@@ -38,6 +40,8 @@ const { accountIndexBody, accountConnectBody, signInBody } = require("./account-
 // preview never render a section differently.
 function sectionContent(key, sectionData) {
   if (key === "events") return eventsBody(sectionData.tag, sectionData.events, sectionData.captainNtUserId);
+  if (key === "tournaments")
+    return tournamentsBody(sectionData.tag, sectionData.tournaments, sectionData.tournamentStandings, sectionData.captainNtUserId, "../../../assets/");
   // Section pages (teams/<tag>/<key>/index.html) sit one level deeper than
   // the roster page, so they need their own, one-level-further assetsHref.
   if (key === "trackers") return trackerBody(sectionData.tracker, "../../../assets/");
@@ -381,11 +385,14 @@ async function main() {
        order by sq.name`,
       [team.tag]
     );
+    const tournaments = await tournamentsForTeam(pool, team.tag);
     const sectionData = {
       tag: team.tag,
       tracker: await loadTeamTracker(pool, team.tag),
       notifications: await queryNotifications(pool, team.tag),
       events: await eventsForTeam(pool, team.tag),
+      tournaments,
+      tournamentStandings: await standingsForTournaments(pool, team.tag, tournaments),
       captainNtUserId: team.captain_nt_user_id,
       racers,
       squads,
