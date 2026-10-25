@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,7 +714,7 @@
     <div class="hero" style="background:#5b52a3;color:#ffffff">
       <div class="name">[IMT] Immortal Legends 🌟</div>
       <div class="sub">
-        Captain: Void Racer · 53 racers tracked · last synced 10/25/2026, 7:24:11 PM</div>
+        Captain: Void Racer · 53 racers tracked · last synced 10/25/2026, 7:51:36 PM</div>
     </div>
     
     <div class="req-bar">
@@ -930,11 +954,11 @@
             <a href="https://www.nitrotype.com/racer/a0604971cedb19bc8237c0b2bd3de21e" target="_blank" rel="noopener" title="View on Nitro Type">I_Am_So_Cheesy</a> <a class="stats-link" href="racer/83717617/" title="I_Am_So_Cheesy's stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 7, 2026</td>
-          <td><span class="points"><span title="Includes ~628 races from before this racer was tracked here, estimated from their average speed at the time.">~100,955.4</span></span></td>
-          <td><span title="Includes ~628 races from before this racer was tracked here, estimated from their average speed at the time.">~855</span></td>
-          <td>57</td>
+          <td><span class="points"><span title="Includes ~628 races from before this racer was tracked here, estimated from their average speed at the time.">~104,962.3</span></span></td>
+          <td><span title="Includes ~628 races from before this racer was tracked here, estimated from their average speed at the time.">~889</span></td>
+          <td>53</td>
           <td>108</td>
-          <td><span class="pill ok">91.44%</span></td>
+          <td><span class="pill ok">91.35%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
@@ -1192,16 +1216,16 @@
         <tr>
           <td class="racer">
             <span class="avatar" style="background:hsl(135 85% 65%)">R</span>
-            
+            <img class="car-thumb" src="../../assets/cars/painted-fully_leaded_small_80.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/80946fcd92ffca5b3b7b8ef4b1ee7eac" target="_blank" rel="noopener" title="View on Nitro Type">RonaldoSuiii777</a> <a class="stats-link" href="racer/66622759/" title="RonaldoSuiii777's stats on TypeTrack">📊</a>
           </td>
           <td>Oct 5, 2026</td>
-          <td><span class="points"><span title="Includes ~3,230 races from before this racer was tracked here, estimated from their average speed at the time.">~386,404.9</span></span></td>
-          <td><span title="Includes ~3,230 races from before this racer was tracked here, estimated from their average speed at the time.">~3,230</span></td>
-          <td>55</td>
+          <td><span class="points"><span title="Includes ~3,230 races from before this racer was tracked here, estimated from their average speed at the time.">~387,577</span></span></td>
+          <td><span title="Includes ~3,230 races from before this racer was tracked here, estimated from their average speed at the time.">~3,240</span></td>
+          <td>50</td>
           <td>107</td>
-          <td><span class="pill ok">92.13%</span></td>
-          <td><span class="pill na" title="No races tracked for this racer yet - too new to tell.">New</span></td>
+          <td><span class="pill ok">92.21%</span></td>
+          <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1420,11 +1444,11 @@
             <a href="https://www.nitrotype.com/racer/taylorja32" target="_blank" rel="noopener" title="View on Nitro Type">Void Racer</a> <a class="stats-link" href="racer/68165431/" title="Void Racer's stats on TypeTrack">📊</a><span class="role-pill captain">Captain</span>
           </td>
           <td>Jun 10, 2026</td>
-          <td><span class="points"><span title="Includes ~4,891 races from before this racer was tracked here, estimated from their average speed at the time.">~714,558.25</span></span></td>
-          <td><span title="Includes ~4,891 races from before this racer was tracked here, estimated from their average speed at the time.">~5,126</span></td>
-          <td>91</td>
+          <td><span class="points"><span title="Includes ~4,891 races from before this racer was tracked here, estimated from their average speed at the time.">~716,226.85</span></span></td>
+          <td><span title="Includes ~4,891 races from before this racer was tracked here, estimated from their average speed at the time.">~5,138</span></td>
+          <td>94</td>
           <td>127</td>
-          <td><span class="pill ok">92.06%</span></td>
+          <td><span class="pill ok">92.05%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
@@ -1460,6 +1484,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:14.580Z</footer>
+<footer class="site">Generated 2026-10-25T20:04:42.264Z</footer>
 </body>
 </html>

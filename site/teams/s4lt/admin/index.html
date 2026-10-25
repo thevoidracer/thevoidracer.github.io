@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,7 +714,7 @@
     <div class="hero" style="background:#d1499b;color:#ffffff">
       <div class="name">[S4LT] Top Tier Royalty</div>
       <div class="sub">
-        Captain: sageost · 23 racers tracked · last synced 10/25/2026, 7:08:53 PM</div>
+        Captain: sageost · 23 racers tracked · last synced 10/25/2026, 7:53:05 PM</div>
     </div>
     <div data-admin-panel data-team-tag="S4LT" data-captain-nt-user-id="69577943">
       <h2 style="margin:28px 0 14px;">Team Admin</h2>
@@ -961,6 +985,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:51:01.379Z</footer>
+<footer class="site">Generated 2026-10-25T20:05:56.928Z</footer>
 </body>
 </html>

@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -701,15 +725,15 @@
         <div class="meta-row" style="margin:4px 0 0;">
           <a href="../../" style="color:inherit;">[DN1]</a>
           Division 1
-          · Joined Sep 14, 2026 · Last synced 10/25/2026, 7:24:08 PM
+          · Joined Sep 14, 2026 · Last synced 10/25/2026, 7:50:43 PM
         </div>
       </div>
     </div>
     
     <div class="req-bar">
-      <div class="req">Avg speed <b>88</b></div>
+      <div class="req">Avg speed <b>94</b></div>
       <div class="req">Highest speed <b>117</b></div>
-      <div class="req">Lifetime races tracked <b>1,878</b></div>
+      <div class="req">Lifetime races tracked <b>1,885</b></div>
       <div class="req">Accuracy <b><span class="pill ok">94.61%</span></b></div>
     </div>
     <h2 style="margin:28px 0 14px;">Points by window</h2>
@@ -719,44 +743,44 @@
         <tbody>
       <tr>
         <td>Hourly</td>
-        <td><span class="points">970.27</span></td>
+        <td><span class="points">991.27</span></td>
         <td>7</td>
-        <td>88</td>
+        <td>94</td>
         <td><span class="pill ok">94.61%</span></td>
       </tr>
       <tr>
         <td>Daily</td>
-        <td><span class="points">14,833.14</span></td>
-        <td>106</td>
-        <td>90.6</td>
+        <td><span class="points">15,824.41</span></td>
+        <td>113</td>
+        <td>90.8</td>
         <td><span class="pill ok">94.63%</span></td>
       </tr>
       <tr>
         <td>Weekly</td>
-        <td><span class="points">32,293.56</span></td>
-        <td>230</td>
-        <td>91.5</td>
+        <td><span class="points">33,284.83</span></td>
+        <td>237</td>
+        <td>91.6</td>
         <td><span class="pill ok">94.64%</span></td>
       </tr>
       <tr>
         <td>Monthly</td>
-        <td><span class="points">32,293.56</span></td>
-        <td>230</td>
-        <td>91.5</td>
+        <td><span class="points">33,284.83</span></td>
+        <td>237</td>
+        <td>91.6</td>
         <td><span class="pill ok">94.64%</span></td>
       </tr>
       <tr>
         <td>Seasonal</td>
-        <td><span class="points">32,293.56</span></td>
-        <td>230</td>
-        <td>91.5</td>
+        <td><span class="points">33,284.83</span></td>
+        <td>237</td>
+        <td>91.6</td>
         <td><span class="pill ok">94.64%</span></td>
       </tr>
       <tr>
         <td>All-Time</td>
-        <td><span class="points">32,293.56</span></td>
-        <td>230</td>
-        <td>91.5</td>
+        <td><span class="points">33,284.83</span></td>
+        <td>237</td>
+        <td>91.6</td>
         <td><span class="pill ok">94.64%</span></td>
       </tr></tbody>
       </table>
@@ -764,6 +788,6 @@
     <p class="lb-score-note">Tracks Nitro Type's own current season, "Spirit Racers" (Oct 18 – Nov 29).</p></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:04.280Z</footer>
+<footer class="site">Generated 2026-10-25T20:04:25.891Z</footer>
 </body>
 </html>

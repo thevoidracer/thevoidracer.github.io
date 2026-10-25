@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,7 +714,7 @@
     <div class="hero" style="background:#436fb6;color:#ffffff">
       <div class="name">[CZBZ] Cr4zy Typerz</div>
       <div class="sub">
-        Captain: Cr4zyTyper YT · 52 racers tracked · last synced 10/25/2026, 7:23:56 PM</div>
+        Captain: Cr4zyTyper YT · 53 racers tracked · last synced 10/25/2026, 7:50:28 PM</div>
     </div>
     <div data-admin-panel data-team-tag="CZBZ" data-captain-nt-user-id="81150321">
       <h2 style="margin:28px 0 14px;">Team Admin</h2>
@@ -719,7 +743,7 @@
             </table>
           </div>
           <form data-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
-            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="53569670">- L 3 G 3 N D -</option><option value="69301227">-_-PR2WYT-_-admin-_-</option><option value="46395414">-_-Willy-_-</option><option value="43374463">CLIMBING</option><option value="42956132">CoryxKenshin</option><option value="81150321">Cr4zyTyper YT</option><option value="23057585">Crazy Dread</option><option value="91513558">dailyracer3</option><option value="82291672">elak   </option><option value="79749959">FlexibleMagentaChicken</option><option value="59136723">FoscoBurrows</option><option value="55588906">GameMan6-7</option><option value="90060992">GraciousGrayCod</option><option value="91498985">Guardiancatx</option><option value="90648616">homerun_homerower</option><option value="56838651">hope    </option><option value="62106050">ISh0wSpeed</option><option value="80285510">IX_x_JT_x_XI</option><option value="35251025">Jail2zz</option><option value="82909993">Janes Ghost</option><option value="45789728">lebonbonthegoat</option><option value="81982438">LeoMessi10</option><option value="81934396">LionelSSMS_10</option><option value="56649135">NAME O_o</option><option value="69942986">noob_4217</option><option value="60452567">Obsidianator</option><option value="87089752">PennyPitstop</option><option value="38645698">pixelcat5</option><option value="62983881">Plzz give 100k cash</option><option value="55248026">Rahhbi</option><option value="86564412">RedJio</option><option value="85053496">RedoubtableCyanAdder</option><option value="60962078">Road to 20k</option><option value="40901419">roblox is life Zach</option><option value="49857803">sawzul</option><option value="85405332">See_my_Garage</option><option value="43058461">Shhhhhhhh</option><option value="81298918">slow racer fr</option><option value="35722218">SnowyKing</option><option value="39094563">stoic0</option><option value="61780120">SuperIndigoWasp</option><option value="47770641">suppaocean</option><option value="80005270">Swishy</option><option value="86846811">ThatGreatTyper YT</option><option value="60550568">UN1VERS3</option><option value="67684537">vvvvvv</option><option value="52985736">washedcud</option><option value="83557238">Wes 2 Tact</option><option value="79771658">Witty Sapphire</option><option value="89844626">Yayyyyyyyy</option><option value="86012672">Yep_Im_GOAT</option><option value="81253386">YIYOIYI22</option></select>
+            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="53569670">- L 3 G 3 N D -</option><option value="69301227">-_-PR2WYT-_-admin-_-</option><option value="46395414">-_-Willy-_-</option><option value="43374463">CLIMBING</option><option value="42956132">CoryxKenshin</option><option value="81150321">Cr4zyTyper YT</option><option value="23057585">Crazy Dread</option><option value="91513558">dailyracer3</option><option value="82291672">elak   </option><option value="79749959">FlexibleMagentaChicken</option><option value="90168285">FluentRedWasp</option><option value="59136723">FoscoBurrows</option><option value="55588906">GameMan6-7</option><option value="90060992">GraciousGrayCod</option><option value="91498985">Guardiancatx</option><option value="90648616">homerun_homerower</option><option value="56838651">hope    </option><option value="62106050">ISh0wSpeed</option><option value="80285510">IX_x_JT_x_XI</option><option value="35251025">Jail2zz</option><option value="82909993">Janes Ghost</option><option value="45789728">lebonbonthegoat</option><option value="81982438">LeoMessi10</option><option value="81934396">LionelSSMS_10</option><option value="56649135">NAME O_o</option><option value="69942986">noob_4217</option><option value="60452567">Obsidianator</option><option value="87089752">PennyPitstop</option><option value="38645698">pixelcat5</option><option value="62983881">Plzz give 100k cash</option><option value="55248026">Rahhbi</option><option value="86564412">RedJio</option><option value="85053496">RedoubtableCyanAdder</option><option value="60962078">Road to 20k</option><option value="40901419">roblox is life Zach</option><option value="49857803">sawzul</option><option value="85405332">See_my_Garage</option><option value="43058461">Shhhhhhhh</option><option value="81298918">slow racer fr</option><option value="35722218">SnowyKing</option><option value="39094563">stoic0</option><option value="61780120">SuperIndigoWasp</option><option value="47770641">suppaocean</option><option value="80005270">Swishy</option><option value="86846811">ThatGreatTyper YT</option><option value="60550568">UN1VERS3</option><option value="67684537">vvvvvv</option><option value="52985736">washedcud</option><option value="83557238">Wes 2 Tact</option><option value="79771658">Witty Sapphire</option><option value="89844626">Yayyyyyyyy</option><option value="86012672">Yep_Im_GOAT</option><option value="81253386">YIYOIYI22</option></select>
             <button type="submit" class="btn-primary">Make officer</button>
           </form>
         </div>
@@ -735,7 +759,7 @@
             </table>
           </div>
           <form data-admin-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
-            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="53569670">- L 3 G 3 N D -</option><option value="69301227">-_-PR2WYT-_-admin-_-</option><option value="46395414">-_-Willy-_-</option><option value="43374463">CLIMBING</option><option value="42956132">CoryxKenshin</option><option value="81150321">Cr4zyTyper YT</option><option value="23057585">Crazy Dread</option><option value="91513558">dailyracer3</option><option value="82291672">elak   </option><option value="79749959">FlexibleMagentaChicken</option><option value="59136723">FoscoBurrows</option><option value="55588906">GameMan6-7</option><option value="90060992">GraciousGrayCod</option><option value="91498985">Guardiancatx</option><option value="90648616">homerun_homerower</option><option value="56838651">hope    </option><option value="62106050">ISh0wSpeed</option><option value="80285510">IX_x_JT_x_XI</option><option value="35251025">Jail2zz</option><option value="82909993">Janes Ghost</option><option value="45789728">lebonbonthegoat</option><option value="81982438">LeoMessi10</option><option value="81934396">LionelSSMS_10</option><option value="56649135">NAME O_o</option><option value="69942986">noob_4217</option><option value="60452567">Obsidianator</option><option value="87089752">PennyPitstop</option><option value="38645698">pixelcat5</option><option value="62983881">Plzz give 100k cash</option><option value="55248026">Rahhbi</option><option value="86564412">RedJio</option><option value="85053496">RedoubtableCyanAdder</option><option value="60962078">Road to 20k</option><option value="40901419">roblox is life Zach</option><option value="49857803">sawzul</option><option value="85405332">See_my_Garage</option><option value="43058461">Shhhhhhhh</option><option value="81298918">slow racer fr</option><option value="35722218">SnowyKing</option><option value="39094563">stoic0</option><option value="61780120">SuperIndigoWasp</option><option value="47770641">suppaocean</option><option value="80005270">Swishy</option><option value="86846811">ThatGreatTyper YT</option><option value="60550568">UN1VERS3</option><option value="67684537">vvvvvv</option><option value="52985736">washedcud</option><option value="83557238">Wes 2 Tact</option><option value="79771658">Witty Sapphire</option><option value="89844626">Yayyyyyyyy</option><option value="86012672">Yep_Im_GOAT</option><option value="81253386">YIYOIYI22</option></select>
+            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="53569670">- L 3 G 3 N D -</option><option value="69301227">-_-PR2WYT-_-admin-_-</option><option value="46395414">-_-Willy-_-</option><option value="43374463">CLIMBING</option><option value="42956132">CoryxKenshin</option><option value="81150321">Cr4zyTyper YT</option><option value="23057585">Crazy Dread</option><option value="91513558">dailyracer3</option><option value="82291672">elak   </option><option value="79749959">FlexibleMagentaChicken</option><option value="90168285">FluentRedWasp</option><option value="59136723">FoscoBurrows</option><option value="55588906">GameMan6-7</option><option value="90060992">GraciousGrayCod</option><option value="91498985">Guardiancatx</option><option value="90648616">homerun_homerower</option><option value="56838651">hope    </option><option value="62106050">ISh0wSpeed</option><option value="80285510">IX_x_JT_x_XI</option><option value="35251025">Jail2zz</option><option value="82909993">Janes Ghost</option><option value="45789728">lebonbonthegoat</option><option value="81982438">LeoMessi10</option><option value="81934396">LionelSSMS_10</option><option value="56649135">NAME O_o</option><option value="69942986">noob_4217</option><option value="60452567">Obsidianator</option><option value="87089752">PennyPitstop</option><option value="38645698">pixelcat5</option><option value="62983881">Plzz give 100k cash</option><option value="55248026">Rahhbi</option><option value="86564412">RedJio</option><option value="85053496">RedoubtableCyanAdder</option><option value="60962078">Road to 20k</option><option value="40901419">roblox is life Zach</option><option value="49857803">sawzul</option><option value="85405332">See_my_Garage</option><option value="43058461">Shhhhhhhh</option><option value="81298918">slow racer fr</option><option value="35722218">SnowyKing</option><option value="39094563">stoic0</option><option value="61780120">SuperIndigoWasp</option><option value="47770641">suppaocean</option><option value="80005270">Swishy</option><option value="86846811">ThatGreatTyper YT</option><option value="60550568">UN1VERS3</option><option value="67684537">vvvvvv</option><option value="52985736">washedcud</option><option value="83557238">Wes 2 Tact</option><option value="79771658">Witty Sapphire</option><option value="89844626">Yayyyyyyyy</option><option value="86012672">Yep_Im_GOAT</option><option value="81253386">YIYOIYI22</option></select>
             <button type="submit" class="btn-primary">Make admin</button>
           </form>
         </div>
@@ -817,6 +841,12 @@
           </tr>
           <tr data-squad-roster-row="79749959">
             <td>FlexibleMagentaChicken</td>
+            <td data-squad-roster-select-cell>
+              <select class="form-input" data-squad-roster-select disabled><option value="">No squad</option></select>
+            </td>
+          </tr>
+          <tr data-squad-roster-row="90168285">
+            <td>FluentRedWasp</td>
             <td data-squad-roster-select-cell>
               <select class="form-input" data-squad-roster-select disabled><option value="">No squad</option></select>
             </td>
@@ -1135,6 +1165,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:06.546Z</footer>
+<footer class="site">Generated 2026-10-25T20:04:28.480Z</footer>
 </body>
 </html>

@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,7 +714,7 @@
     <div class="hero" style="background:#40b8ea;color:#ffffff">
       <div class="name">[NTPD1] Nitro Type Police</div>
       <div class="sub">
-        Captain: Captain.Loveridge · 50 racers tracked · last synced 10/25/2026, 7:26:41 PM</div>
+        Captain: Captain.Loveridge · 50 racers tracked · last synced 10/25/2026, 7:52:17 PM</div>
     </div>
     <h2 style="margin:28px 0 14px;">Tracker</h2>
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
@@ -754,6 +778,19 @@
         <tr>
           <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(278 85% 65%)">N</span>
+            
+            <a href="https://www.nitrotype.com/racer/d7b8fe255e4a75eea4cb155b29e40b5d" target="_blank" rel="noopener" title="View on Nitro Type">NanoZilch</a> <a class="stats-link" href="../racer/51103645/" title="NanoZilch's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">23,344.5</span></td>
+          <td>169</td>
+          <td>84</td>
+          <td>111</td>
+          <td><span class="pill good">97.5%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">4</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(53 85% 65%)">-</span>
             
             <a href="https://www.nitrotype.com/racer/mustafass" target="_blank" rel="noopener" title="View on Nitro Type">-MuStAfA-L-M</a> <a class="stats-link" href="../racer/86005903/" title="-MuStAfA-L-M's stats on TypeTrack">📊</a>
@@ -765,7 +802,7 @@
           <td><span class="pill ok">93.3%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">4</span></td>
+          <td><span class="lb-rank">5</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(292 85% 65%)">U</span>
             <img class="car-thumb" src="../../../assets/cars/kurov1_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -776,19 +813,6 @@
           <td>75</td>
           <td>179</td>
           <td><span class="pill ok">94.27%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">5</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(278 85% 65%)">N</span>
-            
-            <a href="https://www.nitrotype.com/racer/d7b8fe255e4a75eea4cb155b29e40b5d" target="_blank" rel="noopener" title="View on Nitro Type">NanoZilch</a> <a class="stats-link" href="../racer/51103645/" title="NanoZilch's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">21,112.5</span></td>
-          <td>153</td>
-          <td>80</td>
-          <td>111</td>
-          <td><span class="pill good">97.5%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">6</span></td>
@@ -858,6 +882,19 @@
         <tr>
           <td><span class="lb-rank">11</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(220 85% 65%)">J</span>
+            
+            <a href="https://www.nitrotype.com/racer/jp123567" target="_blank" rel="noopener" title="View on Nitro Type">JP__23K</a> <a class="stats-link" href="../racer/53454178/" title="JP__23K's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">5,937.84</span></td>
+          <td>43</td>
+          <td>91</td>
+          <td>133</td>
+          <td><span class="pill ok">94.88%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">12</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(85 85% 65%)">R</span>
             
             <a href="https://www.nitrotype.com/racer/c534db8665440637a6b2c8e6e18dc4ad" target="_blank" rel="noopener" title="View on Nitro Type">retaired_L</a> <a class="stats-link" href="../racer/79374270/" title="retaired_L's stats on TypeTrack">📊</a>
@@ -869,7 +906,7 @@
           <td><span class="pill low">89.9%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">12</span></td>
+          <td><span class="lb-rank">13</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(322 85% 65%)">D</span>
             <img class="car-thumb" src="../../../assets/cars/meowwww_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -882,20 +919,20 @@
           <td><span class="pill ok">94.68%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">13</span></td>
+          <td><span class="lb-rank">14</span></td>
           <td class="racer">
-            <span class="avatar" style="background:hsl(220 85% 65%)">J</span>
-            
-            <a href="https://www.nitrotype.com/racer/jp123567" target="_blank" rel="noopener" title="View on Nitro Type">JP__23K</a> <a class="stats-link" href="../racer/53454178/" title="JP__23K's stats on TypeTrack">📊</a>
+            <span class="avatar" style="background:hsl(242 85% 65%)">R</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-cerberus_small_60.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/lolboyhaha" target="_blank" rel="noopener" title="View on Nitro Type">RAW Pa4per</a> <a class="stats-link" href="../racer/40460233/" title="RAW Pa4per's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">4,253.28</span></td>
-          <td>31</td>
-          <td>84</td>
-          <td>133</td>
-          <td><span class="pill ok">94.88%</span></td>
+          <td><span class="points">3,826.35</span></td>
+          <td>29</td>
+          <td>76</td>
+          <td>108</td>
+          <td><span class="pill ok">94.17%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">14</span></td>
+          <td><span class="lb-rank">15</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(220 85% 65%)">R</span>
             <img class="car-thumb" src="../../../assets/cars/spirit_koi_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -906,19 +943,6 @@
           <td>84</td>
           <td>124</td>
           <td><span class="pill ok">91.62%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">15</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(242 85% 65%)">R</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-cerberus_small_60.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/lolboyhaha" target="_blank" rel="noopener" title="View on Nitro Type">RAW Pa4per</a> <a class="stats-link" href="../racer/40460233/" title="RAW Pa4per's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">3,694.18</span></td>
-          <td>28</td>
-          <td>77</td>
-          <td>108</td>
-          <td><span class="pill ok">94.18%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">16</span></td>
@@ -1104,9 +1128,9 @@
             
             <a href="https://www.nitrotype.com/racer/d7b8fe255e4a75eea4cb155b29e40b5d" target="_blank" rel="noopener" title="View on Nitro Type">NanoZilch</a> <a class="stats-link" href="../racer/51103645/" title="NanoZilch's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">37,708.86</span></td>
-          <td>274</td>
-          <td>80</td>
+          <td><span class="points">39,940.86</span></td>
+          <td>290</td>
+          <td>84</td>
           <td>111</td>
           <td><span class="pill good">97.5%</span></td>
         </tr>
@@ -1165,6 +1189,19 @@
         <tr>
           <td><span class="lb-rank">11</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(220 85% 65%)">J</span>
+            
+            <a href="https://www.nitrotype.com/racer/jp123567" target="_blank" rel="noopener" title="View on Nitro Type">JP__23K</a> <a class="stats-link" href="../racer/53454178/" title="JP__23K's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">21,996.49</span></td>
+          <td>158</td>
+          <td>91</td>
+          <td>133</td>
+          <td><span class="pill ok">94.88%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">12</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(25 85% 65%)">N</span>
             <img class="car-thumb" src="../../../assets/cars/painted-spirit_racers_ink_fox_small_200.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/843d91cb0bd07a7ce2e0eb70270cc5be" target="_blank" rel="noopener" title="View on Nitro Type">NT KING</a> <a class="stats-link" href="../racer/91234042/" title="NT KING's stats on TypeTrack">📊</a>
@@ -1176,30 +1213,17 @@
           <td><span class="pill ok">94.69%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">12</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(220 85% 65%)">J</span>
-            
-            <a href="https://www.nitrotype.com/racer/jp123567" target="_blank" rel="noopener" title="View on Nitro Type">JP__23K</a> <a class="stats-link" href="../racer/53454178/" title="JP__23K's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">20,311.93</span></td>
-          <td>146</td>
-          <td>84</td>
-          <td>133</td>
-          <td><span class="pill ok">94.88%</span></td>
-        </tr>
-        <tr>
           <td><span class="lb-rank">13</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(242 85% 65%)">R</span>
             <img class="car-thumb" src="../../../assets/cars/painted-cerberus_small_60.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/lolboyhaha" target="_blank" rel="noopener" title="View on Nitro Type">RAW Pa4per</a> <a class="stats-link" href="../racer/40460233/" title="RAW Pa4per's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">19,196.22</span></td>
-          <td>148</td>
-          <td>77</td>
+          <td><span class="points">19,328.39</span></td>
+          <td>149</td>
+          <td>76</td>
           <td>108</td>
-          <td><span class="pill ok">94.18%</span></td>
+          <td><span class="pill ok">94.17%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">14</span></td>
@@ -1658,9 +1682,9 @@
             
             <a href="https://www.nitrotype.com/racer/d7b8fe255e4a75eea4cb155b29e40b5d" target="_blank" rel="noopener" title="View on Nitro Type">NanoZilch</a> <a class="stats-link" href="../racer/51103645/" title="NanoZilch's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">37,708.86</span></td>
-          <td>274</td>
-          <td>80</td>
+          <td><span class="points">39,940.86</span></td>
+          <td>290</td>
+          <td>84</td>
           <td>111</td>
           <td><span class="pill good">97.5%</span></td>
         </tr>
@@ -1719,6 +1743,19 @@
         <tr>
           <td><span class="lb-rank">11</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(220 85% 65%)">J</span>
+            
+            <a href="https://www.nitrotype.com/racer/jp123567" target="_blank" rel="noopener" title="View on Nitro Type">JP__23K</a> <a class="stats-link" href="../racer/53454178/" title="JP__23K's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">21,996.49</span></td>
+          <td>158</td>
+          <td>91</td>
+          <td>133</td>
+          <td><span class="pill ok">94.88%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">12</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(25 85% 65%)">N</span>
             <img class="car-thumb" src="../../../assets/cars/painted-spirit_racers_ink_fox_small_200.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/843d91cb0bd07a7ce2e0eb70270cc5be" target="_blank" rel="noopener" title="View on Nitro Type">NT KING</a> <a class="stats-link" href="../racer/91234042/" title="NT KING's stats on TypeTrack">📊</a>
@@ -1730,30 +1767,17 @@
           <td><span class="pill ok">94.69%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">12</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(220 85% 65%)">J</span>
-            
-            <a href="https://www.nitrotype.com/racer/jp123567" target="_blank" rel="noopener" title="View on Nitro Type">JP__23K</a> <a class="stats-link" href="../racer/53454178/" title="JP__23K's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">20,311.93</span></td>
-          <td>146</td>
-          <td>84</td>
-          <td>133</td>
-          <td><span class="pill ok">94.88%</span></td>
-        </tr>
-        <tr>
           <td><span class="lb-rank">13</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(242 85% 65%)">R</span>
             <img class="car-thumb" src="../../../assets/cars/painted-cerberus_small_60.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/lolboyhaha" target="_blank" rel="noopener" title="View on Nitro Type">RAW Pa4per</a> <a class="stats-link" href="../racer/40460233/" title="RAW Pa4per's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">19,196.22</span></td>
-          <td>148</td>
-          <td>77</td>
+          <td><span class="points">19,328.39</span></td>
+          <td>149</td>
+          <td>76</td>
           <td>108</td>
-          <td><span class="pill ok">94.18%</span></td>
+          <td><span class="pill ok">94.17%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">14</span></td>
@@ -2212,9 +2236,9 @@
             
             <a href="https://www.nitrotype.com/racer/d7b8fe255e4a75eea4cb155b29e40b5d" target="_blank" rel="noopener" title="View on Nitro Type">NanoZilch</a> <a class="stats-link" href="../racer/51103645/" title="NanoZilch's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">37,708.86</span></td>
-          <td>274</td>
-          <td>80</td>
+          <td><span class="points">39,940.86</span></td>
+          <td>290</td>
+          <td>84</td>
           <td>111</td>
           <td><span class="pill good">97.5%</span></td>
         </tr>
@@ -2273,6 +2297,19 @@
         <tr>
           <td><span class="lb-rank">11</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(220 85% 65%)">J</span>
+            
+            <a href="https://www.nitrotype.com/racer/jp123567" target="_blank" rel="noopener" title="View on Nitro Type">JP__23K</a> <a class="stats-link" href="../racer/53454178/" title="JP__23K's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">21,996.49</span></td>
+          <td>158</td>
+          <td>91</td>
+          <td>133</td>
+          <td><span class="pill ok">94.88%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">12</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(25 85% 65%)">N</span>
             <img class="car-thumb" src="../../../assets/cars/painted-spirit_racers_ink_fox_small_200.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/843d91cb0bd07a7ce2e0eb70270cc5be" target="_blank" rel="noopener" title="View on Nitro Type">NT KING</a> <a class="stats-link" href="../racer/91234042/" title="NT KING's stats on TypeTrack">📊</a>
@@ -2284,30 +2321,17 @@
           <td><span class="pill ok">94.69%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">12</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(220 85% 65%)">J</span>
-            
-            <a href="https://www.nitrotype.com/racer/jp123567" target="_blank" rel="noopener" title="View on Nitro Type">JP__23K</a> <a class="stats-link" href="../racer/53454178/" title="JP__23K's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">20,311.93</span></td>
-          <td>146</td>
-          <td>84</td>
-          <td>133</td>
-          <td><span class="pill ok">94.88%</span></td>
-        </tr>
-        <tr>
           <td><span class="lb-rank">13</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(242 85% 65%)">R</span>
             <img class="car-thumb" src="../../../assets/cars/painted-cerberus_small_60.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/lolboyhaha" target="_blank" rel="noopener" title="View on Nitro Type">RAW Pa4per</a> <a class="stats-link" href="../racer/40460233/" title="RAW Pa4per's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">19,196.22</span></td>
-          <td>148</td>
-          <td>77</td>
+          <td><span class="points">19,328.39</span></td>
+          <td>149</td>
+          <td>76</td>
           <td>108</td>
-          <td><span class="pill ok">94.18%</span></td>
+          <td><span class="pill ok">94.17%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">14</span></td>
@@ -2690,6 +2714,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:05.426Z</footer>
+<footer class="site">Generated 2026-10-25T20:04:27.546Z</footer>
 </body>
 </html>

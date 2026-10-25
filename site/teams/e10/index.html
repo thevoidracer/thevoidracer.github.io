@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,7 +714,7 @@
     <div class="hero" style="background:#96d1f3;color:#0b1220">
       <div class="name">[E10] ECCENTRICITY</div>
       <div class="sub">
-        Captain: IMPERATOR · 37 racers tracked · last synced 10/25/2026, 7:02:41 PM</div>
+        Captain: IMPERATOR · 37 racers tracked · last synced 10/25/2026, 7:50:52 PM</div>
     </div>
     
     <div class="req-bar">
@@ -1000,9 +1024,9 @@
             <a href="https://www.nitrotype.com/racer/8554276c8c8e2985799bb101c6e2c346" target="_blank" rel="noopener" title="View on Nitro Type">Linkyy</a> <a class="stats-link" href="racer/72042782/" title="Linkyy's stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span>
           </td>
           <td>Feb 26, 2026</td>
-          <td><span class="points"><span title="Includes ~10,892 races from before this racer was tracked here, estimated from their average speed at the time.">~1,695,633.08</span></span></td>
-          <td><span title="Includes ~10,892 races from before this racer was tracked here, estimated from their average speed at the time.">~10,900</span></td>
-          <td>98</td>
+          <td><span class="points"><span title="Includes ~10,892 races from before this racer was tracked here, estimated from their average speed at the time.">~1,697,512.04</span></span></td>
+          <td><span title="Includes ~10,892 races from before this racer was tracked here, estimated from their average speed at the time.">~10,912</span></td>
+          <td>120</td>
           <td>178</td>
           <td><span class="pill good">96.58%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
@@ -1236,6 +1260,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:41.122Z</footer>
+<footer class="site">Generated 2026-10-25T20:05:20.699Z</footer>
 </body>
 </html>

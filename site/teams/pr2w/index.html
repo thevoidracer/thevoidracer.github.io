@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,7 +714,7 @@
     <div class="hero" style="background:#ea1979;color:#ffffff">
       <div class="name">[PR2W] P1nks R2 W1ld</div>
       <div class="sub">
-        Captain: pinkyboo · 52 racers tracked · last synced 10/25/2026, 7:27:42 PM</div>
+        Captain: pinkyboo · 52 racers tracked · last synced 10/25/2026, 7:52:29 PM</div>
     </div>
     
     <div class="req-bar">
@@ -776,9 +800,9 @@
             <a href="https://www.nitrotype.com/racer/moilyn" target="_blank" rel="noopener" title="View on Nitro Type">✨꧁⚽WF⚽꧂✨</a> <a class="stats-link" href="racer/10774891/" title="✨꧁⚽WF⚽꧂✨'s stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Feb 8, 2022</td>
-          <td><span class="points"><span title="Includes ~1,152,864 races from before this racer was tracked here, estimated from their average speed at the time.">~147,099,605.18</span></span></td>
-          <td><span title="Includes ~1,152,864 races from before this racer was tracked here, estimated from their average speed at the time.">~1,153,866</span></td>
-          <td>64</td>
+          <td><span class="points"><span title="Includes ~1,152,864 races from before this racer was tracked here, estimated from their average speed at the time.">~147,103,036.66</span></span></td>
+          <td><span title="Includes ~1,152,864 races from before this racer was tracked here, estimated from their average speed at the time.">~1,153,892</span></td>
+          <td>68</td>
           <td>120</td>
           <td><span class="pill good">97.98%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
@@ -860,11 +884,11 @@
             <a href="https://www.nitrotype.com/racer/ntyperoftheyear" target="_blank" rel="noopener" title="View on Nitro Type">Arentix -Drip-</a> <a class="stats-link" href="racer/44014303/" title="Arentix -Drip-'s stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 3, 2026</td>
-          <td><span class="points"><span title="Includes ~51,900 races from before this racer was tracked here, estimated from their average speed at the time.">~8,103,067.63</span></span></td>
-          <td><span title="Includes ~51,900 races from before this racer was tracked here, estimated from their average speed at the time.">~52,529</span></td>
-          <td>112</td>
+          <td><span class="points"><span title="Includes ~51,900 races from before this racer was tracked here, estimated from their average speed at the time.">~8,104,560.23</span></span></td>
+          <td><span title="Includes ~51,900 races from before this racer was tracked here, estimated from their average speed at the time.">~52,539</span></td>
+          <td>108</td>
           <td>169</td>
-          <td><span class="pill good">95.27%</span></td>
+          <td><span class="pill good">95.26%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
@@ -944,11 +968,11 @@
             <a href="https://www.nitrotype.com/racer/douglasgreen99" target="_blank" rel="noopener" title="View on Nitro Type">DougTheBug44</a> <a class="stats-link" href="racer/54725998/" title="DougTheBug44's stats on TypeTrack">📊</a>
           </td>
           <td>Oct 25, 2026</td>
-          <td><span class="points"><span title="Includes ~11,022 races from before this racer was tracked here, estimated from their average speed at the time.">~1,439,381.71</span></span></td>
-          <td><span title="Includes ~11,022 races from before this racer was tracked here, estimated from their average speed at the time.">~11,164</span></td>
-          <td>78</td>
+          <td><span class="points"><span title="Includes ~11,022 races from before this racer was tracked here, estimated from their average speed at the time.">~1,440,774.42</span></span></td>
+          <td><span title="Includes ~11,022 races from before this racer was tracked here, estimated from their average speed at the time.">~11,175</span></td>
+          <td>74</td>
           <td>122</td>
-          <td><span class="pill low">89.67%</span></td>
+          <td><span class="pill low">89.61%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
@@ -1000,9 +1024,9 @@
             <a href="https://www.nitrotype.com/racer/greekbanana" target="_blank" rel="noopener" title="View on Nitro Type">GREEK BANANA</a> <a class="stats-link" href="racer/51354442/" title="GREEK BANANA's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 3, 2026</td>
-          <td><span class="points"><span title="Includes ~27,702 races from before this racer was tracked here, estimated from their average speed at the time.">~3,795,643.88</span></span></td>
-          <td><span title="Includes ~27,702 races from before this racer was tracked here, estimated from their average speed at the time.">~29,183</span></td>
-          <td>71</td>
+          <td><span class="points"><span title="Includes ~27,702 races from before this racer was tracked here, estimated from their average speed at the time.">~3,798,260.48</span></span></td>
+          <td><span title="Includes ~27,702 races from before this racer was tracked here, estimated from their average speed at the time.">~29,203</span></td>
+          <td>76</td>
           <td>103</td>
           <td><span class="pill ok">92.83%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
@@ -1042,11 +1066,11 @@
             <a href="https://www.nitrotype.com/racer/vishrock" target="_blank" rel="noopener" title="View on Nitro Type">killua</a> <a class="stats-link" href="racer/21856786/" title="killua's stats on TypeTrack">📊</a>
           </td>
           <td>Oct 25, 2026</td>
-          <td><span class="points"><span>507.3</span></span></td>
-          <td><span>771</span></td>
-          <td>140</td>
+          <td><span class="points"><span>2,826.4</span></span></td>
+          <td><span>785</span></td>
+          <td>135</td>
           <td>155</td>
-          <td><span class="pill good">99.1%</span></td>
+          <td><span class="pill good">98.15%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
@@ -1196,8 +1220,8 @@
             <a href="https://www.nitrotype.com/racer/1bd73ba84ff48a61d739fc1527881db6" target="_blank" rel="noopener" title="View on Nitro Type">Omicron</a> <a class="stats-link" href="racer/34904984/" title="Omicron's stats on TypeTrack">📊</a>
           </td>
           <td>Aug 29, 2025</td>
-          <td><span class="points"><span title="Includes ~57,095 races from before this racer was tracked here, estimated from their average speed at the time.">~7,716,312.12</span></span></td>
-          <td><span title="Includes ~57,095 races from before this racer was tracked here, estimated from their average speed at the time.">~57,533</span></td>
+          <td><span class="points"><span title="Includes ~57,095 races from before this racer was tracked here, estimated from their average speed at the time.">~7,720,158.68</span></span></td>
+          <td><span title="Includes ~57,095 races from before this racer was tracked here, estimated from their average speed at the time.">~57,562</span></td>
           <td>67</td>
           <td>103</td>
           <td><span class="pill good">99.14%</span></td>
@@ -1446,6 +1470,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:04.835Z</footer>
+<footer class="site">Generated 2026-10-25T20:04:26.703Z</footer>
 </body>
 </html>

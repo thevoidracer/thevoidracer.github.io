@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,7 +714,7 @@
     <div class="hero" style="background:#71c6a5;color:#ffffff">
       <div class="name">[KEYCAT] The Keyboard Cats</div>
       <div class="sub">
-        Captain: Cats_4_Eva · 48 racers tracked · last synced 10/25/2026, 7:24:27 PM</div>
+        Captain: Cats_4_Eva · 48 racers tracked · last synced 10/25/2026, 7:51:45 PM</div>
     </div>
     
     <div class="req-bar">
@@ -818,11 +842,11 @@
             <a href="https://www.nitrotype.com/racer/cats_4_eva" target="_blank" rel="noopener" title="View on Nitro Type">Cats_4_Eva</a> <a class="stats-link" href="racer/85854966/" title="Cats_4_Eva's stats on TypeTrack">📊</a><span class="role-pill captain">Captain</span>
           </td>
           <td>Nov 14, 2025</td>
-          <td><span class="points"><span title="Includes ~13,878 races from before this racer was tracked here, estimated from their average speed at the time.">~1,874,424.79</span></span></td>
-          <td><span title="Includes ~13,878 races from before this racer was tracked here, estimated from their average speed at the time.">~13,963</span></td>
+          <td><span class="points"><span title="Includes ~13,878 races from before this racer was tracked here, estimated from their average speed at the time.">~1,876,548.15</span></span></td>
+          <td><span title="Includes ~13,878 races from before this racer was tracked here, estimated from their average speed at the time.">~13,979</span></td>
           <td>80</td>
           <td>111</td>
-          <td><span class="pill ok">92.72%</span></td>
+          <td><span class="pill ok">92.71%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
@@ -1390,6 +1414,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:17.701Z</footer>
+<footer class="site">Generated 2026-10-25T20:04:48.265Z</footer>
 </body>
 </html>

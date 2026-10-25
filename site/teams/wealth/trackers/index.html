@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,7 +714,7 @@
     <div class="hero" style="background:#8eca76;color:#ffffff">
       <div class="name">[WEALTH] WEEKLY GOLD COMPS</div>
       <div class="sub">
-        Captain: Mr Benefito · 53 racers tracked · last synced 10/25/2026, 7:30:37 PM</div>
+        Captain: Mr Benefito · 53 racers tracked · last synced 10/25/2026, 7:53:44 PM</div>
     </div>
     <h2 style="margin:28px 0 14px;">Tracker</h2>
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
@@ -784,9 +808,9 @@
             
             <a href="https://www.nitrotype.com/racer/mkpro2" target="_blank" rel="noopener" title="View on Nitro Type">Flowstate</a> <a class="stats-link" href="../racer/85537396/" title="Flowstate's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">15,262.16</span></td>
-          <td>96</td>
-          <td>104</td>
+          <td><span class="points">18,239.65</span></td>
+          <td>115</td>
+          <td>119</td>
           <td>164</td>
           <td><span class="pill good">97.21%</span></td>
         </tr>
@@ -962,6 +986,19 @@
         <tr>
           <td><span class="lb-rank">19</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(247 85% 65%)">V</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-spirit_koi_small_300.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/jefezhai123" target="_blank" rel="noopener" title="View on Nitro Type">Velocity is Jefe10k</a> <a class="stats-link" href="../racer/85820602/" title="Velocity is Jefe10k's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">1,182.53</span></td>
+          <td>9</td>
+          <td>88</td>
+          <td>113</td>
+          <td><span class="pill ok">93.17%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">20</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(174 85% 65%)">I</span>
             <img class="car-thumb" src="../../../assets/cars/painted-ghost_catcher_small_140.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/hawkchicken" target="_blank" rel="noopener" title="View on Nitro Type">Im Sleepy</a> <a class="stats-link" href="../racer/62995125/" title="Im Sleepy's stats on TypeTrack">📊</a>
@@ -971,19 +1008,6 @@
           <td>64</td>
           <td>100</td>
           <td><span class="pill ok">94.33%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">20</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(247 85% 65%)">V</span>
-            
-            <a href="https://www.nitrotype.com/racer/jefezhai123" target="_blank" rel="noopener" title="View on Nitro Type">Velocity is Jefe10k</a> <a class="stats-link" href="../racer/85820602/" title="Velocity is Jefe10k's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">496.68</span></td>
-          <td>4</td>
-          <td>62</td>
-          <td>113</td>
-          <td><span class="pill ok">93.17%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">21</span></td>
@@ -1078,9 +1102,9 @@
             
             <a href="https://www.nitrotype.com/racer/mkpro2" target="_blank" rel="noopener" title="View on Nitro Type">Flowstate</a> <a class="stats-link" href="../racer/85537396/" title="Flowstate's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">42,067.94</span></td>
-          <td>264</td>
-          <td>104</td>
+          <td><span class="points">45,045.43</span></td>
+          <td>283</td>
+          <td>119</td>
           <td>164</td>
           <td><span class="pill good">97.21%</span></td>
         </tr>
@@ -1243,6 +1267,19 @@
         <tr>
           <td><span class="lb-rank">18</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(247 85% 65%)">V</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-spirit_koi_small_300.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/jefezhai123" target="_blank" rel="noopener" title="View on Nitro Type">Velocity is Jefe10k</a> <a class="stats-link" href="../racer/85820602/" title="Velocity is Jefe10k's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">10,041.93</span></td>
+          <td>79</td>
+          <td>88</td>
+          <td>113</td>
+          <td><span class="pill ok">93.17%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">19</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(281 85% 65%)">B</span>
             <img class="car-thumb" src="../../../assets/cars/painted-icarus_small_140.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/ccbd2b7af85a337613db680d682fe9eb" target="_blank" rel="noopener" title="View on Nitro Type">BlueBomber</a> <a class="stats-link" href="../racer/65697305/" title="BlueBomber's stats on TypeTrack">📊</a>
@@ -1252,19 +1289,6 @@
           <td>75</td>
           <td>98</td>
           <td><span class="pill low">79.61%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">19</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(247 85% 65%)">V</span>
-            
-            <a href="https://www.nitrotype.com/racer/jefezhai123" target="_blank" rel="noopener" title="View on Nitro Type">Velocity is Jefe10k</a> <a class="stats-link" href="../racer/85820602/" title="Velocity is Jefe10k's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">9,356.08</span></td>
-          <td>74</td>
-          <td>62</td>
-          <td>113</td>
-          <td><span class="pill ok">93.17%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">20</span></td>
@@ -1515,9 +1539,9 @@
             
             <a href="https://www.nitrotype.com/racer/mkpro2" target="_blank" rel="noopener" title="View on Nitro Type">Flowstate</a> <a class="stats-link" href="../racer/85537396/" title="Flowstate's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">42,067.94</span></td>
-          <td>264</td>
-          <td>104</td>
+          <td><span class="points">45,045.43</span></td>
+          <td>283</td>
+          <td>119</td>
           <td>164</td>
           <td><span class="pill good">97.21%</span></td>
         </tr>
@@ -1680,6 +1704,19 @@
         <tr>
           <td><span class="lb-rank">18</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(247 85% 65%)">V</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-spirit_koi_small_300.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/jefezhai123" target="_blank" rel="noopener" title="View on Nitro Type">Velocity is Jefe10k</a> <a class="stats-link" href="../racer/85820602/" title="Velocity is Jefe10k's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">10,041.93</span></td>
+          <td>79</td>
+          <td>88</td>
+          <td>113</td>
+          <td><span class="pill ok">93.17%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">19</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(281 85% 65%)">B</span>
             <img class="car-thumb" src="../../../assets/cars/painted-icarus_small_140.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/ccbd2b7af85a337613db680d682fe9eb" target="_blank" rel="noopener" title="View on Nitro Type">BlueBomber</a> <a class="stats-link" href="../racer/65697305/" title="BlueBomber's stats on TypeTrack">📊</a>
@@ -1689,19 +1726,6 @@
           <td>75</td>
           <td>98</td>
           <td><span class="pill low">79.61%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">19</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(247 85% 65%)">V</span>
-            
-            <a href="https://www.nitrotype.com/racer/jefezhai123" target="_blank" rel="noopener" title="View on Nitro Type">Velocity is Jefe10k</a> <a class="stats-link" href="../racer/85820602/" title="Velocity is Jefe10k's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">9,356.08</span></td>
-          <td>74</td>
-          <td>62</td>
-          <td>113</td>
-          <td><span class="pill ok">93.17%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">20</span></td>
@@ -1952,9 +1976,9 @@
             
             <a href="https://www.nitrotype.com/racer/mkpro2" target="_blank" rel="noopener" title="View on Nitro Type">Flowstate</a> <a class="stats-link" href="../racer/85537396/" title="Flowstate's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">42,067.94</span></td>
-          <td>264</td>
-          <td>104</td>
+          <td><span class="points">45,045.43</span></td>
+          <td>283</td>
+          <td>119</td>
           <td>164</td>
           <td><span class="pill good">97.21%</span></td>
         </tr>
@@ -2117,6 +2141,19 @@
         <tr>
           <td><span class="lb-rank">18</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(247 85% 65%)">V</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-spirit_koi_small_300.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/jefezhai123" target="_blank" rel="noopener" title="View on Nitro Type">Velocity is Jefe10k</a> <a class="stats-link" href="../racer/85820602/" title="Velocity is Jefe10k's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">10,041.93</span></td>
+          <td>79</td>
+          <td>88</td>
+          <td>113</td>
+          <td><span class="pill ok">93.17%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">19</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(281 85% 65%)">B</span>
             <img class="car-thumb" src="../../../assets/cars/painted-icarus_small_140.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/ccbd2b7af85a337613db680d682fe9eb" target="_blank" rel="noopener" title="View on Nitro Type">BlueBomber</a> <a class="stats-link" href="../racer/65697305/" title="BlueBomber's stats on TypeTrack">📊</a>
@@ -2126,19 +2163,6 @@
           <td>75</td>
           <td>98</td>
           <td><span class="pill low">79.61%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">19</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(247 85% 65%)">V</span>
-            
-            <a href="https://www.nitrotype.com/racer/jefezhai123" target="_blank" rel="noopener" title="View on Nitro Type">Velocity is Jefe10k</a> <a class="stats-link" href="../racer/85820602/" title="Velocity is Jefe10k's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">9,356.08</span></td>
-          <td>74</td>
-          <td>62</td>
-          <td>113</td>
-          <td><span class="pill ok">93.17%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">20</span></td>
@@ -2326,6 +2350,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:05.981Z</footer>
+<footer class="site">Generated 2026-10-25T20:04:29.276Z</footer>
 </body>
 </html>

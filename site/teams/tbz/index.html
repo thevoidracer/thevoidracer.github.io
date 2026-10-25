@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,7 +714,7 @@
     <div class="hero" style="background:#ee1f25;color:#ffffff">
       <div class="name">[TBZ] Trailblazers</div>
       <div class="sub">
-        Captain: monster_iii · 57 racers tracked · last synced 10/25/2026, 7:29:04 PM</div>
+        Captain: monster_iii · 57 racers tracked · last synced 10/25/2026, 7:53:27 PM</div>
     </div>
     
     <div class="req-bar">
@@ -762,9 +786,9 @@
             <a href="https://www.nitrotype.com/racer/sub2penguin_typer" target="_blank" rel="noopener" title="View on Nitro Type">-BaggyCarpet-</a> <a class="stats-link" href="racer/45578333/" title="-BaggyCarpet-'s stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Aug 29, 2026</td>
-          <td><span class="points"><span title="Includes ~44,350 races from before this racer was tracked here, estimated from their average speed at the time.">~7,105,581.49</span></span></td>
-          <td><span title="Includes ~44,350 races from before this racer was tracked here, estimated from their average speed at the time.">~44,485</span></td>
-          <td>138</td>
+          <td><span class="points"><span title="Includes ~44,350 races from before this racer was tracked here, estimated from their average speed at the time.">~7,107,992.74</span></span></td>
+          <td><span title="Includes ~44,350 races from before this racer was tracked here, estimated from their average speed at the time.">~44,500</span></td>
+          <td>132</td>
           <td>171</td>
           <td><span class="pill ok">94.75%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
@@ -1140,9 +1164,9 @@
             <a href="https://www.nitrotype.com/racer/clydecooper" target="_blank" rel="noopener" title="View on Nitro Type">monster_iii</a> <a class="stats-link" href="racer/1692583/" title="monster_iii's stats on TypeTrack">📊</a><span class="role-pill captain">Captain</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Apr 11, 2026</td>
-          <td><span class="points"><span title="Includes ~81,000 races from before this racer was tracked here, estimated from their average speed at the time.">~13,446,768.51</span></span></td>
-          <td><span title="Includes ~81,000 races from before this racer was tracked here, estimated from their average speed at the time.">~81,500</span></td>
-          <td>138</td>
+          <td><span class="points"><span title="Includes ~81,000 races from before this racer was tracked here, estimated from their average speed at the time.">~13,446,934.53</span></span></td>
+          <td><span title="Includes ~81,000 races from before this racer was tracked here, estimated from their average speed at the time.">~81,501</span></td>
+          <td>136</td>
           <td>175</td>
           <td><span class="pill good">98.02%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
@@ -1182,9 +1206,9 @@
             <a href="https://www.nitrotype.com/racer/reckersishim" target="_blank" rel="noopener" title="View on Nitro Type">Nightfall da dragon</a> <a class="stats-link" href="racer/89898951/" title="Nightfall da dragon's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 8, 2026</td>
-          <td><span class="points"><span title="Includes ~4,968 races from before this racer was tracked here, estimated from their average speed at the time.">~748,015.64</span></span></td>
-          <td><span title="Includes ~4,968 races from before this racer was tracked here, estimated from their average speed at the time.">~5,283</span></td>
-          <td>97</td>
+          <td><span class="points"><span title="Includes ~4,968 races from before this racer was tracked here, estimated from their average speed at the time.">~748,731.24</span></span></td>
+          <td><span title="Includes ~4,968 races from before this racer was tracked here, estimated from their average speed at the time.">~5,288</span></td>
+          <td>99</td>
           <td>123</td>
           <td><span class="pill ok">93.62%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
@@ -1516,6 +1540,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:03.626Z</footer>
+<footer class="site">Generated 2026-10-25T20:04:25.007Z</footer>
 </body>
 </html>

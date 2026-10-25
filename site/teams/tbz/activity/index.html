@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,25 +714,21 @@
     <div class="hero" style="background:#ee1f25;color:#ffffff">
       <div class="name">[TBZ] Trailblazers</div>
       <div class="sub">
-        Captain: monster_iii · 57 racers tracked · last synced 10/25/2026, 7:29:04 PM</div>
+        Captain: monster_iii · 57 racers tracked · last synced 10/25/2026, 7:53:27 PM</div>
     </div>
     <h1>Activity</h1>
     <p class="meta-row">A live look at the last 24 hours — race volume by hour (UTC) and who's been racing, from the same points ledger behind the Tracker and Leaderboards.</p>
     
     <div class="req-bar">
-      <div class="req">Races (24h) <b>3,461</b></div>
+      <div class="req">Races (24h) <b>3,198</b></div>
       <div class="req">Active racers <b>22</b></div>
       <div class="req">Busiest hour <b>21:00 UTC</b></div>
     </div>
     <h2 style="margin:28px 0 14px;">Races per hour</h2>
     <div class="activity-chart">
-        <div class="activity-bar" style="--h:50%" title="20:00 UTC — 284 races">
-          <div class="bar"></div>
-          <div class="bar-label">20:00</div>
-        </div>
         <div class="activity-bar" style="--h:100%" title="21:00 UTC — 573 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">21:00</div>
         </div>
         <div class="activity-bar" style="--h:19%" title="22:00 UTC — 108 races">
           <div class="bar"></div>
@@ -716,11 +736,11 @@
         </div>
         <div class="activity-bar" style="--h:43%" title="23:00 UTC — 249 races">
           <div class="bar"></div>
-          <div class="bar-label">23:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:21%" title="00:00 UTC — 122 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">00:00</div>
         </div>
         <div class="activity-bar" style="--h:66%" title="01:00 UTC — 376 races">
           <div class="bar"></div>
@@ -728,11 +748,11 @@
         </div>
         <div class="activity-bar" style="--h:54%" title="02:00 UTC — 310 races">
           <div class="bar"></div>
-          <div class="bar-label">02:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:24%" title="03:00 UTC — 137 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">03:00</div>
         </div>
         <div class="activity-bar" style="--h:11%" title="04:00 UTC — 62 races">
           <div class="bar"></div>
@@ -740,11 +760,11 @@
         </div>
         <div class="activity-bar" style="--h:1%" title="05:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label">05:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:8%" title="06:00 UTC — 43 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">06:00</div>
         </div>
         <div class="activity-bar" style="--h:4%" title="07:00 UTC — 3 races">
           <div class="bar"></div>
@@ -752,11 +772,11 @@
         </div>
         <div class="activity-bar" style="--h:1%" title="08:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label">08:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:4%" title="09:00 UTC — 6 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">09:00</div>
         </div>
         <div class="activity-bar" style="--h:8%" title="10:00 UTC — 44 races">
           <div class="bar"></div>
@@ -764,11 +784,11 @@
         </div>
         <div class="activity-bar" style="--h:7%" title="11:00 UTC — 42 races">
           <div class="bar"></div>
-          <div class="bar-label">11:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:29%" title="12:00 UTC — 164 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">12:00</div>
         </div>
         <div class="activity-bar" style="--h:32%" title="13:00 UTC — 184 races">
           <div class="bar"></div>
@@ -776,11 +796,11 @@
         </div>
         <div class="activity-bar" style="--h:25%" title="14:00 UTC — 144 races">
           <div class="bar"></div>
-          <div class="bar-label">14:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:22%" title="15:00 UTC — 125 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">15:00</div>
         </div>
         <div class="activity-bar" style="--h:11%" title="16:00 UTC — 64 races">
           <div class="bar"></div>
@@ -788,13 +808,17 @@
         </div>
         <div class="activity-bar" style="--h:28%" title="17:00 UTC — 161 races">
           <div class="bar"></div>
-          <div class="bar-label">17:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:16%" title="18:00 UTC — 90 races">
           <div class="bar"></div>
+          <div class="bar-label">18:00</div>
+        </div>
+        <div class="activity-bar" style="--h:33%" title="19:00 UTC — 191 races">
+          <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
-        <div class="activity-bar" style="--h:30%" title="19:00 UTC — 170 races">
+        <div class="activity-bar" style="--h:1%" title="20:00 UTC — 0 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div></div>
@@ -872,8 +896,8 @@
             <img class="car-thumb" src="../../../assets/cars/shadow_dragon_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/reckersishim" target="_blank" rel="noopener" title="View on Nitro Type">Nightfall da dragon</a> <a class="stats-link" href="../racer/89898951/" title="Nightfall da dragon's stats on TypeTrack">📊</a>
           </td>
-          <td>151</td>
-          <td><span class="points">21,598.61</span></td>
+          <td>156</td>
+          <td><span class="points">22,314.21</span></td>
           <td>98.9</td>
           <td><span class="pill ok">93.60%</span></td>
         </tr>
@@ -884,9 +908,9 @@
             
             <a href="https://www.nitrotype.com/racer/sub2penguin_typer" target="_blank" rel="noopener" title="View on Nitro Type">-BaggyCarpet-</a> <a class="stats-link" href="../racer/45578333/" title="-BaggyCarpet-'s stats on TypeTrack">📊</a>
           </td>
-          <td>135</td>
-          <td><span class="points">21,999.49</span></td>
-          <td>136.4</td>
+          <td>150</td>
+          <td><span class="points">24,410.74</span></td>
+          <td>136</td>
           <td><span class="pill ok">94.74%</span></td>
         </tr>
         <tr>
@@ -928,6 +952,18 @@
         <tr>
           <td><span class="lb-rank">11</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(356 85% 65%)">M</span>
+            
+            <a href="https://www.nitrotype.com/racer/clydecooper" target="_blank" rel="noopener" title="View on Nitro Type">monster_iii</a> <a class="stats-link" href="../racer/1692583/" title="monster_iii's stats on TypeTrack">📊</a>
+          </td>
+          <td>101</td>
+          <td><span class="points">16,829.52</span></td>
+          <td>137.2</td>
+          <td><span class="pill good">98.02%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">12</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(319 85% 65%)">S</span>
             <img class="car-thumb" src="../../../assets/cars/shadow_dragon_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/anolyunknown" target="_blank" rel="noopener" title="View on Nitro Type">Score   </a> <a class="stats-link" href="../racer/89753316/" title="Score   's stats on TypeTrack">📊</a>
@@ -936,18 +972,6 @@
           <td><span class="points">12,899.55</span></td>
           <td>69.4</td>
           <td><span class="pill ok">94.28%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">12</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(356 85% 65%)">M</span>
-            
-            <a href="https://www.nitrotype.com/racer/clydecooper" target="_blank" rel="noopener" title="View on Nitro Type">monster_iii</a> <a class="stats-link" href="../racer/1692583/" title="monster_iii's stats on TypeTrack">📊</a>
-          </td>
-          <td>100</td>
-          <td><span class="points">16,663.5</span></td>
-          <td>137.2</td>
-          <td><span class="pill good">98.02%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">13</span></td>
@@ -1073,6 +1097,6 @@
        </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:03.630Z</footer>
+<footer class="site">Generated 2026-10-25T20:04:25.009Z</footer>
 </body>
 </html>

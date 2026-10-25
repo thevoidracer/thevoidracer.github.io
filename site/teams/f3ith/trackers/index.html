@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,7 +714,7 @@
     <div class="hero" style="background:#e2f2ea;color:#0b1220">
       <div class="name">[F3ITH] OurGODSknowtheway</div>
       <div class="sub">
-        Captain: Brandondadragon · 20 racers tracked · last synced 10/25/2026, 7:03:27 PM</div>
+        Captain: Brandondadragon · 21 racers tracked · last synced 10/25/2026, 7:51:09 PM</div>
     </div>
     <h2 style="margin:28px 0 14px;">Tracker</h2>
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
@@ -745,11 +769,11 @@
             <img class="car-thumb" src="../../../assets/cars/painted-shadow_dragon_small_20.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/brandon38389" target="_blank" rel="noopener" title="View on Nitro Type">Brandondadragon</a> <a class="stats-link" href="../racer/80807263/" title="Brandondadragon's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">19,704.12</span></td>
-          <td>149</td>
-          <td>80</td>
+          <td><span class="points">20,493.9</span></td>
+          <td>155</td>
+          <td>78</td>
           <td>96</td>
-          <td><span class="pill ok">92.64%</span></td>
+          <td><span class="pill ok">92.63%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top3">3</span></td>
@@ -758,11 +782,11 @@
             
             <a href="https://www.nitrotype.com/racer/5592563975ea38c1ae114c577220621f" target="_blank" rel="noopener" title="View on Nitro Type">qdog 1k race a week</a> <a class="stats-link" href="../racer/70454516/" title="qdog 1k race a week's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">11,593.01</span></td>
-          <td>96</td>
-          <td>73</td>
+          <td><span class="points">13,272.03</span></td>
+          <td>110</td>
+          <td>68</td>
           <td>88</td>
-          <td><span class="pill low">85.92%</span></td>
+          <td><span class="pill low">85.93%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">4</span></td>
@@ -771,11 +795,11 @@
             <img class="car-thumb" src="../../../assets/cars/painted-strykist_small_300.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/6d6f4b3ec146db66e9c613ba8496c551" target="_blank" rel="noopener" title="View on Nitro Type">-RoSeMaRy-</a> <a class="stats-link" href="../racer/59517921/" title="-RoSeMaRy-'s stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">772.65</span></td>
-          <td>6</td>
-          <td>66</td>
+          <td><span class="points">3,762.65</span></td>
+          <td>29</td>
+          <td>69</td>
           <td>88</td>
-          <td><span class="pill good">95.93%</span></td>
+          <td><span class="pill good">95.5%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">5</span></td>
@@ -818,11 +842,11 @@
             <img class="car-thumb" src="../../../assets/cars/painted-shadow_dragon_small_20.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/brandon38389" target="_blank" rel="noopener" title="View on Nitro Type">Brandondadragon</a> <a class="stats-link" href="../racer/80807263/" title="Brandondadragon's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">19,704.12</span></td>
-          <td>149</td>
-          <td>80</td>
+          <td><span class="points">20,493.9</span></td>
+          <td>155</td>
+          <td>78</td>
           <td>96</td>
-          <td><span class="pill ok">92.64%</span></td>
+          <td><span class="pill ok">92.63%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top3">3</span></td>
@@ -831,11 +855,11 @@
             
             <a href="https://www.nitrotype.com/racer/5592563975ea38c1ae114c577220621f" target="_blank" rel="noopener" title="View on Nitro Type">qdog 1k race a week</a> <a class="stats-link" href="../racer/70454516/" title="qdog 1k race a week's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">11,593.01</span></td>
-          <td>96</td>
-          <td>73</td>
+          <td><span class="points">13,272.03</span></td>
+          <td>110</td>
+          <td>68</td>
           <td>88</td>
-          <td><span class="pill low">85.92%</span></td>
+          <td><span class="pill low">85.93%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">4</span></td>
@@ -844,11 +868,11 @@
             <img class="car-thumb" src="../../../assets/cars/painted-strykist_small_300.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/6d6f4b3ec146db66e9c613ba8496c551" target="_blank" rel="noopener" title="View on Nitro Type">-RoSeMaRy-</a> <a class="stats-link" href="../racer/59517921/" title="-RoSeMaRy-'s stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">772.65</span></td>
-          <td>6</td>
-          <td>66</td>
+          <td><span class="points">3,762.65</span></td>
+          <td>29</td>
+          <td>69</td>
           <td>88</td>
-          <td><span class="pill good">95.93%</span></td>
+          <td><span class="pill good">95.5%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">5</span></td>
@@ -891,11 +915,11 @@
             <img class="car-thumb" src="../../../assets/cars/painted-shadow_dragon_small_20.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/brandon38389" target="_blank" rel="noopener" title="View on Nitro Type">Brandondadragon</a> <a class="stats-link" href="../racer/80807263/" title="Brandondadragon's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">19,704.12</span></td>
-          <td>149</td>
-          <td>80</td>
+          <td><span class="points">20,493.9</span></td>
+          <td>155</td>
+          <td>78</td>
           <td>96</td>
-          <td><span class="pill ok">92.64%</span></td>
+          <td><span class="pill ok">92.63%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top3">3</span></td>
@@ -904,11 +928,11 @@
             
             <a href="https://www.nitrotype.com/racer/5592563975ea38c1ae114c577220621f" target="_blank" rel="noopener" title="View on Nitro Type">qdog 1k race a week</a> <a class="stats-link" href="../racer/70454516/" title="qdog 1k race a week's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">11,593.01</span></td>
-          <td>96</td>
-          <td>73</td>
+          <td><span class="points">13,272.03</span></td>
+          <td>110</td>
+          <td>68</td>
           <td>88</td>
-          <td><span class="pill low">85.92%</span></td>
+          <td><span class="pill low">85.93%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">4</span></td>
@@ -917,11 +941,11 @@
             <img class="car-thumb" src="../../../assets/cars/painted-strykist_small_300.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/6d6f4b3ec146db66e9c613ba8496c551" target="_blank" rel="noopener" title="View on Nitro Type">-RoSeMaRy-</a> <a class="stats-link" href="../racer/59517921/" title="-RoSeMaRy-'s stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">772.65</span></td>
-          <td>6</td>
-          <td>66</td>
+          <td><span class="points">3,762.65</span></td>
+          <td>29</td>
+          <td>69</td>
           <td>88</td>
-          <td><span class="pill good">95.93%</span></td>
+          <td><span class="pill good">95.5%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">5</span></td>
@@ -964,11 +988,11 @@
             <img class="car-thumb" src="../../../assets/cars/painted-shadow_dragon_small_20.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/brandon38389" target="_blank" rel="noopener" title="View on Nitro Type">Brandondadragon</a> <a class="stats-link" href="../racer/80807263/" title="Brandondadragon's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">19,704.12</span></td>
-          <td>149</td>
-          <td>80</td>
+          <td><span class="points">20,493.9</span></td>
+          <td>155</td>
+          <td>78</td>
           <td>96</td>
-          <td><span class="pill ok">92.64%</span></td>
+          <td><span class="pill ok">92.63%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top3">3</span></td>
@@ -977,11 +1001,11 @@
             
             <a href="https://www.nitrotype.com/racer/5592563975ea38c1ae114c577220621f" target="_blank" rel="noopener" title="View on Nitro Type">qdog 1k race a week</a> <a class="stats-link" href="../racer/70454516/" title="qdog 1k race a week's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">11,593.01</span></td>
-          <td>96</td>
-          <td>73</td>
+          <td><span class="points">13,272.03</span></td>
+          <td>110</td>
+          <td>68</td>
           <td>88</td>
-          <td><span class="pill low">85.92%</span></td>
+          <td><span class="pill low">85.93%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">4</span></td>
@@ -990,11 +1014,11 @@
             <img class="car-thumb" src="../../../assets/cars/painted-strykist_small_300.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/6d6f4b3ec146db66e9c613ba8496c551" target="_blank" rel="noopener" title="View on Nitro Type">-RoSeMaRy-</a> <a class="stats-link" href="../racer/59517921/" title="-RoSeMaRy-'s stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">772.65</span></td>
-          <td>6</td>
-          <td>66</td>
+          <td><span class="points">3,762.65</span></td>
+          <td>29</td>
+          <td>69</td>
           <td>88</td>
-          <td><span class="pill good">95.93%</span></td>
+          <td><span class="pill good">95.5%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">5</span></td>
@@ -1013,6 +1037,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:18.637Z</footer>
+<footer class="site">Generated 2026-10-25T20:04:49.762Z</footer>
 </body>
 </html>

@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,7 +714,7 @@
     <div class="hero" style="background:#8750a0;color:#ffffff">
       <div class="name">[DAWN] Purple Syndicate</div>
       <div class="sub">
-        Captain: jagツ · 46 racers tracked · last synced 10/25/2026, 7:01:49 PM</div>
+        Captain: jagツ · 46 racers tracked · last synced 10/25/2026, 7:50:34 PM</div>
     </div>
     
     <div class="req-bar">
@@ -808,7 +832,7 @@
           <td><span title="Includes ~40,862 races from before this racer was tracked here, estimated from their average speed at the time.">~41,233</span></td>
           <td>122</td>
           <td>147</td>
-          <td><span class="pill good">97.34%</span></td>
+          <td><span class="pill good">97.35%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
@@ -916,8 +940,8 @@
             <a href="https://www.nitrotype.com/racer/dripsome" target="_blank" rel="noopener" title="View on Nitro Type">dripsome</a> <a class="stats-link" href="racer/90209223/" title="dripsome's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Aug 15, 2026</td>
-          <td><span class="points"><span title="Includes ~6,990 races from before this racer was tracked here, estimated from their average speed at the time.">~906,140.52</span></span></td>
-          <td><span title="Includes ~6,990 races from before this racer was tracked here, estimated from their average speed at the time.">~7,014</span></td>
+          <td><span class="points"><span title="Includes ~6,990 races from before this racer was tracked here, estimated from their average speed at the time.">~906,272.7</span></span></td>
+          <td><span title="Includes ~6,990 races from before this racer was tracked here, estimated from their average speed at the time.">~7,015</span></td>
           <td>73</td>
           <td>92</td>
           <td><span class="pill good">95.68%</span></td>
@@ -1070,9 +1094,9 @@
             <a href="https://www.nitrotype.com/racer/kyleighmfdssss" target="_blank" rel="noopener" title="View on Nitro Type">kylieeee_mwahhh</a> <a class="stats-link" href="racer/53912091/" title="kylieeee_mwahhh's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Aug 23, 2026</td>
-          <td><span class="points"><span title="Includes ~8,008 races from before this racer was tracked here, estimated from their average speed at the time.">~1,063,767.15</span></span></td>
-          <td><span title="Includes ~8,008 races from before this racer was tracked here, estimated from their average speed at the time.">~8,240</span></td>
-          <td>75</td>
+          <td><span class="points"><span title="Includes ~8,008 races from before this racer was tracked here, estimated from their average speed at the time.">~1,072,842.3</span></span></td>
+          <td><span title="Includes ~8,008 races from before this racer was tracked here, estimated from their average speed at the time.">~8,307</span></td>
+          <td>80</td>
           <td>105</td>
           <td><span class="pill good">95.45%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
@@ -1350,11 +1374,11 @@
             <a href="https://www.nitrotype.com/racer/d0e5a32ff5177207c4a5deaffe86e487" target="_blank" rel="noopener" title="View on Nitro Type">yawnzzn</a> <a class="stats-link" href="racer/40983895/" title="yawnzzn's stats on TypeTrack">📊</a>
           </td>
           <td>Oct 3, 2026</td>
-          <td><span class="points"><span title="Includes ~13,153 races from before this racer was tracked here, estimated from their average speed at the time.">~1,944,392.4</span></span></td>
-          <td><span title="Includes ~13,153 races from before this racer was tracked here, estimated from their average speed at the time.">~13,420</span></td>
-          <td>90</td>
+          <td><span class="points"><span title="Includes ~13,153 races from before this racer was tracked here, estimated from their average speed at the time.">~1,948,665</span></span></td>
+          <td><span title="Includes ~13,153 races from before this racer was tracked here, estimated from their average speed at the time.">~13,450</span></td>
+          <td>92</td>
           <td>117</td>
-          <td><span class="pill good">96.43%</span></td>
+          <td><span class="pill good">96.42%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         </tbody>
@@ -1362,6 +1386,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:12.977Z</footer>
+<footer class="site">Generated 2026-10-25T20:04:39.064Z</footer>
 </body>
 </html>

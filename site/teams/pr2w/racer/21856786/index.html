@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -701,16 +725,16 @@
         <div class="meta-row" style="margin:4px 0 0;">
           <a href="../../" style="color:inherit;">[PR2W]</a>
           P1nks R2 W1ld
-          · Joined Oct 25, 2026 · Last synced 10/25/2026, 7:27:43 PM
+          · Joined Oct 25, 2026 · Last synced 10/25/2026, 7:52:29 PM
         </div>
       </div>
     </div>
     
     <div class="req-bar">
-      <div class="req">Avg speed <b>140</b></div>
+      <div class="req">Avg speed <b>135</b></div>
       <div class="req">Highest speed <b>155</b></div>
-      <div class="req">Lifetime races tracked <b>771</b></div>
-      <div class="req">Accuracy <b><span class="pill good">99.1%</span></b></div>
+      <div class="req">Lifetime races tracked <b>785</b></div>
+      <div class="req">Accuracy <b><span class="pill good">98.15%</span></b></div>
     </div>
     <h2 style="margin:28px 0 14px;">Points by window</h2>
     <div class="table-wrap">
@@ -719,51 +743,51 @@
         <tbody>
       <tr>
         <td>Hourly</td>
-        <td><span class="points">507.3</span></td>
-        <td>3</td>
-        <td>140</td>
-        <td><span class="pill good">99.10%</span></td>
+        <td><span class="points">2,826.4</span></td>
+        <td>17</td>
+        <td>135.9</td>
+        <td><span class="pill good">98.32%</span></td>
       </tr>
       <tr>
         <td>Daily</td>
-        <td><span class="points">507.3</span></td>
-        <td>3</td>
-        <td>140</td>
-        <td><span class="pill good">99.10%</span></td>
+        <td><span class="points">2,826.4</span></td>
+        <td>17</td>
+        <td>135.9</td>
+        <td><span class="pill good">98.32%</span></td>
       </tr>
       <tr>
         <td>Weekly</td>
-        <td><span class="points">507.3</span></td>
-        <td>3</td>
-        <td>140</td>
-        <td><span class="pill good">99.10%</span></td>
+        <td><span class="points">2,826.4</span></td>
+        <td>17</td>
+        <td>135.9</td>
+        <td><span class="pill good">98.32%</span></td>
       </tr>
       <tr>
         <td>Monthly</td>
-        <td><span class="points">507.3</span></td>
-        <td>3</td>
-        <td>140</td>
-        <td><span class="pill good">99.10%</span></td>
+        <td><span class="points">2,826.4</span></td>
+        <td>17</td>
+        <td>135.9</td>
+        <td><span class="pill good">98.32%</span></td>
       </tr>
       <tr>
         <td>Seasonal</td>
-        <td><span class="points">507.3</span></td>
-        <td>3</td>
-        <td>140</td>
-        <td><span class="pill good">99.10%</span></td>
+        <td><span class="points">2,826.4</span></td>
+        <td>17</td>
+        <td>135.9</td>
+        <td><span class="pill good">98.32%</span></td>
       </tr>
       <tr>
         <td>All-Time</td>
-        <td><span class="points">507.3</span></td>
-        <td>3</td>
-        <td>140</td>
-        <td><span class="pill good">99.10%</span></td>
+        <td><span class="points">2,826.4</span></td>
+        <td>17</td>
+        <td>135.9</td>
+        <td><span class="pill good">98.32%</span></td>
       </tr></tbody>
       </table>
     </div>
     <p class="lb-score-note">Tracks Nitro Type's own current season, "Spirit Racers" (Oct 18 – Nov 29).</p></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:04.889Z</footer>
+<footer class="site">Generated 2026-10-25T20:04:26.728Z</footer>
 </body>
 </html>

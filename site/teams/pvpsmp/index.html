@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,11 +714,11 @@
     <div class="hero" style="background:#436fb6;color:#ffffff">
       <div class="name">[PVPSMP] Unstable SMP Fans</div>
       <div class="sub">
-        Captain: ParrotX2 · 50 racers tracked · last synced 10/25/2026, 7:07:23 PM</div>
+        Captain: ParrotX2 · 49 racers tracked · last synced 10/25/2026, 7:52:33 PM</div>
     </div>
     
     <div class="req-bar">
-      <div class="req">Members <b>50</b></div>
+      <div class="req">Members <b>49</b></div>
       <div class="req">Formed <b>Nov 11, 2025</b></div>
       <div class="req">Enrollment <b>auto</b></div>
       <div class="req">Min races <b>500</b></div>
@@ -846,11 +870,11 @@
             <a href="https://www.nitrotype.com/racer/dfthegoat" target="_blank" rel="noopener" title="View on Nitro Type">dfthegoat</a> <a class="stats-link" href="racer/90438406/" title="dfthegoat's stats on TypeTrack">📊</a>
           </td>
           <td>Sep 26, 2026</td>
-          <td><span class="points"><span title="Includes ~1,474 races from before this racer was tracked here, estimated from their average speed at the time.">~169,319.51</span></span></td>
-          <td><span title="Includes ~1,474 races from before this racer was tracked here, estimated from their average speed at the time.">~1,489</span></td>
-          <td>40</td>
+          <td><span class="points"><span title="Includes ~1,474 races from before this racer was tracked here, estimated from their average speed at the time.">~173,978.57</span></span></td>
+          <td><span title="Includes ~1,474 races from before this racer was tracked here, estimated from their average speed at the time.">~1,531</span></td>
+          <td>37</td>
           <td>62</td>
-          <td><span class="pill ok">92.73%</span></td>
+          <td><span class="pill ok">92.43%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
@@ -921,20 +945,6 @@
           <td>97</td>
           <td>111</td>
           <td><span class="pill good">95.26%</span></td>
-          <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
-        </tr>
-        <tr>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(140 85% 65%)">F</span>
-            <img class="car-thumb" src="../../assets/cars/painted-underworld_small_20.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/ad6571c7dd404da0cfc35e6e89f1785c" target="_blank" rel="noopener" title="View on Nitro Type">FluentRedWasp</a> <a class="stats-link" href="racer/90168285/" title="FluentRedWasp's stats on TypeTrack">📊</a>
-          </td>
-          <td>Oct 17, 2026</td>
-          <td><span class="points"><span title="Includes ~1,364 races from before this racer was tracked here, estimated from their average speed at the time.">~168,957.79</span></span></td>
-          <td><span title="Includes ~1,364 races from before this racer was tracked here, estimated from their average speed at the time.">~1,407</span></td>
-          <td>69</td>
-          <td>102</td>
-          <td><span class="pill low">88.11%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
@@ -1024,20 +1034,6 @@
         <tr>
           <td class="racer">
             <span class="avatar" style="background:hsl(274 85% 65%)">J</span>
-            
-            <a href="https://www.nitrotype.com/racer/6053cd2564966a6c105fa6f76f7d3be9" target="_blank" rel="noopener" title="View on Nitro Type">join my legend team</a> <a class="stats-link" href="racer/80201129/" title="join my legend team's stats on TypeTrack">📊</a>
-          </td>
-          <td>Oct 23, 2026</td>
-          <td><span class="points"><span title="Includes ~1,355 races from before this racer was tracked here, estimated from their average speed at the time.">~160,811.4</span></span></td>
-          <td><span title="Includes ~1,355 races from before this racer was tracked here, estimated from their average speed at the time.">~1,355</span></td>
-          <td>49</td>
-          <td>63</td>
-          <td><span class="pill ok">94.18%</span></td>
-          <td><span class="pill na" title="No races tracked for this racer yet - too new to tell.">New</span></td>
-        </tr>
-        <tr>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(274 85% 65%)">J</span>
             <img class="car-thumb" src="../../assets/cars/painted-ghoul_bus_small_340.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/b1961dd6fb3a0e960c91c9405f2f7711" target="_blank" rel="noopener" title="View on Nitro Type">join my legend team</a> <a class="stats-link" href="racer/65826450/" title="join my legend team's stats on TypeTrack">📊</a>
           </td>
@@ -1047,6 +1043,20 @@
           <td>43</td>
           <td>57</td>
           <td><span class="pill ok">91.05%</span></td>
+          <td><span class="pill na" title="No races tracked for this racer yet - too new to tell.">New</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(274 85% 65%)">J</span>
+            
+            <a href="https://www.nitrotype.com/racer/6053cd2564966a6c105fa6f76f7d3be9" target="_blank" rel="noopener" title="View on Nitro Type">join my legend team</a> <a class="stats-link" href="racer/80201129/" title="join my legend team's stats on TypeTrack">📊</a>
+          </td>
+          <td>Oct 23, 2026</td>
+          <td><span class="points"><span title="Includes ~1,355 races from before this racer was tracked here, estimated from their average speed at the time.">~160,811.4</span></span></td>
+          <td><span title="Includes ~1,355 races from before this racer was tracked here, estimated from their average speed at the time.">~1,355</span></td>
+          <td>49</td>
+          <td>63</td>
+          <td><span class="pill ok">94.18%</span></td>
           <td><span class="pill na" title="No races tracked for this racer yet - too new to tell.">New</span></td>
         </tr>
         <tr>
@@ -1206,20 +1216,6 @@
         <tr>
           <td class="racer">
             <span class="avatar" style="background:hsl(72 85% 65%)">P</span>
-            <img class="car-thumb" src="../../assets/cars/underworld_small.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/stormfur4" target="_blank" rel="noopener" title="View on Nitro Type">ParrotX2</a> <a class="stats-link" href="racer/87149767/" title="ParrotX2's stats on TypeTrack">📊</a><span class="role-pill captain">Captain</span><span class="role-pill gold">Gold</span>
-          </td>
-          <td>Nov 11, 2025</td>
-          <td><span class="points"><span title="Includes ~3,918 races from before this racer was tracked here, estimated from their average speed at the time.">~491,944.08</span></span></td>
-          <td><span title="Includes ~3,918 races from before this racer was tracked here, estimated from their average speed at the time.">~3,918</span></td>
-          <td>72</td>
-          <td>92</td>
-          <td><span class="pill low">89.56%</span></td>
-          <td><span class="pill na" title="No races tracked for this racer yet - too new to tell.">New</span></td>
-        </tr>
-        <tr>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(72 85% 65%)">P</span>
             <img class="car-thumb" src="../../assets/cars/spirit_racers_paper_crane2_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/e9baace22fd5cbe0c7bc5ed900002a20" target="_blank" rel="noopener" title="View on Nitro Type">ParrotX2</a> <a class="stats-link" href="racer/90933763/" title="ParrotX2's stats on TypeTrack">📊</a>
           </td>
@@ -1230,6 +1226,20 @@
           <td>55</td>
           <td><span class="pill low">87.95%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(72 85% 65%)">P</span>
+            <img class="car-thumb" src="../../assets/cars/underworld_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/stormfur4" target="_blank" rel="noopener" title="View on Nitro Type">ParrotX2</a> <a class="stats-link" href="racer/87149767/" title="ParrotX2's stats on TypeTrack">📊</a><span class="role-pill captain">Captain</span><span class="role-pill gold">Gold</span>
+          </td>
+          <td>Nov 11, 2025</td>
+          <td><span class="points"><span title="Includes ~3,918 races from before this racer was tracked here, estimated from their average speed at the time.">~491,944.08</span></span></td>
+          <td><span title="Includes ~3,918 races from before this racer was tracked here, estimated from their average speed at the time.">~3,918</span></td>
+          <td>72</td>
+          <td>92</td>
+          <td><span class="pill low">89.56%</span></td>
+          <td><span class="pill na" title="No races tracked for this racer yet - too new to tell.">New</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1418,6 +1428,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:19.103Z</footer>
+<footer class="site">Generated 2026-10-25T20:04:50.505Z</footer>
 </body>
 </html>

@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,7 +714,7 @@
     <div class="hero" style="background:#436fb6;color:#ffffff">
       <div class="name">[SSH] Shell  Riders</div>
       <div class="sub">
-        Captain: volatile · 50 racers tracked · last synced 10/25/2026, 7:28:22 PM</div>
+        Captain: volatile · 51 racers tracked · last synced 10/25/2026, 7:53:14 PM</div>
     </div>
     <h2 style="margin:28px 0 14px;">Tracker</h2>
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
@@ -758,11 +782,11 @@
             
             <a href="https://www.nitrotype.com/racer/typernator_nm214" target="_blank" rel="noopener" title="View on Nitro Type">Wisnu80K</a> <a class="stats-link" href="../racer/32462855/" title="Wisnu80K's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">18,921.52</span></td>
-          <td>126</td>
-          <td>113</td>
+          <td><span class="points">22,509.76</span></td>
+          <td>150</td>
+          <td>110</td>
           <td>156</td>
-          <td><span class="pill ok">94.52%</span></td>
+          <td><span class="pill ok">94.51%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">4</span></td>
@@ -849,9 +873,9 @@
             <img class="car-thumb" src="../../../assets/cars/painted-xmaxxhyper_small_340.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/volatile" target="_blank" rel="noopener" title="View on Nitro Type">volatile</a> <a class="stats-link" href="../racer/3430225/" title="volatile's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">4,921.3</span></td>
-          <td>35</td>
-          <td>84</td>
+          <td><span class="points">6,050.74</span></td>
+          <td>43</td>
+          <td>86</td>
           <td>128</td>
           <td><span class="pill good">98.18%</span></td>
         </tr>
@@ -884,6 +908,19 @@
         <tr>
           <td><span class="lb-rank">13</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(144 85% 65%)">H</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-hurricania_small_60.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/monaldrcdonald" target="_blank" rel="noopener" title="View on Nitro Type">Hokey Pokey</a> <a class="stats-link" href="../racer/61058573/" title="Hokey Pokey's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">4,091.86</span></td>
+          <td>33</td>
+          <td>66</td>
+          <td>89</td>
+          <td><span class="pill low">89.48%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">14</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(37 85% 65%)">G</span>
             
             <a href="https://www.nitrotype.com/racer/geloxd" target="_blank" rel="noopener" title="View on Nitro Type">GeloXD</a> <a class="stats-link" href="../racer/50811481/" title="GeloXD's stats on TypeTrack">📊</a>
@@ -895,7 +932,7 @@
           <td><span class="pill good">96.96%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">14</span></td>
+          <td><span class="lb-rank">15</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(1 85% 65%)">C</span>
             <img class="car-thumb" src="../../../assets/cars/painted-technotruck_small_100.png" alt="" loading="lazy" onerror="this.remove()">
@@ -906,19 +943,6 @@
           <td>68</td>
           <td>92</td>
           <td><span class="pill good">96.38%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">15</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(144 85% 65%)">H</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-hurricania_small_60.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/monaldrcdonald" target="_blank" rel="noopener" title="View on Nitro Type">Hokey Pokey</a> <a class="stats-link" href="../racer/61058573/" title="Hokey Pokey's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">3,234.5</span></td>
-          <td>26</td>
-          <td>70</td>
-          <td>89</td>
-          <td><span class="pill low">89.5%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">16</span></td>
@@ -1035,6 +1059,19 @@
         <tr>
           <td><span class="lb-rank">5</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(59 85% 65%)">W</span>
+            
+            <a href="https://www.nitrotype.com/racer/typernator_nm214" target="_blank" rel="noopener" title="View on Nitro Type">Wisnu80K</a> <a class="stats-link" href="../racer/32462855/" title="Wisnu80K's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">37,352.76</span></td>
+          <td>250</td>
+          <td>110</td>
+          <td>156</td>
+          <td><span class="pill ok">94.51%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">6</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(108 85% 65%)">T</span>
             
             <a href="https://www.nitrotype.com/racer/ily2thestars" target="_blank" rel="noopener" title="View on Nitro Type">the,Quick,brown,fox3</a> <a class="stats-link" href="../racer/32709250/" title="the,Quick,brown,fox3's stats on TypeTrack">📊</a>
@@ -1044,19 +1081,6 @@
           <td>117</td>
           <td>159</td>
           <td><span class="pill ok">94.75%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">6</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(59 85% 65%)">W</span>
-            
-            <a href="https://www.nitrotype.com/racer/typernator_nm214" target="_blank" rel="noopener" title="View on Nitro Type">Wisnu80K</a> <a class="stats-link" href="../racer/32462855/" title="Wisnu80K's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">33,764.52</span></td>
-          <td>226</td>
-          <td>113</td>
-          <td>156</td>
-          <td><span class="pill ok">94.52%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">7</span></td>
@@ -1208,9 +1232,9 @@
             <img class="car-thumb" src="../../../assets/cars/painted-xmaxxhyper_small_340.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/volatile" target="_blank" rel="noopener" title="View on Nitro Type">volatile</a> <a class="stats-link" href="../racer/3430225/" title="volatile's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">9,841.6</span></td>
-          <td>70</td>
-          <td>84</td>
+          <td><span class="points">10,971.04</span></td>
+          <td>78</td>
+          <td>86</td>
           <td>128</td>
           <td><span class="pill good">98.18%</span></td>
         </tr>
@@ -1221,11 +1245,11 @@
             <img class="car-thumb" src="../../../assets/cars/painted-hurricania_small_60.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/monaldrcdonald" target="_blank" rel="noopener" title="View on Nitro Type">Hokey Pokey</a> <a class="stats-link" href="../racer/61058573/" title="Hokey Pokey's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">9,564.16</span></td>
-          <td>78</td>
-          <td>70</td>
+          <td><span class="points">10,421.52</span></td>
+          <td>85</td>
+          <td>66</td>
           <td>89</td>
-          <td><span class="pill low">89.5%</span></td>
+          <td><span class="pill low">89.48%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">20</span></td>
@@ -1524,6 +1548,19 @@
         <tr>
           <td><span class="lb-rank">5</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(59 85% 65%)">W</span>
+            
+            <a href="https://www.nitrotype.com/racer/typernator_nm214" target="_blank" rel="noopener" title="View on Nitro Type">Wisnu80K</a> <a class="stats-link" href="../racer/32462855/" title="Wisnu80K's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">37,352.76</span></td>
+          <td>250</td>
+          <td>110</td>
+          <td>156</td>
+          <td><span class="pill ok">94.51%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">6</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(108 85% 65%)">T</span>
             
             <a href="https://www.nitrotype.com/racer/ily2thestars" target="_blank" rel="noopener" title="View on Nitro Type">the,Quick,brown,fox3</a> <a class="stats-link" href="../racer/32709250/" title="the,Quick,brown,fox3's stats on TypeTrack">📊</a>
@@ -1533,19 +1570,6 @@
           <td>117</td>
           <td>159</td>
           <td><span class="pill ok">94.75%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">6</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(59 85% 65%)">W</span>
-            
-            <a href="https://www.nitrotype.com/racer/typernator_nm214" target="_blank" rel="noopener" title="View on Nitro Type">Wisnu80K</a> <a class="stats-link" href="../racer/32462855/" title="Wisnu80K's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">33,764.52</span></td>
-          <td>226</td>
-          <td>113</td>
-          <td>156</td>
-          <td><span class="pill ok">94.52%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">7</span></td>
@@ -1697,9 +1721,9 @@
             <img class="car-thumb" src="../../../assets/cars/painted-xmaxxhyper_small_340.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/volatile" target="_blank" rel="noopener" title="View on Nitro Type">volatile</a> <a class="stats-link" href="../racer/3430225/" title="volatile's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">9,841.6</span></td>
-          <td>70</td>
-          <td>84</td>
+          <td><span class="points">10,971.04</span></td>
+          <td>78</td>
+          <td>86</td>
           <td>128</td>
           <td><span class="pill good">98.18%</span></td>
         </tr>
@@ -1710,11 +1734,11 @@
             <img class="car-thumb" src="../../../assets/cars/painted-hurricania_small_60.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/monaldrcdonald" target="_blank" rel="noopener" title="View on Nitro Type">Hokey Pokey</a> <a class="stats-link" href="../racer/61058573/" title="Hokey Pokey's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">9,564.16</span></td>
-          <td>78</td>
-          <td>70</td>
+          <td><span class="points">10,421.52</span></td>
+          <td>85</td>
+          <td>66</td>
           <td>89</td>
-          <td><span class="pill low">89.5%</span></td>
+          <td><span class="pill low">89.48%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">20</span></td>
@@ -2013,6 +2037,19 @@
         <tr>
           <td><span class="lb-rank">5</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(59 85% 65%)">W</span>
+            
+            <a href="https://www.nitrotype.com/racer/typernator_nm214" target="_blank" rel="noopener" title="View on Nitro Type">Wisnu80K</a> <a class="stats-link" href="../racer/32462855/" title="Wisnu80K's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">37,352.76</span></td>
+          <td>250</td>
+          <td>110</td>
+          <td>156</td>
+          <td><span class="pill ok">94.51%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">6</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(108 85% 65%)">T</span>
             
             <a href="https://www.nitrotype.com/racer/ily2thestars" target="_blank" rel="noopener" title="View on Nitro Type">the,Quick,brown,fox3</a> <a class="stats-link" href="../racer/32709250/" title="the,Quick,brown,fox3's stats on TypeTrack">📊</a>
@@ -2022,19 +2059,6 @@
           <td>117</td>
           <td>159</td>
           <td><span class="pill ok">94.75%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">6</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(59 85% 65%)">W</span>
-            
-            <a href="https://www.nitrotype.com/racer/typernator_nm214" target="_blank" rel="noopener" title="View on Nitro Type">Wisnu80K</a> <a class="stats-link" href="../racer/32462855/" title="Wisnu80K's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">33,764.52</span></td>
-          <td>226</td>
-          <td>113</td>
-          <td>156</td>
-          <td><span class="pill ok">94.52%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">7</span></td>
@@ -2186,9 +2210,9 @@
             <img class="car-thumb" src="../../../assets/cars/painted-xmaxxhyper_small_340.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/volatile" target="_blank" rel="noopener" title="View on Nitro Type">volatile</a> <a class="stats-link" href="../racer/3430225/" title="volatile's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">9,841.6</span></td>
-          <td>70</td>
-          <td>84</td>
+          <td><span class="points">10,971.04</span></td>
+          <td>78</td>
+          <td>86</td>
           <td>128</td>
           <td><span class="pill good">98.18%</span></td>
         </tr>
@@ -2199,11 +2223,11 @@
             <img class="car-thumb" src="../../../assets/cars/painted-hurricania_small_60.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/monaldrcdonald" target="_blank" rel="noopener" title="View on Nitro Type">Hokey Pokey</a> <a class="stats-link" href="../racer/61058573/" title="Hokey Pokey's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">9,564.16</span></td>
-          <td>78</td>
-          <td>70</td>
+          <td><span class="points">10,421.52</span></td>
+          <td>85</td>
+          <td>66</td>
           <td>89</td>
-          <td><span class="pill low">89.5%</span></td>
+          <td><span class="pill low">89.48%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">20</span></td>
@@ -2443,6 +2467,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:07.096Z</footer>
+<footer class="site">Generated 2026-10-25T20:04:30.091Z</footer>
 </body>
 </html>

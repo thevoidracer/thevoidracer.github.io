@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,7 +714,7 @@
     <div class="hero" style="background:#ee1f25;color:#ffffff">
       <div class="name">[W1NN6R] Time2Rise</div>
       <div class="sub">
-        Captain: Vk       · 58 racers tracked · last synced 10/25/2026, 7:30:21 PM</div>
+        Captain: Vk       · 58 racers tracked · last synced 10/25/2026, 7:53:40 PM</div>
     </div>
     <h2 style="margin:28px 0 14px;">Tracker</h2>
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
@@ -754,6 +778,19 @@
         <tr>
           <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(231 85% 65%)">V</span>
+            <img class="car-thumb" src="../../../assets/cars/corsaimmortx_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/valen_nt" target="_blank" rel="noopener" title="View on Nitro Type">Valena NT</a> <a class="stats-link" href="../racer/45281533/" title="Valena NT's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">14,562.85</span></td>
+          <td>108</td>
+          <td>86</td>
+          <td>185</td>
+          <td><span class="pill ok">94.72%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">4</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(276 85% 65%)">U</span>
             <img class="car-thumb" src="../../../assets/cars/spirit_racers_paper_crane2_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/subtlesapphirewolf2" target="_blank" rel="noopener" title="View on Nitro Type">UnstoppableDuck-13k</a> <a class="stats-link" href="../racer/87239737/" title="UnstoppableDuck-13k's stats on TypeTrack">📊</a>
@@ -763,19 +800,6 @@
           <td>96</td>
           <td>132</td>
           <td><span class="pill low">89.32%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">4</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(231 85% 65%)">V</span>
-            <img class="car-thumb" src="../../../assets/cars/corsaimmortx_small.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/valen_nt" target="_blank" rel="noopener" title="View on Nitro Type">Valena NT</a> <a class="stats-link" href="../racer/45281533/" title="Valena NT's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">11,533.01</span></td>
-          <td>86</td>
-          <td>74</td>
-          <td>185</td>
-          <td><span class="pill ok">94.72%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">5</span></td>
@@ -983,6 +1007,19 @@
         <tr>
           <td><span class="lb-rank">5</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(231 85% 65%)">V</span>
+            <img class="car-thumb" src="../../../assets/cars/corsaimmortx_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/valen_nt" target="_blank" rel="noopener" title="View on Nitro Type">Valena NT</a> <a class="stats-link" href="../racer/45281533/" title="Valena NT's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">23,731.43</span></td>
+          <td>175</td>
+          <td>86</td>
+          <td>185</td>
+          <td><span class="pill ok">94.72%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">6</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(276 85% 65%)">U</span>
             <img class="car-thumb" src="../../../assets/cars/spirit_racers_paper_crane2_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/subtlesapphirewolf2" target="_blank" rel="noopener" title="View on Nitro Type">UnstoppableDuck-13k</a> <a class="stats-link" href="../racer/87239737/" title="UnstoppableDuck-13k's stats on TypeTrack">📊</a>
@@ -994,7 +1031,7 @@
           <td><span class="pill low">89.32%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">6</span></td>
+          <td><span class="lb-rank">7</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(83 85% 65%)">S</span>
             <img class="car-thumb" src="../../../assets/cars/painted-underworld_small_260.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1005,19 +1042,6 @@
           <td>69</td>
           <td>91</td>
           <td><span class="pill good">95.24%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">7</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(231 85% 65%)">V</span>
-            <img class="car-thumb" src="../../../assets/cars/corsaimmortx_small.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/valen_nt" target="_blank" rel="noopener" title="View on Nitro Type">Valena NT</a> <a class="stats-link" href="../racer/45281533/" title="Valena NT's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">20,701.59</span></td>
-          <td>153</td>
-          <td>74</td>
-          <td>185</td>
-          <td><span class="pill ok">94.72%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">8</span></td>
@@ -1355,6 +1379,19 @@
         <tr>
           <td><span class="lb-rank">5</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(231 85% 65%)">V</span>
+            <img class="car-thumb" src="../../../assets/cars/corsaimmortx_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/valen_nt" target="_blank" rel="noopener" title="View on Nitro Type">Valena NT</a> <a class="stats-link" href="../racer/45281533/" title="Valena NT's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">23,731.43</span></td>
+          <td>175</td>
+          <td>86</td>
+          <td>185</td>
+          <td><span class="pill ok">94.72%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">6</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(276 85% 65%)">U</span>
             <img class="car-thumb" src="../../../assets/cars/spirit_racers_paper_crane2_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/subtlesapphirewolf2" target="_blank" rel="noopener" title="View on Nitro Type">UnstoppableDuck-13k</a> <a class="stats-link" href="../racer/87239737/" title="UnstoppableDuck-13k's stats on TypeTrack">📊</a>
@@ -1366,7 +1403,7 @@
           <td><span class="pill low">89.32%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">6</span></td>
+          <td><span class="lb-rank">7</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(83 85% 65%)">S</span>
             <img class="car-thumb" src="../../../assets/cars/painted-underworld_small_260.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1377,19 +1414,6 @@
           <td>69</td>
           <td>91</td>
           <td><span class="pill good">95.24%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">7</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(231 85% 65%)">V</span>
-            <img class="car-thumb" src="../../../assets/cars/corsaimmortx_small.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/valen_nt" target="_blank" rel="noopener" title="View on Nitro Type">Valena NT</a> <a class="stats-link" href="../racer/45281533/" title="Valena NT's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">20,701.59</span></td>
-          <td>153</td>
-          <td>74</td>
-          <td>185</td>
-          <td><span class="pill ok">94.72%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">8</span></td>
@@ -1727,6 +1751,19 @@
         <tr>
           <td><span class="lb-rank">5</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(231 85% 65%)">V</span>
+            <img class="car-thumb" src="../../../assets/cars/corsaimmortx_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/valen_nt" target="_blank" rel="noopener" title="View on Nitro Type">Valena NT</a> <a class="stats-link" href="../racer/45281533/" title="Valena NT's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">23,731.43</span></td>
+          <td>175</td>
+          <td>86</td>
+          <td>185</td>
+          <td><span class="pill ok">94.72%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">6</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(276 85% 65%)">U</span>
             <img class="car-thumb" src="../../../assets/cars/spirit_racers_paper_crane2_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/subtlesapphirewolf2" target="_blank" rel="noopener" title="View on Nitro Type">UnstoppableDuck-13k</a> <a class="stats-link" href="../racer/87239737/" title="UnstoppableDuck-13k's stats on TypeTrack">📊</a>
@@ -1738,7 +1775,7 @@
           <td><span class="pill low">89.32%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">6</span></td>
+          <td><span class="lb-rank">7</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(83 85% 65%)">S</span>
             <img class="car-thumb" src="../../../assets/cars/painted-underworld_small_260.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1749,19 +1786,6 @@
           <td>69</td>
           <td>91</td>
           <td><span class="pill good">95.24%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">7</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(231 85% 65%)">V</span>
-            <img class="car-thumb" src="../../../assets/cars/corsaimmortx_small.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/valen_nt" target="_blank" rel="noopener" title="View on Nitro Type">Valena NT</a> <a class="stats-link" href="../racer/45281533/" title="Valena NT's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">20,701.59</span></td>
-          <td>153</td>
-          <td>74</td>
-          <td>185</td>
-          <td><span class="pill ok">94.72%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">8</span></td>
@@ -2040,6 +2064,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:12.481Z</footer>
+<footer class="site">Generated 2026-10-25T20:04:40.665Z</footer>
 </body>
 </html>

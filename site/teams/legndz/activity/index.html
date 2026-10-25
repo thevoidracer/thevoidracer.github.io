@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,61 +714,57 @@
     <div class="hero" style="background:#5b52a3;color:#ffffff">
       <div class="name">[LEGNDZ] Legendary-Typerz</div>
       <div class="sub">
-        Captain: Dedicated2NT · 39 racers tracked · last synced 10/25/2026, 7:24:59 PM</div>
+        Captain: Dedicated2NT · 39 racers tracked · last synced 10/25/2026, 7:51:57 PM</div>
     </div>
     <h1>Activity</h1>
     <p class="meta-row">A live look at the last 24 hours — race volume by hour (UTC) and who's been racing, from the same points ledger behind the Tracker and Leaderboards.</p>
     
     <div class="req-bar">
-      <div class="req">Races (24h) <b>980</b></div>
+      <div class="req">Races (24h) <b>984</b></div>
       <div class="req">Active racers <b>15</b></div>
-      <div class="req">Busiest hour <b>23:00 UTC</b></div>
+      <div class="req">Busiest hour <b>19:00 UTC</b></div>
     </div>
     <h2 style="margin:28px 0 14px;">Races per hour</h2>
     <div class="activity-chart">
-        <div class="activity-bar" style="--h:33%" title="20:00 UTC — 54 races">
+        <div class="activity-bar" style="--h:30%" title="21:00 UTC — 63 races">
           <div class="bar"></div>
-          <div class="bar-label">20:00</div>
+          <div class="bar-label">21:00</div>
         </div>
-        <div class="activity-bar" style="--h:39%" title="21:00 UTC — 63 races">
+        <div class="activity-bar" style="--h:23%" title="22:00 UTC — 48 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
-        <div class="activity-bar" style="--h:29%" title="22:00 UTC — 48 races">
+        <div class="activity-bar" style="--h:78%" title="23:00 UTC — 163 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
-        <div class="activity-bar" style="--h:100%" title="23:00 UTC — 163 races">
+        <div class="activity-bar" style="--h:19%" title="00:00 UTC — 39 races">
           <div class="bar"></div>
-          <div class="bar-label">23:00</div>
+          <div class="bar-label">00:00</div>
         </div>
-        <div class="activity-bar" style="--h:24%" title="00:00 UTC — 39 races">
+        <div class="activity-bar" style="--h:65%" title="01:00 UTC — 135 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
-        <div class="activity-bar" style="--h:83%" title="01:00 UTC — 135 races">
+        <div class="activity-bar" style="--h:23%" title="02:00 UTC — 49 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
-        <div class="activity-bar" style="--h:30%" title="02:00 UTC — 49 races">
+        <div class="activity-bar" style="--h:19%" title="03:00 UTC — 39 races">
           <div class="bar"></div>
-          <div class="bar-label">02:00</div>
-        </div>
-        <div class="activity-bar" style="--h:24%" title="03:00 UTC — 39 races">
-          <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">03:00</div>
         </div>
         <div class="activity-bar" style="--h:4%" title="04:00 UTC — 2 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
-        <div class="activity-bar" style="--h:8%" title="05:00 UTC — 13 races">
+        <div class="activity-bar" style="--h:6%" title="05:00 UTC — 13 races">
           <div class="bar"></div>
-          <div class="bar-label">05:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:1%" title="06:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">06:00</div>
         </div>
         <div class="activity-bar" style="--h:1%" title="07:00 UTC — 0 races">
           <div class="bar"></div>
@@ -752,11 +772,11 @@
         </div>
         <div class="activity-bar" style="--h:1%" title="08:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label">08:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:1%" title="09:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">09:00</div>
         </div>
         <div class="activity-bar" style="--h:1%" title="10:00 UTC — 0 races">
           <div class="bar"></div>
@@ -764,37 +784,41 @@
         </div>
         <div class="activity-bar" style="--h:1%" title="11:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label">11:00</div>
-        </div>
-        <div class="activity-bar" style="--h:21%" title="12:00 UTC — 34 races">
-          <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
-        <div class="activity-bar" style="--h:11%" title="13:00 UTC — 18 races">
+        <div class="activity-bar" style="--h:16%" title="12:00 UTC — 34 races">
+          <div class="bar"></div>
+          <div class="bar-label">12:00</div>
+        </div>
+        <div class="activity-bar" style="--h:9%" title="13:00 UTC — 18 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:1%" title="14:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label">14:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:4%" title="15:00 UTC — 3 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">15:00</div>
         </div>
-        <div class="activity-bar" style="--h:23%" title="16:00 UTC — 38 races">
+        <div class="activity-bar" style="--h:18%" title="16:00 UTC — 38 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
-        <div class="activity-bar" style="--h:29%" title="17:00 UTC — 47 races">
-          <div class="bar"></div>
-          <div class="bar-label">17:00</div>
-        </div>
-        <div class="activity-bar" style="--h:52%" title="18:00 UTC — 84 races">
+        <div class="activity-bar" style="--h:22%" title="17:00 UTC — 47 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
-        <div class="activity-bar" style="--h:93%" title="19:00 UTC — 151 races">
+        <div class="activity-bar" style="--h:40%" title="18:00 UTC — 84 races">
+          <div class="bar"></div>
+          <div class="bar-label">18:00</div>
+        </div>
+        <div class="activity-bar" style="--h:100%" title="19:00 UTC — 209 races">
+          <div class="bar"></div>
+          <div class="bar-label"></div>
+        </div>
+        <div class="activity-bar" style="--h:1%" title="20:00 UTC — 0 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div></div>
@@ -812,10 +836,10 @@
             <img class="car-thumb" src="../../../assets/cars/painted-jet_powered_truck_small_160.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/mike4532fxfx" target="_blank" rel="noopener" title="View on Nitro Type">mike4532fxfx</a> <a class="stats-link" href="../racer/83577482/" title="mike4532fxfx's stats on TypeTrack">📊</a>
           </td>
-          <td>359</td>
-          <td><span class="points">43,709.25</span></td>
-          <td>65.9</td>
-          <td><span class="pill low">88.79%</span></td>
+          <td>388</td>
+          <td><span class="points">47,264.94</span></td>
+          <td>66.1</td>
+          <td><span class="pill low">88.78%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top2">2</span></td>
@@ -836,10 +860,10 @@
             <img class="car-thumb" src="../../../assets/cars/scream_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/807dde54b7dcc88b416ebbebf0c7bbb8" target="_blank" rel="noopener" title="View on Nitro Type">Like2Type</a> <a class="stats-link" href="../racer/86418724/" title="Like2Type's stats on TypeTrack">📊</a>
           </td>
-          <td>79</td>
-          <td><span class="points">10,162.39</span></td>
-          <td>65.7</td>
-          <td><span class="pill good">95.76%</span></td>
+          <td>108</td>
+          <td><span class="points">13,808.27</span></td>
+          <td>64.2</td>
+          <td><span class="pill good">95.75%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">4</span></td>
@@ -989,6 +1013,6 @@
        </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:09.794Z</footer>
+<footer class="site">Generated 2026-10-25T20:04:34.399Z</footer>
 </body>
 </html>

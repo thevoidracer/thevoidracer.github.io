@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,7 +714,7 @@
     <div class="hero" style="background:#436fb6;color:#ffffff">
       <div class="name">[IPX] Racing To Victory</div>
       <div class="sub">
-        Captain: IIllIIlIIlllIIIlIII · 48 racers tracked · last synced 10/25/2026, 7:04:53 PM</div>
+        Captain: IIllIIlIIlllIIIlIII · 48 racers tracked · last synced 10/25/2026, 7:51:40 PM</div>
     </div>
     <h2 style="margin:28px 0 14px;">Tracker</h2>
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
@@ -728,6 +752,19 @@
         <tr>
           <td><span class="lb-rank top1">1</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(145 85% 65%)">N</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-spirit_racers_final_seal_small_340.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/skeeeeeeeeet" target="_blank" rel="noopener" title="View on Nitro Type">Numba1Stunna</a> <a class="stats-link" href="../racer/30744222/" title="Numba1Stunna's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">6,434.11</span></td>
+          <td>43</td>
+          <td>109</td>
+          <td>151</td>
+          <td><span class="pill good">95.27%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank top2">2</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(338 85% 65%)">N</span>
             
             <a href="https://www.nitrotype.com/racer/ilovetoeattandplay" target="_blank" rel="noopener" title="View on Nitro Type">NightslayerTyper</a> <a class="stats-link" href="../racer/91391288/" title="NightslayerTyper's stats on TypeTrack">📊</a>
@@ -739,7 +776,7 @@
           <td><span class="pill ok">93.89%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank top2">2</span></td>
+          <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(81 85% 65%)">P</span>
             <img class="car-thumb" src="../../../assets/cars/painted-hurricania_small_320.png" alt="" loading="lazy" onerror="this.remove()">
@@ -750,19 +787,6 @@
           <td>64</td>
           <td>77</td>
           <td><span class="pill ok">92.23%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank top3">3</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(145 85% 65%)">N</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-spirit_racers_final_seal_small_340.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/skeeeeeeeeet" target="_blank" rel="noopener" title="View on Nitro Type">Numba1Stunna</a> <a class="stats-link" href="../racer/30744222/" title="Numba1Stunna's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">892.62</span></td>
-          <td>6</td>
-          <td>107</td>
-          <td>151</td>
-          <td><span class="pill good">95.27%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">4</span></td>
@@ -801,6 +825,19 @@
         <tr>
           <td><span class="lb-rank top1">1</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(145 85% 65%)">N</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-spirit_racers_final_seal_small_340.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/skeeeeeeeeet" target="_blank" rel="noopener" title="View on Nitro Type">Numba1Stunna</a> <a class="stats-link" href="../racer/30744222/" title="Numba1Stunna's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">6,434.11</span></td>
+          <td>43</td>
+          <td>109</td>
+          <td>151</td>
+          <td><span class="pill good">95.27%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank top2">2</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(338 85% 65%)">N</span>
             
             <a href="https://www.nitrotype.com/racer/ilovetoeattandplay" target="_blank" rel="noopener" title="View on Nitro Type">NightslayerTyper</a> <a class="stats-link" href="../racer/91391288/" title="NightslayerTyper's stats on TypeTrack">📊</a>
@@ -812,7 +849,7 @@
           <td><span class="pill ok">93.89%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank top2">2</span></td>
+          <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(81 85% 65%)">P</span>
             <img class="car-thumb" src="../../../assets/cars/painted-hurricania_small_320.png" alt="" loading="lazy" onerror="this.remove()">
@@ -823,19 +860,6 @@
           <td>64</td>
           <td>77</td>
           <td><span class="pill ok">92.23%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank top3">3</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(145 85% 65%)">N</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-spirit_racers_final_seal_small_340.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/skeeeeeeeeet" target="_blank" rel="noopener" title="View on Nitro Type">Numba1Stunna</a> <a class="stats-link" href="../racer/30744222/" title="Numba1Stunna's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">892.62</span></td>
-          <td>6</td>
-          <td>107</td>
-          <td>151</td>
-          <td><span class="pill good">95.27%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">4</span></td>
@@ -874,6 +898,19 @@
         <tr>
           <td><span class="lb-rank top1">1</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(145 85% 65%)">N</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-spirit_racers_final_seal_small_340.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/skeeeeeeeeet" target="_blank" rel="noopener" title="View on Nitro Type">Numba1Stunna</a> <a class="stats-link" href="../racer/30744222/" title="Numba1Stunna's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">6,434.11</span></td>
+          <td>43</td>
+          <td>109</td>
+          <td>151</td>
+          <td><span class="pill good">95.27%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank top2">2</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(338 85% 65%)">N</span>
             
             <a href="https://www.nitrotype.com/racer/ilovetoeattandplay" target="_blank" rel="noopener" title="View on Nitro Type">NightslayerTyper</a> <a class="stats-link" href="../racer/91391288/" title="NightslayerTyper's stats on TypeTrack">📊</a>
@@ -885,7 +922,7 @@
           <td><span class="pill ok">93.89%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank top2">2</span></td>
+          <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(81 85% 65%)">P</span>
             <img class="car-thumb" src="../../../assets/cars/painted-hurricania_small_320.png" alt="" loading="lazy" onerror="this.remove()">
@@ -896,19 +933,6 @@
           <td>64</td>
           <td>77</td>
           <td><span class="pill ok">92.23%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank top3">3</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(145 85% 65%)">N</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-spirit_racers_final_seal_small_340.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/skeeeeeeeeet" target="_blank" rel="noopener" title="View on Nitro Type">Numba1Stunna</a> <a class="stats-link" href="../racer/30744222/" title="Numba1Stunna's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">892.62</span></td>
-          <td>6</td>
-          <td>107</td>
-          <td>151</td>
-          <td><span class="pill good">95.27%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">4</span></td>
@@ -947,6 +971,19 @@
         <tr>
           <td><span class="lb-rank top1">1</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(145 85% 65%)">N</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-spirit_racers_final_seal_small_340.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/skeeeeeeeeet" target="_blank" rel="noopener" title="View on Nitro Type">Numba1Stunna</a> <a class="stats-link" href="../racer/30744222/" title="Numba1Stunna's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">6,434.11</span></td>
+          <td>43</td>
+          <td>109</td>
+          <td>151</td>
+          <td><span class="pill good">95.27%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank top2">2</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(338 85% 65%)">N</span>
             
             <a href="https://www.nitrotype.com/racer/ilovetoeattandplay" target="_blank" rel="noopener" title="View on Nitro Type">NightslayerTyper</a> <a class="stats-link" href="../racer/91391288/" title="NightslayerTyper's stats on TypeTrack">📊</a>
@@ -958,7 +995,7 @@
           <td><span class="pill ok">93.89%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank top2">2</span></td>
+          <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(81 85% 65%)">P</span>
             <img class="car-thumb" src="../../../assets/cars/painted-hurricania_small_320.png" alt="" loading="lazy" onerror="this.remove()">
@@ -969,19 +1006,6 @@
           <td>64</td>
           <td>77</td>
           <td><span class="pill ok">92.23%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank top3">3</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(145 85% 65%)">N</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-spirit_racers_final_seal_small_340.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/skeeeeeeeeet" target="_blank" rel="noopener" title="View on Nitro Type">Numba1Stunna</a> <a class="stats-link" href="../racer/30744222/" title="Numba1Stunna's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">892.62</span></td>
-          <td>6</td>
-          <td>107</td>
-          <td>151</td>
-          <td><span class="pill good">95.27%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">4</span></td>
@@ -1013,6 +1037,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:29.991Z</footer>
+<footer class="site">Generated 2026-10-25T20:05:02.637Z</footer>
 </body>
 </html>

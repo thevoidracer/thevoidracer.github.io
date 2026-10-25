@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,7 +714,7 @@
     <div class="hero" style="background:#40b8ea;color:#ffffff">
       <div class="name">[NTPD1] Nitro Type Police</div>
       <div class="sub">
-        Captain: Captain.Loveridge · 50 racers tracked · last synced 10/25/2026, 7:26:41 PM</div>
+        Captain: Captain.Loveridge · 50 racers tracked · last synced 10/25/2026, 7:52:17 PM</div>
     </div>
     
     <div class="req-bar">
@@ -1014,9 +1038,9 @@
             <a href="https://www.nitrotype.com/racer/jp123567" target="_blank" rel="noopener" title="View on Nitro Type">JP__23K</a> <a class="stats-link" href="racer/53454178/" title="JP__23K's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Jul 26, 2026</td>
-          <td><span class="points"><span title="Includes ~24,507 races from before this racer was tracked here, estimated from their average speed at the time.">~3,326,306.23</span></span></td>
-          <td><span title="Includes ~24,507 races from before this racer was tracked here, estimated from their average speed at the time.">~24,653</span></td>
-          <td>84</td>
+          <td><span class="points"><span title="Includes ~24,507 races from before this racer was tracked here, estimated from their average speed at the time.">~3,327,990.79</span></span></td>
+          <td><span title="Includes ~24,507 races from before this racer was tracked here, estimated from their average speed at the time.">~24,665</span></td>
+          <td>91</td>
           <td>133</td>
           <td><span class="pill ok">94.88%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
@@ -1098,9 +1122,9 @@
             <a href="https://www.nitrotype.com/racer/d7b8fe255e4a75eea4cb155b29e40b5d" target="_blank" rel="noopener" title="View on Nitro Type">NanoZilch</a> <a class="stats-link" href="racer/51103645/" title="NanoZilch's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 13, 2026</td>
-          <td><span class="points"><span title="Includes ~86,679 races from before this racer was tracked here, estimated from their average speed at the time.">~11,998,544.07</span></span></td>
-          <td><span title="Includes ~86,679 races from before this racer was tracked here, estimated from their average speed at the time.">~86,953</span></td>
-          <td>80</td>
+          <td><span class="points"><span title="Includes ~86,679 races from before this racer was tracked here, estimated from their average speed at the time.">~12,000,776.07</span></span></td>
+          <td><span title="Includes ~86,679 races from before this racer was tracked here, estimated from their average speed at the time.">~86,969</span></td>
+          <td>84</td>
           <td>111</td>
           <td><span class="pill good">97.5%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
@@ -1210,11 +1234,11 @@
             <a href="https://www.nitrotype.com/racer/lolboyhaha" target="_blank" rel="noopener" title="View on Nitro Type">RAW Pa4per</a> <a class="stats-link" href="racer/40460233/" title="RAW Pa4per's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 13, 2026</td>
-          <td><span class="points"><span title="Includes ~8,563 races from before this racer was tracked here, estimated from their average speed at the time.">~1,137,695.28</span></span></td>
-          <td><span title="Includes ~8,563 races from before this racer was tracked here, estimated from their average speed at the time.">~8,711</span></td>
-          <td>77</td>
+          <td><span class="points"><span title="Includes ~8,563 races from before this racer was tracked here, estimated from their average speed at the time.">~1,137,827.45</span></span></td>
+          <td><span title="Includes ~8,563 races from before this racer was tracked here, estimated from their average speed at the time.">~8,712</span></td>
+          <td>76</td>
           <td>108</td>
-          <td><span class="pill ok">94.18%</span></td>
+          <td><span class="pill ok">94.17%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
@@ -1418,6 +1442,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:05.403Z</footer>
+<footer class="site">Generated 2026-10-25T20:04:27.518Z</footer>
 </body>
 </html>

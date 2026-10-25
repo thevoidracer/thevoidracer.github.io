@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -702,13 +726,9 @@
     </div>
     <h2 style="margin:28px 0 14px;">Races per hour</h2>
     <div class="activity-chart">
-        <div class="activity-bar" style="--h:1%" title="20:00 UTC — 0 races">
-          <div class="bar"></div>
-          <div class="bar-label">20:00</div>
-        </div>
         <div class="activity-bar" style="--h:1%" title="21:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">21:00</div>
         </div>
         <div class="activity-bar" style="--h:1%" title="22:00 UTC — 0 races">
           <div class="bar"></div>
@@ -716,11 +736,11 @@
         </div>
         <div class="activity-bar" style="--h:1%" title="23:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label">23:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:1%" title="00:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">00:00</div>
         </div>
         <div class="activity-bar" style="--h:1%" title="01:00 UTC — 0 races">
           <div class="bar"></div>
@@ -728,11 +748,11 @@
         </div>
         <div class="activity-bar" style="--h:1%" title="02:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label">02:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:1%" title="03:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">03:00</div>
         </div>
         <div class="activity-bar" style="--h:1%" title="04:00 UTC — 0 races">
           <div class="bar"></div>
@@ -740,11 +760,11 @@
         </div>
         <div class="activity-bar" style="--h:1%" title="05:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label">05:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:1%" title="06:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">06:00</div>
         </div>
         <div class="activity-bar" style="--h:1%" title="07:00 UTC — 0 races">
           <div class="bar"></div>
@@ -752,11 +772,11 @@
         </div>
         <div class="activity-bar" style="--h:1%" title="08:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label">08:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:1%" title="09:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">09:00</div>
         </div>
         <div class="activity-bar" style="--h:1%" title="10:00 UTC — 0 races">
           <div class="bar"></div>
@@ -764,11 +784,11 @@
         </div>
         <div class="activity-bar" style="--h:1%" title="11:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label">11:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:1%" title="12:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">12:00</div>
         </div>
         <div class="activity-bar" style="--h:1%" title="13:00 UTC — 0 races">
           <div class="bar"></div>
@@ -776,11 +796,11 @@
         </div>
         <div class="activity-bar" style="--h:1%" title="14:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label">14:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:100%" title="15:00 UTC — 8 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">15:00</div>
         </div>
         <div class="activity-bar" style="--h:38%" title="16:00 UTC — 3 races">
           <div class="bar"></div>
@@ -788,13 +808,17 @@
         </div>
         <div class="activity-bar" style="--h:13%" title="17:00 UTC — 1 race">
           <div class="bar"></div>
-          <div class="bar-label">17:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:1%" title="18:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">18:00</div>
         </div>
         <div class="activity-bar" style="--h:1%" title="19:00 UTC — 0 races">
+          <div class="bar"></div>
+          <div class="bar-label"></div>
+        </div>
+        <div class="activity-bar" style="--h:1%" title="20:00 UTC — 0 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div></div>
@@ -833,6 +857,6 @@
        </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:37.883Z</footer>
+<footer class="site">Generated 2026-10-25T20:05:22.215Z</footer>
 </body>
 </html>

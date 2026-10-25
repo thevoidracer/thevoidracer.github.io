@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,11 +714,11 @@
     <div class="hero" style="background:#436fb6;color:#ffffff">
       <div class="name">[SSH] Shell  Riders</div>
       <div class="sub">
-        Captain: volatile · 50 racers tracked · last synced 10/25/2026, 7:28:22 PM</div>
+        Captain: volatile · 51 racers tracked · last synced 10/25/2026, 7:53:14 PM</div>
     </div>
     
     <div class="req-bar">
-      <div class="req">Members <b>47</b></div>
+      <div class="req">Members <b>48</b></div>
       <div class="req">Formed <b>Dec 11, 2014</b></div>
       <div class="req">Enrollment <b>open</b></div>
       <div class="req">Min races <b>500</b></div>
@@ -824,6 +848,20 @@
           <td>74</td>
           <td><span class="pill good">99.15%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 23, 2026">1 day ago</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(86 85% 65%)">A</span>
+            <img class="car-thumb" src="../../assets/cars/painted-demon_small_200.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/affanatif" target="_blank" rel="noopener" title="View on Nitro Type">affanatif</a> <a class="stats-link" href="racer/80552365/" title="affanatif's stats on TypeTrack">📊</a>
+          </td>
+          <td>Oct 25, 2026</td>
+          <td><span class="points"><span title="Includes ~17,855 races from before this racer was tracked here, estimated from their average speed at the time.">~2,429,708.4</span></span></td>
+          <td><span title="Includes ~17,855 races from before this racer was tracked here, estimated from their average speed at the time.">~17,855</span></td>
+          <td>86</td>
+          <td>121</td>
+          <td><span class="pill ok">93.08%</span></td>
+          <td><span class="pill na" title="No races tracked for this racer yet - too new to tell.">New</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1042,11 +1080,11 @@
             <a href="https://www.nitrotype.com/racer/monaldrcdonald" target="_blank" rel="noopener" title="View on Nitro Type">Hokey Pokey</a> <a class="stats-link" href="racer/61058573/" title="Hokey Pokey's stats on TypeTrack">📊</a>
           </td>
           <td>Oct 20, 2026</td>
-          <td><span class="points"><span title="Includes ~10,798 races from before this racer was tracked here, estimated from their average speed at the time.">~1,267,747.12</span></span></td>
-          <td><span title="Includes ~10,798 races from before this racer was tracked here, estimated from their average speed at the time.">~10,876</span></td>
-          <td>70</td>
+          <td><span class="points"><span title="Includes ~10,798 races from before this racer was tracked here, estimated from their average speed at the time.">~1,268,604.48</span></span></td>
+          <td><span title="Includes ~10,798 races from before this racer was tracked here, estimated from their average speed at the time.">~10,883</span></td>
+          <td>66</td>
           <td>89</td>
-          <td><span class="pill low">89.5%</span></td>
+          <td><span class="pill low">89.48%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
@@ -1378,9 +1416,9 @@
             <a href="https://www.nitrotype.com/racer/volatile" target="_blank" rel="noopener" title="View on Nitro Type">volatile</a> <a class="stats-link" href="racer/3430225/" title="volatile's stats on TypeTrack">📊</a><span class="role-pill captain">Captain</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Dec 11, 2014</td>
-          <td><span class="points"><span title="Includes ~262,301 races from before this racer was tracked here, estimated from their average speed at the time.">~37,041,496.78</span></span></td>
-          <td><span title="Includes ~262,301 races from before this racer was tracked here, estimated from their average speed at the time.">~262,371</span></td>
-          <td>84</td>
+          <td><span class="points"><span title="Includes ~262,301 races from before this racer was tracked here, estimated from their average speed at the time.">~37,042,626.22</span></span></td>
+          <td><span title="Includes ~262,301 races from before this racer was tracked here, estimated from their average speed at the time.">~262,379</span></td>
+          <td>86</td>
           <td>128</td>
           <td><span class="pill good">98.18%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
@@ -1392,11 +1430,11 @@
             <a href="https://www.nitrotype.com/racer/typernator_nm214" target="_blank" rel="noopener" title="View on Nitro Type">Wisnu80K</a> <a class="stats-link" href="racer/32462855/" title="Wisnu80K's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 18, 2026</td>
-          <td><span class="points"><span title="Includes ~79,900 races from before this racer was tracked here, estimated from their average speed at the time.">~11,980,412.52</span></span></td>
-          <td><span title="Includes ~79,900 races from before this racer was tracked here, estimated from their average speed at the time.">~80,126</span></td>
-          <td>113</td>
+          <td><span class="points"><span title="Includes ~79,900 races from before this racer was tracked here, estimated from their average speed at the time.">~11,984,000.76</span></span></td>
+          <td><span title="Includes ~79,900 races from before this racer was tracked here, estimated from their average speed at the time.">~80,150</span></td>
+          <td>110</td>
           <td>156</td>
-          <td><span class="pill ok">94.52%</span></td>
+          <td><span class="pill ok">94.51%</span></td>
           <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
@@ -1418,6 +1456,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:07.076Z</footer>
+<footer class="site">Generated 2026-10-25T20:04:30.073Z</footer>
 </body>
 </html>

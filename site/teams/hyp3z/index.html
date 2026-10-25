@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,7 +714,7 @@
     <div class="hero" style="background:#5b52a3;color:#ffffff">
       <div class="name">[HYP3Z] -Hyp3rwave-</div>
       <div class="sub">
-        Captain: V0rT3X_New_K3yb0aRd_ · 47 racers tracked · last synced 10/25/2026, 7:04:03 PM</div>
+        Captain: V0rT3X_New_K3yb0aRd_ · 47 racers tracked · last synced 10/25/2026, 7:51:22 PM</div>
     </div>
     
     <div class="req-bar">
@@ -1224,12 +1248,12 @@
             <a href="https://www.nitrotype.com/racer/14ef8b4c4c6c630884d1cc1c99de1173" target="_blank" rel="noopener" title="View on Nitro Type">SpunkyTurquoiseDingo</a> <a class="stats-link" href="racer/65941568/" title="SpunkyTurquoiseDingo's stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span>
           </td>
           <td>Jun 21, 2024</td>
-          <td><span class="points"><span title="Includes ~53,338 races from before this racer was tracked here, estimated from their average speed at the time.">~6,677,384.22</span></span></td>
-          <td><span title="Includes ~53,338 races from before this racer was tracked here, estimated from their average speed at the time.">~53,338</span></td>
-          <td>58</td>
+          <td><span class="points"><span title="Includes ~53,338 races from before this racer was tracked here, estimated from their average speed at the time.">~6,677,632.6</span></span></td>
+          <td><span title="Includes ~53,338 races from before this racer was tracked here, estimated from their average speed at the time.">~53,340</span></td>
+          <td>56</td>
           <td>80</td>
           <td><span class="pill good">96.19%</span></td>
-          <td><span class="pill na" title="No races tracked for this racer yet - too new to tell.">New</span></td>
+          <td><span class="pill good" title="Last tracked race: Oct 25, 2026">Today</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1376,6 +1400,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:54.657Z</footer>
+<footer class="site">Generated 2026-10-25T20:05:31.160Z</footer>
 </body>
 </html>

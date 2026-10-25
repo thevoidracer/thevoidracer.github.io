@@ -385,6 +385,30 @@
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;
@@ -690,25 +714,21 @@
     <div class="hero" style="background:#436fb6;color:#ffffff">
       <div class="name">[CZBZ] Cr4zy Typerz</div>
       <div class="sub">
-        Captain: Cr4zyTyper YT · 52 racers tracked · last synced 10/25/2026, 7:23:56 PM</div>
+        Captain: Cr4zyTyper YT · 53 racers tracked · last synced 10/25/2026, 7:50:28 PM</div>
     </div>
     <h1>Activity</h1>
     <p class="meta-row">A live look at the last 24 hours — race volume by hour (UTC) and who's been racing, from the same points ledger behind the Tracker and Leaderboards.</p>
     
     <div class="req-bar">
-      <div class="req">Races (24h) <b>1,874</b></div>
-      <div class="req">Active racers <b>16</b></div>
+      <div class="req">Races (24h) <b>1,986</b></div>
+      <div class="req">Active racers <b>17</b></div>
       <div class="req">Busiest hour <b>03:00 UTC</b></div>
     </div>
     <h2 style="margin:28px 0 14px;">Races per hour</h2>
     <div class="activity-chart">
-        <div class="activity-bar" style="--h:6%" title="20:00 UTC — 15 races">
-          <div class="bar"></div>
-          <div class="bar-label">20:00</div>
-        </div>
         <div class="activity-bar" style="--h:69%" title="21:00 UTC — 175 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">21:00</div>
         </div>
         <div class="activity-bar" style="--h:18%" title="22:00 UTC — 46 races">
           <div class="bar"></div>
@@ -716,11 +736,11 @@
         </div>
         <div class="activity-bar" style="--h:24%" title="23:00 UTC — 60 races">
           <div class="bar"></div>
-          <div class="bar-label">23:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:27%" title="00:00 UTC — 67 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">00:00</div>
         </div>
         <div class="activity-bar" style="--h:14%" title="01:00 UTC — 35 races">
           <div class="bar"></div>
@@ -728,11 +748,11 @@
         </div>
         <div class="activity-bar" style="--h:87%" title="02:00 UTC — 219 races">
           <div class="bar"></div>
-          <div class="bar-label">02:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:100%" title="03:00 UTC — 252 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">03:00</div>
         </div>
         <div class="activity-bar" style="--h:40%" title="04:00 UTC — 102 races">
           <div class="bar"></div>
@@ -740,11 +760,11 @@
         </div>
         <div class="activity-bar" style="--h:30%" title="05:00 UTC — 76 races">
           <div class="bar"></div>
-          <div class="bar-label">05:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:5%" title="06:00 UTC — 13 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">06:00</div>
         </div>
         <div class="activity-bar" style="--h:28%" title="07:00 UTC — 70 races">
           <div class="bar"></div>
@@ -752,11 +772,11 @@
         </div>
         <div class="activity-bar" style="--h:28%" title="08:00 UTC — 71 races">
           <div class="bar"></div>
-          <div class="bar-label">08:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:4%" title="09:00 UTC — 8 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">09:00</div>
         </div>
         <div class="activity-bar" style="--h:1%" title="10:00 UTC — 0 races">
           <div class="bar"></div>
@@ -764,11 +784,11 @@
         </div>
         <div class="activity-bar" style="--h:1%" title="11:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label">11:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:1%" title="12:00 UTC — 0 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">12:00</div>
         </div>
         <div class="activity-bar" style="--h:1%" title="13:00 UTC — 0 races">
           <div class="bar"></div>
@@ -776,11 +796,11 @@
         </div>
         <div class="activity-bar" style="--h:7%" title="14:00 UTC — 17 races">
           <div class="bar"></div>
-          <div class="bar-label">14:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:23%" title="15:00 UTC — 59 races">
           <div class="bar"></div>
-          <div class="bar-label"></div>
+          <div class="bar-label">15:00</div>
         </div>
         <div class="activity-bar" style="--h:74%" title="16:00 UTC — 186 races">
           <div class="bar"></div>
@@ -788,13 +808,17 @@
         </div>
         <div class="activity-bar" style="--h:76%" title="17:00 UTC — 192 races">
           <div class="bar"></div>
-          <div class="bar-label">17:00</div>
+          <div class="bar-label"></div>
         </div>
         <div class="activity-bar" style="--h:37%" title="18:00 UTC — 92 races">
           <div class="bar"></div>
+          <div class="bar-label">18:00</div>
+        </div>
+        <div class="activity-bar" style="--h:98%" title="19:00 UTC — 246 races">
+          <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
-        <div class="activity-bar" style="--h:47%" title="19:00 UTC — 119 races">
+        <div class="activity-bar" style="--h:1%" title="20:00 UTC — 0 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div></div>
@@ -809,12 +833,12 @@
           <td><span class="lb-rank top1">1</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(121 85% 65%)">P</span>
-            
+            <img class="car-thumb" src="../../../assets/cars/scream_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/pinklimelungfish" target="_blank" rel="noopener" title="View on Nitro Type">PennyPitstop</a> <a class="stats-link" href="../racer/87089752/" title="PennyPitstop's stats on TypeTrack">📊</a>
           </td>
-          <td>371</td>
-          <td><span class="points">52,153.9</span></td>
-          <td>86.9</td>
+          <td>394</td>
+          <td><span class="points">55,422.89</span></td>
+          <td>87.1</td>
           <td><span class="pill good">97.14%</span></td>
         </tr>
         <tr>
@@ -824,8 +848,8 @@
             <img class="car-thumb" src="../../../assets/cars/kurov1_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/cr4zy4rm1d1lo" target="_blank" rel="noopener" title="View on Nitro Type">Cr4zyTyper YT</a> <a class="stats-link" href="../racer/81150321/" title="Cr4zyTyper YT's stats on TypeTrack">📊</a>
           </td>
-          <td>322</td>
-          <td><span class="points">51,007.5</span></td>
+          <td>307</td>
+          <td><span class="points">48,622.5</span></td>
           <td>121.8</td>
           <td><span class="pill good">97.50%</span></td>
         </tr>
@@ -860,9 +884,9 @@
             <img class="car-thumb" src="../../../assets/cars/ghost_catcher_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/give_100k_por_favor" target="_blank" rel="noopener" title="View on Nitro Type">Obsidianator</a> <a class="stats-link" href="../racer/60452567/" title="Obsidianator's stats on TypeTrack">📊</a>
           </td>
-          <td>159</td>
-          <td><span class="points">24,107.27</span></td>
-          <td>114.2</td>
+          <td>196</td>
+          <td><span class="points">29,713.88</span></td>
+          <td>114.1</td>
           <td><span class="pill ok">94.53%</span></td>
         </tr>
         <tr>
@@ -872,9 +896,9 @@
             <img class="car-thumb" src="../../../assets/cars/ghost_catcher_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/cntrl_un1vers3" target="_blank" rel="noopener" title="View on Nitro Type">UN1VERS3</a> <a class="stats-link" href="../racer/60550568/" title="UN1VERS3's stats on TypeTrack">📊</a>
           </td>
-          <td>156</td>
-          <td><span class="points">23,008.27</span></td>
-          <td>105.1</td>
+          <td>191</td>
+          <td><span class="points">28,237.97</span></td>
+          <td>105.8</td>
           <td><span class="pill ok">94.93%</span></td>
         </tr>
         <tr>
@@ -884,8 +908,8 @@
             
             <a href="https://www.nitrotype.com/racer/thisissawzul" target="_blank" rel="noopener" title="View on Nitro Type">sawzul</a> <a class="stats-link" href="../racer/49857803/" title="sawzul's stats on TypeTrack">📊</a>
           </td>
-          <td>129</td>
-          <td><span class="points">21,016.65</span></td>
+          <td>139</td>
+          <td><span class="points">22,640.15</span></td>
           <td>128.1</td>
           <td><span class="pill good">98.85%</span></td>
         </tr>
@@ -896,13 +920,25 @@
             <img class="car-thumb" src="../../../assets/cars/fluxmemo_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/stoic0" target="_blank" rel="noopener" title="View on Nitro Type">stoic0</a> <a class="stats-link" href="../racer/39094563/" title="stoic0's stats on TypeTrack">📊</a>
           </td>
-          <td>70</td>
-          <td><span class="points">11,792.3</span></td>
-          <td>139.6</td>
+          <td>90</td>
+          <td><span class="points">15,135.1</span></td>
+          <td>139.1</td>
           <td><span class="pill good">98.64%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">9</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(140 85% 65%)">F</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-underworld_small_20.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/ad6571c7dd404da0cfc35e6e89f1785c" target="_blank" rel="noopener" title="View on Nitro Type">FluentRedWasp</a> <a class="stats-link" href="../racer/90168285/" title="FluentRedWasp's stats on TypeTrack">📊</a>
+          </td>
+          <td>45</td>
+          <td><span class="points">5,536.99</span></td>
+          <td>70</td>
+          <td><span class="pill low">88.06%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">10</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(118 85% 65%)">P</span>
             
@@ -914,7 +950,7 @@
           <td><span class="pill low">81.28%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">10</span></td>
+          <td><span class="lb-rank">11</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(177 85% 65%)">C</span>
             <img class="car-thumb" src="../../../assets/cars/painted-ultima_small_240.png" alt="" loading="lazy" onerror="this.remove()">
@@ -926,7 +962,7 @@
           <td><span class="pill good">95.07%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">11</span></td>
+          <td><span class="lb-rank">12</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(149 85% 65%)">-</span>
             <img class="car-thumb" src="../../../assets/cars/painted-underworld_small_320.png" alt="" loading="lazy" onerror="this.remove()">
@@ -938,7 +974,7 @@
           <td><span class="pill ok">90.66%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">12</span></td>
+          <td><span class="lb-rank">13</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(286 85% 65%)">S</span>
             <img class="car-thumb" src="../../../assets/cars/underworld_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -950,7 +986,7 @@
           <td><span class="pill good">95.44%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">13</span></td>
+          <td><span class="lb-rank">14</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(183 85% 65%)">R</span>
             <img class="car-thumb" src="../../../assets/cars/fuji_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -962,7 +998,7 @@
           <td><span class="pill ok">93.99%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">14</span></td>
+          <td><span class="lb-rank">15</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(163 85% 65%)">D</span>
             <img class="car-thumb" src="../../../assets/cars/ghost_catcher_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -974,7 +1010,7 @@
           <td><span class="pill ok">92.76%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">15</span></td>
+          <td><span class="lb-rank">16</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(181 85% 65%)">C</span>
             <img class="car-thumb" src="../../../assets/cars/painted-tempest_small_100.png" alt="" loading="lazy" onerror="this.remove()">
@@ -986,7 +1022,7 @@
           <td><span class="pill good">95.84%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">16</span></td>
+          <td><span class="lb-rank">17</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(315 85% 65%)">G</span>
             <img class="car-thumb" src="../../../assets/cars/painted-ghoul_bus_small_220.png" alt="" loading="lazy" onerror="this.remove()">
@@ -1001,6 +1037,6 @@
        </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T19:50:06.524Z</footer>
+<footer class="site">Generated 2026-10-25T20:04:28.469Z</footer>
 </body>
 </html>
