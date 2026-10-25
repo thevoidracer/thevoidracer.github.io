@@ -16,6 +16,7 @@ const {
   trackerBody,
   activityBody,
   eventsBody,
+  eventsViewerBody,
   tournamentsBody,
   showdownsBody,
   racerStatsBody,
@@ -29,7 +30,7 @@ const { loadLeaderboardData, loadTeamTracker, loadRacerWindows } = require("./le
 const { teamActivity } = require("./activity-data");
 const { loadRacerProfile } = require("./racer-data");
 const { queryNotifications } = require("./notifications");
-const { eventsForTeam } = require("./events-data");
+const { eventsForTeam, allEvents } = require("./events-data");
 const { tournamentsForTeam, bracketsForTournaments } = require("./tournaments-data");
 const { allShowdowns } = require("./showdown-data");
 const { accountIndexBody, accountConnectBody, signInBody } = require("./account-pages");
@@ -86,6 +87,7 @@ const SITE_NAV = {
   teamsHref: "/teams",
   leaderboardsHref: "/leaderboards",
   showdownHref: "/showdown",
+  eventsHref: "/events",
   accountHref: "/account",
   assetsHref: "/assets/app.js",
 };
@@ -460,6 +462,28 @@ app.get("/showdown", async (req, res) => {
   } catch (err) {
     console.error("Showdown query failed:", err.message);
     res.status(500).send("Could not load showdowns.");
+  }
+});
+
+// Site-wide events viewer: mirrors build.js's buildEventsPage via the
+// shared eventsViewerBody/allEvents helpers, same reasoning as
+// leaderboards/showdown above.
+app.get("/events", async (req, res) => {
+  try {
+    const events = await allEvents(pool);
+    const teamHref = (tag) => `/teams/${encodeURIComponent(tag)}`;
+    res.type("html").send(
+      pageShell({
+        title: "Events — TypeTrack",
+        body: eventsViewerBody(events, teamHref),
+        crumb: `<a href="/teams">← all teams</a>`,
+        ...SITE_NAV,
+        active: "events",
+      })
+    );
+  } catch (err) {
+    console.error("Events query failed:", err.message);
+    res.status(500).send("Could not load events.");
   }
 });
 
