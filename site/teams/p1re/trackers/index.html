@@ -410,6 +410,12 @@
     gap: 14px;
     margin-top: 12px;
   }
+  /* An explicit display:flex above otherwise wins over the browser's own
+     [hidden] { display: none } rule - same specificity, but author CSS
+     beats the user-agent stylesheet regardless of selector weight, so
+     without this override, setting a paginated table's pager.hidden via
+     JS (see leaderboardTableScript) does nothing visually. */
+  .lb-pager[hidden] { display: none; }
   .lb-pager-btn {
     font: inherit;
     font-weight: 700;
@@ -786,8 +792,8 @@
             
             <a href="https://www.nitrotype.com/racer/jesustake_the_wheel" target="_blank" rel="noopener" title="View on Nitro Type">DylanJ 700k</a> <a class="stats-link" href="../racer/34657224/" title="DylanJ 700k's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">6,933.08</span></td>
-          <td>47</td>
+          <td><span class="points">2,224.6</span></td>
+          <td>15</td>
           <td>105</td>
           <td>167</td>
           <td><span class="pill good">95.64%</span></td>
@@ -1850,6 +1856,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T20:25:07.105Z</footer>
+<footer class="site">Generated 2026-10-25T20:31:00.162Z</footer>
 </body>
 </html>

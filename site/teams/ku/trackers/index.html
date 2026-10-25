@@ -410,6 +410,12 @@
     gap: 14px;
     margin-top: 12px;
   }
+  /* An explicit display:flex above otherwise wins over the browser's own
+     [hidden] { display: none } rule - same specificity, but author CSS
+     beats the user-agent stylesheet regardless of selector weight, so
+     without this override, setting a paginated table's pager.hidden via
+     JS (see leaderboardTableScript) does nothing visually. */
+  .lb-pager[hidden] { display: none; }
   .lb-pager-btn {
     font: inherit;
     font-weight: 700;
@@ -786,8 +792,8 @@
             
             <a href="https://www.nitrotype.com/racer/maiisoh" target="_blank" rel="noopener" title="View on Nitro Type">Lyrica</a> <a class="stats-link" href="../racer/53980170/" title="Lyrica's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">7,079.57</span></td>
-          <td>51</td>
+          <td><span class="points">6,942.5</span></td>
+          <td>50</td>
           <td>79</td>
           <td>123</td>
           <td><span class="pill good">98.07%</span></td>
@@ -799,8 +805,8 @@
             
             <a href="https://www.nitrotype.com/racer/forthegriddy" target="_blank" rel="noopener" title="View on Nitro Type"> Pure </a> <a class="stats-link" href="../racer/61656357/" title=" Pure 's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">5,664.85</span></td>
-          <td>40</td>
+          <td><span class="points">5,521.29</span></td>
+          <td>39</td>
           <td>86</td>
           <td>122</td>
           <td><span class="pill good">98.11%</span></td>
@@ -847,19 +853,6 @@
         <tr>
           <td><span class="lb-rank">6</span></td>
           <td class="racer">
-            <span class="avatar" style="background:hsl(70 85% 65%)">C</span>
-            <img class="car-thumb" src="../../../assets/cars/xmaxxhyper_small.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/calhuon" target="_blank" rel="noopener" title="View on Nitro Type">Calhoun</a> <a class="stats-link" href="../racer/66514668/" title="Calhoun's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">1,478.4</span></td>
-          <td>10</td>
-          <td>107</td>
-          <td>170</td>
-          <td><span class="pill ok">94.34%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">7</span></td>
-          <td class="racer">
             <span class="avatar" style="background:hsl(280 85% 65%)">P</span>
             
             <a href="https://www.nitrotype.com/racer/abdulka1471" target="_blank" rel="noopener" title="View on Nitro Type">PH4NTOM</a> <a class="stats-link" href="../racer/80263674/" title="PH4NTOM's stats on TypeTrack">📊</a>
@@ -871,7 +864,7 @@
           <td><span class="pill ok">94.82%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">8</span></td>
+          <td><span class="lb-rank">7</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(29 85% 65%)">K</span>
             
@@ -884,7 +877,7 @@
           <td><span class="pill good">98.55%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">9</span></td>
+          <td><span class="lb-rank">8</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(29 85% 65%)">T</span>
             
@@ -897,7 +890,7 @@
           <td><span class="pill good">97.88%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">10</span></td>
+          <td><span class="lb-rank">9</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(136 85% 65%)">I</span>
             
@@ -2981,6 +2974,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T20:24:54.081Z</footer>
+<footer class="site">Generated 2026-10-25T20:30:34.398Z</footer>
 </body>
 </html>

@@ -410,6 +410,12 @@
     gap: 14px;
     margin-top: 12px;
   }
+  /* An explicit display:flex above otherwise wins over the browser's own
+     [hidden] { display: none } rule - same specificity, but author CSS
+     beats the user-agent stylesheet regardless of selector weight, so
+     without this override, setting a paginated table's pager.hidden via
+     JS (see leaderboardTableScript) does nothing visually. */
+  .lb-pager[hidden] { display: none; }
   .lb-pager-btn {
     font: inherit;
     font-weight: 700;
@@ -866,7 +872,7 @@ https://discord.gg/Xgd7n9eQc</div>
           <td>93</td>
           <td>122</td>
           <td><span class="pill ok">93.63%</span></td>
-          <td><span class="pill good" title="Last tracked race: Oct 23, 2026">1 day ago</span></td>
+          <td><span class="pill good" title="Last tracked race: Oct 23, 2026">2 days ago</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1034,7 +1040,7 @@ https://discord.gg/Xgd7n9eQc</div>
           <td>109</td>
           <td>130</td>
           <td><span class="pill good">95.45%</span></td>
-          <td><span class="pill good" title="Last tracked race: Oct 23, 2026">1 day ago</span></td>
+          <td><span class="pill good" title="Last tracked race: Oct 23, 2026">2 days ago</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1272,7 +1278,7 @@ https://discord.gg/Xgd7n9eQc</div>
           <td>71</td>
           <td>93</td>
           <td><span class="pill good">96.7%</span></td>
-          <td><span class="pill good" title="Last tracked race: Oct 23, 2026">1 day ago</span></td>
+          <td><span class="pill good" title="Last tracked race: Oct 23, 2026">2 days ago</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1727,6 +1733,6 @@ https://discord.gg/Xgd7n9eQc</div>
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T20:24:57.314Z</footer>
+<footer class="site">Generated 2026-10-25T20:30:40.790Z</footer>
 </body>
 </html>

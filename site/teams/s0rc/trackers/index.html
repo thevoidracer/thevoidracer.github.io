@@ -410,6 +410,12 @@
     gap: 14px;
     margin-top: 12px;
   }
+  /* An explicit display:flex above otherwise wins over the browser's own
+     [hidden] { display: none } rule - same specificity, but author CSS
+     beats the user-agent stylesheet regardless of selector weight, so
+     without this override, setting a paginated table's pager.hidden via
+     JS (see leaderboardTableScript) does nothing visually. */
+  .lb-pager[hidden] { display: none; }
   .lb-pager-btn {
     font: inherit;
     font-weight: 700;
@@ -786,8 +792,8 @@
             
             <a href="https://www.nitrotype.com/racer/2929126264" target="_blank" rel="noopener" title="View on Nitro Type">Thunderbolt</a> <a class="stats-link" href="../racer/21920631/" title="Thunderbolt's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">9,094.25</span></td>
-          <td>55</td>
+          <td><span class="points">6,754.15</span></td>
+          <td>41</td>
           <td>137</td>
           <td>182</td>
           <td><span class="pill good">97.15%</span></td>
@@ -799,8 +805,8 @@
             <img class="car-thumb" src="../../../assets/cars/painted-underworld_small_180.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/cdcrash" target="_blank" rel="noopener" title="View on Nitro Type">cdcrash</a> <a class="stats-link" href="../racer/27824504/" title="cdcrash's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">2,574.77</span></td>
-          <td>17</td>
+          <td><span class="points">904.86</span></td>
+          <td>6</td>
           <td>114</td>
           <td>149</td>
           <td><span class="pill ok">93.81%</span></td>
@@ -3033,6 +3039,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T20:25:01.492Z</footer>
+<footer class="site">Generated 2026-10-25T20:30:48.921Z</footer>
 </body>
 </html>

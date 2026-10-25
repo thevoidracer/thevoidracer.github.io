@@ -410,6 +410,12 @@
     gap: 14px;
     margin-top: 12px;
   }
+  /* An explicit display:flex above otherwise wins over the browser's own
+     [hidden] { display: none } rule - same specificity, but author CSS
+     beats the user-agent stylesheet regardless of selector weight, so
+     without this override, setting a paginated table's pager.hidden via
+     JS (see leaderboardTableScript) does nothing visually. */
+  .lb-pager[hidden] { display: none; }
   .lb-pager-btn {
     font: inherit;
     font-weight: 700;
@@ -782,83 +788,18 @@
         <tr>
           <td><span class="lb-rank top1">1</span></td>
           <td class="racer">
-            <span class="avatar" style="background:hsl(356 85% 65%)">M</span>
-            
-            <a href="https://www.nitrotype.com/racer/clydecooper" target="_blank" rel="noopener" title="View on Nitro Type">monster_iii</a> <a class="stats-link" href="../racer/1692583/" title="monster_iii's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">8,517.02</span></td>
-          <td>51</td>
-          <td>136</td>
-          <td>175</td>
-          <td><span class="pill good">98.02%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank top2">2</span></td>
-          <td class="racer">
             <span class="avatar" style="background:hsl(101 85% 65%)">-</span>
             
             <a href="https://www.nitrotype.com/racer/sub2penguin_typer" target="_blank" rel="noopener" title="View on Nitro Type">-BaggyCarpet-</a> <a class="stats-link" href="../racer/45578333/" title="-BaggyCarpet-'s stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">8,470</span></td>
-          <td>52</td>
+          <td><span class="points">2,411.25</span></td>
+          <td>15</td>
           <td>132</td>
           <td>171</td>
           <td><span class="pill ok">94.75%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank top3">3</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(119 85% 65%)">N</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-spirit_racers_final_seal_small_320.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/nicasio5678" target="_blank" rel="noopener" title="View on Nitro Type">NoRetreatNoSurrender</a> <a class="stats-link" href="../racer/57728184/" title="NoRetreatNoSurrender's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">5,671.54</span></td>
-          <td>34</td>
-          <td>139</td>
-          <td>189</td>
-          <td><span class="pill good">97.31%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">4</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(22 85% 65%)">P</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-fonnicciaero_small_140.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/pinkpanthor" target="_blank" rel="noopener" title="View on Nitro Type">pinkpanthor</a> <a class="stats-link" href="../racer/91058047/" title="pinkpanthor's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">4,083.19</span></td>
-          <td>23</td>
-          <td>165</td>
-          <td>202</td>
-          <td><span class="pill good">95.03%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">5</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(200 85% 65%)">N</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-hurricania_small_80.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/superminecraftplayer" target="_blank" rel="noopener" title="View on Nitro Type">NeonDrifter</a> <a class="stats-link" href="../racer/51267236/" title="NeonDrifter's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">2,450.08</span></td>
-          <td>16</td>
-          <td>112</td>
-          <td>165</td>
-          <td><span class="pill good">97.13%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">6</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(9 85% 65%)">N</span>
-            <img class="car-thumb" src="../../../assets/cars/shadow_dragon_small.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/reckersishim" target="_blank" rel="noopener" title="View on Nitro Type">Nightfall da dragon</a> <a class="stats-link" href="../racer/89898951/" title="Nightfall da dragon's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">1,852.56</span></td>
-          <td>13</td>
-          <td>99</td>
-          <td>123</td>
-          <td><span class="pill ok">93.62%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">7</span></td>
+          <td><span class="lb-rank top2">2</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(235 85% 65%)">-</span>
             
@@ -871,7 +812,7 @@
           <td><span class="pill good">95.75%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">8</span></td>
+          <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(338 85% 65%)">D</span>
             
@@ -884,17 +825,30 @@
           <td><span class="pill low">86.8%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">9</span></td>
+          <td><span class="lb-rank">4</span></td>
           <td class="racer">
-            <span class="avatar" style="background:hsl(249 85% 65%)">E</span>
+            <span class="avatar" style="background:hsl(9 85% 65%)">N</span>
             <img class="car-thumb" src="../../../assets/cars/shadow_dragon_small.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/2b81ab6ad3f5dbc0ebae8d760344a5c6" target="_blank" rel="noopener" title="View on Nitro Type">eleven</a> <a class="stats-link" href="../racer/90372256/" title="eleven's stats on TypeTrack">📊</a>
+            <a href="https://www.nitrotype.com/racer/reckersishim" target="_blank" rel="noopener" title="View on Nitro Type">Nightfall da dragon</a> <a class="stats-link" href="../racer/89898951/" title="Nightfall da dragon's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">280.26</span></td>
-          <td>2</td>
-          <td>94</td>
-          <td>129</td>
-          <td><span class="pill ok">93.13%</span></td>
+          <td><span class="points">715.6</span></td>
+          <td>5</td>
+          <td>99</td>
+          <td>123</td>
+          <td><span class="pill ok">93.62%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">5</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(356 85% 65%)">M</span>
+            
+            <a href="https://www.nitrotype.com/racer/clydecooper" target="_blank" rel="noopener" title="View on Nitro Type">monster_iii</a> <a class="stats-link" href="../racer/1692583/" title="monster_iii's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">166.02</span></td>
+          <td>1</td>
+          <td>136</td>
+          <td>175</td>
+          <td><span class="pill good">98.02%</span></td>
         </tr></tbody>
       </table>
     </div></div><div class="trk-panel" data-range="daily">
@@ -3579,6 +3533,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T20:24:56.652Z</footer>
+<footer class="site">Generated 2026-10-25T20:30:39.512Z</footer>
 </body>
 </html>

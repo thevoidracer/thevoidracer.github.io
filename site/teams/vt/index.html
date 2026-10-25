@@ -410,6 +410,12 @@
     gap: 14px;
     margin-top: 12px;
   }
+  /* An explicit display:flex above otherwise wins over the browser's own
+     [hidden] { display: none } rule - same specificity, but author CSS
+     beats the user-agent stylesheet regardless of selector weight, so
+     without this override, setting a paginated table's pager.hidden via
+     JS (see leaderboardTableScript) does nothing visually. */
+  .lb-pager[hidden] { display: none; }
   .lb-pager-btn {
     font: inherit;
     font-weight: 700;
@@ -956,6 +962,6 @@ We race with precision, push our limits and have fun! | 100 races = 500k NTC | a
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T20:25:40.837Z</footer>
+<footer class="site">Generated 2026-10-25T20:32:15.448Z</footer>
 </body>
 </html>

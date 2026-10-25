@@ -410,6 +410,12 @@
     gap: 14px;
     margin-top: 12px;
   }
+  /* An explicit display:flex above otherwise wins over the browser's own
+     [hidden] { display: none } rule - same specificity, but author CSS
+     beats the user-agent stylesheet regardless of selector weight, so
+     without this override, setting a paginated table's pager.hidden via
+     JS (see leaderboardTableScript) does nothing visually. */
+  .lb-pager[hidden] { display: none; }
   .lb-pager-btn {
     font: inherit;
     font-weight: 700;
@@ -772,28 +778,7 @@
         });
       })();
     </script>
-    <div class="trk-panel" data-range="hourly" hidden>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr><th>#</th><th>Racer</th><th>Points</th><th>Races</th><th>Avg speed</th><th>Highest speed</th><th>Accuracy</th></tr>
-        </thead>
-        <tbody>
-        <tr>
-          <td><span class="lb-rank top1">1</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(313 85% 65%)">V</span>
-            
-            <a href="https://www.nitrotype.com/racer/daniel473765" target="_blank" rel="noopener" title="View on Nitro Type">VortexSpeed</a> <a class="stats-link" href="../racer/85438448/" title="VortexSpeed's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">716.6</span></td>
-          <td>5</td>
-          <td>98</td>
-          <td>163</td>
-          <td><span class="pill ok">94.32%</span></td>
-        </tr></tbody>
-      </table>
-    </div></div><div class="trk-panel" data-range="daily">
+    <div class="trk-panel" data-range="hourly" hidden><div class="empty" style="padding:40px 24px;">No one on this team earned any points in the Hourly window yet — this fills in as more syncs run.</div></div><div class="trk-panel" data-range="daily">
     <div class="table-wrap">
       <table>
         <thead>
@@ -1226,6 +1211,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T20:25:22.520Z</footer>
+<footer class="site">Generated 2026-10-25T20:31:34.346Z</footer>
 </body>
 </html>

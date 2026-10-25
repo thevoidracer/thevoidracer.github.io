@@ -410,6 +410,12 @@
     gap: 14px;
     margin-top: 12px;
   }
+  /* An explicit display:flex above otherwise wins over the browser's own
+     [hidden] { display: none } rule - same specificity, but author CSS
+     beats the user-agent stylesheet regardless of selector weight, so
+     without this override, setting a paginated table's pager.hidden via
+     JS (see leaderboardTableScript) does nothing visually. */
+  .lb-pager[hidden] { display: none; }
   .lb-pager-btn {
     font: inherit;
     font-weight: 700;
@@ -786,27 +792,14 @@
             
             <a href="https://www.nitrotype.com/racer/typernator_nm214" target="_blank" rel="noopener" title="View on Nitro Type">Wisnu80K</a> <a class="stats-link" href="../racer/32462855/" title="Wisnu80K's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">10,353.99</span></td>
-          <td>69</td>
+          <td><span class="points">5,823.39</span></td>
+          <td>39</td>
           <td>109</td>
           <td>156</td>
           <td><span class="pill ok">94.51%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top2">2</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(220 85% 65%)">V</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-xmaxxhyper_small_340.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/volatile" target="_blank" rel="noopener" title="View on Nitro Type">volatile</a> <a class="stats-link" href="../racer/3430225/" title="volatile's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">4,633.94</span></td>
-          <td>33</td>
-          <td>86</td>
-          <td>128</td>
-          <td><span class="pill good">98.18%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(144 85% 65%)">H</span>
             <img class="car-thumb" src="../../../assets/cars/painted-hurricania_small_60.png" alt="" loading="lazy" onerror="this.remove()">
@@ -819,20 +812,20 @@
           <td><span class="pill low">89.49%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">4</span></td>
+          <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
-            <span class="avatar" style="background:hsl(30 85% 65%)">T</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-fuji_small_40.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/taylormadegrit" target="_blank" rel="noopener" title="View on Nitro Type">TaylorMadeGrit</a> <a class="stats-link" href="../racer/69589988/" title="TaylorMadeGrit's stats on TypeTrack">📊</a>
+            <span class="avatar" style="background:hsl(220 85% 65%)">V</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-xmaxxhyper_small_340.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/volatile" target="_blank" rel="noopener" title="View on Nitro Type">volatile</a> <a class="stats-link" href="../racer/3430225/" title="volatile's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">838.68</span></td>
-          <td>6</td>
-          <td>89</td>
-          <td>121</td>
-          <td><span class="pill good">95.28%</span></td>
+          <td><span class="points">1,129.44</span></td>
+          <td>8</td>
+          <td>86</td>
+          <td>128</td>
+          <td><span class="pill good">98.18%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">5</span></td>
+          <td><span class="lb-rank">4</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(319 85% 65%)">M</span>
             <img class="car-thumb" src="../../../assets/cars/kurov1_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -845,7 +838,7 @@
           <td><span class="pill good">97.14%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">6</span></td>
+          <td><span class="lb-rank">5</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(86 85% 65%)">A</span>
             <img class="car-thumb" src="../../../assets/cars/painted-demon_small_200.png" alt="" loading="lazy" onerror="this.remove()">
@@ -858,7 +851,7 @@
           <td><span class="pill ok">93.08%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">7</span></td>
+          <td><span class="lb-rank">6</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(106 85% 65%)">I</span>
             <img class="car-thumb" src="../../../assets/cars/spirit_racers_final_seal_small.png" alt="" loading="lazy" onerror="this.remove()">
@@ -871,20 +864,7 @@
           <td><span class="pill good">95.87%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">8</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(45 85% 65%)">S</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-ultima_small_220.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/salahdinabduljabbar" target="_blank" rel="noopener" title="View on Nitro Type">Salah11</a> <a class="stats-link" href="../racer/88084358/" title="Salah11's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">285.28</span></td>
-          <td>2</td>
-          <td>102</td>
-          <td>132</td>
-          <td><span class="pill ok">91.64%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">9</span></td>
+          <td><span class="lb-rank">7</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(170 85% 65%)"> </span>
             <img class="car-thumb" src="../../../assets/cars/painted-spirit_racers_ink_fox_small_120.png" alt="" loading="lazy" onerror="this.remove()">
@@ -3176,6 +3156,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T20:25:00.854Z</footer>
+<footer class="site">Generated 2026-10-25T20:30:47.667Z</footer>
 </body>
 </html>
