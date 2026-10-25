@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,41 +659,22 @@
     <div class="hero" style="background:#f5eb21;color:#0b1220">
       <div class="name">[SVC] -Servants of Christ-</div>
       <div class="sub">
-        Captain: -Exotic19- · 46 racers tracked · last synced 10/25/2026, 2:05:29 AM</div>
+        Captain: -Exotic19- · 46 racers tracked · last synced 10/25/2026, 2:38:54 AM</div>
     </div>
     <h1>Activity</h1>
     <p class="meta-row">A live look at the last 24 hours — race volume by hour (UTC) and who's been racing, from the same points ledger behind the Tracker and Leaderboards.</p>
     
     <div class="req-bar">
       <div class="req">Races (24h) <b>0</b></div>
-      <div class="req">Active racers <b>1</b></div>
+      <div class="req">Active racers <b>0</b></div>
       <div class="req">Busiest hour <b>—</b></div>
     </div>
     <h2 style="margin:28px 0 14px;">Races per hour</h2>
     <div class="empty" style="padding:40px 24px;">No races tracked in the last 24 hours yet — this fills in as syncs run.</div>
     <h2 style="margin:28px 0 14px;">Most active (24h)</h2>
-    <div class="table-wrap">
-         <table>
-           <thead>
-             <tr><th>#</th><th>Racer</th><th>Races</th><th>Points</th><th>Avg speed</th><th>Accuracy</th></tr>
-           </thead>
-           <tbody>
-        <tr>
-          <td><span class="lb-rank top1">1</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(352 85% 65%)">E</span>
-            
-            <a href="https://www.nitrotype.com/racer/longeater" target="_blank" rel="noopener" title="View on Nitro Type">emmett</a> <a class="stats-link" href="../racer/37856705/" title="emmett's stats on TypeTrack">📊</a>
-          </td>
-          <td>18</td>
-          <td><span class="points">2,403.9</span></td>
-          <td>79</td>
-          <td><span class="pill ok">94.05%</span></td>
-        </tr></tbody>
-         </table>
-       </div></div>
+    <div class="empty" style="padding:40px 24px;">No one on this team raced in the last 24 hours yet.</div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:50.751Z</footer>
+<footer class="site">Generated 2026-10-25T02:41:31.547Z</footer>
 </body>
 </html>

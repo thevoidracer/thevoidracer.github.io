@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,7 +659,7 @@
     <div class="hero" style="background:#8750a0;color:#ffffff">
       <div class="name">[RL] Racing Legendz</div>
       <div class="sub">
-        Captain: 100mill Comp · 37 racers tracked · last synced 10/25/2026, 2:04:30 AM</div>
+        Captain: 100mill Comp · 37 racers tracked · last synced 10/25/2026, 2:37:51 AM</div>
     </div>
     <div data-tournaments-panel data-team-tag="RL">
       <h2 style="margin:28px 0 14px;">Tournaments</h2>
@@ -652,6 +668,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:45.314Z</footer>
+<footer class="site">Generated 2026-10-25T02:41:25.288Z</footer>
 </body>
 </html>

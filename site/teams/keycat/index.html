@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,7 +659,7 @@
     <div class="hero" style="background:#71c6a5;color:#ffffff">
       <div class="name">[KEYCAT] The Keyboard Cats</div>
       <div class="sub">
-        Captain: Cats_4_Eva · 48 racers tracked · last synced 10/25/2026, 2:02:10 AM</div>
+        Captain: Cats_4_Eva · 48 racers tracked · last synced 10/25/2026, 2:35:21 AM</div>
     </div>
     
     <div class="req-bar">
@@ -685,10 +701,10 @@
             <a href="https://www.nitrotype.com/racer/ecf6fca5d4cfd6db9bf37ea626d00c4b" target="_blank" rel="noopener" title="View on Nitro Type">20_chars</a> <a class="stats-link" href="racer/74284483/" title="20_chars's stats on TypeTrack">📊</a>
           </td>
           <td>Oct 25, 2026</td>
-          <td>48</td>
+          <td>50</td>
           <td>84</td>
-          <td>2,214</td>
-          <td><span class="pill low">87.07%</span></td>
+          <td>2,216</td>
+          <td><span class="pill low">88.64%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1247,6 +1263,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:49.660Z</footer>
+<footer class="site">Generated 2026-10-25T02:41:30.284Z</footer>
 </body>
 </html>

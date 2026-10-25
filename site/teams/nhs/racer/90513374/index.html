@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -654,16 +670,16 @@
         <div class="meta-row" style="margin:4px 0 0;">
           <a href="../../" style="color:inherit;">[NHS]</a>
           Nitro Hype Squad
-          · Joined Oct 24, 2026 · Last synced 10/25/2026, 2:03:19 AM
+          · Joined Oct 24, 2026 · Last synced 10/25/2026, 2:36:35 AM
         </div>
       </div>
     </div>
     
     <div class="req-bar">
-      <div class="req">Avg speed <b>60</b></div>
+      <div class="req">Avg speed <b>54</b></div>
       <div class="req">Highest speed <b>101</b></div>
-      <div class="req">Lifetime races tracked <b>2,297</b></div>
-      <div class="req">Accuracy <b><span class="pill ok">92.11%</span></b></div>
+      <div class="req">Lifetime races tracked <b>2,302</b></div>
+      <div class="req">Accuracy <b><span class="pill ok">92.09%</span></b></div>
     </div>
     <h2 style="margin:28px 0 14px;">Points by window</h2>
     <div class="table-wrap">
@@ -672,51 +688,51 @@
         <tbody>
       <tr>
         <td>Hourly</td>
-        <td><span class="points">6,241.45</span></td>
-        <td>52</td>
-        <td>55.8</td>
-        <td><span class="pill ok">92.10%</span></td>
+        <td><span class="points">3,648.2</span></td>
+        <td>30</td>
+        <td>59</td>
+        <td><span class="pill ok">92.11%</span></td>
       </tr>
       <tr>
         <td>Daily</td>
-        <td><span class="points">21,583.3</span></td>
-        <td>178</td>
-        <td>57.9</td>
-        <td><span class="pill ok">92.31%</span></td>
+        <td><span class="points">22,178.75</span></td>
+        <td>183</td>
+        <td>57.8</td>
+        <td><span class="pill ok">92.30%</span></td>
       </tr>
       <tr>
         <td>Weekly</td>
-        <td><span class="points">21,583.3</span></td>
-        <td>178</td>
-        <td>57.9</td>
-        <td><span class="pill ok">92.31%</span></td>
+        <td><span class="points">22,178.75</span></td>
+        <td>183</td>
+        <td>57.8</td>
+        <td><span class="pill ok">92.30%</span></td>
       </tr>
       <tr>
         <td>Monthly</td>
-        <td><span class="points">21,583.3</span></td>
-        <td>178</td>
-        <td>57.9</td>
-        <td><span class="pill ok">92.31%</span></td>
+        <td><span class="points">22,178.75</span></td>
+        <td>183</td>
+        <td>57.8</td>
+        <td><span class="pill ok">92.30%</span></td>
       </tr>
       <tr>
         <td>Seasonal</td>
-        <td><span class="points">21,583.3</span></td>
-        <td>178</td>
-        <td>57.9</td>
-        <td><span class="pill ok">92.31%</span></td>
+        <td><span class="points">22,178.75</span></td>
+        <td>183</td>
+        <td>57.8</td>
+        <td><span class="pill ok">92.30%</span></td>
       </tr>
       <tr>
         <td>All-Time</td>
-        <td><span class="points">21,583.3</span></td>
-        <td>178</td>
-        <td>57.9</td>
-        <td><span class="pill ok">92.31%</span></td>
+        <td><span class="points">22,178.75</span></td>
+        <td>183</td>
+        <td>57.8</td>
+        <td><span class="pill ok">92.30%</span></td>
       </tr></tbody>
       </table>
     </div>
     <p class="lb-score-note">Tracks Nitro Type's own current season, "Spirit Racers" (Oct 18 – Nov 29).</p></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:30.953Z</footer>
+<footer class="site">Generated 2026-10-25T02:41:08.560Z</footer>
 </body>
 </html>

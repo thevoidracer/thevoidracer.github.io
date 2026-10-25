@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,13 +659,13 @@
     <div class="hero" style="background:#ee1f25;color:#ffffff">
       <div class="name">[P1RE] EMP1RE 1M</div>
       <div class="sub">
-        Captain: DylanJ 700k · 48 racers tracked · last synced 10/25/2026, 2:04:09 AM</div>
+        Captain: DylanJ 700k · 48 racers tracked · last synced 10/25/2026, 2:37:29 AM</div>
     </div>
     <h1>Activity</h1>
     <p class="meta-row">A live look at the last 24 hours — race volume by hour (UTC) and who's been racing, from the same points ledger behind the Tracker and Leaderboards.</p>
     
     <div class="req-bar">
-      <div class="req">Races (24h) <b>870</b></div>
+      <div class="req">Races (24h) <b>871</b></div>
       <div class="req">Active racers <b>8</b></div>
       <div class="req">Busiest hour <b>07:00 UTC</b></div>
     </div>
@@ -747,7 +763,7 @@
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
-        <div class="activity-bar" style="--h:1%" title="02:00 UTC — 0 races">
+        <div class="activity-bar" style="--h:4%" title="02:00 UTC — 1 race">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div></div>
@@ -789,10 +805,10 @@
             <img class="car-thumb" src="../../../assets/cars/icarus_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/5quidd" target="_blank" rel="noopener" title="View on Nitro Type">Henry_YT</a> <a class="stats-link" href="../racer/90382156/" title="Henry_YT's stats on TypeTrack">📊</a>
           </td>
-          <td>106</td>
-          <td><span class="points">14,599.15</span></td>
-          <td>93.8</td>
-          <td><span class="pill ok">90.84%</span></td>
+          <td>85</td>
+          <td><span class="points">11,699.05</span></td>
+          <td>93.6</td>
+          <td><span class="pill ok">90.81%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">4</span></td>
@@ -858,6 +874,6 @@
        </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:39.804Z</footer>
+<footer class="site">Generated 2026-10-25T02:41:18.928Z</footer>
 </body>
 </html>

@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,7 +659,7 @@
     <div class="hero" style="background:#ee1f25;color:#ffffff">
       <div class="name">[TBZ] Trailblazers</div>
       <div class="sub">
-        Captain: monster_iii · 55 racers tracked · last synced 10/25/2026, 2:05:51 AM</div>
+        Captain: monster_iii · 55 racers tracked · last synced 10/25/2026, 2:39:17 AM</div>
     </div>
     
     <div class="req-bar">
@@ -817,9 +833,9 @@
             <a href="https://www.nitrotype.com/racer/dedadedadk" target="_blank" rel="noopener" title="View on Nitro Type">darkknight 20k</a> <a class="stats-link" href="racer/81966367/" title="darkknight 20k's stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Aug 28, 2026</td>
-          <td>104</td>
+          <td>110</td>
           <td>140</td>
-          <td>19,968</td>
+          <td>20,003</td>
           <td><span class="pill good">96.53%</span></td>
         </tr>
         <tr>
@@ -841,10 +857,10 @@
             <a href="https://www.nitrotype.com/racer/envykorr" target="_blank" rel="noopener" title="View on Nitro Type">duality</a> <a class="stats-link" href="racer/66439125/" title="duality's stats on TypeTrack">📊</a>
           </td>
           <td>Oct 23, 2026</td>
-          <td>74</td>
+          <td>65</td>
           <td>102</td>
-          <td>3,707</td>
-          <td><span class="pill low">86.93%</span></td>
+          <td>3,730</td>
+          <td><span class="pill low">86.89%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1033,10 +1049,10 @@
             <a href="https://www.nitrotype.com/racer/superminecraftplayer" target="_blank" rel="noopener" title="View on Nitro Type">NeonDrifter</a> <a class="stats-link" href="racer/51267236/" title="NeonDrifter's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 25, 2026</td>
-          <td>111</td>
+          <td>113</td>
           <td>165</td>
-          <td>17,509</td>
-          <td><span class="pill good">97.18%</span></td>
+          <td>17,529</td>
+          <td><span class="pill good">97.19%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1071,7 +1087,7 @@
           <td>Oct 18, 2026</td>
           <td>130</td>
           <td>189</td>
-          <td>244,347</td>
+          <td>244,394</td>
           <td><span class="pill good">97.35%</span></td>
         </tr>
         <tr>
@@ -1153,10 +1169,10 @@
             <a href="https://www.nitrotype.com/racer/agentdevo" target="_blank" rel="noopener" title="View on Nitro Type">RandoraV2</a> <a class="stats-link" href="racer/908109/" title="RandoraV2's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 24, 2026</td>
-          <td>90</td>
+          <td>103</td>
           <td>193</td>
-          <td>103,380</td>
-          <td><span class="pill good">96.99%</span></td>
+          <td>103,390</td>
+          <td><span class="pill good">96.95%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1177,10 +1193,10 @@
             <a href="https://www.nitrotype.com/racer/anolyunknown" target="_blank" rel="noopener" title="View on Nitro Type">Score   </a> <a class="stats-link" href="racer/89753316/" title="Score   's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>May 13, 2026</td>
-          <td>69</td>
-          <td>85</td>
-          <td>5,661</td>
-          <td><span class="pill ok">94.28%</span></td>
+          <td>68</td>
+          <td>92</td>
+          <td>5,698</td>
+          <td><span class="pill ok">94.27%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1331,6 +1347,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:20.759Z</footer>
+<footer class="site">Generated 2026-10-25T02:40:56.949Z</footer>
 </body>
 </html>

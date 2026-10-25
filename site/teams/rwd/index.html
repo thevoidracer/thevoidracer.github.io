@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,11 +659,11 @@
     <div class="hero" style="background:#ee1f25;color:#ffffff">
       <div class="name">[RWD] NT Rewind</div>
       <div class="sub">
-        Captain: RoadToGoodAcc · 49 racers tracked · last synced 10/25/2026, 2:04:39 AM</div>
+        Captain: RoadToGoodAcc · 50 racers tracked · last synced 10/25/2026, 2:38:01 AM</div>
     </div>
     
     <div class="req-bar">
-      <div class="req">Members <b>45</b></div>
+      <div class="req">Members <b>46</b></div>
       <div class="req">Formed <b>Sep 4, 2026</b></div>
       <div class="req">Enrollment <b>auto</b></div>
       <div class="req">Min races <b>100</b></div>
@@ -788,6 +804,18 @@
         </tr>
         <tr>
           <td class="racer">
+            <span class="avatar" style="background:hsl(314 85% 65%)">B</span>
+            
+            <a href="https://www.nitrotype.com/racer/orphanim" target="_blank" rel="noopener" title="View on Nitro Type">blueberries</a> <a class="stats-link" href="racer/89049375/" title="blueberries's stats on TypeTrack">📊</a>
+          </td>
+          <td>Oct 25, 2026</td>
+          <td>66</td>
+          <td>104</td>
+          <td>5,145</td>
+          <td><span class="pill good">95.52%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
             <span class="avatar" style="background:hsl(20 85% 65%)">C</span>
             <img class="car-thumb" src="../../assets/cars/underworld_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/921df8dd11903b5930996734c8b582e9" target="_blank" rel="noopener" title="View on Nitro Type">CanIHaveCash</a> <a class="stats-link" href="racer/29473266/" title="CanIHaveCash's stats on TypeTrack">📊</a>
@@ -807,7 +835,7 @@
           <td>Sep 7, 2026</td>
           <td>102</td>
           <td>157</td>
-          <td>74,222</td>
+          <td>74,242</td>
           <td><span class="pill good">95.34%</span></td>
         </tr>
         <tr>
@@ -1093,10 +1121,10 @@
             <a href="https://www.nitrotype.com/racer/ok_computer" target="_blank" rel="noopener" title="View on Nitro Type">OKComputer</a> <a class="stats-link" href="racer/11861303/" title="OKComputer's stats on TypeTrack">📊</a>
           </td>
           <td>Oct 7, 2026</td>
-          <td>111</td>
+          <td>100</td>
           <td>130</td>
-          <td>3,289</td>
-          <td><span class="pill good">98.09%</span></td>
+          <td>3,301</td>
+          <td><span class="pill good">98.08%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1225,9 +1253,9 @@
             <a href="https://www.nitrotype.com/racer/fuhwap" target="_blank" rel="noopener" title="View on Nitro Type">Uh, uh, a metaphor</a> <a class="stats-link" href="racer/91216194/" title="Uh, uh, a metaphor's stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Sep 20, 2026</td>
-          <td>135</td>
+          <td>134</td>
           <td>175</td>
-          <td>6,407</td>
+          <td>6,434</td>
           <td><span class="pill good">98.61%</span></td>
         </tr>
         <tr>
@@ -1259,6 +1287,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:32.032Z</footer>
+<footer class="site">Generated 2026-10-25T02:41:09.787Z</footer>
 </body>
 </html>

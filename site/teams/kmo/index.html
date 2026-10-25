@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,7 +659,7 @@
     <div class="hero" style="background:#8750a0;color:#ffffff">
       <div class="name">[KMO] TypingBulldogs</div>
       <div class="sub">
-        Captain: Sheharuma · 52 racers tracked · last synced 10/25/2026, 2:02:22 AM</div>
+        Captain: Sheharuma · 52 racers tracked · last synced 10/25/2026, 2:35:34 AM</div>
     </div>
     
     <div class="req-bar">
@@ -910,18 +926,6 @@ Can put in the time to win the 3 week Legend Tourney.</div>
         <tr>
           <td class="racer">
             <span class="avatar" style="background:hsl(203 85% 65%)">J</span>
-            <img class="car-thumb" src="../../assets/cars/gtsprismav1_small.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/17f3550fc44637d3acd139fb039973dc" target="_blank" rel="noopener" title="View on Nitro Type">Justin Jefferson</a> <a class="stats-link" href="racer/80649927/" title="Justin Jefferson's stats on TypeTrack">📊</a>
-          </td>
-          <td>Oct 20, 2026</td>
-          <td>36</td>
-          <td>49</td>
-          <td>552</td>
-          <td><span class="pill ok">90.32%</span></td>
-        </tr>
-        <tr>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(203 85% 65%)">J</span>
             <img class="car-thumb" src="../../assets/cars/ship_of_line_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/7d7e091472de621330026f683fdcbcc0" target="_blank" rel="noopener" title="View on Nitro Type">Justin Jefferson</a> <a class="stats-link" href="racer/63600145/" title="Justin Jefferson's stats on TypeTrack">📊</a>
           </td>
@@ -930,6 +934,18 @@ Can put in the time to win the 3 week Legend Tourney.</div>
           <td>60</td>
           <td>1,340</td>
           <td><span class="pill low">85.9%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(203 85% 65%)">J</span>
+            <img class="car-thumb" src="../../assets/cars/gtsprismav1_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/17f3550fc44637d3acd139fb039973dc" target="_blank" rel="noopener" title="View on Nitro Type">Justin Jefferson</a> <a class="stats-link" href="racer/80649927/" title="Justin Jefferson's stats on TypeTrack">📊</a>
+          </td>
+          <td>Oct 20, 2026</td>
+          <td>36</td>
+          <td>49</td>
+          <td>552</td>
+          <td><span class="pill ok">90.32%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1296,6 +1312,6 @@ Can put in the time to win the 3 week Legend Tourney.</div>
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:47.500Z</footer>
+<footer class="site">Generated 2026-10-25T02:41:27.807Z</footer>
 </body>
 </html>

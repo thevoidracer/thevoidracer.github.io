@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,13 +659,13 @@
     <div class="hero" style="background:#5b52a3;color:#ffffff">
       <div class="name">[IMT] Immortal Legends 🌟</div>
       <div class="sub">
-        Captain: Void Racer · 52 racers tracked · last synced 10/25/2026, 2:01:57 AM</div>
+        Captain: Void Racer · 52 racers tracked · last synced 10/25/2026, 2:35:07 AM</div>
     </div>
     <h1>Activity</h1>
     <p class="meta-row">A live look at the last 24 hours — race volume by hour (UTC) and who's been racing, from the same points ledger behind the Tracker and Leaderboards.</p>
     
     <div class="req-bar">
-      <div class="req">Races (24h) <b>607</b></div>
+      <div class="req">Races (24h) <b>646</b></div>
       <div class="req">Active racers <b>9</b></div>
       <div class="req">Busiest hour <b>04:00 UTC</b></div>
     </div>
@@ -747,7 +763,7 @@
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
-        <div class="activity-bar" style="--h:32%" title="02:00 UTC — 23 races">
+        <div class="activity-bar" style="--h:85%" title="02:00 UTC — 62 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div></div>
@@ -765,9 +781,9 @@
             <img class="car-thumb" src="../../../assets/cars/ship_of_line_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/75ece50e19f0ca3d92787e4a86138578" target="_blank" rel="noopener" title="View on Nitro Type">rorok09</a> <a class="stats-link" href="../racer/51000676/" title="rorok09's stats on TypeTrack">📊</a>
           </td>
-          <td>359</td>
-          <td><span class="points">50,744.91</span></td>
-          <td>88.7</td>
+          <td>326</td>
+          <td><span class="points">46,009.41</span></td>
+          <td>88.3</td>
           <td><span class="pill good">96.99%</span></td>
         </tr>
         <tr>
@@ -785,6 +801,18 @@
         <tr>
           <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(17 85% 65%)">I</span>
+            <img class="car-thumb" src="../../../assets/cars/spirit_koi_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/a0604971cedb19bc8237c0b2bd3de21e" target="_blank" rel="noopener" title="View on Nitro Type">I_Am_So_Cheesy</a> <a class="stats-link" href="../racer/83717617/" title="I_Am_So_Cheesy's stats on TypeTrack">📊</a>
+          </td>
+          <td>59</td>
+          <td><span class="points">6,947.09</span></td>
+          <td>52.6</td>
+          <td><span class="pill ok">91.44%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">4</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(165 85% 65%)">K</span>
             <img class="car-thumb" src="../../../assets/cars/painted-spirit_racers_ink_fox_small_120.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/kirbydelta" target="_blank" rel="noopener" title="View on Nitro Type">KirbyDelta</a> <a class="stats-link" href="../racer/51972894/" title="KirbyDelta's stats on TypeTrack">📊</a>
@@ -795,7 +823,7 @@
           <td><span class="pill ok">93.06%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">4</span></td>
+          <td><span class="lb-rank">5</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(84 85% 65%)">-</span>
             
@@ -807,19 +835,19 @@
           <td><span class="pill ok">91.06%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">5</span></td>
+          <td><span class="lb-rank">6</span></td>
           <td class="racer">
-            <span class="avatar" style="background:hsl(17 85% 65%)">I</span>
-            <img class="car-thumb" src="../../../assets/cars/spirit_racers_paper_crane2_small.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/a0604971cedb19bc8237c0b2bd3de21e" target="_blank" rel="noopener" title="View on Nitro Type">I_Am_So_Cheesy</a> <a class="stats-link" href="../racer/83717617/" title="I_Am_So_Cheesy's stats on TypeTrack">📊</a>
+            <span class="avatar" style="background:hsl(332 85% 65%)">U</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-birdy_small_60.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/735493474a38feb614a4a76e3cde2c1a" target="_blank" rel="noopener" title="View on Nitro Type">UJAADDAH</a> <a class="stats-link" href="../racer/65396942/" title="UJAADDAH's stats on TypeTrack">📊</a>
           </td>
-          <td>36</td>
-          <td><span class="points">4,246.2</span></td>
-          <td>53</td>
-          <td><span class="pill ok">91.45%</span></td>
+          <td>26</td>
+          <td><span class="points">3,557.95</span></td>
+          <td>91.3</td>
+          <td><span class="pill ok">91.19%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">6</span></td>
+          <td><span class="lb-rank">7</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(44 85% 65%)">J</span>
             
@@ -831,7 +859,7 @@
           <td><span class="pill good">96.62%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">7</span></td>
+          <td><span class="lb-rank">8</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(16 85% 65%)">A</span>
             <img class="car-thumb" src="../../../assets/cars/painted-sprintervapor_small_240.png" alt="" loading="lazy" onerror="this.remove()">
@@ -841,18 +869,6 @@
           <td><span class="points">2,101.5</span></td>
           <td>90</td>
           <td><span class="pill good">95.10%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">8</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(332 85% 65%)">U</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-birdy_small_60.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/735493474a38feb614a4a76e3cde2c1a" target="_blank" rel="noopener" title="View on Nitro Type">UJAADDAH</a> <a class="stats-link" href="../racer/65396942/" title="UJAADDAH's stats on TypeTrack">📊</a>
-          </td>
-          <td>10</td>
-          <td><span class="points">1,352.51</span></td>
-          <td>88.6</td>
-          <td><span class="pill ok">90.95%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">9</span></td>
@@ -870,6 +886,6 @@
        </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:37.609Z</footer>
+<footer class="site">Generated 2026-10-25T02:41:16.147Z</footer>
 </body>
 </html>

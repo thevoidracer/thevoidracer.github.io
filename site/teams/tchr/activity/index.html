@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,13 +659,13 @@
     <div class="hero" style="background:#f5eb21;color:#0b1220">
       <div class="name">[TCHR] Inculcators</div>
       <div class="sub">
-        Captain: Audacious · 47 racers tracked · last synced 10/25/2026, 2:06:04 AM</div>
+        Captain: Audacious · 47 racers tracked · last synced 10/25/2026, 2:39:32 AM</div>
     </div>
     <h1>Activity</h1>
     <p class="meta-row">A live look at the last 24 hours — race volume by hour (UTC) and who's been racing, from the same points ledger behind the Tracker and Leaderboards.</p>
     
     <div class="req-bar">
-      <div class="req">Races (24h) <b>921</b></div>
+      <div class="req">Races (24h) <b>958</b></div>
       <div class="req">Active racers <b>12</b></div>
       <div class="req">Busiest hour <b>01:00 UTC</b></div>
     </div>
@@ -747,7 +763,7 @@
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
-        <div class="activity-bar" style="--h:50%" title="02:00 UTC — 47 races">
+        <div class="activity-bar" style="--h:89%" title="02:00 UTC — 84 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div></div>
@@ -765,9 +781,9 @@
             <img class="car-thumb" src="../../../assets/cars/painted-scream_small_320.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/brebot1986" target="_blank" rel="noopener" title="View on Nitro Type">Ayo Semangat</a> <a class="stats-link" href="../racer/84659523/" title="Ayo Semangat's stats on TypeTrack">📊</a>
           </td>
-          <td>383</td>
-          <td><span class="points">50,389.2</span></td>
-          <td>68</td>
+          <td>373</td>
+          <td><span class="points">48,971.1</span></td>
+          <td>67.4</td>
           <td><span class="pill good">97.57%</span></td>
         </tr>
         <tr>
@@ -801,9 +817,9 @@
             <img class="car-thumb" src="../../../assets/cars/painted-fuji_small_40.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/c1a147c5d97e12e6774e12fe91ffd1ec" target="_blank" rel="noopener" title="View on Nitro Type">CaFFeinE</a> <a class="stats-link" href="../racer/56322624/" title="CaFFeinE's stats on TypeTrack">📊</a>
           </td>
-          <td>95</td>
-          <td><span class="points">14,370.5</span></td>
-          <td>107.1</td>
+          <td>85</td>
+          <td><span class="points">12,878.5</span></td>
+          <td>107.6</td>
           <td><span class="pill good">97.70%</span></td>
         </tr>
         <tr>
@@ -906,6 +922,6 @@
        </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:35.390Z</footer>
+<footer class="site">Generated 2026-10-25T02:41:13.599Z</footer>
 </body>
 </html>

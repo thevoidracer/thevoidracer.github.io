@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,7 +659,7 @@
     <div class="hero" style="background:#5b52a3;color:#ffffff">
       <div class="name">[LEGNDZ] Legendary-Typerz</div>
       <div class="sub">
-        Captain: Dedicated2NT · 38 racers tracked · last synced 10/25/2026, 2:02:48 AM</div>
+        Captain: Dedicated2NT · 38 racers tracked · last synced 10/25/2026, 2:36:02 AM</div>
     </div>
     <h2 style="margin:28px 0 14px;">Tracker</h2>
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
@@ -685,11 +701,11 @@
             
             <a href="https://www.nitrotype.com/racer/jumpingjackz" target="_blank" rel="noopener" title="View on Nitro Type">Dedicated2NT</a> <a class="stats-link" href="../racer/63428521/" title="Dedicated2NT's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">32,113.11</span></td>
-          <td>233</td>
-          <td>83</td>
+          <td><span class="points">34,109.91</span></td>
+          <td>248</td>
+          <td>77</td>
           <td>118</td>
-          <td><span class="pill ok">94.64%</span></td>
+          <td><span class="pill ok">94.62%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top2">2</span></td>
@@ -698,8 +714,8 @@
             <img class="car-thumb" src="../../../assets/cars/painted-jet_powered_truck_small_160.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/mike4532fxfx" target="_blank" rel="noopener" title="View on Nitro Type">mike4532fxfx</a> <a class="stats-link" href="../racer/83577482/" title="mike4532fxfx's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">21,518.27</span></td>
-          <td>177</td>
+          <td><span class="points">20,445.56</span></td>
+          <td>168</td>
           <td>70</td>
           <td>90</td>
           <td><span class="pill low">88.76%</span></td>
@@ -776,8 +792,8 @@
             <img class="car-thumb" src="../../../assets/cars/corsa_xmaxx_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/7fb59e2ae4f05d90e3d534bc2647e3f6" target="_blank" rel="noopener" title="View on Nitro Type">EpicFailure82</a> <a class="stats-link" href="../racer/80941526/" title="EpicFailure82's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">5,349.3</span></td>
-          <td>39</td>
+          <td><span class="points">5,212.16</span></td>
+          <td>38</td>
           <td>82</td>
           <td>97</td>
           <td><span class="pill good">95.94%</span></td>
@@ -901,11 +917,11 @@
             
             <a href="https://www.nitrotype.com/racer/jumpingjackz" target="_blank" rel="noopener" title="View on Nitro Type">Dedicated2NT</a> <a class="stats-link" href="../racer/63428521/" title="Dedicated2NT's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">45,394.57</span></td>
-          <td>330</td>
-          <td>83</td>
+          <td><span class="points">47,391.37</span></td>
+          <td>345</td>
+          <td>77</td>
           <td>118</td>
-          <td><span class="pill ok">94.64%</span></td>
+          <td><span class="pill ok">94.62%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top3">3</span></td>
@@ -1247,11 +1263,11 @@
             
             <a href="https://www.nitrotype.com/racer/jumpingjackz" target="_blank" rel="noopener" title="View on Nitro Type">Dedicated2NT</a> <a class="stats-link" href="../racer/63428521/" title="Dedicated2NT's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">45,394.57</span></td>
-          <td>330</td>
-          <td>83</td>
+          <td><span class="points">47,391.37</span></td>
+          <td>345</td>
+          <td>77</td>
           <td>118</td>
-          <td><span class="pill ok">94.64%</span></td>
+          <td><span class="pill ok">94.62%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top3">3</span></td>
@@ -1593,11 +1609,11 @@
             
             <a href="https://www.nitrotype.com/racer/jumpingjackz" target="_blank" rel="noopener" title="View on Nitro Type">Dedicated2NT</a> <a class="stats-link" href="../racer/63428521/" title="Dedicated2NT's stats on TypeTrack">📊</a>
           </td>
-          <td><span class="points">45,394.57</span></td>
-          <td>330</td>
-          <td>83</td>
+          <td><span class="points">47,391.37</span></td>
+          <td>345</td>
+          <td>77</td>
           <td>118</td>
-          <td><span class="pill ok">94.64%</span></td>
+          <td><span class="pill ok">94.62%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top3">3</span></td>
@@ -1915,6 +1931,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:33.166Z</footer>
+<footer class="site">Generated 2026-10-25T02:41:11.072Z</footer>
 </body>
 </html>

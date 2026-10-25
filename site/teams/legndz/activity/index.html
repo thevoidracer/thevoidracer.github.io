@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,13 +659,13 @@
     <div class="hero" style="background:#5b52a3;color:#ffffff">
       <div class="name">[LEGNDZ] Legendary-Typerz</div>
       <div class="sub">
-        Captain: Dedicated2NT · 38 racers tracked · last synced 10/25/2026, 2:02:48 AM</div>
+        Captain: Dedicated2NT · 38 racers tracked · last synced 10/25/2026, 2:36:02 AM</div>
     </div>
     <h1>Activity</h1>
     <p class="meta-row">A live look at the last 24 hours — race volume by hour (UTC) and who's been racing, from the same points ledger behind the Tracker and Leaderboards.</p>
     
     <div class="req-bar">
-      <div class="req">Races (24h) <b>1,242</b></div>
+      <div class="req">Races (24h) <b>1,257</b></div>
       <div class="req">Active racers <b>15</b></div>
       <div class="req">Busiest hour <b>23:00 UTC</b></div>
     </div>
@@ -747,7 +763,7 @@
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
-        <div class="activity-bar" style="--h:21%" title="02:00 UTC — 34 races">
+        <div class="activity-bar" style="--h:30%" title="02:00 UTC — 49 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div></div>
@@ -765,10 +781,10 @@
             
             <a href="https://www.nitrotype.com/racer/jumpingjackz" target="_blank" rel="noopener" title="View on Nitro Type">Dedicated2NT</a> <a class="stats-link" href="../racer/63428521/" title="Dedicated2NT's stats on TypeTrack">📊</a>
           </td>
-          <td>233</td>
-          <td><span class="points">32,113.11</span></td>
-          <td>86.1</td>
-          <td><span class="pill ok">94.76%</span></td>
+          <td>248</td>
+          <td><span class="points">34,109.91</span></td>
+          <td>85.6</td>
+          <td><span class="pill ok">94.75%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top2">2</span></td>
@@ -777,10 +793,10 @@
             <img class="car-thumb" src="../../../assets/cars/painted-jet_powered_truck_small_160.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/mike4532fxfx" target="_blank" rel="noopener" title="View on Nitro Type">mike4532fxfx</a> <a class="stats-link" href="../racer/83577482/" title="mike4532fxfx's stats on TypeTrack">📊</a>
           </td>
-          <td>177</td>
-          <td><span class="points">21,518.27</span></td>
-          <td>65.5</td>
-          <td><span class="pill low">88.80%</span></td>
+          <td>168</td>
+          <td><span class="points">20,445.56</span></td>
+          <td>65.8</td>
+          <td><span class="pill low">88.81%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top3">3</span></td>
@@ -849,8 +865,8 @@
             <img class="car-thumb" src="../../../assets/cars/corsa_xmaxx_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/7fb59e2ae4f05d90e3d534bc2647e3f6" target="_blank" rel="noopener" title="View on Nitro Type">EpicFailure82</a> <a class="stats-link" href="../racer/80941526/" title="EpicFailure82's stats on TypeTrack">📊</a>
           </td>
-          <td>39</td>
-          <td><span class="points">5,349.3</span></td>
+          <td>38</td>
+          <td><span class="points">5,212.16</span></td>
           <td>82.9</td>
           <td><span class="pill good">95.70%</span></td>
         </tr>
@@ -942,6 +958,6 @@
        </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:33.153Z</footer>
+<footer class="site">Generated 2026-10-25T02:41:11.061Z</footer>
 </body>
 </html>

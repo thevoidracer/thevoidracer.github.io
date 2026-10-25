@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,7 +659,7 @@
     <div class="hero" style="background:#ea1979;color:#ffffff">
       <div class="name">[PR2W] P1nks R2 W1ld</div>
       <div class="sub">
-        Captain: pinkyboo · 48 racers tracked · last synced 10/25/2026, 2:04:17 AM</div>
+        Captain: pinkyboo · 48 racers tracked · last synced 10/25/2026, 2:37:37 AM</div>
     </div>
     
     <div class="req-bar">
@@ -687,7 +703,7 @@
           <td>Oct 1, 2026</td>
           <td>118</td>
           <td>155</td>
-          <td>12,790</td>
+          <td>12,792</td>
           <td><span class="pill ok">94.94%</span></td>
         </tr>
         <tr>
@@ -721,9 +737,9 @@
             <a href="https://www.nitrotype.com/racer/moilyn" target="_blank" rel="noopener" title="View on Nitro Type">✨꧁⚽WF⚽꧂✨</a> <a class="stats-link" href="racer/10774891/" title="✨꧁⚽WF⚽꧂✨'s stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Feb 8, 2022</td>
-          <td>72</td>
+          <td>68</td>
           <td>120</td>
-          <td>1,153,559</td>
+          <td>1,153,604</td>
           <td><span class="pill good">97.98%</span></td>
         </tr>
         <tr>
@@ -793,9 +809,9 @@
             <a href="https://www.nitrotype.com/racer/ntyperoftheyear" target="_blank" rel="noopener" title="View on Nitro Type">Arentix -Drip-</a> <a class="stats-link" href="racer/44014303/" title="Arentix -Drip-'s stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 3, 2026</td>
-          <td>122</td>
+          <td>117</td>
           <td>169</td>
-          <td>52,341</td>
+          <td>52,345</td>
           <td><span class="pill good">95.27%</span></td>
         </tr>
         <tr>
@@ -909,14 +925,14 @@
         <tr>
           <td class="racer">
             <span class="avatar" style="background:hsl(327 85% 65%)">J</span>
-            <img class="car-thumb" src="../../assets/cars/underworld_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <img class="car-thumb" src="../../assets/cars/painted-shadow_dragon_small_300.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/jackybo" target="_blank" rel="noopener" title="View on Nitro Type">jackybo</a> <a class="stats-link" href="racer/73617981/" title="jackybo's stats on TypeTrack">📊</a>
           </td>
           <td>Oct 22, 2026</td>
-          <td>43</td>
+          <td>61</td>
           <td>88</td>
-          <td>6,005</td>
-          <td><span class="pill ok">92.88%</span></td>
+          <td>6,035</td>
+          <td><span class="pill ok">92.69%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1153,9 +1169,9 @@
             <a href="https://www.nitrotype.com/racer/koblc00" target="_blank" rel="noopener" title="View on Nitro Type">Static</a> <a class="stats-link" href="racer/86125496/" title="Static's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Jan 13, 2026</td>
-          <td>115</td>
+          <td>113</td>
           <td>156</td>
-          <td>53,677</td>
+          <td>53,728</td>
           <td><span class="pill ok">93.62%</span></td>
         </tr>
         <tr>
@@ -1247,6 +1263,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:21.884Z</footer>
+<footer class="site">Generated 2026-10-25T02:40:59.551Z</footer>
 </body>
 </html>

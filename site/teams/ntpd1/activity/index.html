@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,14 +659,14 @@
     <div class="hero" style="background:#40b8ea;color:#ffffff">
       <div class="name">[NTPD1] Nitro Type Police</div>
       <div class="sub">
-        Captain: Captain.Loveridge · 50 racers tracked · last synced 10/25/2026, 2:03:45 AM</div>
+        Captain: Captain.Loveridge · 50 racers tracked · last synced 10/25/2026, 2:37:03 AM</div>
     </div>
     <h1>Activity</h1>
     <p class="meta-row">A live look at the last 24 hours — race volume by hour (UTC) and who's been racing, from the same points ledger behind the Tracker and Leaderboards.</p>
     
     <div class="req-bar">
-      <div class="req">Races (24h) <b>2,086</b></div>
-      <div class="req">Active racers <b>25</b></div>
+      <div class="req">Races (24h) <b>2,134</b></div>
+      <div class="req">Active racers <b>24</b></div>
       <div class="req">Busiest hour <b>14:00 UTC</b></div>
     </div>
     <h2 style="margin:28px 0 14px;">Races per hour</h2>
@@ -747,7 +763,7 @@
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
-        <div class="activity-bar" style="--h:7%" title="02:00 UTC — 13 races">
+        <div class="activity-bar" style="--h:33%" title="02:00 UTC — 61 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div></div>
@@ -789,9 +805,9 @@
             <img class="car-thumb" src="../../../assets/cars/painted-dragon_small_80.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/wiggitywiggitywack" target="_blank" rel="noopener" title="View on Nitro Type">Rosco P Coletrane</a> <a class="stats-link" href="../racer/83588520/" title="Rosco P Coletrane's stats on TypeTrack">📊</a>
           </td>
-          <td>219</td>
-          <td><span class="points">31,811.02</span></td>
-          <td>94.4</td>
+          <td>200</td>
+          <td><span class="points">29,035.5</span></td>
+          <td>94.2</td>
           <td><span class="pill good">98.08%</span></td>
         </tr>
         <tr>
@@ -813,10 +829,10 @@
             
             <a href="https://www.nitrotype.com/racer/d7b8fe255e4a75eea4cb155b29e40b5d" target="_blank" rel="noopener" title="View on Nitro Type">NanoZilch</a> <a class="stats-link" href="../racer/51103645/" title="NanoZilch's stats on TypeTrack">📊</a>
           </td>
-          <td>121</td>
-          <td><span class="points">16,596.36</span></td>
+          <td>140</td>
+          <td><span class="points">19,199.36</span></td>
           <td>79.3</td>
-          <td><span class="pill good">97.49%</span></td>
+          <td><span class="pill good">97.50%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">6</span></td>
@@ -833,14 +849,14 @@
         <tr>
           <td><span class="lb-rank">7</span></td>
           <td class="racer">
-            <span class="avatar" style="background:hsl(145 85% 65%)">I</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-hurricania_small_260.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/indianaawesome" target="_blank" rel="noopener" title="View on Nitro Type">indianaawesome</a> <a class="stats-link" href="../racer/80229463/" title="indianaawesome's stats on TypeTrack">📊</a>
+            <span class="avatar" style="background:hsl(53 85% 65%)">-</span>
+            
+            <a href="https://www.nitrotype.com/racer/mustafass" target="_blank" rel="noopener" title="View on Nitro Type">-MuStAfA-L-M</a> <a class="stats-link" href="../racer/86005903/" title="-MuStAfA-L-M's stats on TypeTrack">📊</a>
           </td>
-          <td>85</td>
-          <td><span class="points">11,211.58</span></td>
-          <td>83.2</td>
-          <td><span class="pill ok">90.30%</span></td>
+          <td>89</td>
+          <td><span class="points">13,298.85</span></td>
+          <td>112.3</td>
+          <td><span class="pill ok">93.26%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">8</span></td>
@@ -857,6 +873,18 @@
         <tr>
           <td><span class="lb-rank">9</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(145 85% 65%)">I</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-hurricania_small_260.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/indianaawesome" target="_blank" rel="noopener" title="View on Nitro Type">indianaawesome</a> <a class="stats-link" href="../racer/80229463/" title="indianaawesome's stats on TypeTrack">📊</a>
+          </td>
+          <td>85</td>
+          <td><span class="points">11,211.58</span></td>
+          <td>83.2</td>
+          <td><span class="pill ok">90.30%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">10</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(66 85% 65%)">J</span>
             
             <a href="https://www.nitrotype.com/racer/reindeer_18" target="_blank" rel="noopener" title="View on Nitro Type">J o s i e</a> <a class="stats-link" href="../racer/40607790/" title="J o s i e's stats on TypeTrack">📊</a>
@@ -867,7 +895,7 @@
           <td><span class="pill good">99.04%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">10</span></td>
+          <td><span class="lb-rank">11</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(220 85% 65%)">R</span>
             <img class="car-thumb" src="../../../assets/cars/painted-fuji_small_20.png" alt="" loading="lazy" onerror="this.remove()">
@@ -879,7 +907,7 @@
           <td><span class="pill ok">91.59%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">11</span></td>
+          <td><span class="lb-rank">12</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(60 85% 65%)">N</span>
             
@@ -889,18 +917,6 @@
           <td><span class="points">10,383.27</span></td>
           <td>72.7</td>
           <td><span class="pill ok">93.44%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">12</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(53 85% 65%)">-</span>
-            
-            <a href="https://www.nitrotype.com/racer/mustafass" target="_blank" rel="noopener" title="View on Nitro Type">-MuStAfA-L-M</a> <a class="stats-link" href="../racer/86005903/" title="-MuStAfA-L-M's stats on TypeTrack">📊</a>
-          </td>
-          <td>60</td>
-          <td><span class="points">8,970.02</span></td>
-          <td>112.5</td>
-          <td><span class="pill ok">93.25%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">13</span></td>
@@ -1025,18 +1041,6 @@
         <tr>
           <td><span class="lb-rank">23</span></td>
           <td class="racer">
-            <span class="avatar" style="background:hsl(186 85% 65%)">G</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-scream_small_240.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/12606fb092ee608721945b8418b571fc" target="_blank" rel="noopener" title="View on Nitro Type">GraciousScarletMollusk</a> <a class="stats-link" href="../racer/82035521/" title="GraciousScarletMollusk's stats on TypeTrack">📊</a>
-          </td>
-          <td>14</td>
-          <td><span class="points">1,727.6</span></td>
-          <td>58</td>
-          <td><span class="pill ok">94.40%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">24</span></td>
-          <td class="racer">
             <span class="avatar" style="background:hsl(116 85% 65%)">Y</span>
             <img class="car-thumb" src="../../../assets/cars/painted-grid_small_300.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/a82a49b7bf4b050ecb83eab61147b775" target="_blank" rel="noopener" title="View on Nitro Type">yoy 0_0</a> <a class="stats-link" href="../racer/87598262/" title="yoy 0_0's stats on TypeTrack">📊</a>
@@ -1047,21 +1051,21 @@
           <td><span class="pill ok">94.16%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank">25</span></td>
+          <td><span class="lb-rank">24</span></td>
           <td class="racer">
-            <span class="avatar" style="background:hsl(264 85% 65%)">T</span>
-            <img class="car-thumb" src="../../../assets/cars/painted-blizferr_small_20.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/pwr_city" target="_blank" rel="noopener" title="View on Nitro Type">Try-NT-Mod-Suite</a> <a class="stats-link" href="../racer/43713678/" title="Try-NT-Mod-Suite's stats on TypeTrack">📊</a>
+            <span class="avatar" style="background:hsl(186 85% 65%)">G</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-scream_small_240.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/12606fb092ee608721945b8418b571fc" target="_blank" rel="noopener" title="View on Nitro Type">GraciousScarletMollusk</a> <a class="stats-link" href="../racer/82035521/" title="GraciousScarletMollusk's stats on TypeTrack">📊</a>
           </td>
-          <td>2</td>
-          <td><span class="points">305</span></td>
-          <td>114</td>
-          <td><span class="pill good">95.50%</span></td>
+          <td>14</td>
+          <td><span class="points">1,727.6</span></td>
+          <td>58</td>
+          <td><span class="pill ok">94.40%</span></td>
         </tr></tbody>
          </table>
        </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:24.141Z</footer>
+<footer class="site">Generated 2026-10-25T02:41:00.840Z</footer>
 </body>
 </html>

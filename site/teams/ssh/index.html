@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,7 +659,7 @@
     <div class="hero" style="background:#436fb6;color:#ffffff">
       <div class="name">[SSH] Shell  Riders</div>
       <div class="sub">
-        Captain: volatile · 50 racers tracked · last synced 10/25/2026, 2:05:16 AM</div>
+        Captain: volatile · 50 racers tracked · last synced 10/25/2026, 2:38:40 AM</div>
     </div>
     
     <div class="req-bar">
@@ -951,8 +967,8 @@
           <td>Oct 20, 2026</td>
           <td>70</td>
           <td>89</td>
-          <td>10,907</td>
-          <td><span class="pill low">89.4%</span></td>
+          <td>10,908</td>
+          <td><span class="pill low">89.5%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1105,10 +1121,10 @@
             <a href="https://www.nitrotype.com/racer/thefastestguy16" target="_blank" rel="noopener" title="View on Nitro Type">python,,</a> <a class="stats-link" href="racer/87738590/" title="python,,'s stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Sep 9, 2026</td>
-          <td>81</td>
+          <td>87</td>
           <td>122</td>
-          <td>12,293</td>
-          <td><span class="pill ok">93.13%</span></td>
+          <td>12,300</td>
+          <td><span class="pill ok">93.12%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1153,9 +1169,9 @@
             <a href="https://www.nitrotype.com/racer/77uu" target="_blank" rel="noopener" title="View on Nitro Type">SlimJimPingu</a> <a class="stats-link" href="racer/8306058/" title="SlimJimPingu's stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 8, 2024</td>
-          <td>111</td>
+          <td>109</td>
           <td>161</td>
-          <td>281,500</td>
+          <td>281,554</td>
           <td><span class="pill ok">94.45%</span></td>
         </tr>
         <tr>
@@ -1271,6 +1287,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:27.516Z</footer>
+<footer class="site">Generated 2026-10-25T02:41:04.684Z</footer>
 </body>
 </html>

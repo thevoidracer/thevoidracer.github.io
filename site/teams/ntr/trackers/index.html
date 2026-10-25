@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,7 +659,7 @@
     <div class="hero" style="background:#ee1f25;color:#ffffff">
       <div class="name">[NTR] NT  Racing</div>
       <div class="sub">
-        Captain: xalaspook · 45 racers tracked · last synced 10/25/2026, 2:03:58 AM</div>
+        Captain: xalaspook · 45 racers tracked · last synced 10/25/2026, 2:37:17 AM</div>
     </div>
     <h2 style="margin:28px 0 14px;">Tracker</h2>
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
@@ -694,6 +710,19 @@
         <tr>
           <td><span class="lb-rank top2">2</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(33 85% 65%)">Z</span>
+            
+            <a href="https://www.nitrotype.com/racer/zozo4114463" target="_blank" rel="noopener" title="View on Nitro Type">zozo300</a> <a class="stats-link" href="../racer/89004645/" title="zozo300's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">6,755.64</span></td>
+          <td>65</td>
+          <td>45</td>
+          <td>64</td>
+          <td><span class="pill low">80.53%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank top3">3</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(132 85% 65%)">R</span>
             <img class="car-thumb" src="../../../assets/cars/cactus_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/rowan_best" target="_blank" rel="noopener" title="View on Nitro Type">rowan_best</a> <a class="stats-link" href="../racer/91327480/" title="rowan_best's stats on TypeTrack">📊</a>
@@ -705,7 +734,7 @@
           <td><span class="pill ok">94.98%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank top3">3</span></td>
+          <td><span class="lb-rank">4</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(280 85% 65%)">M</span>
             <img class="car-thumb" src="../../../assets/cars/painted-hurricania_small_120.png" alt="" loading="lazy" onerror="this.remove()">
@@ -716,19 +745,6 @@
           <td>58</td>
           <td>81</td>
           <td><span class="pill low">87.06%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">4</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(33 85% 65%)">Z</span>
-            
-            <a href="https://www.nitrotype.com/racer/zozo4114463" target="_blank" rel="noopener" title="View on Nitro Type">zozo300</a> <a class="stats-link" href="../racer/89004645/" title="zozo300's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">5,107.16</span></td>
-          <td>49</td>
-          <td>47</td>
-          <td>64</td>
-          <td><span class="pill low">80.85%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">5</span></td>
@@ -793,6 +809,19 @@
         <tr>
           <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(33 85% 65%)">Z</span>
+            
+            <a href="https://www.nitrotype.com/racer/zozo4114463" target="_blank" rel="noopener" title="View on Nitro Type">zozo300</a> <a class="stats-link" href="../racer/89004645/" title="zozo300's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">11,520.57</span></td>
+          <td>112</td>
+          <td>45</td>
+          <td>64</td>
+          <td><span class="pill low">80.53%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">4</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(299 85% 65%)">K</span>
             
             <a href="https://www.nitrotype.com/racer/kathryn3098" target="_blank" rel="noopener" title="View on Nitro Type">KatieJoDaisy</a> <a class="stats-link" href="../racer/33565489/" title="KatieJoDaisy's stats on TypeTrack">📊</a>
@@ -802,19 +831,6 @@
           <td>68</td>
           <td>93</td>
           <td><span class="pill good">97.55%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">4</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(33 85% 65%)">Z</span>
-            
-            <a href="https://www.nitrotype.com/racer/zozo4114463" target="_blank" rel="noopener" title="View on Nitro Type">zozo300</a> <a class="stats-link" href="../racer/89004645/" title="zozo300's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">9,872.09</span></td>
-          <td>96</td>
-          <td>47</td>
-          <td>64</td>
-          <td><span class="pill low">80.85%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">5</span></td>
@@ -1048,6 +1064,19 @@
         <tr>
           <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(33 85% 65%)">Z</span>
+            
+            <a href="https://www.nitrotype.com/racer/zozo4114463" target="_blank" rel="noopener" title="View on Nitro Type">zozo300</a> <a class="stats-link" href="../racer/89004645/" title="zozo300's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">11,520.57</span></td>
+          <td>112</td>
+          <td>45</td>
+          <td>64</td>
+          <td><span class="pill low">80.53%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">4</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(299 85% 65%)">K</span>
             
             <a href="https://www.nitrotype.com/racer/kathryn3098" target="_blank" rel="noopener" title="View on Nitro Type">KatieJoDaisy</a> <a class="stats-link" href="../racer/33565489/" title="KatieJoDaisy's stats on TypeTrack">📊</a>
@@ -1057,19 +1086,6 @@
           <td>68</td>
           <td>93</td>
           <td><span class="pill good">97.55%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">4</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(33 85% 65%)">Z</span>
-            
-            <a href="https://www.nitrotype.com/racer/zozo4114463" target="_blank" rel="noopener" title="View on Nitro Type">zozo300</a> <a class="stats-link" href="../racer/89004645/" title="zozo300's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">9,872.09</span></td>
-          <td>96</td>
-          <td>47</td>
-          <td>64</td>
-          <td><span class="pill low">80.85%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">5</span></td>
@@ -1303,6 +1319,19 @@
         <tr>
           <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(33 85% 65%)">Z</span>
+            
+            <a href="https://www.nitrotype.com/racer/zozo4114463" target="_blank" rel="noopener" title="View on Nitro Type">zozo300</a> <a class="stats-link" href="../racer/89004645/" title="zozo300's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">11,520.57</span></td>
+          <td>112</td>
+          <td>45</td>
+          <td>64</td>
+          <td><span class="pill low">80.53%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">4</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(299 85% 65%)">K</span>
             
             <a href="https://www.nitrotype.com/racer/kathryn3098" target="_blank" rel="noopener" title="View on Nitro Type">KatieJoDaisy</a> <a class="stats-link" href="../racer/33565489/" title="KatieJoDaisy's stats on TypeTrack">📊</a>
@@ -1312,19 +1341,6 @@
           <td>68</td>
           <td>93</td>
           <td><span class="pill good">97.55%</span></td>
-        </tr>
-        <tr>
-          <td><span class="lb-rank">4</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(33 85% 65%)">Z</span>
-            
-            <a href="https://www.nitrotype.com/racer/zozo4114463" target="_blank" rel="noopener" title="View on Nitro Type">zozo300</a> <a class="stats-link" href="../racer/89004645/" title="zozo300's stats on TypeTrack">📊</a>
-          </td>
-          <td><span class="points">9,872.09</span></td>
-          <td>96</td>
-          <td>47</td>
-          <td>64</td>
-          <td><span class="pill low">80.85%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank">5</span></td>
@@ -1525,6 +1541,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:46.413Z</footer>
+<footer class="site">Generated 2026-10-25T02:41:26.548Z</footer>
 </body>
 </html>

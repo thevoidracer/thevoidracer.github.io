@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,7 +659,7 @@
     <div class="hero" style="background:#ea1979;color:#ffffff">
       <div class="name">[PR2W] P1nks R2 W1ld</div>
       <div class="sub">
-        Captain: pinkyboo · 48 racers tracked · last synced 10/25/2026, 2:04:17 AM</div>
+        Captain: pinkyboo · 48 racers tracked · last synced 10/25/2026, 2:37:37 AM</div>
     </div>
     <div data-admin-panel data-team-tag="PR2W" data-captain-nt-user-id="43305303">
       <h2 style="margin:28px 0 14px;">Team Admin</h2>
@@ -1020,6 +1036,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:21.897Z</footer>
+<footer class="site">Generated 2026-10-25T02:40:59.577Z</footer>
 </body>
 </html>

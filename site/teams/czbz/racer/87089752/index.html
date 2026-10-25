@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -645,7 +661,7 @@
     
     <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:6px;">
       <span class="avatar" style="width:44px;height:44px;font-size:17px;background:hsl(121 85% 65%)">P</span>
-      
+      <img class="car-thumb" src="../../../../assets/cars/painted-ghoul_bus_small_340.png" alt="" loading="lazy" onerror="this.remove()">
       <div>
         <div style="font-size:19px;font-weight:800;">
           <a href="https://www.nitrotype.com/racer/pinklimelungfish" target="_blank" rel="noopener" title="View on Nitro Type">PennyPitstop</a>
@@ -654,15 +670,15 @@
         <div class="meta-row" style="margin:4px 0 0;">
           <a href="../../" style="color:inherit;">[CZBZ]</a>
           Cr4zy Typerz
-          · Joined Apr 24, 2026 · Last synced 10/25/2026, 2:01:43 AM
+          · Joined Apr 24, 2026 · Last synced 10/25/2026, 2:34:51 AM
         </div>
       </div>
     </div>
     
     <div class="req-bar">
-      <div class="req">Avg speed <b>86</b></div>
+      <div class="req">Avg speed <b>90</b></div>
       <div class="req">Highest speed <b>115</b></div>
-      <div class="req">Lifetime races tracked <b>78,446</b></div>
+      <div class="req">Lifetime races tracked <b>78,479</b></div>
       <div class="req">Accuracy <b><span class="pill good">97.14%</span></b></div>
     </div>
     <h2 style="margin:28px 0 14px;">Points by window</h2>
@@ -672,44 +688,44 @@
         <tbody>
       <tr>
         <td>Hourly</td>
-        <td><span class="points">7,917.84</span></td>
-        <td>56</td>
-        <td>88.5</td>
+        <td><span class="points">7,633.56</span></td>
+        <td>54</td>
+        <td>88.4</td>
         <td><span class="pill good">97.14%</span></td>
       </tr>
       <tr>
         <td>Daily</td>
-        <td><span class="points">48,250.46</span></td>
-        <td>342</td>
-        <td>87.9</td>
+        <td><span class="points">52,941.08</span></td>
+        <td>375</td>
+        <td>88.1</td>
         <td><span class="pill good">97.14%</span></td>
       </tr>
       <tr>
         <td>Weekly</td>
-        <td><span class="points">70,611.86</span></td>
-        <td>502</td>
-        <td>87</td>
+        <td><span class="points">75,302.48</span></td>
+        <td>535</td>
+        <td>87.2</td>
         <td><span class="pill good">97.14%</span></td>
       </tr>
       <tr>
         <td>Monthly</td>
-        <td><span class="points">70,611.86</span></td>
-        <td>502</td>
-        <td>87</td>
+        <td><span class="points">75,302.48</span></td>
+        <td>535</td>
+        <td>87.2</td>
         <td><span class="pill good">97.14%</span></td>
       </tr>
       <tr>
         <td>Seasonal</td>
-        <td><span class="points">70,611.86</span></td>
-        <td>502</td>
-        <td>87</td>
+        <td><span class="points">75,302.48</span></td>
+        <td>535</td>
+        <td>87.2</td>
         <td><span class="pill good">97.14%</span></td>
       </tr>
       <tr>
         <td>All-Time</td>
-        <td><span class="points">70,611.86</span></td>
-        <td>502</td>
-        <td>87</td>
+        <td><span class="points">75,302.48</span></td>
+        <td>535</td>
+        <td>87.2</td>
         <td><span class="pill good">97.14%</span></td>
       </tr></tbody>
       </table>
@@ -717,6 +733,6 @@
     <p class="lb-score-note">Tracks Nitro Type's own current season, "Spirit Racers" (Oct 18 – Nov 29).</p></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:26.432Z</footer>
+<footer class="site">Generated 2026-10-25T02:41:03.449Z</footer>
 </body>
 </html>

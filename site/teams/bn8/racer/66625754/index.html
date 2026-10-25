@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -654,7 +670,7 @@
         <div class="meta-row" style="margin:4px 0 0;">
           <a href="../../" style="color:inherit;">[BN8]</a>
           BENEVOLENCE
-          · Joined Oct 23, 2026 · Last synced 10/25/2026, 2:01:23 AM
+          · Joined Oct 23, 2026 · Last synced 10/25/2026, 2:34:30 AM
         </div>
       </div>
     </div>
@@ -672,17 +688,17 @@
         <tbody>
       <tr>
         <td>Hourly</td>
-        <td><span class="points">2,784.15</span></td>
-        <td>25</td>
+        <td><span class="points">222.64</span></td>
+        <td>2</td>
         <td>51</td>
-        <td><span class="pill low">85.87%</span></td>
+        <td><span class="pill low">85.82%</span></td>
       </tr>
       <tr>
         <td>Daily</td>
-        <td><span class="points">6,969.39</span></td>
-        <td>63</td>
-        <td>49.4</td>
-        <td><span class="pill low">85.94%</span></td>
+        <td><span class="points">6,297.27</span></td>
+        <td>57</td>
+        <td>49</td>
+        <td><span class="pill low">85.99%</span></td>
       </tr>
       <tr>
         <td>Weekly</td>
@@ -717,6 +733,6 @@
     <p class="lb-score-note">Tracks Nitro Type's own current season, "Spirit Racers" (Oct 18 – Nov 29).</p></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:19.660Z</footer>
+<footer class="site">Generated 2026-10-25T02:40:55.704Z</footer>
 </body>
 </html>

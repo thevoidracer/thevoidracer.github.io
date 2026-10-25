@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,7 +659,7 @@
     <div class="hero" style="background:#5b52a3;color:#ffffff">
       <div class="name">[LEGNDZ] Legendary-Typerz</div>
       <div class="sub">
-        Captain: Dedicated2NT · 38 racers tracked · last synced 10/25/2026, 2:02:48 AM</div>
+        Captain: Dedicated2NT · 38 racers tracked · last synced 10/25/2026, 2:36:02 AM</div>
     </div>
     
     <div class="req-bar">
@@ -758,10 +774,10 @@
             <a href="https://www.nitrotype.com/racer/jumpingjackz" target="_blank" rel="noopener" title="View on Nitro Type">Dedicated2NT</a> <a class="stats-link" href="racer/63428521/" title="Dedicated2NT's stats on TypeTrack">📊</a><span class="role-pill captain">Captain</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Mar 16, 2026</td>
-          <td>83</td>
+          <td>77</td>
           <td>118</td>
-          <td>21,719</td>
-          <td><span class="pill ok">94.64%</span></td>
+          <td>21,734</td>
+          <td><span class="pill ok">94.62%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1128,6 +1144,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:33.147Z</footer>
+<footer class="site">Generated 2026-10-25T02:41:11.058Z</footer>
 </body>
 </html>

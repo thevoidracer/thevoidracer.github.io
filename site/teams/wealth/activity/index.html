@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,14 +659,14 @@
     <div class="hero" style="background:#8eca76;color:#ffffff">
       <div class="name">[WEALTH] WEEKLY GOLD COMPS</div>
       <div class="sub">
-        Captain: Mr Benefito · 53 racers tracked · last synced 10/25/2026, 2:06:40 AM</div>
+        Captain: Mr Benefito · 53 racers tracked · last synced 10/25/2026, 2:40:11 AM</div>
     </div>
     <h1>Activity</h1>
     <p class="meta-row">A live look at the last 24 hours — race volume by hour (UTC) and who's been racing, from the same points ledger behind the Tracker and Leaderboards.</p>
     
     <div class="req-bar">
-      <div class="req">Races (24h) <b>1,769</b></div>
-      <div class="req">Active racers <b>16</b></div>
+      <div class="req">Races (24h) <b>1,877</b></div>
+      <div class="req">Active racers <b>17</b></div>
       <div class="req">Busiest hour <b>01:00 UTC</b></div>
     </div>
     <h2 style="margin:28px 0 14px;">Races per hour</h2>
@@ -747,7 +763,7 @@
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div>
-        <div class="activity-bar" style="--h:44%" title="02:00 UTC — 90 races">
+        <div class="activity-bar" style="--h:98%" title="02:00 UTC — 198 races">
           <div class="bar"></div>
           <div class="bar-label"></div>
         </div></div>
@@ -765,13 +781,25 @@
             <img class="car-thumb" src="../../../assets/cars/painted-dolphin_small_60.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/jazberry_dasurpremee" target="_blank" rel="noopener" title="View on Nitro Type">Sp000kyJaz_</a> <a class="stats-link" href="../racer/51716242/" title="Sp000kyJaz_'s stats on TypeTrack">📊</a>
           </td>
-          <td>857</td>
-          <td><span class="points">119,433.37</span></td>
-          <td>88.1</td>
+          <td>886</td>
+          <td><span class="points">123,399.63</span></td>
+          <td>88</td>
           <td><span class="pill good">95.30%</span></td>
         </tr>
         <tr>
           <td><span class="lb-rank top2">2</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(32 85% 65%)">G</span>
+            
+            <a href="https://www.nitrotype.com/racer/49dae248bde62b93f95eed316549a92c" target="_blank" rel="noopener" title="View on Nitro Type">GvMiGd</a> <a class="stats-link" href="../racer/61783855/" title="GvMiGd's stats on TypeTrack">📊</a>
+          </td>
+          <td>173</td>
+          <td><span class="points">26,347.4</span></td>
+          <td>109.7</td>
+          <td><span class="pill good">97.44%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank top3">3</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(357 85% 65%)">1</span>
             
@@ -783,27 +811,15 @@
           <td><span class="pill ok">93.72%</span></td>
         </tr>
         <tr>
-          <td><span class="lb-rank top3">3</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(32 85% 65%)">G</span>
-            
-            <a href="https://www.nitrotype.com/racer/49dae248bde62b93f95eed316549a92c" target="_blank" rel="noopener" title="View on Nitro Type">GvMiGd</a> <a class="stats-link" href="../racer/61783855/" title="GvMiGd's stats on TypeTrack">📊</a>
-          </td>
-          <td>125</td>
-          <td><span class="points">19,006.76</span></td>
-          <td>109.2</td>
-          <td><span class="pill good">97.45%</span></td>
-        </tr>
-        <tr>
           <td><span class="lb-rank">4</span></td>
           <td class="racer">
             <span class="avatar" style="background:hsl(347 85% 65%)">F</span>
             
             <a href="https://www.nitrotype.com/racer/mkpro2" target="_blank" rel="noopener" title="View on Nitro Type">Flowstate</a> <a class="stats-link" href="../racer/85537396/" title="Flowstate's stats on TypeTrack">📊</a>
           </td>
-          <td>99</td>
-          <td><span class="points">15,990.29</span></td>
-          <td>128.6</td>
+          <td>111</td>
+          <td><span class="points">17,924.81</span></td>
+          <td>128.5</td>
           <td><span class="pill good">97.21%</span></td>
         </tr>
         <tr>
@@ -897,9 +913,9 @@
             <img class="car-thumb" src="../../../assets/cars/painted-icarus_small_140.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/ccbd2b7af85a337613db680d682fe9eb" target="_blank" rel="noopener" title="View on Nitro Type">BlueBomber</a> <a class="stats-link" href="../racer/65697305/" title="BlueBomber's stats on TypeTrack">📊</a>
           </td>
-          <td>40</td>
-          <td><span class="points">4,720.49</span></td>
-          <td>76.7</td>
+          <td>38</td>
+          <td><span class="points">4,486.27</span></td>
+          <td>76.8</td>
           <td><span class="pill low">79.65%</span></td>
         </tr>
         <tr>
@@ -941,6 +957,18 @@
         <tr>
           <td><span class="lb-rank">16</span></td>
           <td class="racer">
+            <span class="avatar" style="background:hsl(152 85% 65%)">R</span>
+            <img class="car-thumb" src="../../../assets/cars/gtsprismav1_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/route10" target="_blank" rel="noopener" title="View on Nitro Type">route10</a> <a class="stats-link" href="../racer/37794386/" title="route10's stats on TypeTrack">📊</a>
+          </td>
+          <td>7</td>
+          <td><span class="points">1,074.57</span></td>
+          <td>115</td>
+          <td><span class="pill good">96.01%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">17</span></td>
+          <td class="racer">
             <span class="avatar" style="background:hsl(315 85% 65%)">M</span>
             <img class="car-thumb" src="../../../assets/cars/painted-spirit_racers_final_seal_small_60.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/mrkelch" target="_blank" rel="noopener" title="View on Nitro Type">Mr Benefito</a> <a class="stats-link" href="../racer/79490719/" title="Mr Benefito's stats on TypeTrack">📊</a>
@@ -954,6 +982,6 @@
        </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:25.301Z</footer>
+<footer class="site">Generated 2026-10-25T02:41:02.128Z</footer>
 </body>
 </html>

@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,7 +659,7 @@
     <div class="hero" style="background:#ee1f25;color:#ffffff">
       <div class="name">[RWD] NT Rewind</div>
       <div class="sub">
-        Captain: RoadToGoodAcc · 49 racers tracked · last synced 10/25/2026, 2:04:39 AM</div>
+        Captain: RoadToGoodAcc · 50 racers tracked · last synced 10/25/2026, 2:38:01 AM</div>
     </div>
     <div data-admin-panel data-team-tag="RWD" data-captain-nt-user-id="31736330">
       <h2 style="margin:28px 0 14px;">Team Admin</h2>
@@ -666,7 +682,7 @@
             </table>
           </div>
           <form data-admin-appoint-form style="display:none;margin-top:14px;gap:8px;max-width:420px;">
-            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="63369516">---James---12k</option><option value="23970241">-cold-</option><option value="45720966">-Etyan-</option><option value="22964336">*~FlyHighSulli∞❣</option><option value="37088598">#TEAMTREES®</option><option value="65776315">A Z U R E</option><option value="80234973">AashrithABC</option><option value="66425624">astroz</option><option value="90200611">Austhepro</option><option value="87545946">big_CallUm_Man</option><option value="29473266">CanIHaveCash</option><option value="46594822">Casually AQF</option><option value="79969890">DARKNESS 5k</option><option value="82042499">DONATE pls</option><option value="83024089">Dreamer</option><option value="73938002">ELI-DAWG</option><option value="32664331">everytime</option><option value="91059254">FairCoralPartridge</option><option value="91276501">fluxnt</option><option value="55351826">FranzyDoom</option><option value="63171824">Gamergirl BTW</option><option value="85067356">Hertzz</option><option value="62836966">I think Imma lose</option><option value="37688769">iimher</option><option value="68487298">imjohn</option><option value="39581621">kaliyan</option><option value="61308680">knappp</option><option value="12465553">lostfootage</option><option value="25269055">m1dnight</option><option value="86903825">My Name</option><option value="35623698">N O V A</option><option value="26206121">NathanDclever</option><option value="35887477">nitrotypeactive</option><option value="91592552">not_fast1234</option><option value="80502910">Nytro3l1</option><option value="11861303">OKComputer</option><option value="90214945">PR0_PENGU1N</option><option value="38931832">racc00n</option><option value="86814836">Road to 11k</option><option value="31736330">RoadToGoodAcc</option><option value="88776121">ShinyPrism</option><option value="40188556">SmartAmberCrawdad</option><option value="80018313">speed is a need</option><option value="43863995">Sub 2 PickleNT on YT</option><option value="91775273">sushi-_-</option><option value="62523650">too good at the game</option><option value="91216194">Uh, uh, a metaphor</option><option value="48876230">VORTEX</option><option value="82119577">Zyphex</option></select>
+            <select class="form-input" name="nt_user_id" style="flex:1;"><option value="63369516">---James---12k</option><option value="23970241">-cold-</option><option value="45720966">-Etyan-</option><option value="22964336">*~FlyHighSulli∞❣</option><option value="37088598">#TEAMTREES®</option><option value="65776315">A Z U R E</option><option value="80234973">AashrithABC</option><option value="66425624">astroz</option><option value="90200611">Austhepro</option><option value="87545946">big_CallUm_Man</option><option value="89049375">blueberries</option><option value="29473266">CanIHaveCash</option><option value="46594822">Casually AQF</option><option value="79969890">DARKNESS 5k</option><option value="82042499">DONATE pls</option><option value="83024089">Dreamer</option><option value="73938002">ELI-DAWG</option><option value="32664331">everytime</option><option value="91059254">FairCoralPartridge</option><option value="91276501">fluxnt</option><option value="55351826">FranzyDoom</option><option value="63171824">Gamergirl BTW</option><option value="85067356">Hertzz</option><option value="62836966">I think Imma lose</option><option value="37688769">iimher</option><option value="68487298">imjohn</option><option value="39581621">kaliyan</option><option value="61308680">knappp</option><option value="12465553">lostfootage</option><option value="25269055">m1dnight</option><option value="86903825">My Name</option><option value="35623698">N O V A</option><option value="26206121">NathanDclever</option><option value="35887477">nitrotypeactive</option><option value="91592552">not_fast1234</option><option value="80502910">Nytro3l1</option><option value="11861303">OKComputer</option><option value="90214945">PR0_PENGU1N</option><option value="38931832">racc00n</option><option value="86814836">Road to 11k</option><option value="31736330">RoadToGoodAcc</option><option value="88776121">ShinyPrism</option><option value="40188556">SmartAmberCrawdad</option><option value="80018313">speed is a need</option><option value="43863995">Sub 2 PickleNT on YT</option><option value="91775273">sushi-_-</option><option value="62523650">too good at the game</option><option value="91216194">Uh, uh, a metaphor</option><option value="48876230">VORTEX</option><option value="82119577">Zyphex</option></select>
             <button type="submit" class="btn-primary">Make officer</button>
           </form>
         </div>
@@ -748,6 +764,12 @@
           </tr>
           <tr data-squad-roster-row="87545946">
             <td>big_CallUm_Man</td>
+            <td data-squad-roster-select-cell>
+              <select class="form-input" data-squad-roster-select disabled><option value="">No squad</option></select>
+            </td>
+          </tr>
+          <tr data-squad-roster-row="89049375">
+            <td>blueberries</td>
             <td data-squad-roster-select-cell>
               <select class="form-input" data-squad-roster-select disabled><option value="">No squad</option></select>
             </td>
@@ -1026,6 +1048,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:32.045Z</footer>
+<footer class="site">Generated 2026-10-25T02:41:09.809Z</footer>
 </body>
 </html>

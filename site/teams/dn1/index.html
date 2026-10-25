@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,11 +659,11 @@
     <div class="hero" style="background:#40b8ea;color:#ffffff">
       <div class="name">[DN1] Division 1</div>
       <div class="sub">
-        Captain: mysonstein · 63 racers tracked · last synced 10/25/2026, 2:01:44 AM</div>
+        Captain: mysonstein · 64 racers tracked · last synced 10/25/2026, 2:34:53 AM</div>
     </div>
     
     <div class="req-bar">
-      <div class="req">Members <b>47</b></div>
+      <div class="req">Members <b>49</b></div>
       <div class="req">Formed <b>Sep 3, 2026</b></div>
       <div class="req">Enrollment <b>auto</b></div>
       <div class="req">Min races <b>0</b></div>
@@ -682,14 +698,26 @@ https://discord.gg/Xgd7n9eQc</div>
         </tr>
         <tr>
           <td class="racer">
+            <span class="avatar" style="background:hsl(257 85% 65%)"> </span>
+            <img class="car-thumb" src="../../assets/cars/meowwww_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/thebigmeg123" target="_blank" rel="noopener" title="View on Nitro Type"> OG  </a> <a class="stats-link" href="racer/47805566/" title=" OG  's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
+          </td>
+          <td>Oct 25, 2026</td>
+          <td>99</td>
+          <td>117</td>
+          <td>24,350</td>
+          <td><span class="pill na">—</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
             <span class="avatar" style="background:hsl(291 85% 65%)">1</span>
             
             <a href="https://www.nitrotype.com/racer/bumblebee7799" target="_blank" rel="noopener" title="View on Nitro Type">14 ᅠ</a> <a class="stats-link" href="racer/44646618/" title="14 ᅠ's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
-          <td>Oct 23, 2026</td>
-          <td>110</td>
+          <td>Oct 25, 2026</td>
+          <td>111</td>
           <td>201</td>
-          <td>28,999</td>
+          <td>29,432</td>
           <td><span class="pill good">97.1%</span></td>
         </tr>
         <tr>
@@ -759,9 +787,9 @@ https://discord.gg/Xgd7n9eQc</div>
             <a href="https://www.nitrotype.com/racer/4ee402836ea8f20f54b3f59ce4416386" target="_blank" rel="noopener" title="View on Nitro Type">Claude</a> <a class="stats-link" href="racer/81696851/" title="Claude's stats on TypeTrack">📊</a>
           </td>
           <td>Sep 14, 2026</td>
-          <td>93</td>
+          <td>94</td>
           <td>117</td>
-          <td>1,780</td>
+          <td>1,785</td>
           <td><span class="pill ok">94.65%</span></td>
         </tr>
         <tr>
@@ -850,6 +878,18 @@ https://discord.gg/Xgd7n9eQc</div>
         </tr>
         <tr>
           <td class="racer">
+            <span class="avatar" style="background:hsl(203 85% 65%)">D</span>
+            <img class="car-thumb" src="../../assets/cars/fuji_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/38475dc243b72044da71943f1db9dfd4" target="_blank" rel="noopener" title="View on Nitro Type">DN1_Focal Ocean</a> <a class="stats-link" href="racer/82384120/" title="DN1_Focal Ocean's stats on TypeTrack">📊</a>
+          </td>
+          <td>Oct 19, 2026</td>
+          <td>54</td>
+          <td>85</td>
+          <td>2,159</td>
+          <td><span class="pill ok">93.88%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
             <span class="avatar" style="background:hsl(135 85% 65%)">D</span>
             
             <a href="https://www.nitrotype.com/racer/imbettertthanyou4" target="_blank" rel="noopener" title="View on Nitro Type">draafts</a> <a class="stats-link" href="racer/66704979/" title="draafts's stats on TypeTrack">📊</a>
@@ -879,9 +919,9 @@ https://discord.gg/Xgd7n9eQc</div>
             <a href="https://www.nitrotype.com/racer/waterenthusiaists" target="_blank" rel="noopener" title="View on Nitro Type">Dynamics to 10k</a> <a class="stats-link" href="racer/53653046/" title="Dynamics to 10k's stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 7, 2026</td>
-          <td>67</td>
+          <td>70</td>
           <td>101</td>
-          <td>9,489</td>
+          <td>9,504</td>
           <td><span class="pill ok">90.18%</span></td>
         </tr>
         <tr>
@@ -919,18 +959,6 @@ https://discord.gg/Xgd7n9eQc</div>
           <td>78</td>
           <td>2,253</td>
           <td><span class="pill good">97.45%</span></td>
-        </tr>
-        <tr>
-          <td class="racer">
-            <span class="avatar" style="background:hsl(59 85% 65%)">F</span>
-            <img class="car-thumb" src="../../assets/cars/fuji_small.png" alt="" loading="lazy" onerror="this.remove()">
-            <a href="https://www.nitrotype.com/racer/38475dc243b72044da71943f1db9dfd4" target="_blank" rel="noopener" title="View on Nitro Type">Focal Ocean</a> <a class="stats-link" href="racer/82384120/" title="Focal Ocean's stats on TypeTrack">📊</a>
-          </td>
-          <td>Oct 19, 2026</td>
-          <td>57</td>
-          <td>85</td>
-          <td>2,152</td>
-          <td><span class="pill ok">93.85%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1155,9 +1183,9 @@ https://discord.gg/Xgd7n9eQc</div>
             <a href="https://www.nitrotype.com/racer/mysoncrazymunky" target="_blank" rel="noopener" title="View on Nitro Type">mysonstein</a> <a class="stats-link" href="racer/73895331/" title="mysonstein's stats on TypeTrack">📊</a><span class="role-pill captain">Captain</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Sep 3, 2026</td>
-          <td>96</td>
+          <td>95</td>
           <td>172</td>
-          <td>40,283</td>
+          <td>40,304</td>
           <td><span class="pill good">95.72%</span></td>
         </tr>
         <tr>
@@ -1359,10 +1387,10 @@ https://discord.gg/Xgd7n9eQc</div>
             <a href="https://www.nitrotype.com/racer/7fd388d68b11b642cac1fe48971a494b" target="_blank" rel="noopener" title="View on Nitro Type">tonkaa</a> <a class="stats-link" href="racer/91178319/" title="tonkaa's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 1, 2026</td>
-          <td>88</td>
+          <td>93</td>
           <td>113</td>
-          <td>4,409</td>
-          <td><span class="pill ok">94.64%</span></td>
+          <td>4,434</td>
+          <td><span class="pill ok">94.65%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1429,6 +1457,6 @@ https://discord.gg/Xgd7n9eQc</div>
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:23.006Z</footer>
+<footer class="site">Generated 2026-10-25T02:40:58.253Z</footer>
 </body>
 </html>

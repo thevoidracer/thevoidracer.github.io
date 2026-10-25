@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,11 +659,11 @@
     <div class="hero" style="background:#436fb6;color:#ffffff">
       <div class="name">[XW] X-Wave</div>
       <div class="sub">
-        Captain: -Galaxy- pls 1mil · 53 racers tracked · last synced 10/25/2026, 2:06:52 AM</div>
+        Captain: -Galaxy- pls 1mil · 53 racers tracked · last synced 10/25/2026, 2:40:24 AM</div>
     </div>
     
     <div class="req-bar">
-      <div class="req">Members <b>46</b></div>
+      <div class="req">Members <b>45</b></div>
       <div class="req">Formed <b>Mar 31, 2026</b></div>
       <div class="req">Enrollment <b>open</b></div>
       <div class="req">Min races <b>500</b></div>
@@ -657,7 +673,7 @@
     </div>
     <div class="special-reqs">
          <div class="label">Special requirements</div>
-         <div class="text">✨꧁XW꧂™ ✨ 4 leagues won ✨ Top 10 Team ✨5k races= gold ✨ Need active grinders✨ 100m+ NTC given ✨3 Golds given ✨ https://tinyurl.com/mrxcje7d ✨</div>
+         <div class="text">✨꧁XW꧂™ ✨ 4 leagues won ✨ Top 10 Team ✨5k races= gold ✨ Need active grinders✨ 100m+ NTC given ✨5 Golds given ✨ https://tinyurl.com/mrxcje7d ✨</div>
        </div>
     <div class="table-wrap">
       <table>
@@ -693,13 +709,13 @@
         <tr>
           <td class="racer">
             <span class="avatar" style="background:hsl(352 85% 65%)">-</span>
-            <img class="car-thumb" src="../../assets/cars/painted-spirit_koi_small_60.png" alt="" loading="lazy" onerror="this.remove()">
+            <img class="car-thumb" src="../../assets/cars/fuji_small.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/evan_galaxy" target="_blank" rel="noopener" title="View on Nitro Type">-Galaxy- pls 1mil</a> <a class="stats-link" href="racer/73958634/" title="-Galaxy- pls 1mil's stats on TypeTrack">📊</a><span class="role-pill captain">Captain</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Mar 31, 2026</td>
-          <td>100</td>
+          <td>96</td>
           <td>212</td>
-          <td>8,787</td>
+          <td>8,807</td>
           <td><span class="pill good">96.98%</span></td>
         </tr>
         <tr>
@@ -913,9 +929,9 @@
             <a href="https://www.nitrotype.com/racer/hyomachigiri1" target="_blank" rel="noopener" title="View on Nitro Type">Hyoma_Chigiri</a> <a class="stats-link" href="racer/89369224/" title="Hyoma_Chigiri's stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Jul 27, 2026</td>
-          <td>110</td>
+          <td>107</td>
           <td>139</td>
-          <td>18,012</td>
+          <td>18,017</td>
           <td><span class="pill good">95.45%</span></td>
         </tr>
         <tr>
@@ -1273,9 +1289,9 @@
             <a href="https://www.nitrotype.com/racer/958aa47268bf3144c57175fbc6fc9ff0" target="_blank" rel="noopener" title="View on Nitro Type">xProton_</a> <a class="stats-link" href="racer/52975646/" title="xProton_'s stats on TypeTrack">📊</a>
           </td>
           <td>Oct 14, 2026</td>
-          <td>77</td>
+          <td>78</td>
           <td>103</td>
-          <td>3,493</td>
+          <td>3,494</td>
           <td><span class="pill ok">92.49%</span></td>
         </tr>
         <tr>
@@ -1307,6 +1323,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:29.812Z</footer>
+<footer class="site">Generated 2026-10-25T02:41:07.239Z</footer>
 </body>
 </html>

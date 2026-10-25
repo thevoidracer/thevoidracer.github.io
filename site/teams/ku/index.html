@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,7 +659,7 @@
     <div class="hero" style="background:#fba51a;color:#ffffff">
       <div class="name">[KU] Ketsui</div>
       <div class="sub">
-        Captain: Ketsui · 54 racers tracked · last synced 10/25/2026, 2:02:35 AM</div>
+        Captain: Ketsui · 54 racers tracked · last synced 10/25/2026, 2:35:47 AM</div>
     </div>
     
     <div class="req-bar">
@@ -693,14 +709,14 @@
         <tr>
           <td class="racer">
             <span class="avatar" style="background:hsl(176 85% 65%)"> </span>
-            <img class="car-thumb" src="../../assets/cars/painted-neon_small_80.png" alt="" loading="lazy" onerror="this.remove()">
+            
             <a href="https://www.nitrotype.com/racer/forthegriddy" target="_blank" rel="noopener" title="View on Nitro Type"> Pure </a> <a class="stats-link" href="racer/61656357/" title=" Pure 's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 24, 2026</td>
-          <td>91</td>
+          <td>93</td>
           <td>122</td>
-          <td>19,916</td>
-          <td><span class="pill good">97.8%</span></td>
+          <td>19,934</td>
+          <td><span class="pill good">97.92%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -733,9 +749,9 @@
             <a href="https://www.nitrotype.com/racer/ikandoit" target="_blank" rel="noopener" title="View on Nitro Type">⚡Ⱳîzard⚡</a> <a class="stats-link" href="racer/11369385/" title="⚡Ⱳîzard⚡'s stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Aug 31, 2026</td>
-          <td>184</td>
+          <td>177</td>
           <td>208</td>
-          <td>204,796</td>
+          <td>204,848</td>
           <td><span class="pill good">96.45%</span></td>
         </tr>
         <tr>
@@ -853,9 +869,9 @@
             <a href="https://www.nitrotype.com/racer/calhuon" target="_blank" rel="noopener" title="View on Nitro Type">Calhoun</a> <a class="stats-link" href="racer/66514668/" title="Calhoun's stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Aug 20, 2026</td>
-          <td>90</td>
+          <td>102</td>
           <td>167</td>
-          <td>121,145</td>
+          <td>121,164</td>
           <td><span class="pill ok">94.34%</span></td>
         </tr>
         <tr>
@@ -1045,10 +1061,10 @@
             <a href="https://www.nitrotype.com/racer/maiisoh" target="_blank" rel="noopener" title="View on Nitro Type">LovelyLyrica</a> <a class="stats-link" href="racer/53980170/" title="LovelyLyrica's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 19, 2026</td>
-          <td>81</td>
+          <td>79</td>
           <td>123</td>
-          <td>154,815</td>
-          <td><span class="pill good">98.09%</span></td>
+          <td>154,857</td>
+          <td><span class="pill good">98.08%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1167,8 +1183,8 @@
           <td>Oct 17, 2026</td>
           <td>79</td>
           <td>182</td>
-          <td>365,968</td>
-          <td><span class="pill good">96.85%</span></td>
+          <td>366,014</td>
+          <td><span class="pill good">96.84%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1213,10 +1229,10 @@
             <a href="https://www.nitrotype.com/racer/jaspal23" target="_blank" rel="noopener" title="View on Nitro Type">SNT MADE ME 2011</a> <a class="stats-link" href="racer/21649/" title="SNT MADE ME 2011's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 24, 2026</td>
-          <td>108</td>
+          <td>113</td>
           <td>131</td>
-          <td>1,577</td>
-          <td><span class="pill good">97.48%</span></td>
+          <td>1,592</td>
+          <td><span class="pill good">97.52%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -1319,6 +1335,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:18.493Z</footer>
+<footer class="site">Generated 2026-10-25T02:40:54.359Z</footer>
 </body>
 </html>

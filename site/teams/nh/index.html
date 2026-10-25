@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -643,7 +659,7 @@
     <div class="hero" style="background:#5b52a3;color:#ffffff">
       <div class="name">[NH] Nephilims</div>
       <div class="sub">
-        Captain: megladon · 46 racers tracked · last synced 10/25/2026, 2:02:58 AM</div>
+        Captain: megladon · 46 racers tracked · last synced 10/25/2026, 2:36:12 AM</div>
     </div>
     
     <div class="req-bar">
@@ -783,8 +799,8 @@
           <td>Oct 18, 2026</td>
           <td>111</td>
           <td>136</td>
-          <td>49,190</td>
-          <td><span class="pill ok">93.42%</span></td>
+          <td>49,200</td>
+          <td><span class="pill ok">93.41%</span></td>
         </tr>
         <tr>
           <td class="racer">
@@ -924,10 +940,10 @@
             <img class="car-thumb" src="../../assets/cars/painted-underworld_small_100.png" alt="" loading="lazy" onerror="this.remove()">
             <a href="https://www.nitrotype.com/racer/car_c0ll3ct3r" target="_blank" rel="noopener" title="View on Nitro Type">J A R V I S</a> <a class="stats-link" href="racer/87692265/" title="J A R V I S's stats on TypeTrack">📊</a>
           </td>
-          <td>Oct 20, 2026</td>
-          <td>64</td>
+          <td>Oct 25, 2026</td>
+          <td>65</td>
           <td>96</td>
-          <td>2,353</td>
+          <td>2,367</td>
           <td><span class="pill low">84.16%</span></td>
         </tr>
         <tr>
@@ -1047,7 +1063,7 @@
           <td>Oct 11, 2026</td>
           <td>62</td>
           <td>99</td>
-          <td>3,056</td>
+          <td>3,058</td>
           <td><span class="pill ok">90.05%</span></td>
         </tr>
         <tr>
@@ -1153,9 +1169,9 @@
             <a href="https://www.nitrotype.com/racer/theonlyone232" target="_blank" rel="noopener" title="View on Nitro Type">Tiktok_dc4lyk</a> <a class="stats-link" href="racer/53545037/" title="Tiktok_dc4lyk's stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span><span class="role-pill gold">Gold</span>
           </td>
           <td>Oct 21, 2026</td>
-          <td>60</td>
+          <td>59</td>
           <td>179</td>
-          <td>12,104</td>
+          <td>12,108</td>
           <td><span class="pill ok">92.38%</span></td>
         </tr>
         <tr>
@@ -1223,6 +1239,6 @@
     </div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:42.004Z</footer>
+<footer class="site">Generated 2026-10-25T02:41:21.473Z</footer>
 </body>
 </html>

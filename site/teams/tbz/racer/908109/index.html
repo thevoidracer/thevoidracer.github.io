@@ -397,6 +397,22 @@
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
@@ -654,16 +670,16 @@
         <div class="meta-row" style="margin:4px 0 0;">
           <a href="../../" style="color:inherit;">[TBZ]</a>
           Trailblazers
-          · Joined Oct 24, 2026 · Last synced 10/25/2026, 2:05:51 AM
+          · Joined Oct 24, 2026 · Last synced 10/25/2026, 2:39:18 AM
         </div>
       </div>
     </div>
     
     <div class="req-bar">
-      <div class="req">Avg speed <b>90</b></div>
+      <div class="req">Avg speed <b>103</b></div>
       <div class="req">Highest speed <b>193</b></div>
-      <div class="req">Lifetime races tracked <b>103,380</b></div>
-      <div class="req">Accuracy <b><span class="pill good">96.99%</span></b></div>
+      <div class="req">Lifetime races tracked <b>103,390</b></div>
+      <div class="req">Accuracy <b><span class="pill good">96.95%</span></b></div>
     </div>
     <h2 style="margin:28px 0 14px;">Points by window</h2>
     <div class="table-wrap">
@@ -672,44 +688,44 @@
         <tbody>
       <tr>
         <td>Hourly</td>
-        <td><span class="points">709.95</span></td>
-        <td>5</td>
-        <td>90</td>
-        <td><span class="pill good">96.99%</span></td>
+        <td><span class="points">2,194.45</span></td>
+        <td>15</td>
+        <td>98.7</td>
+        <td><span class="pill good">96.96%</span></td>
       </tr>
       <tr>
         <td>Daily</td>
-        <td><span class="points">74,715.26</span></td>
-        <td>530</td>
-        <td>88.7</td>
+        <td><span class="points">76,199.76</span></td>
+        <td>540</td>
+        <td>89</td>
         <td><span class="pill good">96.61%</span></td>
       </tr>
       <tr>
         <td>Weekly</td>
-        <td><span class="points">74,715.26</span></td>
-        <td>530</td>
-        <td>88.7</td>
+        <td><span class="points">76,199.76</span></td>
+        <td>540</td>
+        <td>89</td>
         <td><span class="pill good">96.61%</span></td>
       </tr>
       <tr>
         <td>Monthly</td>
-        <td><span class="points">74,715.26</span></td>
-        <td>530</td>
-        <td>88.7</td>
+        <td><span class="points">76,199.76</span></td>
+        <td>540</td>
+        <td>89</td>
         <td><span class="pill good">96.61%</span></td>
       </tr>
       <tr>
         <td>Seasonal</td>
-        <td><span class="points">74,715.26</span></td>
-        <td>530</td>
-        <td>88.7</td>
+        <td><span class="points">76,199.76</span></td>
+        <td>540</td>
+        <td>89</td>
         <td><span class="pill good">96.61%</span></td>
       </tr>
       <tr>
         <td>All-Time</td>
-        <td><span class="points">74,715.26</span></td>
-        <td>530</td>
-        <td>88.7</td>
+        <td><span class="points">76,199.76</span></td>
+        <td>540</td>
+        <td>89</td>
         <td><span class="pill good">96.61%</span></td>
       </tr></tbody>
       </table>
@@ -717,6 +733,6 @@
     <p class="lb-score-note">Tracks Nitro Type's own current season, "Spirit Racers" (Oct 18 – Nov 29).</p></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T02:28:20.799Z</footer>
+<footer class="site">Generated 2026-10-25T02:40:57.015Z</footer>
 </body>
 </html>
