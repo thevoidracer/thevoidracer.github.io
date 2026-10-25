@@ -223,18 +223,85 @@ async function queryTeamPoints(pool, range, season) {
   return rows;
 }
 
-// { racers: { hourly: [...], ... }, teams: { ... }, season: {...}|null } -
+// Which ranges "Most Improved" supports, and the bounds each one checks
+// a racer's avg_speed/accuracy against. avg_speed/accuracy on racer_stats
+// are Nitro Type's own running lifetime averages (see schema.sql), so they
+// only drift meaningfully over a real stretch of racing - hourly/daily
+// windows would mostly show noise from whichever racer happened to sync
+// right at the window edge, and all-time has no earlier baseline to
+// compare against. So this only covers the windows long enough for a
+// genuine speed trend: weekly, monthly, and the real NT season.
+const IMPROVED_RANGES = {
+  weekly: "7 days",
+  monthly: "30 days",
+};
+
+// For each racer, compares their EARLIEST racer_stats row inside the
+// window to their LATEST one, and ranks by how much avg_speed rose in
+// between - a genuine "got faster" signal, not just "raced a lot" (which
+// the points boards already cover). Requires at least minRaces run inside
+// the window so a racer who just happened to sync twice without racing
+// doesn't show up as "improved" on a zero-race gap, and requires the two
+// snapshots be genuinely different rows (a racer this tracker has only
+// synced once yet has no earlier baseline to compare against).
+async function queryMostImproved(pool, range, season, minRaces = 10) {
+  let whereClause;
+  let params;
+  if (range === "seasonal") {
+    if (!season) return [];
+    whereClause = "rs.captured_at >= $1 and rs.captured_at <= $2";
+    params = [season.start_stamp, season.end_bound];
+  } else if (IMPROVED_RANGES[range]) {
+    whereClause = "rs.captured_at >= now() - $1::interval";
+    params = [IMPROVED_RANGES[range]];
+  } else {
+    // Not a supported range for this board (hourly/daily/alltime) - the
+    // caller renders a "not meaningful at this timescale" message instead.
+    return null;
+  }
+  const { rows } = await pool.query(
+    `select r.nt_user_id, r.username, r.display_name, r.team_tag, t.tag_color,
+            r.car_id, r.car_hue_angle,
+            first.avg_speed as first_avg_speed, first.accuracy as first_accuracy,
+            last.avg_speed, last.top_speed, last.accuracy,
+            (last.races - first.races) as races_gained,
+            round(last.avg_speed - first.avg_speed, 1) as speed_gain
+     from racers r
+     join teams t on t.tag = r.team_tag
+     join lateral (
+       select avg_speed, accuracy, races, captured_at from racer_stats rs
+       where rs.nt_user_id = r.nt_user_id and ${whereClause}
+       order by captured_at asc limit 1
+     ) first on true
+     join lateral (
+       select avg_speed, top_speed, accuracy, races, captured_at from racer_stats rs
+       where rs.nt_user_id = r.nt_user_id and ${whereClause}
+       order by captured_at desc limit 1
+     ) last on true
+     where last.captured_at > first.captured_at
+       and last.avg_speed is not null and first.avg_speed is not null
+       and (last.races - first.races) >= $${params.length + 1}
+     order by speed_gain desc
+     limit 50`,
+    [...params, minRaces]
+  );
+  return rows;
+}
+
+// { racers: { hourly: [...], ... }, teams: { ... }, improved: { weekly, monthly, seasonal }|null-per-range, season: {...}|null } -
 // the exact shape theme.js's leaderboardsBody() expects. `season` is
 // passed through so the Seasonal panel can show its real name/dates.
 async function loadLeaderboardData(pool) {
   const season = await currentSeasonBounds(pool);
   const racers = {};
   const teams = {};
+  const improved = {};
   for (const range of BUILT_RANGES) {
     racers[range] = await queryRacerPoints(pool, range, season);
     teams[range] = await queryTeamPoints(pool, range, season);
+    improved[range] = await queryMostImproved(pool, range, season);
   }
-  return { racers, teams, season };
+  return { racers, teams, improved, season };
 }
 
 module.exports = {
@@ -244,6 +311,7 @@ module.exports = {
   currentSeasonBounds,
   queryRacerPoints,
   queryTeamPoints,
+  queryMostImproved,
   loadLeaderboardData,
   loadTeamTracker,
   loadRacerWindows,

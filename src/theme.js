@@ -388,6 +388,7 @@ function leaderboardControls() {
       <div class="seg" data-role="kind">
         ${kindBtn("racers", "Racers", true)}
         ${kindBtn("teams", "Teams", false)}
+        ${kindBtn("improved", "Most Improved", false)}
       </div>
       <div class="seg" data-role="range">
         ${LEADERBOARD_RANGES.map((it) => rangeBtn(it, it.key === "alltime")).join("")}
@@ -581,6 +582,64 @@ function teamsLeaderboardTable(rows, rangeLabel, teamHref, season) {
     <p class="lb-score-note">Points = the sum of every member's points — races completed since joining this tracker × (avg speed ÷ 2 + accuracy). Team WPM/accuracy are races-weighted averages over this window. PPR = points per race. Click a column header to sort, like StarTrack's team board.${rangeLabel === "Seasonal" ? ` ${seasonalNote(season)}` : ""}</p>`;
 }
 
+// "Most Improved": ranks racers by how much their avg speed rose between
+// the earliest and latest racer_stats row inside the window (see
+// leaderboard-data.js's queryMostImproved) - a genuine speed-gain signal,
+// separate from the points boards above which reward volume. `rows` is
+// null for ranges this board doesn't support (hourly/daily/alltime - avg
+// speed drifts too little, or has no earlier baseline, over those spans).
+function improvedLeaderboardTable(rows, rangeLabel, teamHref, season, assetsHref = "/assets/") {
+  if (rows === null) {
+    return `
+      <div class="empty" style="padding:40px 24px;">
+        <div style="font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px;">Not shown for ${escapeHtml(rangeLabel)}</div>
+        <div>Average speed only drifts meaningfully over a longer stretch of racing — check the Weekly, Monthly, or Seasonal tabs instead.</div>
+      </div>`;
+  }
+  if (!rows.length) {
+    return `
+      <div class="empty" style="padding:40px 24px;">
+        No racer has run enough races in this window yet to show a speed trend — this fills in as more syncs run.
+      </div>`;
+  }
+  const body = rows
+    .map((r, i) => {
+      const rank = i + 1;
+      const name = r.display_name || r.username;
+      const tagBg = teamColor(r.team_tag, r.tag_color);
+      const accClass = accuracyClass(r.accuracy);
+      const accLabel = r.accuracy == null ? "—" : `${r.accuracy}%`;
+      const gain = Number(r.speed_gain);
+      const gainClass = gain > 0 ? "good" : gain < 0 ? "low" : "ok";
+      const statsHref = r.nt_user_id != null ? `${teamHref(r.team_tag).replace(/\/$/, "")}/racer/${r.nt_user_id}/` : null;
+      return `
+        <tr>
+          <td><span class="lb-rank${rankBadgeClass(rank)}">${rank}</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:${avatarColor(name)}">${escapeHtml((name || "?").slice(0, 1).toUpperCase())}</span>
+            ${carThumb(r.car_id, r.car_hue_angle, assetsHref)}
+            ${racerNameMarkup(name, r.username, statsHref)}
+            <a class="lb-team-tag" href="${teamHref(r.team_tag)}" style="background:${tagBg};color:${textOnColor(tagBg)}">${escapeHtml(r.team_tag)}</a>
+          </td>
+          <td><span class="pill ${gainClass}">${gain > 0 ? "+" : ""}${formatNumber(gain)} wpm</span></td>
+          <td>${formatNumber(r.first_avg_speed)} → ${formatNumber(r.avg_speed)}</td>
+          <td>${formatNumber(r.races_gained)}</td>
+          <td><span class="pill ${accClass}">${accLabel}</span></td>
+        </tr>`;
+    })
+    .join("");
+  return `
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Racer</th><th>Speed gain</th><th>Avg speed</th><th>Races in window</th><th>Accuracy</th></tr>
+        </thead>
+        <tbody>${body}</tbody>
+      </table>
+    </div>
+    <p class="lb-score-note">Speed gain = avg speed now minus avg speed at the start of this window, for racers with at least 10 races in between. Not an official Nitro Type stat.${rangeLabel === "Seasonal" ? ` ${seasonalNote(season)}` : ""}</p>`;
+}
+
 // Click-to-sort for the Teams leaderboard tables, StarTrack-style: any
 // th[data-sort] re-orders its own table's rows by that column (toggling
 // asc/desc), using the raw numeric data-* attributes set on each <tr>
@@ -640,10 +699,12 @@ function leaderboardsBody(data, teamHref, assetsHref = "/assets/") {
     if (!range.built) {
       panels.push(leaderboardPanel("racers", range.key, comingSoonLeaderboard(range.label), visible));
       panels.push(leaderboardPanel("teams", range.key, comingSoonLeaderboard(range.label), false));
+      panels.push(leaderboardPanel("improved", range.key, comingSoonLeaderboard(range.label), false));
       continue;
     }
     panels.push(leaderboardPanel("racers", range.key, racersLeaderboardTable(data.racers[range.key] || [], range.label, teamHref, data.season, assetsHref), visible));
     panels.push(leaderboardPanel("teams", range.key, teamsLeaderboardTable(data.teams[range.key] || [], range.label, teamHref, data.season), false));
+    panels.push(leaderboardPanel("improved", range.key, improvedLeaderboardTable(data.improved ? data.improved[range.key] : null, range.label, teamHref, data.season, assetsHref), false));
   }
   return `
     <h1>Leaderboards</h1>
