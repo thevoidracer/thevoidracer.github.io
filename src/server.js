@@ -25,20 +25,34 @@ const {
   pageShell,
   nitroTypeTeamHref,
   teamEmojiSuffix,
+  teamHeroMarkup,
+  showdownRecordChip,
 } = require("./theme");
-const { loadLeaderboardData, loadTeamTracker, loadRacerWindows } = require("./leaderboard-data");
+const { loadLeaderboardData, loadTeamTracker, loadRacerWindows, queryRacerPoints } = require("./leaderboard-data");
 const { teamActivity } = require("./activity-data");
 const { loadRacerProfile } = require("./racer-data");
 const { queryNotifications } = require("./notifications");
 const { eventsForTeam, allEvents } = require("./events-data");
 const { tournamentsForTeam, bracketsForTournaments } = require("./tournaments-data");
-const { allShowdowns } = require("./showdown-data");
+const { allShowdowns, teamShowdownRecord } = require("./showdown-data");
 const { accountIndexBody, accountConnectBody, signInBody } = require("./account-pages");
 
 // Express routes are flat/absolute, so a racer's own stats page URL is
 // always just /teams/<tag>/racer/<id> regardless of which team's page
 // links to it (unlike build.js's relative paths, which differ by depth).
 const racerHrefFor = (tag) => (ntUserId) => `/teams/${encodeURIComponent(tag)}/racer/${ntUserId}`;
+
+// This team's own top racer by points this week, for the hero banner's
+// MVP callout (see theme.js's teamHeroMarkup) - a single lightweight
+// query rather than the full loadTeamTracker (which runs all 6 windows),
+// since the hero only ever needs the one. Weekly never depends on the
+// real NT season boundary (only the Seasonal window does - see
+// leaderboard-data.js's rangeFilter), so this can skip currentSeasonBounds
+// entirely and pass null for season.
+async function teamHeroMvpRow(tag) {
+  const rows = await queryRacerPoints(pool, "weekly", null, tag);
+  return rows[0] || null;
+}
 
 // Built, non-roster sections render their own content - async because (unlike
 // build.js, which pre-queries everything once per build) each request here
@@ -271,6 +285,7 @@ app.get("/teams/:tag", async (req, res) => {
         <div class="req">Min races <b>${t.min_races ?? "—"}</b></div>
         <div class="req">Min speed <b>${t.min_speed ?? "—"} wpm</b></div>
         ${t.min_level != null ? `<div class="req">Min level <b>${t.min_level}</b></div>` : ""}
+        ${showdownRecordChip(await teamShowdownRecord(pool, tag), "/showdown")}
         ${t.discord_invite_url ? `<a class="req discord-invite" href="${escapeHtml(t.discord_invite_url)}" target="_blank" rel="noopener">Join Discord</a>` : ""}
       </div>`;
 
@@ -281,17 +296,8 @@ app.get("/teams/:tag", async (req, res) => {
          </div>`
       : "";
 
-    const heroBg = teamColor(t.tag, t.tag_color);
-    const hero = `
-      <div class="hero" style="background:${heroBg};color:${textOnColor(heroBg)}">
-        <div class="name">[${escapeHtml(t.tag)}] ${escapeHtml(t.display_name || "")}${teamEmojiSuffix(t.team_emoji)}</div>
-        <div class="sub">
-          ${t.captain_display_name || t.captain_username
-            ? `Captain: ${escapeHtml(t.captain_display_name || t.captain_username)} · `
-            : ""}${racers.rows.length} racer${racers.rows.length === 1 ? "" : "s"} tracked · last synced ${
-          t.last_synced_at ? new Date(t.last_synced_at).toLocaleString() : "never"
-        }</div>
-      </div>`;
+    const mvp = await teamHeroMvpRow(tag);
+    const hero = teamHeroMarkup(t, racers.rows.length, mvp, racerHrefFor(tag));
 
     const roster = `
       ${reqBar}
@@ -346,11 +352,14 @@ app.get("/teams/:tag/:section", async (req, res) => {
       return res.status(404).send(`No team with tag "${escapeHtml(tag)}" in the database yet.`);
     }
     const t = team.rows[0];
-    const sectionHeroBg = teamColor(t.tag, t.tag_color);
-    const hero = `
-      <div class="hero" style="background:${sectionHeroBg};color:${textOnColor(sectionHeroBg)}">
-        <div class="name">[${escapeHtml(t.tag)}] ${escapeHtml(t.display_name || "")}${teamEmojiSuffix(t.team_emoji)}</div>
-      </div>`;
+    // Full hero (captain/racers-tracked/last-synced sub-line and MVP
+    // callout included), not the name-only banner this route used to
+    // render - that was a pre-existing mismatch from the static site,
+    // where build.js's buildTeamPage reuses the SAME full hero on every
+    // section page. teamHeroMarkup now backs both, so local preview and
+    // the deployed site render the exact same thing here.
+    const mvp = await teamHeroMvpRow(tag);
+    const hero = teamHeroMarkup(t, t.members_count ?? 0, mvp, racerHrefFor(tag));
     const built = item.built ? await sectionContent(item.key, tag, t.captain_nt_user_id) : null;
     const linkFor = (key) => (key === "roster" ? `/teams/${encodeURIComponent(tag)}` : `/teams/${encodeURIComponent(tag)}/${key}`);
     const body = `

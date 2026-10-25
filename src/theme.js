@@ -272,6 +272,69 @@ function racerRosterRows(racers, team, assetsHref = "/assets/", racerHref) {
     .join("");
 }
 
+// Shared hero banner for every page of a team (Roster + every section page
+// - build.js renders this once per team and reuses it on every section
+// page, server.js renders it fresh per request on its own two team routes)
+// - a single function here, rather than duplicated markup in build.js and
+// server.js, is deliberate: this project has already been bitten once by
+// two copies of the same markup quietly drifting (see the Team Admins
+// schema-drift note in the status doc). `mvp` is this team's own top racer
+// by points in a chosen window (the caller decides which - see
+// teamHeroMvp below), or null if no one on the team earned any points in
+// that window yet; shown right on the hero so it's visible from every page
+// of the team, not just the Trackers tab.
+// `racerHref(nt_user_id)` builds the mvp's stats-page link - passed in as
+// a callback rather than baked into `mvp` because this same hero markup
+// gets reused at different directory depths (the team's own Roster page
+// vs. its deeper section pages - see build.js's writeTeamSectionPage /
+// "../".repeat(depth) pattern), so the same mvp row needs a different
+// relative href depending on which page it ends up rendered into.
+function teamHeroMarkup(team, racerCount, mvp, racerHref) {
+  const heroBg = teamColor(team.tag, team.tag_color);
+  const statsHref = mvp && mvp.nt_user_id != null && racerHref ? racerHref(mvp.nt_user_id) : null;
+  const mvpHtml = mvp
+    ? `<div class="hero-mvp">🏆 This week's top racer: ${racerNameMarkup(mvp.display_name || mvp.username || "?", mvp.username, statsHref)} — ${formatNumber(mvp.points)} pts</div>`
+    : "";
+  return `
+    <div class="hero" style="background:${heroBg};color:${textOnColor(heroBg)}">
+      <div class="name">[${escapeHtml(team.tag)}] ${escapeHtml(team.display_name || "")}${teamEmojiSuffix(team.team_emoji)}</div>
+      <div class="sub">
+        ${team.captain_display_name || team.captain_username
+          ? `Captain: ${escapeHtml(team.captain_display_name || team.captain_username)} · `
+          : ""}${racerCount} racer${racerCount === 1 ? "" : "s"} tracked · last synced ${
+        team.last_synced_at ? new Date(team.last_synced_at).toLocaleString() : "never"
+      }</div>
+      ${mvpHtml}
+    </div>`;
+}
+
+// Picks the MVP row (if any) from an already-loaded tracker's weekly
+// window - weekly is the window used because it's long enough to be a
+// meaningful "who's carrying the team right now" signal without being as
+// noisy as Hourly/Daily, and short enough to actually change week to week
+// (unlike All-Time, which barely moves for a long-tracked team). `tracker`
+// is loadTeamTracker()'s result (see leaderboard-data.js).
+function teamHeroMvp(tracker) {
+  return (tracker && tracker.byRange && tracker.byRange.weekly && tracker.byRange.weekly[0]) || null;
+}
+
+// A small "Showdowns W-L-T" chip for the Roster page's req-bar, built from
+// showdown-data.js's teamShowdownRecord() - omitted entirely when a team
+// has no ENDED showdowns yet (that function already returns null rather
+// than a misleading "0-0-0" for that case; this just respects it). Links
+// out to the site-wide Showdown page when `showdownHref` is given - build
+// time's relative path and server.js's absolute route resolve differently,
+// same reason every other cross-page link on this site takes its href as
+// a parameter rather than computing one itself.
+function showdownRecordChip(record, showdownHref) {
+  if (!record) return "";
+  const text = `Showdowns <b>${record.wins}-${record.losses}-${record.ties}</b>`;
+  const title = `${record.wins} won, ${record.losses} lost, ${record.ties} tied, in finished Showdowns`;
+  return showdownHref
+    ? `<a class="req" href="${showdownHref}" title="${escapeHtml(title)}">${text}</a>`
+    : `<div class="req" title="${escapeHtml(title)}">${text}</div>`;
+}
+
 // Single source of truth for a team page's section sidebar. "roster" is
 // the only one with real content right now; everything else gets a
 // generated placeholder page (see build.js) so the sidebar shows the
@@ -687,35 +750,54 @@ function teamsSortScript() {
     </script>`;
 }
 
-// Client-side pagination for the site-wide leaderboard tables. Now that
-// queryRacerPoints (see leaderboard-data.js) returns every racer who
-// earned a point in the window instead of stopping at a fixed top 100,
+// A single search box (above the kind/range segmented controls) that
+// filters every leaderboard table by racer/team name - typed once, it
+// applies across whichever panel is currently showing, and stays applied
+// if the person then switches kind/range tabs. Paired with
+// leaderboardTableScript below, which does the actual filtering/paging.
+function leaderboardSearchBox() {
+  return `
+    <div class="lb-search-row">
+      <input type="search" class="lb-search" placeholder="Search by racer or team…" aria-label="Search leaderboards by racer or team name">
+    </div>`;
+}
+
+// Client-side pagination + search for the site-wide leaderboard tables.
+// Now that queryRacerPoints (see leaderboard-data.js) returns every racer
+// who earned a point in the window instead of stopping at a fixed top 100,
 // the Racers/Most-Improved tables can run to thousands of rows on a busy
 // window - a single long scroll isn't usable at that size, so this slices
 // each table into PAGE_SIZE-row pages with Previous/Next buttons, the same
 // "derive full data at build time, make it usable with plain client-side
-// JS" approach as teamsSortScript's click-to-sort above. Scoped to
-// `.lb-panel .table-wrap` (every table leaderboardsBody renders - Racers,
-// Teams, Most Improved) rather than every `.table-wrap` on the site, so it
-// doesn't touch unrelated tables like a team's own Tracker or Roster,
-// which are already short enough not to need it. A table with fewer rows
-// than one page gets no pager at all - nothing to click through. Runs
-// once, after every panel's HTML is already in the DOM (same placement
-// reasoning as teamsSortScript).
-function leaderboardPaginationScript(pageSize = 25) {
+// JS" approach as teamsSortScript's click-to-sort above. The single
+// .lb-search input (see leaderboardSearchBox) narrows every table at once
+// by substring match against each row's own text (name, team tag, etc) -
+// paging and searching share one `render()` per table so a search always
+// re-paginates against just the matching rows rather than fighting the
+// pager over which rows are hidden. Scoped to `.lb-panel .table-wrap`
+// (every table leaderboardsBody renders - Racers, Teams, Most Improved)
+// rather than every `.table-wrap` on the site, so it doesn't touch
+// unrelated tables like a team's own Tracker or Roster. A table with fewer
+// rows than one page gets no pager shown at all. Runs once, after every
+// panel's HTML is already in the DOM (same placement reasoning as
+// teamsSortScript).
+function leaderboardTableScript(pageSize = 25) {
   return `
     <script>
       (function () {
         var PAGE_SIZE = ${pageSize};
-        function paginate(wrap) {
+        var searchInput = document.querySelector(".lb-search");
+        var renderers = [];
+        function norm(s) { return (s || "").toLowerCase(); }
+        function query() { return searchInput ? norm(searchInput.value.trim()) : ""; }
+        function setup(wrap) {
           var tbody = wrap.querySelector("tbody");
           if (!tbody) return;
-          var rows = Array.prototype.slice.call(tbody.querySelectorAll("tr"));
-          if (rows.length <= PAGE_SIZE) return;
+          var allRows = Array.prototype.slice.call(tbody.querySelectorAll("tr"));
           var page = 0;
-          var pageCount = Math.ceil(rows.length / PAGE_SIZE);
           var pager = document.createElement("div");
           pager.className = "lb-pager";
+          pager.hidden = true;
           pager.innerHTML =
             '<button type="button" class="lb-pager-btn" data-dir="prev">Previous</button>' +
             '<span class="lb-pager-label"></span>' +
@@ -724,25 +806,58 @@ function leaderboardPaginationScript(pageSize = 25) {
           var label = pager.querySelector(".lb-pager-label");
           var prevBtn = pager.querySelector('[data-dir="prev"]');
           var nextBtn = pager.querySelector('[data-dir="next"]');
+          var emptyNote = document.createElement("div");
+          emptyNote.className = "empty lb-search-empty";
+          emptyNote.style.padding = "28px 24px";
+          emptyNote.style.marginTop = "12px";
+          emptyNote.hidden = true;
+          wrap.parentNode.insertBefore(emptyNote, pager.nextSibling);
+          function matches() {
+            var q = query();
+            if (!q) return allRows;
+            return allRows.filter(function (r) { return norm(r.textContent).indexOf(q) !== -1; });
+          }
           function render() {
-            rows.forEach(function (r, i) {
-              r.hidden = !(i >= page * PAGE_SIZE && i < (page + 1) * PAGE_SIZE);
-            });
-            label.textContent = "Page " + (page + 1) + " of " + pageCount + " \\u00b7 " + rows.length + " total";
-            prevBtn.disabled = page === 0;
-            nextBtn.disabled = page === pageCount - 1;
+            var q = query();
+            var matched = matches();
+            var pageCount = Math.max(1, Math.ceil(matched.length / PAGE_SIZE));
+            if (page > pageCount - 1) page = pageCount - 1;
+            if (page < 0) page = 0;
+            var start = page * PAGE_SIZE;
+            var end = start + PAGE_SIZE;
+            var pageSet = new Set(matched.slice(start, end));
+            allRows.forEach(function (r) { r.hidden = !pageSet.has(r); });
+            wrap.hidden = matched.length === 0 && !!q;
+            emptyNote.hidden = !(matched.length === 0 && q);
+            if (emptyNote.hidden === false) {
+              emptyNote.textContent = 'No racer or team matches "' + searchInput.value.trim() + '" in this view.';
+            }
+            if (matched.length > PAGE_SIZE) {
+              pager.hidden = false;
+              label.textContent = "Page " + (page + 1) + " of " + pageCount + " \\u00b7 " + matched.length + (q ? " matching" : " total");
+              prevBtn.disabled = page === 0;
+              nextBtn.disabled = page === pageCount - 1;
+            } else {
+              pager.hidden = true;
+            }
           }
           pager.addEventListener("click", function (e) {
             var btn = e.target.closest(".lb-pager-btn");
             if (!btn || btn.disabled) return;
-            if (btn.getAttribute("data-dir") === "next" && page < pageCount - 1) page++;
-            else if (btn.getAttribute("data-dir") === "prev" && page > 0) page--;
+            if (btn.getAttribute("data-dir") === "next") page++;
+            else if (btn.getAttribute("data-dir") === "prev") page--;
             else return;
             render();
           });
           render();
+          renderers.push({ render: render, resetPage: function () { page = 0; } });
         }
-        Array.prototype.forEach.call(document.querySelectorAll(".lb-panel .table-wrap"), paginate);
+        Array.prototype.forEach.call(document.querySelectorAll(".lb-panel .table-wrap"), setup);
+        if (searchInput) {
+          searchInput.addEventListener("input", function () {
+            renderers.forEach(function (it) { it.resetPage(); it.render(); });
+          });
+        }
       })();
     </script>`;
 }
@@ -769,10 +884,11 @@ function leaderboardsBody(data, teamHref, assetsHref = "/assets/") {
   return `
     <h1>Leaderboards</h1>
     <p class="meta-row">Ranked across every team this tracker follows — not all of Nitro Type.</p>
+    ${leaderboardSearchBox()}
     ${leaderboardControls()}
     ${panels.join("")}
     ${teamsSortScript()}
-    ${leaderboardPaginationScript()}`;
+    ${leaderboardTableScript()}`;
 }
 
 // ---------------------------------------------------------------------
@@ -780,9 +896,15 @@ function leaderboardsBody(data, teamHref, assetsHref = "/assets/") {
 // as the site-wide leaderboard (see leaderboard-data.js's loadTeamTracker)
 // just scoped to one roster - modeled on Startrack's "Trackers" page.
 // ---------------------------------------------------------------------
+// Full parity with the site-wide Leaderboards' six windows - see the
+// matching comment on leaderboard-data.js's own TRACKER_RANGES (these two
+// lists must stay in lockstep: that one decides what gets queried, this
+// one decides what gets rendered).
 const TRACKER_RANGES = [
+  { key: "hourly", label: "Hourly" },
   { key: "daily", label: "Daily" },
   { key: "weekly", label: "Weekly" },
+  { key: "monthly", label: "Monthly" },
   { key: "seasonal", label: "Season" },
   { key: "alltime", label: "All-Time" },
 ];
@@ -829,7 +951,7 @@ function trackerControls() {
   return `
     <div class="lb-controls">
       <div class="seg" data-role="trk-range">
-        ${TRACKER_RANGES.map((it, i) => `<button type="button" class="seg-btn${i === 0 ? " active" : ""}" data-range="${it.key}">${escapeHtml(it.label)}</button>`).join("")}
+        ${TRACKER_RANGES.map((it) => `<button type="button" class="seg-btn${it.key === "daily" ? " active" : ""}" data-range="${it.key}">${escapeHtml(it.label)}</button>`).join("")}
       </div>
     </div>
     <script>
@@ -854,8 +976,8 @@ function trackerControls() {
 
 // `data` is loadTeamTracker()'s result: { byRange: {daily:[],...}, season }.
 function trackerBody(data, assetsHref = "/assets/", racerHref) {
-  const panels = TRACKER_RANGES.map((range, i) => {
-    const visible = i === 0;
+  const panels = TRACKER_RANGES.map((range) => {
+    const visible = range.key === "daily";
     const rows = data.byRange[range.key] || [];
     const seasonNote = range.key === "seasonal" ? `<p class="lb-score-note">${seasonalNote(data.season)}</p>` : "";
     return `<div class="trk-panel" data-range="${range.key}"${visible ? "" : " hidden"}>${trackerTable(rows, range.label, assetsHref, racerHref)}${seasonNote}</div>`;
@@ -1743,6 +1865,19 @@ const BASE_CSS = `
     font-size: 30px; font-weight: 700; letter-spacing: 0.3px;
   }
   .hero .sub { margin-top: 10px; font-size: 13px; opacity: 0.9; }
+  .hero-mvp {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    font-size: 12.5px;
+    font-weight: 700;
+    background: rgba(255,255,255,0.14);
+    border-radius: 999px;
+    padding: 6px 14px;
+  }
+  .hero-mvp a { color: inherit; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.4); }
+  .hero-mvp .stats-link { text-decoration: none; }
   .hero .meta-stats {
     display: flex; gap: 28px; margin-top: 14px; flex-wrap: wrap;
   }
@@ -1759,6 +1894,8 @@ const BASE_CSS = `
   }
   .req-bar .req { color: var(--muted); }
   .req-bar .req b { color: var(--text); font-weight: 700; }
+  .req-bar a.req:not(.discord-invite) { text-decoration: none; }
+  .req-bar a.req:not(.discord-invite):hover { text-decoration: underline; }
   .req-bar a.req.discord-invite {
     color: var(--velocity);
     font-weight: 700;
@@ -2098,6 +2235,20 @@ const BASE_CSS = `
   .notif-headline { font-size: 13.5px; color: var(--text); }
   .notif-meta { font-size: 11.5px; color: var(--muted); margin-top: 3px; }
 
+  .lb-search-row { margin-bottom: 12px; }
+  .lb-search {
+    width: 100%;
+    max-width: 360px;
+    font: inherit;
+    font-size: 13.5px;
+    color: var(--text);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 9px 14px;
+  }
+  .lb-search::placeholder { color: var(--muted); }
+  .lb-search:focus { outline: none; border-color: var(--accent); }
   .lb-controls {
     display: flex; justify-content: space-between; align-items: center;
     flex-wrap: wrap; gap: 10px;
@@ -2356,6 +2507,9 @@ module.exports = {
   membershipBadge,
   squadBadge,
   racerRosterRows,
+  teamHeroMarkup,
+  teamHeroMvp,
+  showdownRecordChip,
   NAV_ITEMS,
   MANAGE_NAV_ITEMS,
   teamAdminBody,

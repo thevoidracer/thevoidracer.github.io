@@ -31,13 +31,16 @@ const {
   carImageLocalFile,
   nitroTypeTeamHref,
   teamEmojiSuffix,
+  teamHeroMarkup,
+  teamHeroMvp,
+  showdownRecordChip,
 } = require("./theme");
 const { loadLeaderboardData, loadTeamTracker, loadTeamRacerWindows } = require("./leaderboard-data");
 const { teamActivity } = require("./activity-data");
 const { queryNotifications } = require("./notifications");
 const { eventsForTeam, allEvents } = require("./events-data");
 const { tournamentsForTeam, bracketsForTournaments } = require("./tournaments-data");
-const { allShowdowns } = require("./showdown-data");
+const { allShowdowns, teamShowdownRecord } = require("./showdown-data");
 const { accountIndexBody, accountConnectBody, signInBody } = require("./account-pages");
 
 // A section page (teams/<tag>/<key>/index.html) sits one level deeper than
@@ -163,6 +166,7 @@ function buildTeamPage(team, racers, sectionData) {
       <div class="req">Min races <b>${team.min_races ?? "—"}</b></div>
       <div class="req">Min speed <b>${team.min_speed ?? "—"} wpm</b></div>
       ${team.min_level != null ? `<div class="req">Min level <b>${team.min_level}</b></div>` : ""}
+      ${showdownRecordChip(sectionData.showdownRecord, "../../showdown/")}
       ${team.discord_invite_url ? `<a class="req discord-invite" href="${escapeHtml(team.discord_invite_url)}" target="_blank" rel="noopener">Join Discord</a>` : ""}
     </div>`;
 
@@ -173,17 +177,8 @@ function buildTeamPage(team, racers, sectionData) {
        </div>`
     : "";
 
-  const heroBg = teamColor(team.tag, team.tag_color);
-  const hero = `
-    <div class="hero" style="background:${heroBg};color:${textOnColor(heroBg)}">
-      <div class="name">[${escapeHtml(team.tag)}] ${escapeHtml(team.display_name || "")}${teamEmojiSuffix(team.team_emoji)}</div>
-      <div class="sub">
-        ${team.captain_display_name || team.captain_username
-          ? `Captain: ${escapeHtml(team.captain_display_name || team.captain_username)} · `
-          : ""}${racers.length} racer${racers.length === 1 ? "" : "s"} tracked · last synced ${
-        team.last_synced_at ? new Date(team.last_synced_at).toLocaleString() : "never"
-      }</div>
-    </div>`;
+  const mvp = teamHeroMvp(sectionData.tracker);
+  const hero = teamHeroMarkup(team, racers.length, mvp, rosterRacerHref);
 
   const roster = `
     ${reqBar}
@@ -211,7 +206,12 @@ function buildTeamPage(team, racers, sectionData) {
   // Every sidebar section besides Roster gets its own generated page -
   // real content for a built one (see sectionContent), an honest
   // "coming soon" placeholder otherwise, so the nav never points at a 404.
-  const heroForSections = hero; // same hero banner on every section page
+  // Re-rendered (not just reused verbatim like the rest of `hero`) because
+  // the MVP callout's stats-page link is depth-sensitive: a section page
+  // lives one directory below the Roster page (see writeTeamSectionPage's
+  // depth param), so "racer/<id>/" from the Roster hero would 404 from
+  // here - it needs "../racer/<id>/" instead.
+  const heroForSections = teamHeroMarkup(team, racers.length, mvp, (ntUserId) => `../racer/${ntUserId}/`);
   for (const item of [...NAV_ITEMS, ...MANAGE_NAV_ITEMS]) {
     if (item.key === "roster") continue;
     const built = item.built ? sectionContent(item.key, sectionData) : null;
@@ -525,6 +525,7 @@ async function main() {
       squads,
       allTeams: teams,
       racerWindows: await loadTeamRacerWindows(pool, team.tag),
+      showdownRecord: await teamShowdownRecord(pool, team.tag),
     };
     buildTeamPage(team, racers, sectionData);
   }

@@ -124,6 +124,41 @@ async function allShowdowns(pool) {
   return Promise.all(rows.map((sd) => computeShowdown(pool, sd)));
 }
 
+// A team's overall Showdown record (wins/losses/ties), tallied across
+// every ENDED showdown that team has played - decided by whichever side
+// won more of the 4 scored categories (see totalScore above); an equal
+// category split counts as a tie in the record too. Only `ended`
+// showdowns count toward it: a still-Scheduled or Live one has no final
+// result yet (see the "no wrong intermediate state" note on computeShowdown
+// above - a Live showdown's running tally is real, just not final).
+// Returns null when the team has no ended showdowns yet, rather than a
+// misleadingly confident "0-0-0" - same "nothing to show beats a made-up
+// zero" rule the rest of the site follows for empty states.
+async function teamShowdownRecord(pool, teamTag) {
+  const { rows } = await pool.query(
+    `select id, team_a_tag, team_b_tag, start_stamp, end_stamp
+     from showdowns
+     where team_a_tag = $1 or team_b_tag = $1`,
+    [teamTag]
+  );
+  if (!rows.length) return null;
+  const computed = await Promise.all(rows.map((sd) => computeShowdown(pool, sd)));
+  let wins = 0;
+  let losses = 0;
+  let ties = 0;
+  for (const sd of computed) {
+    if (sd.status !== "ended") continue;
+    const isA = sd.team_a_tag === teamTag;
+    const mine = isA ? sd.score.a : sd.score.b;
+    const theirs = isA ? sd.score.b : sd.score.a;
+    if (mine > theirs) wins++;
+    else if (mine < theirs) losses++;
+    else ties++;
+  }
+  if (wins + losses + ties === 0) return null;
+  return { wins, losses, ties };
+}
+
 module.exports = {
   SHOWDOWN_CATEGORIES,
   showdownStatus,
@@ -132,4 +167,5 @@ module.exports = {
   totalScore,
   computeShowdown,
   allShowdowns,
+  teamShowdownRecord,
 };

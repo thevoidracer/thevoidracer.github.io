@@ -183,10 +183,16 @@ async function loadTeamRacerWindows(pool, teamTag) {
 
 // Ranges shown on a team's own Tracker page - reuses the same keys/windows
 // as the site-wide leaderboard (see RANGE_INTERVALS/currentSeasonBounds
-// above) so "Season" here and "Seasonal" there never disagree.
+// above) so "Season" here and "Seasonal" there never disagree. Full parity
+// with the site-wide Leaderboards' six windows (Hourly/Monthly included,
+// not just Daily/Weekly/Season/All-Time) - a team captain asking "who's
+// our best racer this hour" or "this month" deserves the same windows
+// everyone already has site-wide, scoped to just their own roster.
 const TRACKER_RANGES = [
+  { key: "hourly", label: "Hourly" },
   { key: "daily", label: "Daily" },
   { key: "weekly", label: "Weekly" },
+  { key: "monthly", label: "Monthly" },
   { key: "seasonal", label: "Season" },
   { key: "alltime", label: "All-Time" },
 ];
