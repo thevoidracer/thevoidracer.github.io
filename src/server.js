@@ -223,13 +223,26 @@ app.get("/teams/:tag", async (req, res) => {
     const racers = await pool.query(
       `select r.nt_user_id, r.username, r.display_name, r.role, r.membership, r.joined_at_nt,
               r.car_id, r.car_hue_angle, sq.name as squad_name, sq.color as squad_color,
-              s.avg_speed, s.top_speed, s.races, s.accuracy
+              s.avg_speed, s.top_speed, s.races, s.accuracy,
+              fs.races as first_races, fs.avg_speed as first_avg_speed, fs.accuracy as first_accuracy,
+              coalesce(tp.races, 0) as tracked_races, coalesce(tp.points, 0) as tracked_points
        from racers r
        left join lateral (
          select * from racer_stats rs
          where rs.nt_user_id = r.nt_user_id
          order by captured_at desc limit 1
        ) s on true
+       left join lateral (
+         select races, avg_speed, accuracy from racer_stats rs2
+         where rs2.nt_user_id = r.nt_user_id
+         order by captured_at asc limit 1
+       ) fs on true
+       left join (
+         select nt_user_id, sum(races_delta) as races, sum(points) as points
+         from racer_points
+         where team_tag = $1
+         group by nt_user_id
+       ) tp on tp.nt_user_id = r.nt_user_id
        left join team_squads sq on sq.id = r.squad_id
        where r.team_tag = $1
        order by coalesce(r.display_name, r.username)`,
@@ -274,10 +287,10 @@ app.get("/teams/:tag", async (req, res) => {
       <div class="table-wrap">
         <table>
           <thead>
-            <tr><th>Racer</th><th>Joined</th><th>Avg speed</th><th>Highest speed</th><th>Lifetime races</th><th>Accuracy</th></tr>
+            <tr><th>Racer</th><th>Joined</th><th>Points</th><th>Races</th><th>Avg speed</th><th>Highest speed</th><th>Accuracy</th></tr>
           </thead>
           <tbody>
-            ${rowsHtml || `<tr><td colspan="6" style="color:var(--muted);">No racers synced yet.</td></tr>`}
+            ${rowsHtml || `<tr><td colspan="7" style="color:var(--muted);">No racers synced yet.</td></tr>`}
           </tbody>
         </table>
       </div>`;

@@ -177,6 +177,47 @@ function squadBadge(squadName, squadColor) {
   return `<span class="squad-pill" style="background:${escapeHtml(bg)}22;color:${escapeHtml(bg)};border-color:${escapeHtml(bg)}55;">${escapeHtml(squadName)}</span>`;
 }
 
+// A racer's races/points since joining THIS team, split into an exact
+// "tracked" portion and (when they joined before this tracker ever saw
+// them) an estimated portion for the races they'd already done before we
+// started watching.
+//
+// Tracked: racer_points only ever starts accumulating from a racer's
+// first sync (see schema.sql) - r.tracked_races/tracked_points are that
+// table's own totals for this racer on this team, already exact, no
+// estimation involved.
+//
+// Estimated: r.first_races is the racesPlayed figure Nitro Type reported
+// at that very first sync - i.e. races the racer had already completed
+// before this tracker existed for them. We have no race-by-race ledger
+// for that period (same reason racer_points itself approximates "points
+// per race" using current speed/accuracy as the rate - NT's API doesn't
+// expose individual races), so it's converted to points the same way:
+// first_races * (first_avg_speed / 2 + first_accuracy), using the
+// speed/accuracy NT reported at that same first sync. This is a genuine
+// estimate (it can't distinguish races on an earlier team from races on
+// this one), which is why callers surface it with a "~" and a tooltip
+// rather than presenting it as exact.
+function racerTenure(r) {
+  const firstRaces = Number(r.first_races ?? 0);
+  const firstAvgSpeed = r.first_avg_speed == null ? null : Number(r.first_avg_speed);
+  const firstAccuracy = r.first_accuracy == null ? null : Number(r.first_accuracy);
+  const hasEstimate = firstRaces > 0 && firstAvgSpeed != null && firstAccuracy != null;
+  const estimatedPoints = hasEstimate ? Math.round(firstRaces * (firstAvgSpeed / 2 + firstAccuracy) * 100) / 100 : 0;
+  const trackedRaces = Number(r.tracked_races ?? 0);
+  const trackedPoints = Number(r.tracked_points ?? 0);
+  return {
+    races: trackedRaces + firstRaces,
+    points: Math.round((trackedPoints + estimatedPoints) * 100) / 100,
+    hasEstimate,
+  };
+}
+
+function tenureCell(value, hasEstimate, title) {
+  const prefix = hasEstimate ? "~" : "";
+  return `<span${hasEstimate ? ` title="${escapeHtml(title)}"` : ""}>${prefix}${formatNumber(value)}</span>`;
+}
+
 // Shared by build.js (static) and server.js (local preview) so a team's
 // roster rows render identically in both - display_name is what the
 // racer currently goes by on Nitro Type; username (often an opaque id
@@ -190,6 +231,8 @@ function racerRosterRows(racers, team, assetsHref = "/assets/", racerHref) {
       const accClass = accuracyClass(r.accuracy);
       const accLabel = r.accuracy == null ? "—" : `${r.accuracy}%`;
       const isCaptain = team.captain_username && r.username === team.captain_username;
+      const tenure = racerTenure(r);
+      const estimateNote = `Includes ~${formatNumber(r.first_races ?? 0)} races from before this racer was tracked here, estimated from their average speed at the time.`;
       return `
         <tr>
           <td class="racer">
@@ -198,9 +241,10 @@ function racerRosterRows(racers, team, assetsHref = "/assets/", racerHref) {
             ${racerNameMarkup(name, r.username, r.nt_user_id != null && racerHref ? racerHref(r.nt_user_id) : null)}${roleBadge(r.role, isCaptain)}${membershipBadge(r.membership)}${squadBadge(r.squad_name, r.squad_color)}
           </td>
           <td>${formatDate(r.joined_at_nt)}</td>
+          <td><span class="points">${tenureCell(tenure.points, tenure.hasEstimate, estimateNote)}</span></td>
+          <td>${tenureCell(tenure.races, tenure.hasEstimate, estimateNote)}</td>
           <td>${formatNumber(r.avg_speed ?? "-")}</td>
           <td>${formatNumber(r.top_speed ?? "-")}</td>
-          <td>${formatNumber(r.races ?? "-")}</td>
           <td><span class="pill ${accClass}">${accLabel}</span></td>
         </tr>`;
     })
