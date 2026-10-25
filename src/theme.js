@@ -218,6 +218,26 @@ function tenureCell(value, hasEstimate, title) {
   return `<span${hasEstimate ? ` title="${escapeHtml(title)}"` : ""}>${prefix}${formatNumber(value)}</span>`;
 }
 
+// How long since a racer's last tracked race (the most recent racer_points
+// row for them, i.e. the last sync that actually found new races - not
+// just the last time we polled their profile, which happens every sync
+// whether they raced or not). Flagged (warn class) past a week, the same
+// "inactive" window several real StarTrack teams' own requirements text
+// already names (e.g. "5d/inactive=kick!", "30r/day or KICKED") - this
+// doesn't act on that, just makes it visible to a captain deciding who to
+// follow up with or remove. Null (no tracked race yet) is its own,
+// un-flagged state - that's "too new to tell", not "inactive".
+const INACTIVE_DAYS = 7;
+function lastActiveCell(lastRacedAt) {
+  if (!lastRacedAt) {
+    return `<span class="pill na" title="No races tracked for this racer yet - too new to tell.">New</span>`;
+  }
+  const days = Math.floor((Date.now() - new Date(lastRacedAt).getTime()) / 86400000);
+  const label = days <= 0 ? "Today" : days === 1 ? "1 day ago" : `${days} days ago`;
+  const cls = days >= INACTIVE_DAYS ? "low" : days >= 3 ? "ok" : "good";
+  return `<span class="pill ${cls}" title="Last tracked race: ${escapeHtml(formatDate(lastRacedAt))}">${label}</span>`;
+}
+
 // Shared by build.js (static) and server.js (local preview) so a team's
 // roster rows render identically in both - display_name is what the
 // racer currently goes by on Nitro Type; username (often an opaque id
@@ -246,6 +266,7 @@ function racerRosterRows(racers, team, assetsHref = "/assets/", racerHref) {
           <td>${formatNumber(r.avg_speed ?? "-")}</td>
           <td>${formatNumber(r.top_speed ?? "-")}</td>
           <td><span class="pill ${accClass}">${accLabel}</span></td>
+          <td>${lastActiveCell(r.last_raced_at)}</td>
         </tr>`;
     })
     .join("");

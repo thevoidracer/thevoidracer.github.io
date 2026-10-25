@@ -188,10 +188,10 @@ function buildTeamPage(team, racers, sectionData) {
     <div class="table-wrap">
       <table>
         <thead>
-          <tr><th>Racer</th><th>Joined</th><th>Points</th><th>Races</th><th>Avg speed</th><th>Highest speed</th><th>Accuracy</th></tr>
+          <tr><th>Racer</th><th>Joined</th><th>Points</th><th>Races</th><th>Avg speed</th><th>Highest speed</th><th>Accuracy</th><th>Last active</th></tr>
         </thead>
         <tbody>
-          ${rows || `<tr><td colspan="7" style="color:var(--muted);">No racers synced yet.</td></tr>`}
+          ${rows || `<tr><td colspan="8" style="color:var(--muted);">No racers synced yet.</td></tr>`}
         </tbody>
       </table>
     </div>`;
@@ -413,7 +413,8 @@ async function main() {
               r.car_id, r.car_hue_angle, r.squad_id, sq.name as squad_name, sq.color as squad_color,
               s.avg_speed, s.top_speed, s.races, s.accuracy, s.captured_at as stats_captured_at,
               fs.races as first_races, fs.avg_speed as first_avg_speed, fs.accuracy as first_accuracy,
-              coalesce(tp.races, 0) as tracked_races, coalesce(tp.points, 0) as tracked_points
+              coalesce(tp.races, 0) as tracked_races, coalesce(tp.points, 0) as tracked_points,
+              lr.captured_at as last_raced_at
        from racers r
        left join lateral (
          select * from racer_stats rs
@@ -431,6 +432,11 @@ async function main() {
          where team_tag = $1
          group by nt_user_id
        ) tp on tp.nt_user_id = r.nt_user_id
+       left join lateral (
+         select captured_at from racer_points rp
+         where rp.nt_user_id = r.nt_user_id
+         order by captured_at desc limit 1
+       ) lr on true
        left join team_squads sq on sq.id = r.squad_id
        where r.team_tag = $1
        order by coalesce(r.display_name, r.username)`,
