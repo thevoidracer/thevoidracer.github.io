@@ -21,6 +21,7 @@ const {
   activityBody,
   eventsBody,
   tournamentsBody,
+  showdownsBody,
   racerStatsBody,
   notificationsBody,
   teamAdminBody,
@@ -35,6 +36,7 @@ const { teamActivity } = require("./activity-data");
 const { queryNotifications } = require("./notifications");
 const { eventsForTeam } = require("./events-data");
 const { tournamentsForTeam, bracketsForTournaments } = require("./tournaments-data");
+const { allShowdowns } = require("./showdown-data");
 const { accountIndexBody, accountConnectBody, signInBody } = require("./account-pages");
 
 // A section page (teams/<tag>/<key>/index.html) sits one level deeper than
@@ -60,7 +62,7 @@ function sectionContent(key, sectionData) {
   if (key === "trackers") return trackerBody(sectionData.tracker, "../../../assets/", SECTION_RACER_HREF);
   if (key === "activity") return activityBody(sectionData.tag, sectionData.activity, "../../../assets/", SECTION_RACER_HREF);
   if (key === "notifications") return notificationsBody(sectionData.tag, sectionData.notifications);
-  if (key === "admin") return teamAdminBody(sectionData.tag, sectionData.captainNtUserId, sectionData.racers || [], sectionData.squads || []);
+  if (key === "admin") return teamAdminBody(sectionData.tag, sectionData.captainNtUserId, sectionData.racers || [], sectionData.squads || [], sectionData.allTeams || []);
   return null;
 }
 
@@ -261,6 +263,30 @@ function buildLeaderboardsPage(data) {
       teamsHref: "../",
       leaderboardsHref: "./",
       active: "leaderboards",
+    })
+  );
+}
+
+// Site-wide, same depth as /leaderboards/ (one directory under the site
+// root) - a showdown always involves two teams, so it isn't reached
+// through any single team's own section like Events/Tournaments are.
+function buildShowdownPage(showdowns, teams) {
+  const dir = path.join(OUT_DIR, "showdown");
+  fs.mkdirSync(dir, { recursive: true });
+
+  const teamHref = (tag) => `../teams/${encodeURIComponent(tag.toLowerCase())}/`;
+  const body = showdownsBody(showdowns, teamHref);
+
+  fs.writeFileSync(
+    path.join(dir, "index.html"),
+    pageShell({
+      title: "Showdown — TypeTrack",
+      body,
+      crumb: `<a href="../">← all teams</a>`,
+      teamsHref: "../",
+      leaderboardsHref: "../leaderboards/",
+      showdownHref: "./",
+      active: "showdown",
     })
   );
 }
@@ -468,6 +494,7 @@ async function main() {
       captainNtUserId: team.captain_nt_user_id,
       racers,
       squads,
+      allTeams: teams,
       racerWindows: await loadTeamRacerWindows(pool, team.tag),
     };
     buildTeamPage(team, racers, sectionData);
@@ -475,6 +502,7 @@ async function main() {
 
   const leaderboardData = await loadLeaderboardData(pool);
   buildLeaderboardsPage(leaderboardData);
+  buildShowdownPage(await allShowdowns(pool), teams);
   buildAccountPages();
 
   console.log(`Built ${teams.length} team page(s) into ${OUT_DIR}`);

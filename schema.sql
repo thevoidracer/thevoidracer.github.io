@@ -953,3 +953,51 @@ create policy "a team's captain or admin manages its notification settings" on t
 -- client-readable/writable table above.
 grant select on team_admins, team_notification_settings to anon, authenticated, service_role;
 grant insert, update, delete on team_admins, team_notification_settings to authenticated, service_role;
+
+-- =====================================================================
+-- Showdowns: a scheduled team-vs-team head-to-head (see src/showdown-data.js
+-- for how the score itself is computed - nothing about it is stored here,
+-- just which two teams and when). Modeled on Startrack's own Showdown
+-- feature, but any one of TypeTrack's 130+ tracked teams can challenge any
+-- other - no pre-configured "allies" list needed, since every team's data
+-- already lives in this same database.
+-- =====================================================================
+
+-- DECISION: team_a_tag is always the organizing side - only ITS captain or
+-- admin can create/edit/delete the row (see the policy below, same
+-- is_team_manager() pattern as events/squads/tournaments). team_b doesn't
+-- need to consent, same as how a captain can enter another team into their
+-- own tournament bracket without that team opting in first.
+create table if not exists showdowns (
+  id          bigserial primary key,
+  team_a_tag  text not null references teams(tag) on delete cascade,
+  team_b_tag  text not null references teams(tag) on delete cascade,
+  title       text,
+  start_stamp timestamptz not null,
+  end_stamp   timestamptz not null,
+  created_by  uuid references auth.users(id) on delete set null,
+  created_at  timestamptz not null default now(),
+  constraint showdowns_distinct_teams check (team_a_tag <> team_b_tag)
+);
+
+create index if not exists showdowns_time on showdowns (start_stamp desc);
+create index if not exists showdowns_team_a on showdowns (team_a_tag);
+create index if not exists showdowns_team_b on showdowns (team_b_tag);
+
+alter table showdowns enable row level security;
+
+drop policy if exists "showdowns are publicly readable" on showdowns;
+create policy "showdowns are publicly readable" on showdowns
+  for select using (true);
+
+drop policy if exists "a showdown's organizing team's captain or admin manages it" on showdowns;
+create policy "a showdown's organizing team's captain or admin manages it" on showdowns
+  for all
+  using (is_team_manager(showdowns.team_a_tag))
+  with check (is_team_manager(showdowns.team_a_tag));
+
+-- Same append-after-the-blanket-grant reasoning as team_admins/
+-- team_notification_settings above - this table is created later in the
+-- same script run, so it needs its own explicit grant.
+grant select on showdowns to anon, authenticated, service_role;
+grant insert, update, delete on showdowns to authenticated, service_role;

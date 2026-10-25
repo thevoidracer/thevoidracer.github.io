@@ -1052,6 +1052,91 @@ function eventsBody(tag, events) {
     </div>`;
 }
 
+// ---------------------------------------------------------------------
+// Showdown: a scheduled team-vs-team head-to-head (see `showdowns` in
+// schema.sql / src/showdown-data.js). One site-wide page, not a per-team
+// one - a showdown always involves two teams and isn't "owned" by just
+// one of them, the same reason the Teams/Leaderboards pages are site-wide
+// rather than living under a single team. The create/delete form lives on
+// Team Admin's own Showdown tab (see teamAdminBody below), not here; this
+// page is pure display, same "reflects whatever the last build/request
+// computed" model as the Tournaments bracket page.
+// ---------------------------------------------------------------------
+function showdownStatusPill(status) {
+  const map = { pending: ["ok", "Scheduled"], active: ["good", "Live"], ended: ["na", "Final"] };
+  const [cls, label] = map[status] || ["na", status];
+  return `<span class="pill ${cls}">${escapeHtml(label)}</span>`;
+}
+
+function showdownCatValue(key, value) {
+  if (value == null) return "—";
+  if (key === "accuracy") return `${value}%`;
+  return formatNumber(value);
+}
+
+function showdownTeamChip(tag, name, color, emoji, teamHref) {
+  const bg = teamColor(tag, color);
+  return `
+    <span class="avatar" style="background:${bg};color:${textOnColor(bg)}">${escapeHtml((tag || "?").slice(0, 1).toUpperCase())}</span>
+    <a href="${teamHref(tag)}">[${escapeHtml(tag)}]</a> ${escapeHtml(name || "")}${teamEmojiSuffix(emoji)}`;
+}
+
+// One showdown's full score card - both teams' chip, the per-category
+// breakdown (whichever side leads that category gets its value bolded/
+// colored), and the running total. `teamHref(tag)` points back to that
+// team's own roster page.
+function showdownCard(sd, teamHref) {
+  const catRows = sd.categories
+    .map((c) => {
+      const aLead = c.winner === "a";
+      const bLead = c.winner === "b";
+      return `
+        <tr>
+          <td class="showdown-cat-label">${escapeHtml(c.label)}</td>
+          <td class="showdown-cat-val${aLead ? " showdown-cat-lead" : ""}">${showdownCatValue(c.key, c.valueA)}</td>
+          <td class="showdown-cat-val${bLead ? " showdown-cat-lead" : ""}">${showdownCatValue(c.key, c.valueB)}</td>
+        </tr>`;
+    })
+    .join("");
+  return `
+    <div class="card showdown-card">
+      <div class="showdown-card-head">
+        ${showdownStatusPill(sd.status)}
+        <span class="meta-row" style="margin:0;gap:14px;">
+          <span>${formatEventDate(sd.start_stamp)} → ${formatEventDate(sd.end_stamp)}</span>
+        </span>
+      </div>
+      ${sd.title ? `<div style="font-weight:700;font-size:15px;margin:8px 0 2px;">${escapeHtml(sd.title)}</div>` : ""}
+      <div class="showdown-vs-row">
+        <div class="showdown-team">${showdownTeamChip(sd.team_a_tag, sd.team_a_name, sd.team_a_color, sd.team_a_emoji, teamHref)}</div>
+        <div class="showdown-score">${sd.score.a} <span class="showdown-score-sep">–</span> ${sd.score.b}</div>
+        <div class="showdown-team showdown-team-right">${showdownTeamChip(sd.team_b_tag, sd.team_b_name, sd.team_b_color, sd.team_b_emoji, teamHref)}</div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Category</th><th>[${escapeHtml(sd.team_a_tag)}]</th><th>[${escapeHtml(sd.team_b_tag)}]</th></tr></thead>
+          <tbody>${catRows}</tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+function showdownsBody(showdowns, teamHref) {
+  if (!showdowns.length) {
+    return `
+      <h2 style="margin:28px 0 14px;">Showdown</h2>
+      <div class="empty" style="padding:40px 24px;">
+        No showdowns scheduled yet — a team's captain or admin can set one up against any other tracked team from their Team Admin page.
+      </div>`;
+  }
+  return `
+    <h2 style="margin:28px 0 14px;">Showdown</h2>
+    <p class="meta-row">Scheduled team-vs-team head-to-heads — 1 point each for Races/Avg speed/Accuracy/Points, computed live for the window, newest-starting first.</p>
+    <div class="showdown-list">
+      ${showdowns.map((sd) => showdownCard(sd, teamHref)).join("")}
+    </div>`;
+}
+
 const SCORING_FIELD_LABELS = {
   points: "Points",
   races: "Races",
@@ -1158,9 +1243,17 @@ function tournamentsBody(tag, tournaments, brackets, assetsHref = "/assets/", ra
 // who's actually looking at the page. racers is the already-queried
 // roster (build.js passes the same list roster.js renders), used only to
 // label each officer-toggle row with a name instead of a bare nt_user_id.
-function teamAdminBody(tag, captainNtUserId, racers, squads) {
+function teamAdminBody(tag, captainNtUserId, racers, squads, allTeams) {
   const rosterOptions = (racers || [])
     .map((r) => `<option value="${escapeHtml(r.nt_user_id)}">${escapeHtml(r.display_name || r.username)}</option>`)
+    .join("");
+  // Opponent dropdown for the Showdown tab - every OTHER tracked team,
+  // alphabetical by tag so a 130+-team list is at least scannable.
+  const opponentOptions = (allTeams || [])
+    .filter((t) => t.tag !== tag)
+    .slice()
+    .sort((a, b) => a.tag.localeCompare(b.tag))
+    .map((t) => `<option value="${escapeHtml(t.tag)}">[${escapeHtml(t.tag)}] ${escapeHtml(t.display_name || "")}</option>`)
     .join("");
   // Rendered once, server-side, from whatever squads already exist at
   // build/request time; the client re-renders this same block after any
@@ -1209,6 +1302,7 @@ function teamAdminBody(tag, captainNtUserId, racers, squads) {
           <button type="button" class="seg-btn" data-admin-tab-btn="squads">Squads</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="events">Events</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="tournaments">Tournaments</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="showdown">Showdown</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="settings">Settings</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="notifications">Notifications</button>
         </div>
@@ -1282,6 +1376,21 @@ function teamAdminBody(tag, captainNtUserId, racers, squads) {
             Build a bracket tournament for [${escapeHtml(tag)}] — pick participating teams, how it's scored, and each round's dates. Standings are computed from real race data every sync; nothing here is simulated.
           </div>
           <div data-admin-tournaments-manage>Loading…</div>
+        </div>
+
+        <div data-admin-tabpanel="showdown" style="display:none;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            Challenge any other tracked team to a Showdown for [${escapeHtml(tag)}] — pick an opponent and a window, and it shows up on the site-wide Showdown page. Score is 1 point each for Races/Avg speed/Accuracy/Points, computed live.
+          </div>
+          <div data-admin-showdown-manage>Loading…</div>
+          <form data-admin-showdown-form style="display:none;flex-direction:column;gap:8px;max-width:420px;margin-top:16px;">
+            <select class="form-input" name="opponent" required><option value="">Choose an opponent…</option>${opponentOptions}</select>
+            <input class="form-input" type="text" name="title" placeholder="Title (optional)" maxlength="80">
+            <label style="font-size:12px;color:var(--muted);">Starts<input class="form-input" name="start" type="datetime-local" required></label>
+            <label style="font-size:12px;color:var(--muted);">Ends<input class="form-input" name="end" type="datetime-local" required></label>
+            <button type="submit" class="btn-primary">Schedule showdown</button>
+            <div class="form-error" style="display:none;"></div>
+          </form>
         </div>
 
         <div data-admin-tabpanel="settings" style="display:none;max-width:480px;">
@@ -2005,6 +2114,35 @@ const BASE_CSS = `
   .form-error { color: var(--low); font-size: 12.5px; }
   .form-note { font-size: 12.5px; }
   .site-nav-link[data-account-nav] { white-space: nowrap; }
+
+  .showdown-list { display: flex; flex-direction: column; gap: 18px; }
+  .showdown-card { padding: 18px 20px; }
+  .showdown-card-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+  .showdown-vs-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 14px;
+    margin: 14px 0 16px;
+  }
+  .showdown-team { display: flex; align-items: center; gap: 8px; font-weight: 700; font-size: 14.5px; }
+  .showdown-team-right { justify-content: flex-end; text-align: right; }
+  .showdown-score {
+    font-family: "Rajdhani", "Manrope", sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    color: var(--velocity);
+    white-space: nowrap;
+  }
+  .showdown-score-sep { color: var(--muted); font-weight: 600; margin: 0 2px; }
+  .showdown-cat-label { color: var(--muted); }
+  .showdown-cat-val { font-weight: 600; }
+  .showdown-cat-lead { color: var(--good); font-weight: 800; }
+  @media (max-width: 560px) {
+    .showdown-vs-row { grid-template-columns: 1fr; text-align: center; }
+    .showdown-team-right { justify-content: center; text-align: center; }
+    .showdown-score { justify-self: center; }
+  }
 `;
 
 // teamsHref/leaderboardsHref are supplied by the caller because the two
@@ -2012,7 +2150,7 @@ const BASE_CSS = `
 // pages need a relative path back up to each top-level section (depth
 // varies per page), while server.js's Express routes just use fixed
 // absolute paths. `active` highlights whichever one the current page is.
-function siteHeader({ teamsHref = "./", leaderboardsHref = "leaderboards/", accountHref = "account/", active = "" } = {}) {
+function siteHeader({ teamsHref = "./", leaderboardsHref = "leaderboards/", showdownHref = "showdown/", accountHref = "account/", active = "" } = {}) {
   return `
     <header class="site">
       <div class="mark">T</div>
@@ -2020,18 +2158,20 @@ function siteHeader({ teamsHref = "./", leaderboardsHref = "leaderboards/", acco
       <nav class="site-nav">
         <a class="site-nav-link${active === "teams" ? " active" : ""}" href="${teamsHref}">Teams</a>
         <a class="site-nav-link${active === "leaderboards" ? " active" : ""}" href="${leaderboardsHref}">Leaderboards</a>
+        <a class="site-nav-link${active === "showdown" ? " active" : ""}" href="${showdownHref}">Showdown</a>
         <a class="site-nav-link${active === "account" ? " active" : ""}" href="${accountHref}" data-account-nav>Account</a>
       </nav>
     </header>`;
 }
 
 // build.js's teamsHref is always "however many ../ segments get back to
-// the site root", so accountHref and the shared client script's URL can
-// both be derived from it there without a caller having to pass them in.
-// server.js's routes use fixed absolute paths instead ("/teams", not a
-// relative depth), so it passes accountHref/assetsHref explicitly rather
-// than relying on this derivation.
-function pageShell({ title, body, crumb, teamsHref, leaderboardsHref, accountHref, assetsHref, active }) {
+// the site root", so showdownHref/accountHref and the shared client
+// script's URL can all be derived from it there without a caller having
+// to pass them in. server.js's routes use fixed absolute paths instead
+// ("/teams", not a relative depth), so it passes showdownHref/accountHref/
+// assetsHref explicitly rather than relying on this derivation.
+function pageShell({ title, body, crumb, teamsHref, leaderboardsHref, showdownHref, accountHref, assetsHref, active }) {
+  if (showdownHref == null) showdownHref = `${teamsHref}showdown/`;
   if (accountHref == null) accountHref = `${teamsHref}account/`;
   if (assetsHref == null) assetsHref = `${teamsHref}assets/app.js`;
   return `<!doctype html>
@@ -2047,7 +2187,7 @@ function pageShell({ title, body, crumb, teamsHref, leaderboardsHref, accountHre
 </head>
 <body>
 <script src="${assetsHref}"></script>
-${siteHeader({ teamsHref, leaderboardsHref, accountHref, active })}
+${siteHeader({ teamsHref, leaderboardsHref, showdownHref, accountHref, active })}
 <main>
 ${crumb ? `<div class="crumb">${crumb}</div>` : ""}
 ${body}
@@ -2088,6 +2228,7 @@ module.exports = {
   activityBody,
   eventsBody,
   tournamentsBody,
+  showdownsBody,
   racerStatsBody,
   notificationsBody,
   pageShell,

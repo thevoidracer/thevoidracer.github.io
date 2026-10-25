@@ -17,6 +17,7 @@ const {
   activityBody,
   eventsBody,
   tournamentsBody,
+  showdownsBody,
   racerStatsBody,
   notificationsBody,
   teamAdminBody,
@@ -30,6 +31,7 @@ const { loadRacerProfile } = require("./racer-data");
 const { queryNotifications } = require("./notifications");
 const { eventsForTeam } = require("./events-data");
 const { tournamentsForTeam, bracketsForTournaments } = require("./tournaments-data");
+const { allShowdowns } = require("./showdown-data");
 const { accountIndexBody, accountConnectBody, signInBody } = require("./account-pages");
 
 // Express routes are flat/absolute, so a racer's own stats page URL is
@@ -70,7 +72,8 @@ async function sectionContent(key, tag, captainNtUserId) {
        order by sq.name`,
       [tag]
     );
-    return teamAdminBody(tag, captainNtUserId, racers.rows, squads.rows);
+    const allTeams = await pool.query("select tag, display_name, tag_color, team_emoji from teams order by tag");
+    return teamAdminBody(tag, captainNtUserId, racers.rows, squads.rows, allTeams.rows);
   }
   return null;
 }
@@ -82,6 +85,7 @@ async function sectionContent(key, tag, captainNtUserId) {
 const SITE_NAV = {
   teamsHref: "/teams",
   leaderboardsHref: "/leaderboards",
+  showdownHref: "/showdown",
   accountHref: "/account",
   assetsHref: "/assets/app.js",
 };
@@ -434,6 +438,28 @@ app.get("/leaderboards", async (req, res) => {
   } catch (err) {
     console.error("Leaderboards query failed:", err.message);
     res.status(500).send("Could not load leaderboards.");
+  }
+});
+
+// Site-wide Showdown page: mirrors build.js's buildShowdownPage via the
+// shared showdownsBody/allShowdowns helpers, same reasoning as
+// leaderboards above.
+app.get("/showdown", async (req, res) => {
+  try {
+    const showdowns = await allShowdowns(pool);
+    const teamHref = (tag) => `/teams/${encodeURIComponent(tag)}`;
+    res.type("html").send(
+      pageShell({
+        title: "Showdown — TypeTrack",
+        body: showdownsBody(showdowns, teamHref),
+        crumb: `<a href="/teams">← all teams</a>`,
+        ...SITE_NAV,
+        active: "showdown",
+      })
+    );
+  } catch (err) {
+    console.error("Showdown query failed:", err.message);
+    res.status(500).send("Could not load showdowns.");
   }
 });
 
