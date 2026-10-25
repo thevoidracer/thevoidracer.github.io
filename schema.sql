@@ -733,3 +733,223 @@ grant update (discord_invite_url, team_emoji) on teams to authenticated;
 -- what its "for all" RLS policy above already scopes to their team.
 revoke insert, update, delete on racers from authenticated;
 grant update (squad_id) on racers to authenticated;
+
+-- =====================================================================
+-- Team Admins + notification settings (added while jake was away - NOT
+-- yet wired into any application code, and NOT yet run against the
+-- live database. See claude/typetrack-status.md "Waiting on you" for
+-- the two product decisions baked into the defaults below, and run
+-- this whole block in the Supabase SQL Editor before any Team Admin UI
+-- or notification-toggle UI gets built on top of it.)
+-- =====================================================================
+
+-- Team Admins: a second captain-appointed tier, alongside team_officers,
+-- but one that actually grants write access (team_officers is badge-only
+-- today - see its own comment above). One row per (team, racer), same
+-- shape as team_officers for the same reason: scoped by team_tag so
+-- switching teams doesn't carry admin status along.
+--
+-- DECISION BAKED IN: only the team's real NT-recognized captain can
+-- grant/revoke admin status (see this table's own policy below) - an
+-- admin can't appoint another admin, or remove themselves/others. This
+-- avoids a captain losing control of their own team if an admin they
+-- appointed turns out to be a bad actor. If you'd rather let admins
+-- manage other admins too, change the policy below to use
+-- is_team_manager() instead of the inline captain-only check.
+create table if not exists team_admins (
+  team_tag     text not null references teams(tag) on delete cascade,
+  nt_user_id   bigint not null references racers(nt_user_id) on delete cascade,
+  appointed_by uuid references auth.users(id) on delete set null,
+  appointed_at timestamptz not null default now(),
+  primary key (team_tag, nt_user_id)
+);
+
+alter table team_admins enable row level security;
+
+drop policy if exists "team_admins are publicly readable" on team_admins;
+create policy "team_admins are publicly readable" on team_admins
+  for select using (true);
+
+drop policy if exists "only a team's own verified captain manages its admins" on team_admins;
+create policy "only a team's own verified captain manages its admins" on team_admins
+  for all
+  using (
+    exists (
+      select 1
+      from account_links al
+      join teams t on t.tag = team_admins.team_tag
+      where al.auth_user_id = auth.uid()
+        and al.nt_user_id = t.captain_nt_user_id
+    )
+  )
+  with check (
+    exists (
+      select 1
+      from account_links al
+      join teams t on t.tag = team_admins.team_tag
+      where al.auth_user_id = auth.uid()
+        and al.nt_user_id = t.captain_nt_user_id
+    )
+  );
+
+-- Shared "does the signed-in user manage this team" check - true for the
+-- team's real captain OR anyone the captain has made a team_admin. Every
+-- policy below that used to check captain-only now calls this instead,
+-- so admins get the exact same write access captains already had on
+-- events/squads/tournaments/officers/settings - nothing new to maintain
+-- per-table. `stable` (not `immutable`) because it reads auth.uid() and
+-- two tables that can change between calls within the same statement.
+create or replace function is_team_manager(check_team_tag text)
+returns boolean
+language sql
+stable
+as $$
+  select exists (
+    select 1
+    from account_links al
+    join teams t on t.tag = check_team_tag
+    where al.auth_user_id = auth.uid()
+      and (
+        al.nt_user_id = t.captain_nt_user_id
+        or exists (
+          select 1 from team_admins ta
+          where ta.team_tag = check_team_tag and ta.nt_user_id = al.nt_user_id
+        )
+      )
+  );
+$$;
+
+-- events: widen from captain-only to is_team_manager() (captain or admin).
+drop policy if exists "only a team's own verified captain manages its events" on events;
+drop policy if exists "a team's captain or admin manages its events" on events;
+create policy "a team's captain or admin manages its events" on events
+  for all
+  using (is_team_manager(events.team_tag))
+  with check (is_team_manager(events.team_tag));
+
+-- team_officers: widen the same way - an admin can appoint/remove
+-- officers too, not just the captain. (team_admins itself, above, stays
+-- captain-only on purpose - see the comment on that table.)
+drop policy if exists "only a team's own verified captain manages its officers" on team_officers;
+drop policy if exists "a team's captain or admin manages its officers" on team_officers;
+create policy "a team's captain or admin manages its officers" on team_officers
+  for all
+  using (is_team_manager(team_officers.team_tag))
+  with check (is_team_manager(team_officers.team_tag));
+
+-- teams settings (discord_invite_url/team_emoji): widen the same way.
+drop policy if exists "only a team's own verified captain edits its settings" on teams;
+drop policy if exists "a team's captain or admin edits its settings" on teams;
+create policy "a team's captain or admin edits its settings" on teams
+  for update
+  using (is_team_manager(teams.tag))
+  with check (is_team_manager(teams.tag));
+
+-- team_squads: widen the same way.
+drop policy if exists "only a team's own verified captain manages its squads" on team_squads;
+drop policy if exists "a team's captain or admin manages its squads" on team_squads;
+create policy "a team's captain or admin manages its squads" on team_squads
+  for all
+  using (is_team_manager(team_squads.team_tag))
+  with check (is_team_manager(team_squads.team_tag));
+
+-- racers.squad_id assignment: widen the same way.
+drop policy if exists "only a racer's own team's verified captain assigns its squad" on racers;
+drop policy if exists "a racer's own team's captain or admin assigns its squad" on racers;
+create policy "a racer's own team's captain or admin assigns its squad" on racers
+  for update
+  using (is_team_manager(racers.team_tag))
+  with check (is_team_manager(racers.team_tag));
+
+-- team_tournaments: widen the same way.
+drop policy if exists "only a team's own verified captain manages its tournaments" on team_tournaments;
+drop policy if exists "a team's captain or admin manages its tournaments" on team_tournaments;
+create policy "a team's captain or admin manages its tournaments" on team_tournaments
+  for all
+  using (is_team_manager(team_tournaments.team_tag))
+  with check (is_team_manager(team_tournaments.team_tag));
+
+-- tournament_teams: owning-team's captain or admin (not a participating
+-- team that isn't the tournament's creator-team, same as before).
+drop policy if exists "only a tournament's own creator-team captain manages its teams" on tournament_teams;
+drop policy if exists "a tournament's own creator-team captain or admin manages its teams" on tournament_teams;
+create policy "a tournament's own creator-team captain or admin manages its teams" on tournament_teams
+  for all
+  using (
+    exists (
+      select 1 from team_tournaments tt
+      where tt.id = tournament_teams.tournament_id
+        and is_team_manager(tt.team_tag)
+    )
+  )
+  with check (
+    exists (
+      select 1 from team_tournaments tt
+      where tt.id = tournament_teams.tournament_id
+        and is_team_manager(tt.team_tag)
+    )
+  );
+
+-- tournament_rounds: same widening as tournament_teams above.
+drop policy if exists "only a tournament's own creator-team captain manages its rounds" on tournament_rounds;
+drop policy if exists "a tournament's own creator-team captain or admin manages its rounds" on tournament_rounds;
+create policy "a tournament's own creator-team captain or admin manages its rounds" on tournament_rounds
+  for all
+  using (
+    exists (
+      select 1 from team_tournaments tt
+      where tt.id = tournament_rounds.tournament_id
+        and is_team_manager(tt.team_tag)
+    )
+  )
+  with check (
+    exists (
+      select 1 from team_tournaments tt
+      where tt.id = tournament_rounds.tournament_id
+        and is_team_manager(tt.team_tag)
+    )
+  );
+
+-- Notification settings: lets a captain or admin turn off one of the
+-- three auto-detected notification kinds (see the `notifications` table
+-- above - 'new_member' | 'lifetime_milestone' | 'team_milestone') for
+-- their own team, e.g. a huge team that doesn't want a "new member"
+-- notification firing constantly. No row for a (team, kind) means
+-- "enabled" (the current, unconfigurable behavior) - a row only exists
+-- once someone has actually changed the default, same spirit as
+-- sync_interval_minutes on teams defaulting via a column default rather
+-- than needing a row everywhere.
+--
+-- DECISION BAKED IN: this table only exists after you run this
+-- migration - src/ingest.js does NOT check it yet (that's deliberate:
+-- writing that check now would mean ingest.js errors on every sync until
+-- this migration has actually run). The follow-up is a small ingest.js
+-- change to skip writing a notification when a disabled row exists here,
+-- plus a toggle UI on the Team Admin page - both held back on purpose
+-- until you confirm you want this and have run the migration.
+create table if not exists team_notification_settings (
+  team_tag text not null references teams(tag) on delete cascade,
+  kind     text not null,
+  enabled  boolean not null default true,
+  primary key (team_tag, kind)
+);
+
+alter table team_notification_settings enable row level security;
+
+drop policy if exists "team_notification_settings are publicly readable" on team_notification_settings;
+create policy "team_notification_settings are publicly readable" on team_notification_settings
+  for select using (true);
+
+drop policy if exists "a team's captain or admin manages its notification settings" on team_notification_settings;
+create policy "a team's captain or admin manages its notification settings" on team_notification_settings
+  for all
+  using (is_team_manager(team_notification_settings.team_tag))
+  with check (is_team_manager(team_notification_settings.team_tag));
+
+-- Grants for the two new tables - the blanket "grant ... on all tables in
+-- schema public" earlier in this file only reaches tables that already
+-- existed at the moment it ran, so these two (created after it, in this
+-- same script) need their own explicit grant, same roles as every other
+-- client-readable/writable table above.
+grant select on team_admins, team_notification_settings to anon, authenticated, service_role;
+grant insert, update, delete on team_admins, team_notification_settings to authenticated, service_role;
