@@ -687,6 +687,66 @@ function teamsSortScript() {
     </script>`;
 }
 
+// Client-side pagination for the site-wide leaderboard tables. Now that
+// queryRacerPoints (see leaderboard-data.js) returns every racer who
+// earned a point in the window instead of stopping at a fixed top 100,
+// the Racers/Most-Improved tables can run to thousands of rows on a busy
+// window - a single long scroll isn't usable at that size, so this slices
+// each table into PAGE_SIZE-row pages with Previous/Next buttons, the same
+// "derive full data at build time, make it usable with plain client-side
+// JS" approach as teamsSortScript's click-to-sort above. Scoped to
+// `.lb-panel .table-wrap` (every table leaderboardsBody renders - Racers,
+// Teams, Most Improved) rather than every `.table-wrap` on the site, so it
+// doesn't touch unrelated tables like a team's own Tracker or Roster,
+// which are already short enough not to need it. A table with fewer rows
+// than one page gets no pager at all - nothing to click through. Runs
+// once, after every panel's HTML is already in the DOM (same placement
+// reasoning as teamsSortScript).
+function leaderboardPaginationScript(pageSize = 25) {
+  return `
+    <script>
+      (function () {
+        var PAGE_SIZE = ${pageSize};
+        function paginate(wrap) {
+          var tbody = wrap.querySelector("tbody");
+          if (!tbody) return;
+          var rows = Array.prototype.slice.call(tbody.querySelectorAll("tr"));
+          if (rows.length <= PAGE_SIZE) return;
+          var page = 0;
+          var pageCount = Math.ceil(rows.length / PAGE_SIZE);
+          var pager = document.createElement("div");
+          pager.className = "lb-pager";
+          pager.innerHTML =
+            '<button type="button" class="lb-pager-btn" data-dir="prev">Previous</button>' +
+            '<span class="lb-pager-label"></span>' +
+            '<button type="button" class="lb-pager-btn" data-dir="next">Next page</button>';
+          wrap.parentNode.insertBefore(pager, wrap.nextSibling);
+          var label = pager.querySelector(".lb-pager-label");
+          var prevBtn = pager.querySelector('[data-dir="prev"]');
+          var nextBtn = pager.querySelector('[data-dir="next"]');
+          function render() {
+            rows.forEach(function (r, i) {
+              r.hidden = !(i >= page * PAGE_SIZE && i < (page + 1) * PAGE_SIZE);
+            });
+            label.textContent = "Page " + (page + 1) + " of " + pageCount + " \\u00b7 " + rows.length + " total";
+            prevBtn.disabled = page === 0;
+            nextBtn.disabled = page === pageCount - 1;
+          }
+          pager.addEventListener("click", function (e) {
+            var btn = e.target.closest(".lb-pager-btn");
+            if (!btn || btn.disabled) return;
+            if (btn.getAttribute("data-dir") === "next" && page < pageCount - 1) page++;
+            else if (btn.getAttribute("data-dir") === "prev" && page > 0) page--;
+            else return;
+            render();
+          });
+          render();
+        }
+        Array.prototype.forEach.call(document.querySelectorAll(".lb-panel .table-wrap"), paginate);
+      })();
+    </script>`;
+}
+
 // Builds the full leaderboards page body (controls + all panels) from
 // already-queried { racers: {range: rows}, teams: {range: rows} } data
 // (see leaderboard-data.js). Shared so build.js and server.js produce
@@ -711,7 +771,8 @@ function leaderboardsBody(data, teamHref, assetsHref = "/assets/") {
     <p class="meta-row">Ranked across every team this tracker follows — not all of Nitro Type.</p>
     ${leaderboardControls()}
     ${panels.join("")}
-    ${teamsSortScript()}`;
+    ${teamsSortScript()}
+    ${leaderboardPaginationScript()}`;
 }
 
 // ---------------------------------------------------------------------
@@ -1926,6 +1987,30 @@ const BASE_CSS = `
     box-shadow: 0 8px 20px rgba(0,0,0,0.18);
   }
   table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  /* Pager controls under a paginated leaderboard table (see theme.js's
+     leaderboardPaginationScript) - only rendered when a table actually has
+     more rows than fit on one page. */
+  .lb-pager {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 12px;
+  }
+  .lb-pager-btn {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--text);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 8px 18px;
+    cursor: pointer;
+  }
+  .lb-pager-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+  .lb-pager-btn:disabled { opacity: 0.4; cursor: default; }
+  .lb-pager-label { font-size: 12.5px; color: var(--muted); font-variant-numeric: tabular-nums; }
   thead th {
     text-align: left;
     font-size: 11px;

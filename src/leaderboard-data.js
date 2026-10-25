@@ -57,6 +57,15 @@ function rangeFilter(range, season, paramOffset) {
 // per-team Tracker page (src/theme.js's trackerBody) so it can reuse the
 // exact same points ledger and rolling/season windows as the site-wide
 // leaderboard instead of a separate query path.
+// The site-wide board (no teamTag) used to cap this at 100, which quietly
+// dropped every racer ranked below that - with 130+ tracked teams there
+// are thousands of real racers, and the whole point of this board is to
+// show everyone who's racing, not just the very top. 5000 is a safety
+// ceiling against a runaway query, not a real limit - it's well above the
+// site's current total racer count (see schema.sql's `racers` table), so
+// in practice this returns every racer who earned a point in the window.
+// theme.js's leaderboardPaginationScript is what makes a list that long
+// actually usable in the browser (see its own comment).
 async function queryRacerPoints(pool, range, season, teamTag) {
   const filter = rangeFilter(range, season, 0);
   if (!filter) return [];
@@ -83,7 +92,7 @@ async function queryRacerPoints(pool, range, season, teamTag) {
      group by r.nt_user_id, r.username, r.display_name, r.team_tag, t.tag_color, r.car_id, r.car_hue_angle, s.avg_speed, s.top_speed, s.accuracy
      having sum(rp.points) > 0
      order by points desc
-     limit 100`,
+     limit 5000`,
     params
   );
   return rows;
