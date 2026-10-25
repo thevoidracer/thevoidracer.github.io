@@ -511,15 +511,20 @@ create policy "only a racer's own team's verified captain assigns its squad" on 
     )
   );
 
--- Tournaments: same shape and same ownership model as events above (a
--- named, dated thing a captain schedules for their own team) - the one
--- difference is tournaments also get a standings table computed from the
--- racer_points ledger over [start_stamp, end_stamp] (see
--- queryTournamentStandings in leaderboard-data.js), the same points
--- formula every other leaderboard on this site already uses. No bracket/
--- match data: Nitro Type's API doesn't expose individual races, so there's
--- nothing to build a real bracket from - a scoped leaderboard is the
--- honest version of "who's winning this tournament" we can actually show.
+-- Tournaments: a named, dated bracket a captain schedules, owned (for RLS
+-- purposes) by team_tag but able to span several participating teams (see
+-- tournament_teams below) - matches StarTrack's own real tournament
+-- feature: a multi-round single-elimination bracket (Seeding, Round of 64,
+-- ... Championship), scored by a chosen field (points/races/avg speed/
+-- accuracy) aggregated from the racer_points ledger over each round's own
+-- [start,end] window, with an optional minimum-races-per-round gate. There
+-- is still no real per-race match data (Nitro Type's API doesn't expose
+-- individual races), but a round-windowed aggregate comparison between two
+-- seeded entrants is an honest, defensible stand-in for "who won this
+-- round" - see src/tournaments-data.js's buildBracket, which computes the
+-- whole bracket (seeding + every round's matches + winners) live from this
+-- table + tournament_teams + tournament_rounds; nothing about who's
+-- seeded or who won a round is stored anywhere.
 create table if not exists team_tournaments (
   id          bigserial primary key,
   team_tag    text not null references teams(tag) on delete cascade,
@@ -558,6 +563,98 @@ create policy "only a team's own verified captain manages its tournaments" on te
       join teams t on t.tag = team_tournaments.team_tag
       where al.auth_user_id = auth.uid()
         and al.nt_user_id = t.captain_nt_user_id
+    )
+  );
+
+-- Bracket migration: scoring_field/qualifying_races on the tournament
+-- itself, plus the two tables that make a tournament a real bracket -
+-- tournament_teams (which teams' racers are eligible entrants; the owning
+-- team_tag from team_tournaments is not auto-included, so add it too if it
+-- should race) and tournament_rounds (the round schedule - Seeding then
+-- however many elimination rounds the captain configures, each with its
+-- own [start_stamp, end_stamp]). Both are owned/RLS-gated the same way as
+-- team_tournaments itself, keyed off tournament_id -> team_tournaments.
+-- team_tag -> that team's real captain, so only the tournament's own
+-- creator-team captain can edit its teams/rounds - never a participating
+-- team that isn't the owner.
+alter table team_tournaments add column if not exists scoring_field text not null default 'points';
+alter table team_tournaments add column if not exists qualifying_races integer not null default 0;
+
+create table if not exists tournament_teams (
+  tournament_id bigint not null references team_tournaments(id) on delete cascade,
+  team_tag      text not null references teams(tag) on delete cascade,
+  primary key (tournament_id, team_tag)
+);
+
+create table if not exists tournament_rounds (
+  id            bigserial primary key,
+  tournament_id bigint not null references team_tournaments(id) on delete cascade,
+  round_key     text not null,
+  round_order   integer not null,
+  label         text not null,
+  start_stamp   timestamptz not null,
+  end_stamp     timestamptz not null,
+  unique (tournament_id, round_key)
+);
+
+create index if not exists tournament_rounds_tournament on tournament_rounds (tournament_id, round_order);
+
+alter table tournament_teams enable row level security;
+alter table tournament_rounds enable row level security;
+
+drop policy if exists "tournament_teams are publicly readable" on tournament_teams;
+create policy "tournament_teams are publicly readable" on tournament_teams
+  for select using (true);
+
+drop policy if exists "only a tournament's own creator-team captain manages its teams" on tournament_teams;
+create policy "only a tournament's own creator-team captain manages its teams" on tournament_teams
+  for all
+  using (
+    exists (
+      select 1
+      from team_tournaments tt
+      join teams t on t.tag = tt.team_tag
+      join account_links al on al.nt_user_id = t.captain_nt_user_id
+      where tt.id = tournament_teams.tournament_id
+        and al.auth_user_id = auth.uid()
+    )
+  )
+  with check (
+    exists (
+      select 1
+      from team_tournaments tt
+      join teams t on t.tag = tt.team_tag
+      join account_links al on al.nt_user_id = t.captain_nt_user_id
+      where tt.id = tournament_teams.tournament_id
+        and al.auth_user_id = auth.uid()
+    )
+  );
+
+drop policy if exists "tournament_rounds are publicly readable" on tournament_rounds;
+create policy "tournament_rounds are publicly readable" on tournament_rounds
+  for select using (true);
+
+drop policy if exists "only a tournament's own creator-team captain manages its rounds" on tournament_rounds;
+create policy "only a tournament's own creator-team captain manages its rounds" on tournament_rounds
+  for all
+  using (
+    exists (
+      select 1
+      from team_tournaments tt
+      join teams t on t.tag = tt.team_tag
+      join account_links al on al.nt_user_id = t.captain_nt_user_id
+      where tt.id = tournament_rounds.tournament_id
+        and al.auth_user_id = auth.uid()
+    )
+  )
+  with check (
+    exists (
+      select 1
+      from team_tournaments tt
+      join teams t on t.tag = tt.team_tag
+      join account_links al on al.nt_user_id = t.captain_nt_user_id
+      where tt.id = tournament_rounds.tournament_id
+        and al.auth_user_id = auth.uid()
     )
   );
 

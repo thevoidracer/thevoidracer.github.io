@@ -595,16 +595,16 @@ function formatEventDate(iso) {
 
 // Events moved from the hand-curated data/events.json file to the
 // Supabase-backed `events` table (see schema.sql) so a team's real,
-// NT-recognized captain can add/edit/remove events themselves, live, from
-// this page - see src/client/app.js's initEventsPage/renderCaptainManager.
-// `events`/`tag` here are still the build-time (or server.js live-query)
-// snapshot, rendered as a normal table for a fast first paint and for
-// anyone without JavaScript; the client script replaces #events-list with
-// a freshly-fetched copy on load so a change a captain just made shows up
-// immediately, without waiting for the next scheduled site rebuild, and
-// shows the manage panel underneath for the one visitor who's signed in,
-// verified, and whose linked nt_user_id matches captainNtUserId.
-function eventsBody(tag, events, captainNtUserId) {
+// NT-recognized captain can add/edit/remove events themselves, live - from
+// Team Admin's own Events tab (see teamAdminBody below), not from this
+// public page, which is read-only for everyone. `events`/`tag` here are
+// still the build-time (or server.js live-query) snapshot, rendered as a
+// normal table for a fast first paint and for anyone without JavaScript;
+// src/client/app.js's initEventsPage() replaces #events-list with a
+// freshly-fetched copy on load so a change the captain just made from
+// Team Admin shows up here immediately, without waiting for the next
+// scheduled site rebuild.
+function eventsBody(tag, events) {
   const initialRows = !events.length
     ? `<div class="empty" style="padding:40px 24px;">No events scheduled for [${escapeHtml(tag)}] yet.</div>`
     : `<div class="table-wrap">
@@ -631,83 +631,102 @@ function eventsBody(tag, events, captainNtUserId) {
          </table>
        </div>`;
   return `
-    <div data-events-panel data-team-tag="${escapeHtml(tag)}" data-captain-nt-user-id="${escapeHtml(captainNtUserId ?? "")}">
+    <div data-events-panel data-team-tag="${escapeHtml(tag)}">
       <h2 style="margin:28px 0 14px;">Events</h2>
       <div data-events-list>${initialRows}</div>
-      <p class="lb-score-note">Signed in as this team's real captain? Sign in from the Account page, then come back here to add or edit events — changes go live immediately.</p>
-      <div data-events-manage></div>
+      <p class="lb-score-note">This team's captain manages events from Team Admin.</p>
     </div>`;
 }
 
-// A tournament's standings (see queryTournamentStandings in
-// leaderboard-data.js) - visually the same racer-rank table every other
-// leaderboard on this site uses, just without the team-tag link (every row
-// already belongs to the one team the tournament is on) and with its own
-// empty-state wording, since "no races yet" reads differently for a
-// deliberately narrow, dated window than for an all-time board.
-function tournamentStandingsTable(rows, assetsHref = "/assets/") {
-  if (!rows.length) {
-    return `<div class="empty" style="padding:16px 4px;font-size:13px;">No races tracked yet in this window.</div>`;
+const SCORING_FIELD_LABELS = {
+  points: "Points",
+  races: "Races",
+  avg_speed: "Avg speed",
+  accuracy: "Accuracy",
+};
+
+// One bracket slot: an entrant (seed + name + score once decided) or an
+// empty "TBD" placeholder for a seed that hasn't been determined, hasn't
+// been assigned yet, or belongs to a round that hasn't been seeded.
+function bracketSlot(entrant, isWinner) {
+  if (!entrant) {
+    return `<div class="bracket-slot bracket-slot-empty">TBD</div>`;
   }
-  const body = rows
-    .map((r, i) => {
-      const rank = i + 1;
-      const name = r.display_name || r.username;
-      const accClass = accuracyClass(r.accuracy);
-      const accLabel = r.accuracy == null ? "—" : `${r.accuracy}%`;
-      return `
-        <tr>
-          <td><span class="lb-rank${rankBadgeClass(rank)}">${rank}</span></td>
-          <td class="racer">
-            <span class="avatar" style="background:${avatarColor(name)}">${escapeHtml((name || "?").slice(0, 1).toUpperCase())}</span>
-            ${carThumb(r.car_id, r.car_hue_angle, assetsHref)}
-            ${escapeHtml(name)}
-          </td>
-          <td><span class="points">${formatNumber(r.points)}</span></td>
-          <td>${formatNumber(r.races)}</td>
-          <td>${formatNumber(r.avg_speed ?? "-")}</td>
-          <td><span class="pill ${accClass}">${accLabel}</span></td>
-        </tr>`;
-    })
-    .join("");
+  const name = escapeHtml(entrant.display_name || entrant.username || "?");
+  const scoreHtml = entrant.score != null ? `<span class="bracket-score">${formatNumber(entrant.score)}</span>` : "";
+  const qualifiedNote = entrant.qualified === false ? `<span class="bracket-dnq" title="Didn't meet the qualifying-races minimum">DNQ</span>` : "";
   return `
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>#</th><th>Racer</th><th>Points</th><th>Races</th><th>Avg speed</th><th>Accuracy</th></tr></thead>
-        <tbody>${body}</tbody>
-      </table>
+    <div class="bracket-slot${isWinner ? " bracket-slot-winner" : ""}">
+      ${entrant.seed != null ? `<span class="bracket-seed">${escapeHtml(String(entrant.seed))}</span>` : ""}
+      <span class="bracket-name">${name}</span>
+      ${qualifiedNote}${scoreHtml}
     </div>`;
 }
 
-// Tournaments: same shape/pattern as Events above (a team_tournaments row
-// is schema-identical to an events row - see schema.sql), with one
-// addition - a standings table computed from the racer_points ledger over
-// the tournament's own [start, end] window. `standingsById` is a plain
-// object keyed by tournament id -> already-queried standings rows (build.js/
-// server.js compute these once up front, the same "server snapshot for
-// first paint" idea eventsBody already uses); src/client/app.js's
-// initTournamentsPage() re-fetches both the list and each tournament's
-// standings live on page load, same as events' own live re-fetch.
-function tournamentsBody(tag, tournaments, standingsById, captainNtUserId, assetsHref = "/assets/") {
+function bracketMatch(match) {
+  const aWin = !!(match.winner && match.a && match.winner.nt_user_id === match.a.nt_user_id);
+  const bWin = !!(match.winner && match.b && match.winner.nt_user_id === match.b.nt_user_id);
+  return `
+    <div class="bracket-match" data-status="${escapeHtml(match.status)}">
+      ${bracketSlot(match.a, aWin)}
+      ${bracketSlot(match.b, bWin)}
+    </div>`;
+}
+
+// The full set of round columns for one tournament's bracket - a plain
+// side-scrolling row of columns rather than a connected tree (no SVG/
+// canvas connector lines), same "if it's too wide, let it scroll" call the
+// rest of the site's wide tables already make on mobile.
+function bracketColumns(bracket) {
+  if (!bracket || !bracket.roundsOut.length) {
+    return `<div class="empty" style="padding:20px 4px;">This tournament's round schedule isn't fully set up yet.</div>`;
+  }
+  const cols = bracket.roundsOut
+    .map(
+      ({ round, matches }) => `
+      <div class="bracket-col">
+        <div class="bracket-col-title">${escapeHtml(round.label)}</div>
+        ${matches.map(bracketMatch).join("")}
+      </div>`
+    )
+    .join("");
+  return `<div class="bracket-wrap"><div class="bracket-grid">${cols}</div></div>`;
+}
+
+// Tournaments: a multi-round bracket per team_tournaments row (see
+// schema.sql / src/tournaments-data.js's buildBracket), spanning however
+// many teams the captain entered. This page is pure display - the create/
+// delete/schedule form lives on Team Admin's own Tournaments tab, not
+// here. `brackets` is a plain object keyed by tournament id -> the
+// already-computed bracket (build.js/server.js call bracketsForTournaments
+// once up front); src/client/app.js's initEventsPage-style live refresh
+// doesn't apply here since a full bracket recompute isn't something to
+// replicate in the browser - this page simply reflects whatever the last
+// sync/build computed, same cadence as every other leaderboard.
+function tournamentsBody(tag, tournaments, brackets, assetsHref = "/assets/") {
   const initialRows = !tournaments.length
     ? `<div class="empty" style="padding:40px 24px;">No tournaments scheduled for [${escapeHtml(tag)}] yet.</div>`
     : tournaments
-        .map(
-          (t) => `
-        <div class="card" style="margin-bottom:16px;" data-tournament-card="${escapeHtml(t.id)}">
+        .map((t) => {
+          const bracket = brackets[t.id];
+          const fieldLabel = SCORING_FIELD_LABELS[t.scoring_field] || "Points";
+          return `
+        <div class="card" style="margin-bottom:24px;" data-tournament-card="${escapeHtml(t.id)}">
           <div style="font-weight:700;font-size:15px;">${escapeHtml(t.title)} ${eventStatusPill(t.status)}</div>
-          <div class="meta-row" style="margin:3px 0 10px;">${formatEventDate(t.start)} → ${formatEventDate(t.end)}</div>
-          ${t.description ? `<div style="color:var(--muted);font-size:13px;margin-bottom:12px;max-width:520px;">${escapeHtml(t.description)}</div>` : ""}
-          <div data-tournament-standings>${tournamentStandingsTable(standingsById[t.id] || [], assetsHref)}</div>
-        </div>`
-        )
+          <div class="meta-row" style="margin:3px 0 4px;">${formatEventDate(t.start)} → ${formatEventDate(t.end)}</div>
+          <div class="meta-row" style="margin:0 0 10px;">
+            Teams: ${t.teams.map((tg) => `[${escapeHtml(tg)}]`).join(" ")} · Scored by ${escapeHtml(fieldLabel)}${t.qualifying_races ? ` · Min ${escapeHtml(String(t.qualifying_races))} races each round to qualify` : ""}
+          </div>
+          ${t.description ? `<div style="color:var(--muted);font-size:13px;margin-bottom:14px;max-width:560px;">${escapeHtml(t.description)}</div>` : ""}
+          ${bracketColumns(bracket)}
+        </div>`;
+        })
         .join("");
   return `
-    <div data-tournaments-panel data-team-tag="${escapeHtml(tag)}" data-captain-nt-user-id="${escapeHtml(captainNtUserId ?? "")}">
+    <div data-tournaments-panel data-team-tag="${escapeHtml(tag)}">
       <h2 style="margin:28px 0 14px;">Tournaments</h2>
       <div data-tournaments-list>${initialRows}</div>
-      <p class="lb-score-note">Standings are the same points formula as every other leaderboard on this site, scoped to the tournament's own dates. Signed in as this team's real captain? Sign in from the Account page, then come back here to add or edit tournaments — changes go live immediately.</p>
-      <div data-tournaments-manage></div>
+      <p class="lb-score-note">Rounds are scored from real race data each sync - no simulated matches. This team's captain manages tournaments from Team Admin.</p>
     </div>`;
 }
 
@@ -769,6 +788,8 @@ function teamAdminBody(tag, captainNtUserId, racers, squads) {
         <div class="seg" style="margin-bottom:16px;">
           <button type="button" class="seg-btn active" data-admin-tab-btn="officers">Officers</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="squads">Squads</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="events">Events</button>
+          <button type="button" class="seg-btn" data-admin-tab-btn="tournaments">Tournaments</button>
           <button type="button" class="seg-btn" data-admin-tab-btn="settings">Settings</button>
         </div>
 
@@ -808,6 +829,20 @@ function teamAdminBody(tag, captainNtUserId, racers, squads) {
               <tbody data-admin-squad-roster-rows>${squadRosterRows}</tbody>
             </table>
           </div>
+        </div>
+
+        <div data-admin-tabpanel="events" style="display:none;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            Manage [${escapeHtml(tag)}]'s events — shown on the public Events page.
+          </div>
+          <div data-admin-events-manage>Loading…</div>
+        </div>
+
+        <div data-admin-tabpanel="tournaments" style="display:none;">
+          <div style="color:var(--muted);font-size:13px;margin-bottom:14px;">
+            Build a bracket tournament for [${escapeHtml(tag)}] — pick participating teams, how it's scored, and each round's dates. Standings are computed from real race data every sync; nothing here is simulated.
+          </div>
+          <div data-admin-tournaments-manage>Loading…</div>
         </div>
 
         <div data-admin-tabpanel="settings" style="display:none;max-width:480px;">
@@ -1411,6 +1446,32 @@ const BASE_CSS = `
     margin: 10px 2px 0;
   }
 
+  /* Tournament bracket - a side-scrolling row of round columns, each
+     column's matches spaced out with flex gap rather than real connector
+     lines (no SVG/canvas tree) - a deliberate simplification given no
+     fixed per-match height to route lines between. */
+  .bracket-wrap { overflow-x: auto; padding-bottom: 6px; }
+  .bracket-grid { display: flex; gap: 26px; min-width: max-content; }
+  .bracket-col { display: flex; flex-direction: column; justify-content: space-around; gap: 14px; min-width: 172px; }
+  .bracket-col-title {
+    font-size: 11.5px; font-weight: 800; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.05em;
+    margin-bottom: 8px; text-align: center;
+  }
+  .bracket-match { display: flex; flex-direction: column; gap: 3px; }
+  .bracket-slot {
+    display: flex; align-items: center; gap: 6px;
+    padding: 7px 9px; border-radius: 7px;
+    background: var(--panel-2); border: 1px solid var(--border);
+    font-size: 12.5px; white-space: nowrap;
+  }
+  .bracket-slot-empty { color: var(--muted); justify-content: center; }
+  .bracket-slot-winner { border-color: var(--accent); background: rgba(255,176,32,0.12); font-weight: 700; }
+  .bracket-seed { color: var(--muted); font-size: 11px; width: 16px; flex: none; }
+  .bracket-name { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+  .bracket-score { color: var(--velocity); font-weight: 700; font-size: 12px; flex: none; }
+  .bracket-dnq { color: var(--low); font-size: 10px; font-weight: 800; flex: none; }
+
   footer.site {
     text-align: center;
     color: var(--muted);
@@ -1537,7 +1598,6 @@ module.exports = {
   trackerBody,
   eventsBody,
   tournamentsBody,
-  tournamentStandingsTable,
   notificationsBody,
   pageShell,
   carImageSourceUrl,

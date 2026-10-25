@@ -89,38 +89,6 @@ async function queryRacerPoints(pool, range, season, teamTag) {
   return rows;
 }
 
-// Standings for one team_tournaments row (see schema.sql): the exact same
-// points formula as every other leaderboard, just windowed to that
-// tournament's own [start_stamp, end_stamp] instead of a named range -
-// end is clipped to now() the same way currentSeasonBounds clips a
-// still-running season, so an active tournament's standings only ever
-// count races that have actually happened so far. No tag_color/team_tag
-// in the result (unlike queryRacerPoints) since every row is already
-// scoped to the one team the tournament belongs to.
-async function queryTournamentStandings(pool, teamTag, startStamp, endStamp) {
-  const { rows } = await pool.query(
-    `select r.username, r.display_name, r.car_id, r.car_hue_angle,
-            sum(rp.points) as points,
-            sum(rp.races_delta) as races,
-            s.avg_speed, s.top_speed, s.accuracy
-     from racer_points rp
-     join racers r on r.nt_user_id = rp.nt_user_id
-     left join lateral (
-       select * from racer_stats rs where rs.nt_user_id = r.nt_user_id
-       order by captured_at desc limit 1
-     ) s on true
-     where rp.team_tag = $1
-       and rp.captured_at >= $2
-       and rp.captured_at <= least($3::timestamptz, now())
-     group by r.username, r.display_name, r.car_id, r.car_hue_angle, s.avg_speed, s.top_speed, s.accuracy
-     having sum(rp.points) > 0
-     order by points desc
-     limit 25`,
-    [teamTag, startStamp, endStamp]
-  );
-  return rows;
-}
-
 // Ranges shown on a team's own Tracker page - reuses the same keys/windows
 // as the site-wide leaderboard (see RANGE_INTERVALS/currentSeasonBounds
 // above) so "Season" here and "Seasonal" there never disagree.
@@ -193,7 +161,6 @@ module.exports = {
   currentSeasonBounds,
   queryRacerPoints,
   queryTeamPoints,
-  queryTournamentStandings,
   loadLeaderboardData,
   loadTeamTracker,
 };
