@@ -21,6 +21,7 @@ const {
   activityBody,
   eventsBody,
   tournamentsBody,
+  racerStatsBody,
   notificationsBody,
   teamAdminBody,
   pageShell,
@@ -29,12 +30,17 @@ const {
   nitroTypeTeamHref,
   teamEmojiSuffix,
 } = require("./theme");
-const { loadLeaderboardData, loadTeamTracker } = require("./leaderboard-data");
+const { loadLeaderboardData, loadTeamTracker, loadTeamRacerWindows } = require("./leaderboard-data");
 const { teamActivity } = require("./activity-data");
 const { queryNotifications } = require("./notifications");
 const { eventsForTeam } = require("./events-data");
 const { tournamentsForTeam, bracketsForTournaments } = require("./tournaments-data");
 const { accountIndexBody, accountConnectBody, signInBody } = require("./account-pages");
+
+// A section page (teams/<tag>/<key>/index.html) sits one level deeper than
+// the roster page, so a racer stats link from one of those needs its own
+// "../" out to teams/<tag>/ before going into racer/<id>/.
+const SECTION_RACER_HREF = (ntUserId) => `../racer/${ntUserId}/`;
 
 // Built, non-roster sections render their own content from already-queried
 // data; a section not in this map still falls back to comingSoonBody.
@@ -42,12 +48,17 @@ const { accountIndexBody, accountConnectBody, signInBody } = require("./account-
 // preview never render a section differently.
 function sectionContent(key, sectionData) {
   if (key === "events") return eventsBody(sectionData.tag, sectionData.events);
-  if (key === "tournaments")
-    return tournamentsBody(sectionData.tag, sectionData.tournaments, sectionData.brackets, "../../../assets/");
+  if (key === "tournaments") {
+    // A tournament can span several teams, so an entrant's stats page may
+    // live under a different team's own directory than this page - route
+    // through the site root (teamsHref) rather than assuming "this team".
+    const racerHref = (ntUserId, teamTag) => `../../../teams/${String(teamTag).toLowerCase()}/racer/${ntUserId}/`;
+    return tournamentsBody(sectionData.tag, sectionData.tournaments, sectionData.brackets, "../../../assets/", racerHref);
+  }
   // Section pages (teams/<tag>/<key>/index.html) sit one level deeper than
   // the roster page, so they need their own, one-level-further assetsHref.
-  if (key === "trackers") return trackerBody(sectionData.tracker, "../../../assets/");
-  if (key === "activity") return activityBody(sectionData.tag, sectionData.activity, "../../../assets/");
+  if (key === "trackers") return trackerBody(sectionData.tracker, "../../../assets/", SECTION_RACER_HREF);
+  if (key === "activity") return activityBody(sectionData.tag, sectionData.activity, "../../../assets/", SECTION_RACER_HREF);
   if (key === "notifications") return notificationsBody(sectionData.tag, sectionData.notifications);
   if (key === "admin") return teamAdminBody(sectionData.tag, sectionData.captainNtUserId, sectionData.racers || [], sectionData.squads || []);
   return null;
@@ -113,11 +124,33 @@ function buildTeamsIndex(teams) {
   );
 }
 
+// One racer's own stats page: teams/<tag>/racer/<id>/index.html, depth 2
+// (two directories below teams/<tag>/ - see writeTeamSectionPage). `racer`
+// is the same row racerRosterRows() already has (identity + latest
+// racer_stats snapshot); `windows` is this racer's slice of the team's
+// bulk-loaded loadTeamRacerWindows() result.
+function buildRacerPage(team, racer, windows) {
+  const dir = path.join(OUT_DIR, "teams", team.tag.toLowerCase(), "racer", String(racer.nt_user_id));
+  fs.mkdirSync(dir, { recursive: true });
+  const prefix = "../../"; // depth 2 -> back up to teams/<tag>/
+  const assetsHref = "../../../../assets/";
+  const name = racer.display_name || racer.username || "Racer";
+  writeTeamSectionPage({
+    dir,
+    depth: 2,
+    activeKey: "racer", // no NAV_ITEMS key matches - sidebar just shows nothing active
+    content: racerStatsBody(racer, team, windows, assetsHref, () => prefix),
+    crumb: `<a href="${prefix}">← [${team.tag}] roster</a>`,
+    title: `[${team.tag}] ${name} — Stats`,
+  });
+}
+
 function buildTeamPage(team, racers, sectionData) {
   const dir = path.join(OUT_DIR, "teams", team.tag.toLowerCase());
   fs.mkdirSync(dir, { recursive: true });
 
-  const rows = racerRosterRows(racers, team, "../../assets/");
+  const rosterRacerHref = (ntUserId) => `racer/${ntUserId}/`;
+  const rows = racerRosterRows(racers, team, "../../assets/", rosterRacerHref);
 
   const reqBar = `
     <div class="req-bar">
@@ -189,6 +222,18 @@ function buildTeamPage(team, racers, sectionData) {
       crumb: `<a href="../../../">← all teams</a>`,
       title: `[${team.tag}] ${item.label}`,
     });
+  }
+
+  // One stats page per racer (see buildRacerPage) - sectionData.racerWindows
+  // is the whole team's bulk-loaded loadTeamRacerWindows() result, sliced
+  // per racer here so this doesn't re-query per racer.
+  const racerWindows = sectionData.racerWindows;
+  for (const racer of racers) {
+    const byRange = {};
+    for (const range of Object.keys(racerWindows.byRange)) {
+      byRange[range] = racerWindows.byRange[range][racer.nt_user_id] || null;
+    }
+    buildRacerPage(team, racer, { byRange, season: racerWindows.season });
   }
 }
 
@@ -273,15 +318,19 @@ function buildAccountPages() {
 function writeTeamSectionPage({ dir, depth, activeKey, content, crumb, title }) {
   // depth 0 = this page is teams/<tag>/index.html, so "events" lives at
   // ./events/; depth 1 = teams/<tag>/<section>/index.html, so a sibling
-  // section lives at ../<key>/ and roster is one level up.
-  const prefix = depth === 0 ? "" : "../";
-  const linkFor = (key) => (key === "roster" ? (depth === 0 ? "./" : "../") : `${prefix}${key}/`);
+  // section lives at ../<key>/ and roster is one level up; depth 2 is a
+  // racer's own stats page (teams/<tag>/racer/<id>/index.html), two
+  // directories below teams/<tag>/. Generalized via "../".repeat(depth) so
+  // a deeper page (depth 2+) computes the same way instead of needing its
+  // own special case.
+  const prefix = "../".repeat(depth);
+  const linkFor = (key) => (key === "roster" ? (depth === 0 ? "./" : prefix) : `${prefix}${key}/`);
   const body = `
     <div class="team-layout">
       ${teamSidebar(activeKey, linkFor)}
       <div class="team-content">${content}</div>
     </div>`;
-  const teamsHref = depth === 0 ? "../../" : "../../../";
+  const teamsHref = "../".repeat(depth + 2);
   fs.writeFileSync(
     path.join(dir, "index.html"),
     pageShell({ title, body, crumb, teamsHref, leaderboardsHref: `${teamsHref}leaderboards/`, active: "teams" })
@@ -362,7 +411,7 @@ async function main() {
     const { rows: racers } = await pool.query(
       `select r.nt_user_id, r.username, r.display_name, r.role, r.membership, r.joined_at_nt,
               r.car_id, r.car_hue_angle, r.squad_id, sq.name as squad_name, sq.color as squad_color,
-              s.avg_speed, s.top_speed, s.races, s.accuracy
+              s.avg_speed, s.top_speed, s.races, s.accuracy, s.captured_at as stats_captured_at
        from racers r
        left join lateral (
          select * from racer_stats rs
@@ -400,6 +449,7 @@ async function main() {
       captainNtUserId: team.captain_nt_user_id,
       racers,
       squads,
+      racerWindows: await loadTeamRacerWindows(pool, team.tag),
     };
     buildTeamPage(team, racers, sectionData);
   }

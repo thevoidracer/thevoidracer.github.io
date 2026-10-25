@@ -182,7 +182,7 @@ function squadBadge(squadName, squadColor) {
 // racer currently goes by on Nitro Type; username (often an opaque id
 // string NT assigns, not a real handle) is only a fallback for a racer
 // this tracker hasn't re-synced since display_name was added.
-function racerRosterRows(racers, team, assetsHref = "/assets/") {
+function racerRosterRows(racers, team, assetsHref = "/assets/", racerHref) {
   return racers
     .map((r) => {
       const name = r.display_name || r.username;
@@ -195,7 +195,7 @@ function racerRosterRows(racers, team, assetsHref = "/assets/") {
           <td class="racer">
             <span class="avatar" style="background:${avatarColor(name || team.tag)}">${escapeHtml(initial)}</span>
             ${carThumb(r.car_id, r.car_hue_angle, assetsHref)}
-            ${escapeHtml(name)}${roleBadge(r.role, isCaptain)}${membershipBadge(r.membership)}${squadBadge(r.squad_name, r.squad_color)}
+            ${racerNameMarkup(name, r.username, r.nt_user_id != null && racerHref ? racerHref(r.nt_user_id) : null)}${roleBadge(r.role, isCaptain)}${membershipBadge(r.membership)}${squadBadge(r.squad_name, r.squad_color)}
           </td>
           <td>${formatDate(r.joined_at_nt)}</td>
           <td>${formatNumber(r.avg_speed ?? "-")}</td>
@@ -379,6 +379,40 @@ function nitroTypeTeamHref(tag) {
   return `https://www.nitrotype.com/team/${encodeURIComponent(tag)}`;
 }
 
+// The real Nitro Type URL for a racer, by their `username` - verified live
+// (clicked a roster name on nitrotype.com/team/<TAG> and read the link's
+// real href: /racer/<username>). Nitro Type's API gives each member both a
+// "username" (the opaque id-looking string this URL actually needs) and a
+// separate "displayName" (the name people recognize) - this must be the
+// former, never the latter, or the link 404s.
+function nitroTypeRacerHref(username) {
+  return `https://www.nitrotype.com/racer/${encodeURIComponent(username)}`;
+}
+
+// A racer's display name, wrapped as a link to their real Nitro Type
+// profile, plus a small "stats" icon linking to this site's own per-racer
+// page (see theme.js's racerStatsBody) - used everywhere a racer's name is
+// rendered in a table row (roster, leaderboards, tracker, activity,
+// tournament brackets) so both links are always one click away from the
+// name, not buried in a menu. `statsHref` is a pre-built URL string (or
+// null/undefined to omit the stats icon), computed by the caller - the
+// static site's relative paths and the Express preview's absolute routes
+// resolve completely differently, and the site-wide leaderboard spans
+// several teams' own racer pages, so there's no single formula this helper
+// could apply itself. The Nitro Type link is omitted too if `username`
+// (the opaque id Nitro Type's own URLs need, not the display name) isn't
+// available in that particular row's query.
+function racerNameMarkup(name, username, statsHref) {
+  const label = escapeHtml(name || "?");
+  const nameHtml = username
+    ? `<a href="${nitroTypeRacerHref(username)}" target="_blank" rel="noopener" title="View on Nitro Type">${label}</a>`
+    : label;
+  const statsHtml = statsHref
+    ? ` <a class="stats-link" href="${statsHref}" title="${label}'s stats on TypeTrack">📊</a>`
+    : "";
+  return `${nameHtml}${statsHtml}`;
+}
+
 // teamHref(tag) -> this site's own team page URL. Supplied by the caller
 // (build.js/server.js) because the static site's relative paths and the
 // Express preview's absolute routes resolve completely differently - same
@@ -394,13 +428,17 @@ function racersLeaderboardTable(rows, rangeLabel, teamHref, season, assetsHref =
       const tagBg = teamColor(r.team_tag, r.tag_color);
       const accClass = accuracyClass(r.accuracy);
       const accLabel = r.accuracy == null ? "—" : `${r.accuracy}%`;
+      // This board spans every tracked team, so a racer's stats page lives
+      // under their own team's directory - teamHref(tag) already gives
+      // that team's page URL from wherever this leaderboard is rendered.
+      const statsHref = r.nt_user_id != null ? `${teamHref(r.team_tag).replace(/\/$/, "")}/racer/${r.nt_user_id}/` : null;
       return `
         <tr>
           <td><span class="lb-rank${rankBadgeClass(rank)}">${rank}</span></td>
           <td class="racer">
             <span class="avatar" style="background:${avatarColor(name)}">${escapeHtml((name || "?").slice(0, 1).toUpperCase())}</span>
             ${carThumb(r.car_id, r.car_hue_angle, assetsHref)}
-            ${escapeHtml(name)}
+            ${racerNameMarkup(name, r.username, statsHref)}
             <a class="lb-team-tag" href="${teamHref(r.team_tag)}" style="background:${tagBg};color:${textOnColor(tagBg)}">${escapeHtml(r.team_tag)}</a>
           </td>
           <td><span class="points">${formatNumber(r.points)}</span></td>
@@ -495,7 +533,7 @@ const TRACKER_RANGES = [
   { key: "alltime", label: "All-Time" },
 ];
 
-function trackerTable(rows, rangeLabel, assetsHref = "/assets/") {
+function trackerTable(rows, rangeLabel, assetsHref = "/assets/", racerHref) {
   if (!rows.length) {
     return `<div class="empty" style="padding:40px 24px;">No one on this team earned any points in the ${escapeHtml(rangeLabel)} window yet — this fills in as more syncs run.</div>`;
   }
@@ -505,13 +543,14 @@ function trackerTable(rows, rangeLabel, assetsHref = "/assets/") {
       const name = r.display_name || r.username;
       const accClass = accuracyClass(r.accuracy);
       const accLabel = r.accuracy == null ? "—" : `${r.accuracy}%`;
+      const statsHref = r.nt_user_id != null && racerHref ? racerHref(r.nt_user_id) : null;
       return `
         <tr>
           <td><span class="lb-rank${rankBadgeClass(rank)}">${rank}</span></td>
           <td class="racer">
             <span class="avatar" style="background:${avatarColor(name)}">${escapeHtml((name || "?").slice(0, 1).toUpperCase())}</span>
             ${carThumb(r.car_id, r.car_hue_angle, assetsHref)}
-            ${escapeHtml(name)}
+            ${racerNameMarkup(name, r.username, statsHref)}
           </td>
           <td><span class="points">${formatNumber(r.points)}</span></td>
           <td>${formatNumber(r.races)}</td>
@@ -560,12 +599,12 @@ function trackerControls() {
 }
 
 // `data` is loadTeamTracker()'s result: { byRange: {daily:[],...}, season }.
-function trackerBody(data, assetsHref = "/assets/") {
+function trackerBody(data, assetsHref = "/assets/", racerHref) {
   const panels = TRACKER_RANGES.map((range, i) => {
     const visible = i === 0;
     const rows = data.byRange[range.key] || [];
     const seasonNote = range.key === "seasonal" ? `<p class="lb-score-note">${seasonalNote(data.season)}</p>` : "";
-    return `<div class="trk-panel" data-range="${range.key}"${visible ? "" : " hidden"}>${trackerTable(rows, range.label, assetsHref)}${seasonNote}</div>`;
+    return `<div class="trk-panel" data-range="${range.key}"${visible ? "" : " hidden"}>${trackerTable(rows, range.label, assetsHref, racerHref)}${seasonNote}</div>`;
   }).join("");
   return `
     <h2 style="margin:28px 0 14px;">Tracker</h2>
@@ -608,20 +647,21 @@ function activityChart(hours) {
   return `<div class="activity-chart">${bars}</div>`;
 }
 
-function activityRacerRows(rows, assetsHref) {
+function activityRacerRows(rows, assetsHref, racerHref) {
   return rows
     .map((r, i) => {
       const rank = i + 1;
       const name = r.display_name || r.username;
       const accClass = accuracyClass(r.accuracy);
       const accLabel = r.accuracy == null ? "—" : `${r.accuracy}%`;
+      const statsHref = r.nt_user_id != null && racerHref ? racerHref(r.nt_user_id) : null;
       return `
         <tr>
           <td><span class="lb-rank${rankBadgeClass(rank)}">${rank}</span></td>
           <td class="racer">
             <span class="avatar" style="background:${avatarColor(name)}">${escapeHtml((name || "?").slice(0, 1).toUpperCase())}</span>
             ${carThumb(r.car_id, r.car_hue_angle, assetsHref)}
-            ${escapeHtml(name)}
+            ${racerNameMarkup(name, r.username, statsHref)}
           </td>
           <td>${formatNumber(r.races)}</td>
           <td><span class="points">${formatNumber(r.points)}</span></td>
@@ -634,7 +674,7 @@ function activityRacerRows(rows, assetsHref) {
 
 // `activity` is activity-data.js's teamActivity() result:
 // { hours, racers, totalRaces, activeRacers, busiestHour }.
-function activityBody(tag, activity, assetsHref = "/assets/") {
+function activityBody(tag, activity, assetsHref = "/assets/", racerHref) {
   const { hours, racers, totalRaces, activeRacers, busiestHour } = activity;
 
   const statBar = `
@@ -654,7 +694,7 @@ function activityBody(tag, activity, assetsHref = "/assets/") {
            <thead>
              <tr><th>#</th><th>Racer</th><th>Races</th><th>Points</th><th>Avg speed</th><th>Accuracy</th></tr>
            </thead>
-           <tbody>${activityRacerRows(racers, assetsHref)}</tbody>
+           <tbody>${activityRacerRows(racers, assetsHref, racerHref)}</tbody>
          </table>
        </div>`
     : `<div class="empty" style="padding:40px 24px;">No one on this team raced in the last 24 hours yet.</div>`;
@@ -667,6 +707,92 @@ function activityBody(tag, activity, assetsHref = "/assets/") {
     ${chart}
     <h2 style="margin:28px 0 14px;">Most active (24h)</h2>
     ${table}`;
+}
+
+// ---------------------------------------------------------------------
+// Racer stats: one racer's own page - their current roster snapshot plus
+// their own points/races/avg speed/accuracy in every one of the site's
+// standard windows (see leaderboard-data.js's loadRacerWindows/
+// loadTeamRacerWindows), the same ledger every other board on this site
+// sums, scoped to just this person. Linked from the small 📊 stats icon
+// next to a racer's name everywhere one appears (see racerNameMarkup).
+// ---------------------------------------------------------------------
+function racerWindowRows(windows) {
+  return LEADERBOARD_RANGES.map((range) => {
+    const w = windows.byRange[range.key];
+    if (!w || (Number(w.races) === 0 && Number(w.points) === 0)) {
+      return `
+        <tr>
+          <td>${escapeHtml(range.label)}</td>
+          <td colspan="4" style="color:var(--muted);">No points earned in this window yet.</td>
+        </tr>`;
+    }
+    const accLabel = w.accuracy == null ? "—" : `${w.accuracy}%`;
+    return `
+      <tr>
+        <td>${escapeHtml(range.label)}</td>
+        <td><span class="points">${formatNumber(w.points)}</span></td>
+        <td>${formatNumber(w.races)}</td>
+        <td>${formatNumber(w.avg_speed ?? "-")}</td>
+        <td><span class="pill ${accuracyClass(w.accuracy)}">${accLabel}</span></td>
+      </tr>`;
+  }).join("");
+}
+
+// `racer` carries identity + latest racer_stats snapshot (nt_user_id,
+// username, display_name, role, membership, joined_at_nt, car_id,
+// car_hue_angle, squad_name, squad_color, avg_speed, top_speed, races,
+// accuracy); `team` is {tag, display_name, tag_color, team_emoji,
+// captain_nt_user_id} for the team link/captain badge; `windows` is
+// loadRacerWindows()'s (or loadTeamRacerWindows' per-racer entry) result:
+// { byRange: {hourly: {...}|null, ...}, season }.
+function racerStatsBody(racer, team, windows, assetsHref = "/assets/", teamHref) {
+  const name = racer.display_name || racer.username;
+  const initial = (name || "?").slice(0, 1).toUpperCase();
+  const isCaptain = team.captain_nt_user_id != null && racer.nt_user_id === team.captain_nt_user_id;
+  const accClass = accuracyClass(racer.accuracy);
+  const accLabel = racer.accuracy == null ? "—" : `${racer.accuracy}%`;
+
+  const hero = `
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:6px;">
+      <span class="avatar" style="width:44px;height:44px;font-size:17px;background:${avatarColor(name)}">${escapeHtml(initial)}</span>
+      ${carThumb(racer.car_id, racer.car_hue_angle, assetsHref)}
+      <div>
+        <div style="font-size:19px;font-weight:800;">
+          ${racer.username ? `<a href="${nitroTypeRacerHref(racer.username)}" target="_blank" rel="noopener" title="View on Nitro Type">${escapeHtml(name)}</a>` : escapeHtml(name)}
+          ${roleBadge(racer.role, isCaptain)}${membershipBadge(racer.membership)}${squadBadge(racer.squad_name, racer.squad_color)}
+        </div>
+        <div class="meta-row" style="margin:4px 0 0;">
+          ${teamHref ? `<a href="${teamHref(team.tag)}" style="color:inherit;">[${escapeHtml(team.tag)}]</a>` : `[${escapeHtml(team.tag)}]`}
+          ${escapeHtml(team.display_name || "")}${teamEmojiSuffix(team.team_emoji)}
+          · Joined ${formatDate(racer.joined_at_nt)}${racer.stats_captured_at ? ` · Last synced ${new Date(racer.stats_captured_at).toLocaleString()}` : ""}
+        </div>
+      </div>
+    </div>`;
+
+  const statBar = `
+    <div class="req-bar">
+      <div class="req">Avg speed <b>${formatNumber(racer.avg_speed ?? "-")}</b></div>
+      <div class="req">Highest speed <b>${formatNumber(racer.top_speed ?? "-")}</b></div>
+      <div class="req">Lifetime races tracked <b>${formatNumber(racer.races ?? "-")}</b></div>
+      <div class="req">Accuracy <b><span class="pill ${accClass}">${accLabel}</span></b></div>
+    </div>`;
+
+  const seasonNote = windows.season ? `<p class="lb-score-note">${seasonalNote(windows.season)}</p>` : "";
+
+  return `
+    <h1>${escapeHtml(name)}</h1>
+    <p class="meta-row">This racer's own points, races, avg speed and accuracy in every window this site tracks — the same ledger behind the Tracker and Leaderboards, scoped to just them.</p>
+    ${hero}
+    ${statBar}
+    <h2 style="margin:28px 0 14px;">Points by window</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Window</th><th>Points</th><th>Races</th><th>Avg speed</th><th>Accuracy</th></tr></thead>
+        <tbody>${racerWindowRows(windows)}</tbody>
+      </table>
+    </div>
+    ${seasonNote}`;
 }
 
 // ---------------------------------------------------------------------
@@ -743,28 +869,32 @@ const SCORING_FIELD_LABELS = {
 // One bracket slot: an entrant (seed + name + score once decided) or an
 // empty "TBD" placeholder for a seed that hasn't been determined, hasn't
 // been assigned yet, or belongs to a round that hasn't been seeded.
-function bracketSlot(entrant, isWinner) {
+// `racerHref(ntUserId, teamTag)` is optional - a tournament can span
+// several teams, so each entrant's own stats page lives under its own
+// team's directory, not necessarily the page this bracket is rendered on.
+function bracketSlot(entrant, isWinner, racerHref) {
   if (!entrant) {
     return `<div class="bracket-slot bracket-slot-empty">TBD</div>`;
   }
-  const name = escapeHtml(entrant.display_name || entrant.username || "?");
+  const name = entrant.display_name || entrant.username || "?";
+  const statsHref = entrant.nt_user_id != null && racerHref ? racerHref(entrant.nt_user_id, entrant.team_tag) : null;
   const scoreHtml = entrant.score != null ? `<span class="bracket-score">${formatNumber(entrant.score)}</span>` : "";
   const qualifiedNote = entrant.qualified === false ? `<span class="bracket-dnq" title="Didn't meet the qualifying-races minimum">DNQ</span>` : "";
   return `
     <div class="bracket-slot${isWinner ? " bracket-slot-winner" : ""}">
       ${entrant.seed != null ? `<span class="bracket-seed">${escapeHtml(String(entrant.seed))}</span>` : ""}
-      <span class="bracket-name">${name}</span>
+      <span class="bracket-name">${racerNameMarkup(name, entrant.username, statsHref)}</span>
       ${qualifiedNote}${scoreHtml}
     </div>`;
 }
 
-function bracketMatch(match) {
+function bracketMatch(match, racerHref) {
   const aWin = !!(match.winner && match.a && match.winner.nt_user_id === match.a.nt_user_id);
   const bWin = !!(match.winner && match.b && match.winner.nt_user_id === match.b.nt_user_id);
   return `
     <div class="bracket-match" data-status="${escapeHtml(match.status)}">
-      ${bracketSlot(match.a, aWin)}
-      ${bracketSlot(match.b, bWin)}
+      ${bracketSlot(match.a, aWin, racerHref)}
+      ${bracketSlot(match.b, bWin, racerHref)}
     </div>`;
 }
 
@@ -772,7 +902,7 @@ function bracketMatch(match) {
 // side-scrolling row of columns rather than a connected tree (no SVG/
 // canvas connector lines), same "if it's too wide, let it scroll" call the
 // rest of the site's wide tables already make on mobile.
-function bracketColumns(bracket) {
+function bracketColumns(bracket, racerHref) {
   if (!bracket || !bracket.roundsOut.length) {
     return `<div class="empty" style="padding:20px 4px;">This tournament's round schedule isn't fully set up yet.</div>`;
   }
@@ -781,7 +911,7 @@ function bracketColumns(bracket) {
       ({ round, matches }) => `
       <div class="bracket-col">
         <div class="bracket-col-title">${escapeHtml(round.label)}</div>
-        ${matches.map(bracketMatch).join("")}
+        ${matches.map((m) => bracketMatch(m, racerHref)).join("")}
       </div>`
     )
     .join("");
@@ -798,7 +928,7 @@ function bracketColumns(bracket) {
 // doesn't apply here since a full bracket recompute isn't something to
 // replicate in the browser - this page simply reflects whatever the last
 // sync/build computed, same cadence as every other leaderboard.
-function tournamentsBody(tag, tournaments, brackets, assetsHref = "/assets/") {
+function tournamentsBody(tag, tournaments, brackets, assetsHref = "/assets/", racerHref) {
   const initialRows = !tournaments.length
     ? `<div class="empty" style="padding:40px 24px;">No tournaments scheduled for [${escapeHtml(tag)}] yet.</div>`
     : tournaments
@@ -813,7 +943,7 @@ function tournamentsBody(tag, tournaments, brackets, assetsHref = "/assets/") {
             Teams: ${t.teams.map((tg) => `[${escapeHtml(tg)}]`).join(" ")} · Scored by ${escapeHtml(fieldLabel)}${t.qualifying_races ? ` · Min ${escapeHtml(String(t.qualifying_races))} races each round to qualify` : ""}
           </div>
           ${t.description ? `<div style="color:var(--muted);font-size:13px;margin-bottom:14px;max-width:560px;">${escapeHtml(t.description)}</div>` : ""}
-          ${bracketColumns(bracket)}
+          ${bracketColumns(bracket, racerHref)}
         </div>`;
         })
         .join("");
@@ -1447,6 +1577,11 @@ const BASE_CSS = `
     object-fit: contain; flex: none;
     filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4));
   }
+  .stats-link {
+    display: inline-block; margin-left: 2px; font-size: 12px;
+    text-decoration: none; opacity: 0.75;
+  }
+  .stats-link:hover { opacity: 1; text-decoration: none; }
 
   .pill {
     display: inline-block;
@@ -1709,12 +1844,14 @@ module.exports = {
   leaderboardControls,
   rankBadgeClass,
   nitroTypeTeamHref,
+  nitroTypeRacerHref,
   leaderboardsBody,
   TRACKER_RANGES,
   trackerBody,
   activityBody,
   eventsBody,
   tournamentsBody,
+  racerStatsBody,
   notificationsBody,
   pageShell,
   carImageSourceUrl,

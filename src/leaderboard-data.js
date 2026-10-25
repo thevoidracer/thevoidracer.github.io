@@ -67,7 +67,7 @@ async function queryRacerPoints(pool, range, season, teamTag) {
     clause += ` and r.team_tag = $${params.length}`;
   }
   const { rows } = await pool.query(
-    `select r.username, r.display_name, r.team_tag, t.tag_color,
+    `select r.nt_user_id, r.username, r.display_name, r.team_tag, t.tag_color,
             r.car_id, r.car_hue_angle,
             sum(rp.points) as points,
             sum(rp.races_delta) as races,
@@ -80,13 +80,96 @@ async function queryRacerPoints(pool, range, season, teamTag) {
        order by captured_at desc limit 1
      ) s on true
      where ${clause}
-     group by r.username, r.display_name, r.team_tag, t.tag_color, r.car_id, r.car_hue_angle, s.avg_speed, s.top_speed, s.accuracy
+     group by r.nt_user_id, r.username, r.display_name, r.team_tag, t.tag_color, r.car_id, r.car_hue_angle, s.avg_speed, s.top_speed, s.accuracy
      having sum(rp.points) > 0
      order by points desc
      limit 100`,
     params
   );
   return rows;
+}
+
+// One racer's own points/races/avg_speed/accuracy in each of the site's
+// standard windows (see RANGE_INTERVALS/BUILT_RANGES above) - same ledger
+// and windows as every other leaderboard, just scoped to one person
+// instead of a whole board. Used by the per-racer stats page.
+async function queryRacerWindow(pool, ntUserId, range, season) {
+  const filter = rangeFilter(range, season, 1);
+  if (!filter) return null;
+  const { rows } = await pool.query(
+    `select coalesce(sum(rp.points), 0) as points,
+            coalesce(sum(rp.races_delta), 0) as races,
+            round(
+              sum(rp.races_delta * rp.avg_speed) filter (where rp.avg_speed is not null)
+              / nullif(sum(rp.races_delta) filter (where rp.avg_speed is not null), 0)
+            , 1) as avg_speed,
+            round(
+              sum(rp.races_delta * rp.accuracy) filter (where rp.accuracy is not null)
+              / nullif(sum(rp.races_delta) filter (where rp.accuracy is not null), 0)
+            , 2) as accuracy
+     from racer_points rp
+     where rp.nt_user_id = $1 and ${filter.clause}`,
+    [ntUserId, ...filter.params]
+  );
+  return rows[0] || null;
+}
+
+// { byRange: { hourly: {...}|null, ... }, season } - same BUILT_RANGES/
+// currentSeasonBounds this file's other loaders already use, so a racer's
+// own windows line up with the site-wide and per-team boards exactly.
+async function loadRacerWindows(pool, ntUserId) {
+  const season = await currentSeasonBounds(pool);
+  const byRange = {};
+  for (const range of BUILT_RANGES) {
+    byRange[range] = await queryRacerWindow(pool, ntUserId, range, season);
+  }
+  return { byRange, season };
+}
+
+// Every one of a team's own racers, windowed the same way as
+// queryRacerWindow above - but one query per window for the whole team
+// instead of one query per window PER RACER, so the static build can
+// generate every racer's stats page without the query count multiplying
+// by roster size (a 50-racer team would otherwise be 300 queries instead
+// of 6). Returns { nt_user_id: {points, races, avg_speed, accuracy} }.
+async function queryTeamRacerWindow(pool, teamTag, range, season) {
+  const filter = rangeFilter(range, season, 0);
+  if (!filter) return {};
+  const params = [...filter.params, teamTag];
+  const { rows } = await pool.query(
+    `select rp.nt_user_id,
+            coalesce(sum(rp.points), 0) as points,
+            coalesce(sum(rp.races_delta), 0) as races,
+            round(
+              sum(rp.races_delta * rp.avg_speed) filter (where rp.avg_speed is not null)
+              / nullif(sum(rp.races_delta) filter (where rp.avg_speed is not null), 0)
+            , 1) as avg_speed,
+            round(
+              sum(rp.races_delta * rp.accuracy) filter (where rp.accuracy is not null)
+              / nullif(sum(rp.races_delta) filter (where rp.accuracy is not null), 0)
+            , 2) as accuracy
+     from racer_points rp
+     where ${filter.clause} and rp.team_tag = $${params.length}
+     group by rp.nt_user_id`,
+    params
+  );
+  const byId = {};
+  rows.forEach((r) => {
+    byId[r.nt_user_id] = r;
+  });
+  return byId;
+}
+
+// { byRange: { hourly: {nt_user_id: {...}}, ... }, season } - a whole
+// team's racers windowed at once (see queryTeamRacerWindow); build.js
+// slices out each racer's own entry per window to build their stats page.
+async function loadTeamRacerWindows(pool, teamTag) {
+  const season = await currentSeasonBounds(pool);
+  const byRange = {};
+  for (const range of BUILT_RANGES) {
+    byRange[range] = await queryTeamRacerWindow(pool, teamTag, range, season);
+  }
+  return { byRange, season };
 }
 
 // Ranges shown on a team's own Tracker page - reuses the same keys/windows
@@ -163,4 +246,6 @@ module.exports = {
   queryTeamPoints,
   loadLeaderboardData,
   loadTeamTracker,
+  loadRacerWindows,
+  loadTeamRacerWindows,
 };

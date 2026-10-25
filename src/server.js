@@ -17,18 +17,25 @@ const {
   activityBody,
   eventsBody,
   tournamentsBody,
+  racerStatsBody,
   notificationsBody,
   teamAdminBody,
   pageShell,
   nitroTypeTeamHref,
   teamEmojiSuffix,
 } = require("./theme");
-const { loadLeaderboardData, loadTeamTracker } = require("./leaderboard-data");
+const { loadLeaderboardData, loadTeamTracker, loadRacerWindows } = require("./leaderboard-data");
 const { teamActivity } = require("./activity-data");
+const { loadRacerProfile } = require("./racer-data");
 const { queryNotifications } = require("./notifications");
 const { eventsForTeam } = require("./events-data");
 const { tournamentsForTeam, bracketsForTournaments } = require("./tournaments-data");
 const { accountIndexBody, accountConnectBody, signInBody } = require("./account-pages");
+
+// Express routes are flat/absolute, so a racer's own stats page URL is
+// always just /teams/<tag>/racer/<id> regardless of which team's page
+// links to it (unlike build.js's relative paths, which differ by depth).
+const racerHrefFor = (tag) => (ntUserId) => `/teams/${encodeURIComponent(tag)}/racer/${ntUserId}`;
 
 // Built, non-roster sections render their own content - async because (unlike
 // build.js, which pre-queries everything once per build) each request here
@@ -39,10 +46,14 @@ async function sectionContent(key, tag, captainNtUserId) {
   if (key === "tournaments") {
     const tournaments = await tournamentsForTeam(pool, tag);
     const brackets = await bracketsForTournaments(pool, tournaments);
-    return tournamentsBody(tag, tournaments, brackets, "/assets/");
+    // A tournament can span several teams, so an entrant's own stats page
+    // may live under a different team than this one - take teamTag from
+    // the entrant itself rather than assuming the page's own team.
+    const racerHref = (ntUserId, teamTag) => `/teams/${encodeURIComponent(teamTag)}/racer/${ntUserId}`;
+    return tournamentsBody(tag, tournaments, brackets, "/assets/", racerHref);
   }
-  if (key === "trackers") return trackerBody(await loadTeamTracker(pool, tag), "/assets/");
-  if (key === "activity") return activityBody(tag, await teamActivity(pool, tag), "/assets/");
+  if (key === "trackers") return trackerBody(await loadTeamTracker(pool, tag), "/assets/", racerHrefFor(tag));
+  if (key === "activity") return activityBody(tag, await teamActivity(pool, tag), "/assets/", racerHrefFor(tag));
   if (key === "notifications") return notificationsBody(tag, await queryNotifications(pool, tag));
   if (key === "admin") {
     const racers = await pool.query(
@@ -210,7 +221,7 @@ app.get("/teams/:tag", async (req, res) => {
       return res.status(404).send(`No team with tag "${escapeHtml(tag)}" in the database yet.`);
     }
     const racers = await pool.query(
-      `select r.username, r.display_name, r.role, r.membership, r.joined_at_nt,
+      `select r.nt_user_id, r.username, r.display_name, r.role, r.membership, r.joined_at_nt,
               r.car_id, r.car_hue_angle, sq.name as squad_name, sq.color as squad_color,
               s.avg_speed, s.top_speed, s.races, s.accuracy
        from racers r
@@ -225,7 +236,7 @@ app.get("/teams/:tag", async (req, res) => {
       [tag]
     );
     const t = team.rows[0];
-    const rowsHtml = racerRosterRows(racers.rows, t, "/assets/");
+    const rowsHtml = racerRosterRows(racers.rows, t, "/assets/", racerHrefFor(tag));
 
     const reqBar = `
       <div class="req-bar">
@@ -334,6 +345,52 @@ app.get("/teams/:tag/:section", async (req, res) => {
   } catch (err) {
     console.error("Team section page query failed:", err.message);
     res.status(500).send("Could not load that team.");
+  }
+});
+
+// One racer's own stats page - identity + latest racer_stats snapshot
+// (loadRacerProfile) plus their own points/races/avg speed/accuracy in
+// every window this site tracks (loadRacerWindows), same ledger as every
+// other board. Linked from the small 📊 icon next to a racer's name
+// anywhere one appears (see theme.js's racerNameMarkup).
+app.get("/teams/:tag/racer/:id", async (req, res) => {
+  const tag = req.params.tag.toUpperCase();
+  const ntUserId = Number(req.params.id);
+  if (!Number.isInteger(ntUserId)) {
+    return res.status(404).send("Not found.");
+  }
+  try {
+    const racer = await loadRacerProfile(pool, ntUserId);
+    if (!racer || racer.team_tag !== tag) {
+      return res.status(404).send(`No racer with that id on team "${escapeHtml(tag)}".`);
+    }
+    const team = {
+      tag: racer.team_tag,
+      display_name: racer.team_display_name,
+      tag_color: racer.tag_color,
+      team_emoji: racer.team_emoji,
+      captain_nt_user_id: racer.captain_nt_user_id,
+    };
+    const windows = await loadRacerWindows(pool, ntUserId);
+    const teamHref = (t) => `/teams/${encodeURIComponent(t)}`;
+    const linkFor = (key) => (key === "roster" ? teamHref(tag) : `${teamHref(tag)}/${key}`);
+    const body = `
+      <div class="team-layout">
+        ${teamSidebar("racer", linkFor)}
+        <div class="team-content">${racerStatsBody(racer, team, windows, "/assets/", teamHref)}</div>
+      </div>`;
+    res.type("html").send(
+      pageShell({
+        title: `[${tag}] ${racer.display_name || racer.username} — Stats`,
+        body,
+        crumb: `<a href="${teamHref(tag)}">← [${escapeHtml(tag)}] roster</a>`,
+        ...SITE_NAV,
+        active: "teams",
+      })
+    );
+  } catch (err) {
+    console.error("Racer stats page query failed:", err.message);
+    res.status(500).send("Could not load that racer.");
   }
 });
 
