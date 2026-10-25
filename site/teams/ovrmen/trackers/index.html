@@ -141,6 +141,19 @@
     font-size: 30px; font-weight: 700; letter-spacing: 0.3px;
   }
   .hero .sub { margin-top: 10px; font-size: 13px; opacity: 0.9; }
+  .hero-mvp {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    font-size: 12.5px;
+    font-weight: 700;
+    background: rgba(255,255,255,0.14);
+    border-radius: 999px;
+    padding: 6px 14px;
+  }
+  .hero-mvp a { color: inherit; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.4); }
+  .hero-mvp .stats-link { text-decoration: none; }
   .hero .meta-stats {
     display: flex; gap: 28px; margin-top: 14px; flex-wrap: wrap;
   }
@@ -157,6 +170,8 @@
   }
   .req-bar .req { color: var(--muted); }
   .req-bar .req b { color: var(--text); font-weight: 700; }
+  .req-bar a.req:not(.discord-invite) { text-decoration: none; }
+  .req-bar a.req:not(.discord-invite):hover { text-decoration: underline; }
   .req-bar a.req.discord-invite {
     color: var(--velocity);
     font-weight: 700;
@@ -496,6 +511,20 @@
   .notif-headline { font-size: 13.5px; color: var(--text); }
   .notif-meta { font-size: 11.5px; color: var(--muted); margin-top: 3px; }
 
+  .lb-search-row { margin-bottom: 12px; }
+  .lb-search {
+    width: 100%;
+    max-width: 360px;
+    font: inherit;
+    font-size: 13.5px;
+    color: var(--text);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 9px 14px;
+  }
+  .lb-search::placeholder { color: var(--muted); }
+  .lb-search:focus { outline: none; border-color: var(--accent); }
   .lb-controls {
     display: flex; justify-content: space-between; align-items: center;
     flex-wrap: wrap; gap: 10px;
@@ -715,13 +744,14 @@
       <div class="name">[OVRMEN] Overmen</div>
       <div class="sub">
         Captain: Detached · 26 racers tracked · last synced 10/25/2026, 8:07:41 PM</div>
+      <div class="hero-mvp">🏆 This week's top racer: <a href="https://www.nitrotype.com/racer/zarathustra" target="_blank" rel="noopener" title="View on Nitro Type">Detached</a> <a class="stats-link" href="../racer/86438927/" title="Detached's stats on TypeTrack">📊</a> — 6,686.24 pts</div>
     </div>
     <h2 style="margin:28px 0 14px;">Tracker</h2>
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
     
     <div class="lb-controls">
       <div class="seg" data-role="trk-range">
-        <button type="button" class="seg-btn active" data-range="daily">Daily</button><button type="button" class="seg-btn" data-range="weekly">Weekly</button><button type="button" class="seg-btn" data-range="seasonal">Season</button><button type="button" class="seg-btn" data-range="alltime">All-Time</button>
+        <button type="button" class="seg-btn" data-range="hourly">Hourly</button><button type="button" class="seg-btn active" data-range="daily">Daily</button><button type="button" class="seg-btn" data-range="weekly">Weekly</button><button type="button" class="seg-btn" data-range="monthly">Monthly</button><button type="button" class="seg-btn" data-range="seasonal">Season</button><button type="button" class="seg-btn" data-range="alltime">All-Time</button>
       </div>
     </div>
     <script>
@@ -742,7 +772,7 @@
         });
       })();
     </script>
-    <div class="trk-panel" data-range="daily">
+    <div class="trk-panel" data-range="hourly" hidden><div class="empty" style="padding:40px 24px;">No one on this team earned any points in the Hourly window yet — this fills in as more syncs run.</div></div><div class="trk-panel" data-range="daily">
     <div class="table-wrap">
       <table>
         <thead>
@@ -790,6 +820,53 @@
         </tr></tbody>
       </table>
     </div></div><div class="trk-panel" data-range="weekly" hidden>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Racer</th><th>Points</th><th>Races</th><th>Avg speed</th><th>Highest speed</th><th>Accuracy</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><span class="lb-rank top1">1</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(194 85% 65%)">D</span>
+            <img class="car-thumb" src="../../../assets/cars/snowgrave_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/zarathustra" target="_blank" rel="noopener" title="View on Nitro Type">Detached</a> <a class="stats-link" href="../racer/86438927/" title="Detached's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">6,686.24</span></td>
+          <td>44</td>
+          <td>110</td>
+          <td>145</td>
+          <td><span class="pill good">96.21%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank top2">2</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(334 85% 65%)">M</span>
+            
+            <a href="https://www.nitrotype.com/racer/monkeykid6776_123" target="_blank" rel="noopener" title="View on Nitro Type">monkeykid6776_123</a> <a class="stats-link" href="../racer/89065581/" title="monkeykid6776_123's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">793.94</span></td>
+          <td>7</td>
+          <td>35</td>
+          <td>97</td>
+          <td><span class="pill good">95.92%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank top3">3</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(72 85% 65%)">T</span>
+            
+            <a href="https://www.nitrotype.com/racer/chaboyaphantom" target="_blank" rel="noopener" title="View on Nitro Type">teaquangyin</a> <a class="stats-link" href="../racer/4765475/" title="teaquangyin's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">147.02</span></td>
+          <td>1</td>
+          <td>102</td>
+          <td>134</td>
+          <td><span class="pill good">96.02%</span></td>
+        </tr></tbody>
+      </table>
+    </div></div><div class="trk-panel" data-range="monthly" hidden>
     <div class="table-wrap">
       <table>
         <thead>
@@ -933,6 +1010,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T20:16:00.112Z</footer>
+<footer class="site">Generated 2026-10-25T20:25:29.002Z</footer>
 </body>
 </html>

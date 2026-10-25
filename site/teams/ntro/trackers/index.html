@@ -141,6 +141,19 @@
     font-size: 30px; font-weight: 700; letter-spacing: 0.3px;
   }
   .hero .sub { margin-top: 10px; font-size: 13px; opacity: 0.9; }
+  .hero-mvp {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    font-size: 12.5px;
+    font-weight: 700;
+    background: rgba(255,255,255,0.14);
+    border-radius: 999px;
+    padding: 6px 14px;
+  }
+  .hero-mvp a { color: inherit; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.4); }
+  .hero-mvp .stats-link { text-decoration: none; }
   .hero .meta-stats {
     display: flex; gap: 28px; margin-top: 14px; flex-wrap: wrap;
   }
@@ -157,6 +170,8 @@
   }
   .req-bar .req { color: var(--muted); }
   .req-bar .req b { color: var(--text); font-weight: 700; }
+  .req-bar a.req:not(.discord-invite) { text-decoration: none; }
+  .req-bar a.req:not(.discord-invite):hover { text-decoration: underline; }
   .req-bar a.req.discord-invite {
     color: var(--velocity);
     font-weight: 700;
@@ -496,6 +511,20 @@
   .notif-headline { font-size: 13.5px; color: var(--text); }
   .notif-meta { font-size: 11.5px; color: var(--muted); margin-top: 3px; }
 
+  .lb-search-row { margin-bottom: 12px; }
+  .lb-search {
+    width: 100%;
+    max-width: 360px;
+    font: inherit;
+    font-size: 13.5px;
+    color: var(--text);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 9px 14px;
+  }
+  .lb-search::placeholder { color: var(--muted); }
+  .lb-search:focus { outline: none; border-color: var(--accent); }
   .lb-controls {
     display: flex; justify-content: space-between; align-items: center;
     flex-wrap: wrap; gap: 10px;
@@ -715,13 +744,14 @@
       <div class="name">[NTRO] The Nitro Federation</div>
       <div class="sub">
         Captain: -Isaac- · 23 racers tracked · last synced 10/25/2026, 8:07:35 PM</div>
+      <div class="hero-mvp">🏆 This week's top racer: <a href="https://www.nitrotype.com/racer/trainyt" target="_blank" rel="noopener" title="View on Nitro Type">trainyt</a> <a class="stats-link" href="../racer/62295547/" title="trainyt's stats on TypeTrack">📊</a> — 8,843.18 pts</div>
     </div>
     <h2 style="margin:28px 0 14px;">Tracker</h2>
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
     
     <div class="lb-controls">
       <div class="seg" data-role="trk-range">
-        <button type="button" class="seg-btn active" data-range="daily">Daily</button><button type="button" class="seg-btn" data-range="weekly">Weekly</button><button type="button" class="seg-btn" data-range="seasonal">Season</button><button type="button" class="seg-btn" data-range="alltime">All-Time</button>
+        <button type="button" class="seg-btn" data-range="hourly">Hourly</button><button type="button" class="seg-btn active" data-range="daily">Daily</button><button type="button" class="seg-btn" data-range="weekly">Weekly</button><button type="button" class="seg-btn" data-range="monthly">Monthly</button><button type="button" class="seg-btn" data-range="seasonal">Season</button><button type="button" class="seg-btn" data-range="alltime">All-Time</button>
       </div>
     </div>
     <script>
@@ -742,7 +772,41 @@
         });
       })();
     </script>
-    <div class="trk-panel" data-range="daily">
+    <div class="trk-panel" data-range="hourly" hidden>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Racer</th><th>Points</th><th>Races</th><th>Avg speed</th><th>Highest speed</th><th>Accuracy</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><span class="lb-rank top1">1</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(217 85% 65%)">-</span>
+            
+            <a href="https://www.nitrotype.com/racer/25isaac_tower" target="_blank" rel="noopener" title="View on Nitro Type">-Isaac-</a> <a class="stats-link" href="../racer/25467084/" title="-Isaac-'s stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">7,866.61</span></td>
+          <td>47</td>
+          <td>151</td>
+          <td>197</td>
+          <td><span class="pill ok">94.63%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank top2">2</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(135 85% 65%)">K</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-spirit_koi_small_80.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/c8359426cbfc7e2fab67f79e88b22d6f" target="_blank" rel="noopener" title="View on Nitro Type">Kritical</a> <a class="stats-link" href="../racer/43504983/" title="Kritical's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">448.62</span></td>
+          <td>3</td>
+          <td>110</td>
+          <td>158</td>
+          <td><span class="pill ok">94.54%</span></td>
+        </tr></tbody>
+      </table>
+    </div></div><div class="trk-panel" data-range="daily">
     <div class="table-wrap">
       <table>
         <thead>
@@ -816,6 +880,79 @@
         </tr></tbody>
       </table>
     </div></div><div class="trk-panel" data-range="weekly" hidden>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Racer</th><th>Points</th><th>Races</th><th>Avg speed</th><th>Highest speed</th><th>Accuracy</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><span class="lb-rank top1">1</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(35 85% 65%)">T</span>
+            
+            <a href="https://www.nitrotype.com/racer/trainyt" target="_blank" rel="noopener" title="View on Nitro Type">trainyt</a> <a class="stats-link" href="../racer/62295547/" title="trainyt's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">8,843.18</span></td>
+          <td>53</td>
+          <td>136</td>
+          <td>170</td>
+          <td><span class="pill good">97.56%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank top2">2</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(217 85% 65%)">-</span>
+            
+            <a href="https://www.nitrotype.com/racer/25isaac_tower" target="_blank" rel="noopener" title="View on Nitro Type">-Isaac-</a> <a class="stats-link" href="../racer/25467084/" title="-Isaac-'s stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">7,866.61</span></td>
+          <td>47</td>
+          <td>151</td>
+          <td>197</td>
+          <td><span class="pill ok">94.63%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank top3">3</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(90 85% 65%)">S</span>
+            
+            <a href="https://www.nitrotype.com/racer/amennn" target="_blank" rel="noopener" title="View on Nitro Type">snoww_-</a> <a class="stats-link" href="../racer/88381702/" title="snoww_-'s stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">4,541.37</span></td>
+          <td>40</td>
+          <td>48</td>
+          <td>132</td>
+          <td><span class="pill low">89.17%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">4</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(135 85% 65%)">K</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-spirit_koi_small_80.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/c8359426cbfc7e2fab67f79e88b22d6f" target="_blank" rel="noopener" title="View on Nitro Type">Kritical</a> <a class="stats-link" href="../racer/43504983/" title="Kritical's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">448.62</span></td>
+          <td>3</td>
+          <td>110</td>
+          <td>158</td>
+          <td><span class="pill ok">94.54%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">5</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(188 85% 65%)">A</span>
+            <img class="car-thumb" src="../../../assets/cars/underworld_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/aurahaker" target="_blank" rel="noopener" title="View on Nitro Type">aurahaker</a> <a class="stats-link" href="../racer/90361653/" title="aurahaker's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">108.52</span></td>
+          <td>1</td>
+          <td>26</td>
+          <td>91</td>
+          <td><span class="pill good">95.52%</span></td>
+        </tr></tbody>
+      </table>
+    </div></div><div class="trk-panel" data-range="monthly" hidden>
     <div class="table-wrap">
       <table>
         <thead>
@@ -1037,6 +1174,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T20:15:42.504Z</footer>
+<footer class="site">Generated 2026-10-25T20:25:19.799Z</footer>
 </body>
 </html>

@@ -141,6 +141,19 @@
     font-size: 30px; font-weight: 700; letter-spacing: 0.3px;
   }
   .hero .sub { margin-top: 10px; font-size: 13px; opacity: 0.9; }
+  .hero-mvp {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 12px;
+    font-size: 12.5px;
+    font-weight: 700;
+    background: rgba(255,255,255,0.14);
+    border-radius: 999px;
+    padding: 6px 14px;
+  }
+  .hero-mvp a { color: inherit; text-decoration: underline; text-decoration-color: rgba(255,255,255,0.4); }
+  .hero-mvp .stats-link { text-decoration: none; }
   .hero .meta-stats {
     display: flex; gap: 28px; margin-top: 14px; flex-wrap: wrap;
   }
@@ -157,6 +170,8 @@
   }
   .req-bar .req { color: var(--muted); }
   .req-bar .req b { color: var(--text); font-weight: 700; }
+  .req-bar a.req:not(.discord-invite) { text-decoration: none; }
+  .req-bar a.req:not(.discord-invite):hover { text-decoration: underline; }
   .req-bar a.req.discord-invite {
     color: var(--velocity);
     font-weight: 700;
@@ -496,6 +511,20 @@
   .notif-headline { font-size: 13.5px; color: var(--text); }
   .notif-meta { font-size: 11.5px; color: var(--muted); margin-top: 3px; }
 
+  .lb-search-row { margin-bottom: 12px; }
+  .lb-search {
+    width: 100%;
+    max-width: 360px;
+    font: inherit;
+    font-size: 13.5px;
+    color: var(--text);
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 9px 14px;
+  }
+  .lb-search::placeholder { color: var(--muted); }
+  .lb-search:focus { outline: none; border-color: var(--accent); }
   .lb-controls {
     display: flex; justify-content: space-between; align-items: center;
     flex-wrap: wrap; gap: 10px;
@@ -715,13 +744,14 @@
       <div class="name">[NTCORE] NTLegendz</div>
       <div class="sub">
         Captain: VortexSpeed · 45 racers tracked · last synced 10/25/2026, 8:07:19 PM</div>
+      <div class="hero-mvp">🏆 This week's top racer: <a href="https://www.nitrotype.com/racer/659e8f893dd4789b6e904e5b8afafa24" target="_blank" rel="noopener" title="View on Nitro Type">AQUASOX16</a> <a class="stats-link" href="../racer/63685894/" title="AQUASOX16's stats on TypeTrack">📊</a> — 4,979.62 pts</div>
     </div>
     <h2 style="margin:28px 0 14px;">Tracker</h2>
     <p class="meta-row">This team's own racers, ranked by points earned in each window — the same ledger behind the site-wide leaderboard, scoped to just this roster.</p>
     
     <div class="lb-controls">
       <div class="seg" data-role="trk-range">
-        <button type="button" class="seg-btn active" data-range="daily">Daily</button><button type="button" class="seg-btn" data-range="weekly">Weekly</button><button type="button" class="seg-btn" data-range="seasonal">Season</button><button type="button" class="seg-btn" data-range="alltime">All-Time</button>
+        <button type="button" class="seg-btn" data-range="hourly">Hourly</button><button type="button" class="seg-btn active" data-range="daily">Daily</button><button type="button" class="seg-btn" data-range="weekly">Weekly</button><button type="button" class="seg-btn" data-range="monthly">Monthly</button><button type="button" class="seg-btn" data-range="seasonal">Season</button><button type="button" class="seg-btn" data-range="alltime">All-Time</button>
       </div>
     </div>
     <script>
@@ -742,7 +772,28 @@
         });
       })();
     </script>
-    <div class="trk-panel" data-range="daily">
+    <div class="trk-panel" data-range="hourly" hidden>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Racer</th><th>Points</th><th>Races</th><th>Avg speed</th><th>Highest speed</th><th>Accuracy</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><span class="lb-rank top1">1</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(313 85% 65%)">V</span>
+            
+            <a href="https://www.nitrotype.com/racer/daniel473765" target="_blank" rel="noopener" title="View on Nitro Type">VortexSpeed</a> <a class="stats-link" href="../racer/85438448/" title="VortexSpeed's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">716.6</span></td>
+          <td>5</td>
+          <td>98</td>
+          <td>163</td>
+          <td><span class="pill ok">94.32%</span></td>
+        </tr></tbody>
+      </table>
+    </div></div><div class="trk-panel" data-range="daily">
     <div class="table-wrap">
       <table>
         <thead>
@@ -829,6 +880,92 @@
         </tr></tbody>
       </table>
     </div></div><div class="trk-panel" data-range="weekly" hidden>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>Racer</th><th>Points</th><th>Races</th><th>Avg speed</th><th>Highest speed</th><th>Accuracy</th></tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td><span class="lb-rank top1">1</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(165 85% 65%)">A</span>
+            <img class="car-thumb" src="../../../assets/cars/sprinter_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/659e8f893dd4789b6e904e5b8afafa24" target="_blank" rel="noopener" title="View on Nitro Type">AQUASOX16</a> <a class="stats-link" href="../racer/63685894/" title="AQUASOX16's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">4,979.62</span></td>
+          <td>43</td>
+          <td>45</td>
+          <td>90</td>
+          <td><span class="pill ok">93.25%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank top2">2</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(121 85% 65%)">E</span>
+            
+            <a href="https://www.nitrotype.com/racer/emayhem1" target="_blank" rel="noopener" title="View on Nitro Type">emayhem1</a> <a class="stats-link" href="../racer/30840448/" title="emayhem1's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">3,973.1</span></td>
+          <td>29</td>
+          <td>84</td>
+          <td>104</td>
+          <td><span class="pill ok">94.9%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank top3">3</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(231 85% 65%)">B</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-hurricania_small_100.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/bda734da1314fb34b02a88ad95732661" target="_blank" rel="noopener" title="View on Nitro Type">BoysAreKings</a> <a class="stats-link" href="../racer/82018338/" title="BoysAreKings's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">3,899.56</span></td>
+          <td>38</td>
+          <td>30</td>
+          <td>46</td>
+          <td><span class="pill low">87.62%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">4</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(313 85% 65%)">V</span>
+            
+            <a href="https://www.nitrotype.com/racer/daniel473765" target="_blank" rel="noopener" title="View on Nitro Type">VortexSpeed</a> <a class="stats-link" href="../racer/85438448/" title="VortexSpeed's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">1,579.52</span></td>
+          <td>11</td>
+          <td>98</td>
+          <td>163</td>
+          <td><span class="pill ok">94.32%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">5</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(236 85% 65%)">C</span>
+            <img class="car-thumb" src="../../../assets/cars/radon620c_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/3db44b201d96d1836245b1fd154ec58e" target="_blank" rel="noopener" title="View on Nitro Type">Cha-Ching</a> <a class="stats-link" href="../racer/85339277/" title="Cha-Ching's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">1,050.4</span></td>
+          <td>10</td>
+          <td>33</td>
+          <td>94</td>
+          <td><span class="pill low">88.54%</span></td>
+        </tr>
+        <tr>
+          <td><span class="lb-rank">6</span></td>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(9 85% 65%)">T</span>
+            <img class="car-thumb" src="../../../assets/cars/painted-pagani_small_200.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/ef6744afd2eff2bf8983e3f18b1b28c8" target="_blank" rel="noopener" title="View on Nitro Type">This Guy</a> <a class="stats-link" href="../racer/81290708/" title="This Guy's stats on TypeTrack">📊</a>
+          </td>
+          <td><span class="points">231.57</span></td>
+          <td>2</td>
+          <td>47</td>
+          <td>76</td>
+          <td><span class="pill ok">92.29%</span></td>
+        </tr></tbody>
+      </table>
+    </div></div><div class="trk-panel" data-range="monthly" hidden>
     <div class="table-wrap">
       <table>
         <thead>
@@ -1089,6 +1226,6 @@
     </div></div></div>
     </div>
 </main>
-<footer class="site">Generated 2026-10-25T20:15:47.684Z</footer>
+<footer class="site">Generated 2026-10-25T20:25:22.520Z</footer>
 </body>
 </html>
