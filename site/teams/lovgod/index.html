@@ -1,0 +1,1240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>[LOVGOD] Christains For Life</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Rajdhani:wght@600;700&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+  :root {
+    --bg: #0a0c11;
+    --panel: #12151d;
+    --panel-2: #181c27;
+    --border: #272c3a;
+    --text: #f1f3f8;
+    --muted: #8d96a8;
+    /* Amber is the brand/chrome color - nav, buttons, the default card
+       accent. Cyan ("velocity") is spent in exactly one place: the
+       single most important number on any page (leaderboard points),
+       so it reads as a highlight instead of just another UI color. */
+    --accent: #ffb020;
+    --velocity: #29d3ff;
+    --good: #3ddc84;
+    --ok: #ffb020;
+    --low: #ff5c5c;
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    /* Flat dark fills read dead at this size - a faint diagonal
+       "tread" texture (two offset stripe layers, almost invisible,
+       fixed so it doesn't scroll with the page) gives the background
+       some depth without competing with the data on top of it. */
+    background-color: var(--bg);
+    background-image:
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 64px),
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.012) 0 10px, transparent 10px 64px);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: "Manrope", -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  header.site {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    background: var(--panel);
+    box-shadow: 0 1px 24px rgba(255,176,32,0.06);
+    position: relative;
+    z-index: 1;
+  }
+  header.site .mark {
+    width: 30px; height: 30px; border-radius: 9px;
+    background: linear-gradient(135deg, #ffb020, #ff5e3d);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 15px; color: #1a0f00;
+    flex: none;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.08) inset, 0 4px 14px rgba(255,176,32,0.35);
+  }
+  header.site .name {
+    font-family: "Rajdhani", "Manrope", sans-serif;
+    font-weight: 700; font-size: 20px; letter-spacing: 0.3px; margin-right: 10px;
+    background: linear-gradient(135deg, #f6f7fb, #c7cedd);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  header.site .tagline { color: var(--muted); font-size: 13px; margin-left: 4px; }
+  .site-nav { display: flex; gap: 4px; margin-left: 6px; }
+  .site-nav-link {
+    color: var(--muted);
+    font-weight: 700;
+    font-size: 13.5px;
+    padding: 6px 11px;
+    border-radius: 7px;
+  }
+  .site-nav-link { position: relative; }
+  .site-nav-link:hover { color: var(--text); text-decoration: none; background: var(--panel-2); }
+  .site-nav-link.active { color: var(--accent); background: rgba(255,176,32,0.12); }
+  .site-nav-link.active::after {
+    content: "";
+    position: absolute; left: 11px; right: 11px; bottom: -11px;
+    height: 2px; border-radius: 2px;
+    background: var(--accent);
+  }
+
+  main { max-width: 1040px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  .crumb { color: var(--muted); font-size: 13px; margin-bottom: 18px; }
+
+  h1 { font-family: "Rajdhani", "Manrope", sans-serif; font-size: 25px; font-weight: 700; margin: 0 0 4px; }
+  h1 .tag-badge { padding: 2px 9px; border-radius: 6px; font-size: 14px; font-weight: 800; margin-right: 8px; }
+
+  .meta-row {
+    display: flex; gap: 22px; flex-wrap: wrap;
+    color: var(--muted); font-size: 13px; margin: 10px 0 22px;
+  }
+  .meta-row strong { color: var(--text); }
+
+  .hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    margin-bottom: 22px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), 0 10px 26px rgba(0,0,0,0.3);
+  }
+  /* The team's real tagColor is set inline as a flat fill (see above) -
+     this overlay adds a soft glow + diagonal sheen on top of whatever
+     that color is, so the banner reads like a lit card instead of a
+     flat paint swatch, without needing a photo behind it. */
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(520px 200px at 85% -20%, rgba(255,255,255,0.22), transparent 60%),
+      linear-gradient(120deg, rgba(255,255,255,0.1), transparent 40%),
+      linear-gradient(0deg, rgba(0,0,0,0.18), transparent 55%);
+    pointer-events: none;
+  }
+  /* A field of diagonal light-trail stripes, like a car's motion blur,
+     masked so it only shows on the right ~45% of the banner - it reads
+     as speed without ever crossing behind the team name/text on the
+     left. */
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(100deg, rgba(255,255,255,0.16) 0 3px, transparent 3px 28px);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 54%, rgba(0,0,0,1) 80%, rgba(0,0,0,1) 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, transparent 54%, rgba(0,0,0,1) 80%, rgba(0,0,0,1) 100%);
+    pointer-events: none;
+  }
+  .hero > * { position: relative; }
+  .hero .name {
+    font-family: "Rajdhani", "Manrope", sans-serif;
+    font-size: 30px; font-weight: 700; letter-spacing: 0.3px;
+  }
+  .hero .sub { margin-top: 10px; font-size: 13px; opacity: 0.9; }
+  .hero .meta-stats {
+    display: flex; gap: 28px; margin-top: 14px; flex-wrap: wrap;
+  }
+  .hero .meta-stats .stat { font-size: 12px; opacity: 0.85; }
+  .hero .meta-stats .stat b { display: block; font-size: 15px; font-weight: 800; opacity: 1; margin-top: 2px; }
+
+  .req-bar {
+    display: flex; gap: 28px; flex-wrap: wrap; align-items: center;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    margin-bottom: 14px;
+    font-size: 13px;
+  }
+  .req-bar .req { color: var(--muted); }
+  .req-bar .req b { color: var(--text); font-weight: 700; }
+  .req-bar a.req.discord-invite {
+    color: var(--velocity);
+    font-weight: 700;
+    text-decoration: none;
+    margin-left: auto;
+  }
+  .req-bar a.req.discord-invite:hover { text-decoration: underline; }
+
+  .special-reqs {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    margin-bottom: 22px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .special-reqs .label {
+    text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;
+    color: var(--muted); font-weight: 700; margin-bottom: 6px;
+  }
+  .special-reqs .text { color: var(--text); line-height: 1.5; word-break: break-word; }
+
+  .activity-chart {
+    display: flex; align-items: flex-end; gap: 4px;
+    height: 160px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 12px 10px;
+    margin-bottom: 8px;
+  }
+  .activity-bar {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-end; height: 100%; min-width: 0;
+  }
+  .activity-bar .bar {
+    width: 100%; max-width: 18px; height: var(--h);
+    background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px;
+  }
+  .activity-bar .bar-label {
+    font-size: 10px; color: var(--muted); margin-top: 6px; height: 14px;
+    white-space: nowrap;
+  }
+
+  .index-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
+  }
+  .search-box input {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-family: inherit;
+    font-size: 13px;
+    width: 220px;
+  }
+  .search-box input:focus { outline: 1px solid var(--accent); }
+  .search-box input::placeholder { color: var(--muted); }
+
+  .card .req-line { font-size: 12px; color: var(--muted); }
+  .card .req-line b { color: var(--text); }
+  .card .view-link {
+    margin-top: 4px;
+    display: inline-block;
+    color: var(--card-accent, var(--accent));
+    font-weight: 700;
+    font-size: 12.5px;
+    align-self: flex-start;
+  }
+  .card .view-link:hover { text-decoration: underline; }
+
+  .role-pill {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    padding: 1px 6px;
+    border-radius: 5px;
+    margin-left: 7px;
+    vertical-align: middle;
+  }
+  .role-pill.captain { background: rgba(255,176,32,0.18); color: var(--ok); }
+  .role-pill.officer { background: rgba(41,211,255,0.16); color: var(--velocity); }
+  .role-pill.gold { background: rgba(255,176,32,0.12); color: var(--ok); }
+
+  .squad-pill {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 800;
+    padding: 1px 7px;
+    border-radius: 5px;
+    margin-left: 7px;
+    vertical-align: middle;
+    border: 1px solid;
+  }
+  .squad-swatch {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  .team-layout {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .team-sidebar {
+    width: 190px;
+    flex: none;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px;
+    position: sticky;
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .team-sidebar .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 10px;
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 13.5px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .team-sidebar .nav-item:hover { background: var(--panel-2); text-decoration: none; }
+  .team-sidebar .nav-item.active { background: rgba(255,176,32,0.15); color: var(--accent); }
+  .team-sidebar .nav-icon { font-size: 14px; flex: none; opacity: 0.9; }
+  .team-sidebar .soon-tag {
+    margin-left: auto;
+    font-size: 9px;
+    background: rgba(170,178,192,0.15);
+    color: var(--muted);
+    padding: 2px 6px;
+    border-radius: 999px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .team-sidebar .nav-section-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    font-weight: 700;
+    padding: 12px 10px 4px;
+  }
+  .team-content { flex: 1; min-width: 0; }
+
+  @media (max-width: 760px) {
+    .team-layout { flex-direction: column; }
+    .team-sidebar {
+      width: 100%;
+      position: static;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .team-sidebar .nav-section-label { display: none; }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 14px;
+  }
+  /* Each card carries its own team's color as --card-accent (set inline
+     per card), used for the top edge, the hover glow, and the "View
+     roster" link below - so a grid of teams reads as a grid of
+     distinct teams, not one repeated card shape in a neutral blue. */
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--card-accent, var(--accent));
+    border-radius: var(--radius);
+    padding: 15px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px color-mix(in srgb, var(--card-accent, var(--accent)) 30%, transparent);
+  }
+  .card .top { display: flex; align-items: center; gap: 10px; }
+  /* The tag (short, stable) links to this team's own TypeTrack page;
+     the full name links out to the team's real Nitro Type page - two
+     different destinations, so they get two separate link targets
+     instead of one link covering the whole header. */
+  .card .tag { font-weight: 800; font-size: 14px; color: var(--card-accent, var(--accent)); }
+  .card .tag:hover { text-decoration: underline; }
+  .card .display-name {
+    font-family: "Rajdhani", "Manrope", sans-serif;
+    color: var(--text); font-weight: 600; font-size: 15px;
+  }
+  .card .display-name:hover { text-decoration: underline; color: var(--card-accent, var(--accent)); }
+  .card .footer { margin-top: auto; font-size: 11.5px; color: var(--muted); }
+  .card a.cover { position: static; }
+  .card a.view { align-self: flex-start; font-size: 12.5px; font-weight: 700; }
+
+  .empty {
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    color: var(--muted);
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--panel);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+  }
+  table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  thead th {
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    font-weight: 700;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    background: var(--panel-2);
+    position: sticky; top: 0;
+  }
+  /* Numeric/stat columns read like a data table (StarTrack-style) when
+     the digits line up on a fixed grid instead of a variable-width
+     text font - tabular-nums keeps this in Manrope rather than
+     switching the whole row to monospace. */
+  tbody td {
+    padding: 11px 14px;
+    font-size: 13.5px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) { background: rgba(255,255,255,0.015); }
+  tbody tr:hover { background: rgba(41,211,255,0.06); }
+  td.racer { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
+  .avatar {
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; color: #0b1220;
+    flex: none;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.08), 0 2px 6px rgba(0,0,0,0.3);
+  }
+  .car-thumb {
+    height: 22px; width: auto; max-width: 42px;
+    object-fit: contain; flex: none;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4));
+  }
+  .stats-link {
+    display: inline-block; margin-left: 2px; font-size: 12px;
+    text-decoration: none; opacity: 0.75;
+  }
+  .stats-link:hover { opacity: 1; text-decoration: none; }
+
+  .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .pill.good { background: rgba(61,220,132,0.15); color: var(--good); }
+  .pill.ok   { background: rgba(232,197,71,0.15); color: var(--ok); }
+  .pill.low  { background: rgba(255,107,107,0.15); color: var(--low); }
+  .pill.na   { background: rgba(170,178,192,0.12); color: var(--muted); }
+
+  .notif-day { margin-bottom: 22px; }
+  .notif-date { font-weight: 800; font-size: 13.5px; margin-bottom: 8px; }
+  .notif-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    margin-bottom: 8px;
+  }
+  .notif-icon { font-size: 18px; line-height: 1; flex: none; margin-top: 1px; }
+  .notif-headline { font-size: 13.5px; color: var(--text); }
+  .notif-meta { font-size: 11.5px; color: var(--muted); margin-top: 3px; }
+
+  .lb-controls {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 10px;
+    margin-bottom: 18px;
+  }
+  .seg {
+    display: inline-flex;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 3px;
+    gap: 2px;
+  }
+  .seg-btn {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 12.5px;
+    padding: 7px 13px;
+    border-radius: 7px;
+    cursor: pointer;
+  }
+  .seg-btn:hover { color: var(--text); }
+  .seg-btn.active { background: var(--accent); color: #0b1220; }
+  .seg-btn .soon-tag { vertical-align: 1px; }
+
+  .lb-rank {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px; height: 24px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 800;
+    font-family: "Roboto Mono", "Courier New", monospace;
+    background: var(--panel-2);
+    color: var(--muted);
+  }
+  /* Podium colors get a filled badge + soft glow instead of just a
+     tinted background, so #1-3 actually pop out of the list the way
+     a medal would, not just read as "slightly different gray". */
+  .lb-rank.top1 {
+    background: linear-gradient(135deg, #ffd166, #e8a93a);
+    color: #3a2a00;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.15) inset, 0 2px 8px rgba(232,169,58,0.45);
+  }
+  .lb-rank.top2 {
+    background: linear-gradient(135deg, #e3e8f2, #aab4c6);
+    color: #1c2330;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.15) inset, 0 2px 8px rgba(170,180,198,0.35);
+  }
+  .lb-rank.top3 {
+    background: linear-gradient(135deg, #ff9d66, #d9703a);
+    color: #3a1a00;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.15) inset, 0 2px 8px rgba(217,112,58,0.4);
+  }
+
+  .lb-team-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 6px;
+    margin-left: 8px;
+    text-decoration: none;
+  }
+  .lb-team-tag:hover { text-decoration: none; opacity: 0.85; }
+  td.racer a { color: inherit; }
+  td.racer a:hover { text-decoration: underline; }
+
+  /* Points is the one number every leaderboard page is organized around -
+     it's the only place --velocity (cyan) appears, so it reads as the
+     stat that matters rather than another UI color. */
+  .points {
+    font-weight: 700;
+    color: var(--velocity);
+    font-size: 14px;
+    font-family: "Roboto Mono", "Courier New", monospace;
+    letter-spacing: 0.2px;
+  }
+  .lb-score-note {
+    color: var(--muted);
+    font-size: 12px;
+    margin: 10px 2px 0;
+  }
+
+  /* Tournament bracket - a side-scrolling row of round columns, each
+     column's matches spaced out with flex gap rather than real connector
+     lines (no SVG/canvas tree) - a deliberate simplification given no
+     fixed per-match height to route lines between. */
+  .bracket-wrap { overflow-x: auto; padding-bottom: 6px; }
+  .bracket-grid { display: flex; gap: 26px; min-width: max-content; }
+  .bracket-col { display: flex; flex-direction: column; justify-content: space-around; gap: 14px; min-width: 172px; }
+  .bracket-col-title {
+    font-size: 11.5px; font-weight: 800; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.05em;
+    margin-bottom: 8px; text-align: center;
+  }
+  .bracket-match { display: flex; flex-direction: column; gap: 3px; }
+  .bracket-slot {
+    display: flex; align-items: center; gap: 6px;
+    padding: 7px 9px; border-radius: 7px;
+    background: var(--panel-2); border: 1px solid var(--border);
+    font-size: 12.5px; white-space: nowrap;
+  }
+  .bracket-slot-empty { color: var(--muted); justify-content: center; }
+  .bracket-slot-winner { border-color: var(--accent); background: rgba(255,176,32,0.12); font-weight: 700; }
+  .bracket-seed { color: var(--muted); font-size: 11px; width: 16px; flex: none; }
+  .bracket-name { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+  .bracket-score { color: var(--velocity); font-weight: 700; font-size: 12px; flex: none; }
+  .bracket-dnq { color: var(--low); font-size: 10px; font-weight: 800; flex: none; }
+
+  footer.site {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    padding: 30px 20px 50px;
+  }
+
+  @media (max-width: 560px) {
+    main { padding: 20px 14px 50px; }
+    .hero .name { font-size: 21px; }
+  }
+
+  /* Forms - account pages (sign in/up, connect) and the captain events
+     manager share this small set of classes. */
+  .form-input {
+    width: 100%;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font: inherit;
+    font-family: "Manrope", -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  .form-input:focus { outline: 1px solid var(--accent); }
+  .form-input::placeholder { color: var(--muted); }
+  label.form-input-wrap { font-size: 12px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; }
+  .btn-primary, .btn-secondary, .btn-danger {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13.5px;
+    border-radius: 8px;
+    padding: 10px 14px;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+  .btn-primary { background: var(--accent); color: #06121f; }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-secondary { background: var(--panel-2); color: var(--text); border-color: var(--border); }
+  .btn-secondary:hover { border-color: var(--accent); }
+  .btn-danger { background: rgba(255,107,107,0.12); color: var(--low); border-color: rgba(255,107,107,0.3); }
+  .btn-danger:hover { background: rgba(255,107,107,0.2); }
+  .form-error { color: var(--low); font-size: 12.5px; }
+  .form-note { font-size: 12.5px; }
+  .site-nav-link[data-account-nav] { white-space: nowrap; }
+</style>
+</head>
+<body>
+<script src="../../assets/app.js"></script>
+
+    <header class="site">
+      <div class="mark">T</div>
+      <div class="name">TypeTrack</div>
+      <nav class="site-nav">
+        <a class="site-nav-link active" href="../../">Teams</a>
+        <a class="site-nav-link" href="../../leaderboards/">Leaderboards</a>
+        <a class="site-nav-link" href="../../account/" data-account-nav>Account</a>
+      </nav>
+    </header>
+<main>
+<div class="crumb"><a href="../../">← all teams</a></div>
+
+    <div class="team-layout">
+      
+    <nav class="team-sidebar">
+      <a class="nav-item active" href="./"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="activity/"><span class="nav-icon">📈</span>Activity</a><a class="nav-item" href="tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item" href="trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item" href="notifications/"><span class="nav-icon">🔔</span>Notifications</a>
+      <div class="nav-section-label">Manage</div>
+      <a class="nav-item" href="admin/"><span class="nav-icon">⚙️</span>Team Admin</a>
+    </nav>
+      <div class="team-content">
+    <div class="hero" style="background:#71c6a5;color:#ffffff">
+      <div class="name">[LOVGOD] Christains For Life</div>
+      <div class="sub">
+        Captain: TOTEL SKILL · 47 racers tracked · last synced 10/25/2026, 2:13:46 AM</div>
+    </div>
+    
+    <div class="req-bar">
+      <div class="req">Members <b>47</b></div>
+      <div class="req">Formed <b>Jul 20, 2023</b></div>
+      <div class="req">Enrollment <b>open</b></div>
+      <div class="req">Min races <b>100</b></div>
+      <div class="req">Min speed <b>30 wpm</b></div>
+      <div class="req">Min level <b>0</b></div>
+      
+    </div>
+    <div class="special-reqs">
+         <div class="label">Special requirements</div>
+         <div class="text">Strong Christan team. Always sending out Bible verses, and suportive of eachother. Allies MED13L, JCL. Discord coming soon...</div>
+       </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Racer</th><th>Joined</th><th>Avg speed</th><th>Highest speed</th><th>Lifetime races</th><th>Accuracy</th></tr>
+        </thead>
+        <tbody>
+          
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(195 85% 65%)">_</span>
+            <img class="car-thumb" src="../../assets/cars/anaconda_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/dacoconutfield" target="_blank" rel="noopener" title="View on Nitro Type">_0_0_0_0_</a> <a class="stats-link" href="racer/81995903/" title="_0_0_0_0_'s stats on TypeTrack">📊</a>
+          </td>
+          <td>Feb 22, 2026</td>
+          <td>60</td>
+          <td>72</td>
+          <td>1,251</td>
+          <td><span class="pill ok">93.03%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(195 85% 65%)">-</span>
+            <img class="car-thumb" src="../../assets/cars/locomotive_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/penandpaper123" target="_blank" rel="noopener" title="View on Nitro Type">-God Is Unstoppable-</a> <a class="stats-link" href="racer/24181327/" title="-God Is Unstoppable-'s stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span><span class="role-pill gold">Gold</span>
+          </td>
+          <td>Jul 6, 2024</td>
+          <td>85</td>
+          <td>114</td>
+          <td>20,156</td>
+          <td><span class="pill ok">94.77%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(334 85% 65%)">⚡</span>
+            
+            <a href="https://www.nitrotype.com/racer/holton95" target="_blank" rel="noopener" title="View on Nitro Type">⚡Bolt!⚡</a> <a class="stats-link" href="racer/13120996/" title="⚡Bolt!⚡'s stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
+          </td>
+          <td>May 12, 2025</td>
+          <td>102</td>
+          <td>123</td>
+          <td>10,843</td>
+          <td><span class="pill good">95.66%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(315 85% 65%)">1</span>
+            
+            <a href="https://www.nitrotype.com/racer/665620023078890fd79d3d7a6c2018b0" target="_blank" rel="noopener" title="View on Nitro Type">1,3,4_2</a> <a class="stats-link" href="racer/90400722/" title="1,3,4_2's stats on TypeTrack">📊</a>
+          </td>
+          <td>Jul 19, 2026</td>
+          <td>73</td>
+          <td>93</td>
+          <td>296</td>
+          <td><span class="pill good">95.29%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(299 85% 65%)">3</span>
+            
+            <a href="https://www.nitrotype.com/racer/shlo_elo55" target="_blank" rel="noopener" title="View on Nitro Type">350 friends</a> <a class="stats-link" href="racer/79913573/" title="350 friends's stats on TypeTrack">📊</a>
+          </td>
+          <td>Mar 3, 2026</td>
+          <td>96</td>
+          <td>124</td>
+          <td>5,350</td>
+          <td><span class="pill ok">91.6%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(183 85% 65%)">A</span>
+            <img class="car-thumb" src="../../assets/cars/hawkins_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/venomnitrotype" target="_blank" rel="noopener" title="View on Nitro Type">aaron123456 0_0</a> <a class="stats-link" href="racer/59223771/" title="aaron123456 0_0's stats on TypeTrack">📊</a>
+          </td>
+          <td>Oct 17, 2026</td>
+          <td>48</td>
+          <td>113</td>
+          <td>5,425</td>
+          <td><span class="pill na">—</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(49 85% 65%)">A</span>
+            
+            <a href="https://www.nitrotype.com/racer/ann1524" target="_blank" rel="noopener" title="View on Nitro Type">Ann Grace</a> <a class="stats-link" href="racer/66902209/" title="Ann Grace's stats on TypeTrack">📊</a>
+          </td>
+          <td>Mar 25, 2025</td>
+          <td>78</td>
+          <td>107</td>
+          <td>9,771</td>
+          <td><span class="pill ok">93.42%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(93 85% 65%)">A</span>
+            <img class="car-thumb" src="../../assets/cars/painted-f1bug_small_160.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/arctrooper19" target="_blank" rel="noopener" title="View on Nitro Type">arctrooper19</a> <a class="stats-link" href="racer/81047346/" title="arctrooper19's stats on TypeTrack">📊</a>
+          </td>
+          <td>Sep 29, 2024</td>
+          <td>66</td>
+          <td>82</td>
+          <td>2,911</td>
+          <td><span class="pill ok">92.81%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(284 85% 65%)">B</span>
+            <img class="car-thumb" src="../../assets/cars/painted-error503_small_140.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/burkhartkids" target="_blank" rel="noopener" title="View on Nitro Type">Burkhartkids</a> <a class="stats-link" href="racer/85173596/" title="Burkhartkids's stats on TypeTrack">📊</a>
+          </td>
+          <td>Jul 23, 2026</td>
+          <td>38</td>
+          <td>52</td>
+          <td>3,179</td>
+          <td><span class="pill ok">93.57%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(226 85% 65%)">C</span>
+            
+            <a href="https://www.nitrotype.com/racer/callie_1414" target="_blank" rel="noopener" title="View on Nitro Type">Callie</a> <a class="stats-link" href="racer/70588006/" title="Callie's stats on TypeTrack">📊</a>
+          </td>
+          <td>Nov 4, 2024</td>
+          <td>80</td>
+          <td>101</td>
+          <td>4,932</td>
+          <td><span class="pill good">96.51%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(89 85% 65%)">C</span>
+            <img class="car-thumb" src="../../assets/cars/locomotive_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/tristanreiff77" target="_blank" rel="noopener" title="View on Nitro Type">Child of Jesus</a> <a class="stats-link" href="racer/42732703/" title="Child of Jesus's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
+          </td>
+          <td>Jul 6, 2024</td>
+          <td>40</td>
+          <td>57</td>
+          <td>10,610</td>
+          <td><span class="pill good">95.01%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(274 85% 65%)">D</span>
+            
+            <a href="https://www.nitrotype.com/racer/dog496772r" target="_blank" rel="noopener" title="View on Nitro Type">Dabest_noob</a> <a class="stats-link" href="racer/81362528/" title="Dabest_noob's stats on TypeTrack">📊</a>
+          </td>
+          <td>Mar 13, 2026</td>
+          <td>78</td>
+          <td>133</td>
+          <td>2,525</td>
+          <td><span class="pill ok">94.74%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(292 85% 65%)">D</span>
+            <img class="car-thumb" src="../../assets/cars/ultima_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/djniiher" target="_blank" rel="noopener" title="View on Nitro Type">DJNIHER</a> <a class="stats-link" href="racer/55235450/" title="DJNIHER's stats on TypeTrack">📊</a>
+          </td>
+          <td>Feb 27, 2026</td>
+          <td>72</td>
+          <td>173</td>
+          <td>5,940</td>
+          <td><span class="pill ok">90%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(328 85% 65%)">D</span>
+            
+            <a href="https://www.nitrotype.com/racer/ec0c7393773972c424b15300b96f4c42" target="_blank" rel="noopener" title="View on Nitro Type">drwagaman</a> <a class="stats-link" href="racer/52058592/" title="drwagaman's stats on TypeTrack">📊</a>
+          </td>
+          <td>Jan 17, 2026</td>
+          <td>86</td>
+          <td>116</td>
+          <td>7,404</td>
+          <td><span class="pill good">96.79%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(36 85% 65%)">E</span>
+            <img class="car-thumb" src="../../assets/cars/painted-corsamystica_small_280.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/evan1524" target="_blank" rel="noopener" title="View on Nitro Type">Evangelina</a> <a class="stats-link" href="racer/66902230/" title="Evangelina's stats on TypeTrack">📊</a>
+          </td>
+          <td>Jul 2, 2026</td>
+          <td>59</td>
+          <td>77</td>
+          <td>4,064</td>
+          <td><span class="pill low">88.03%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(194 85% 65%)">F</span>
+            
+            <a href="https://www.nitrotype.com/racer/tinydarian" target="_blank" rel="noopener" title="View on Nitro Type">fooddevourer</a> <a class="stats-link" href="racer/80082321/" title="fooddevourer's stats on TypeTrack">📊</a>
+          </td>
+          <td>Dec 10, 2025</td>
+          <td>102</td>
+          <td>144</td>
+          <td>2,050</td>
+          <td><span class="pill good">95.83%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(335 85% 65%)">F</span>
+            <img class="car-thumb" src="../../assets/cars/nye_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/48008361b5489c4e664d9df8f3093d15" target="_blank" rel="noopener" title="View on Nitro Type">FriendlyBlushGiraffe</a> <a class="stats-link" href="racer/83207374/" title="FriendlyBlushGiraffe's stats on TypeTrack">📊</a>
+          </td>
+          <td>Apr 22, 2025</td>
+          <td>36</td>
+          <td>81</td>
+          <td>4,661</td>
+          <td><span class="pill low">89.66%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(328 85% 65%)">G</span>
+            
+            <a href="https://www.nitrotype.com/racer/01f3cc3cbeab16f46c5a7be787972d66" target="_blank" rel="noopener" title="View on Nitro Type">GloryToGod</a> <a class="stats-link" href="racer/38863445/" title="GloryToGod's stats on TypeTrack">📊</a>
+          </td>
+          <td>Jul 28, 2026</td>
+          <td>90</td>
+          <td>115</td>
+          <td>2,186</td>
+          <td><span class="pill good">97.21%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(308 85% 65%)">G</span>
+            <img class="car-thumb" src="../../assets/cars/painted-neo_digital_small_340.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/javonir" target="_blank" rel="noopener" title="View on Nitro Type">God can Heal</a> <a class="stats-link" href="racer/81561860/" title="God can Heal's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
+          </td>
+          <td>Feb 14, 2025</td>
+          <td>43</td>
+          <td>59</td>
+          <td>5,291</td>
+          <td><span class="pill low">77.59%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(195 85% 65%)">G</span>
+            <img class="car-thumb" src="../../assets/cars/lit_train_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/34c9f2910e5a4541af273e7effe724a4" target="_blank" rel="noopener" title="View on Nitro Type">God comes first</a> <a class="stats-link" href="racer/70586825/" title="God comes first's stats on TypeTrack">📊</a>
+          </td>
+          <td>Mar 11, 2025</td>
+          <td>61</td>
+          <td>77</td>
+          <td>4,233</td>
+          <td><span class="pill ok">91.29%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(148 85% 65%)">G</span>
+            <img class="car-thumb" src="../../assets/cars/painted-yacht_small_220.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/jhjln87" target="_blank" rel="noopener" title="View on Nitro Type">God First</a> <a class="stats-link" href="racer/6154597/" title="God First's stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span><span class="role-pill gold">Gold</span>
+          </td>
+          <td>Dec 2, 2024</td>
+          <td>104</td>
+          <td>127</td>
+          <td>17,374</td>
+          <td><span class="pill good">97.03%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(341 85% 65%)">G</span>
+            
+            <a href="https://www.nitrotype.com/racer/liamh0219" target="_blank" rel="noopener" title="View on Nitro Type">God Love You</a> <a class="stats-link" href="racer/65436092/" title="God Love You's stats on TypeTrack">📊</a>
+          </td>
+          <td>May 31, 2025</td>
+          <td>36</td>
+          <td>66</td>
+          <td>2,295</td>
+          <td><span class="pill low">86.26%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(103 85% 65%)">H</span>
+            <img class="car-thumb" src="../../assets/cars/painted-error503_small_160.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/justkidin" target="_blank" rel="noopener" title="View on Nitro Type">H A T R X</a> <a class="stats-link" href="racer/49044748/" title="H A T R X's stats on TypeTrack">📊</a>
+          </td>
+          <td>Jul 8, 2024</td>
+          <td>104</td>
+          <td>116</td>
+          <td>10,749</td>
+          <td><span class="pill ok">92.24%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(117 85% 65%)">H</span>
+            
+            <a href="https://www.nitrotype.com/racer/sky389" target="_blank" rel="noopener" title="View on Nitro Type">HavFaith</a> <a class="stats-link" href="racer/67336805/" title="HavFaith's stats on TypeTrack">📊</a>
+          </td>
+          <td>Nov 9, 2023</td>
+          <td>85</td>
+          <td>114</td>
+          <td>11,963</td>
+          <td><span class="pill ok">94.48%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(62 85% 65%)">I</span>
+            <img class="car-thumb" src="../../assets/cars/creepersi2_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/thehelm610" target="_blank" rel="noopener" title="View on Nitro Type">I LOVE MINECRAFT</a> <a class="stats-link" href="racer/70004113/" title="I LOVE MINECRAFT's stats on TypeTrack">📊</a>
+          </td>
+          <td>Jul 18, 2025</td>
+          <td>47</td>
+          <td>68</td>
+          <td>8,243</td>
+          <td><span class="pill low">84.91%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(41 85% 65%)">I</span>
+            
+            <a href="https://www.nitrotype.com/racer/imnotkingplays" target="_blank" rel="noopener" title="View on Nitro Type">imnotkingplays</a> <a class="stats-link" href="racer/82374472/" title="imnotkingplays's stats on TypeTrack">📊</a>
+          </td>
+          <td>Jul 12, 2026</td>
+          <td>40</td>
+          <td>140</td>
+          <td>1,204</td>
+          <td><span class="pill low">86.29%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(39 85% 65%)">I</span>
+            
+            <a href="https://www.nitrotype.com/racer/182555333d639f00c5e5c481f3ce91f1" target="_blank" rel="noopener" title="View on Nitro Type">IssaclovesJC</a> <a class="stats-link" href="racer/80130306/" title="IssaclovesJC's stats on TypeTrack">📊</a>
+          </td>
+          <td>Sep 11, 2026</td>
+          <td>96</td>
+          <td>113</td>
+          <td>1,189</td>
+          <td><span class="pill ok">94.33%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(98 85% 65%)">J</span>
+            <img class="car-thumb" src="../../assets/cars/painted-supercarrier_small_40.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/pritipraja" target="_blank" rel="noopener" title="View on Nitro Type">James 1 5</a> <a class="stats-link" href="racer/66902195/" title="James 1 5's stats on TypeTrack">📊</a>
+          </td>
+          <td>Mar 31, 2025</td>
+          <td>66</td>
+          <td>87</td>
+          <td>6,658</td>
+          <td><span class="pill ok">93.76%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(199 85% 65%)">J</span>
+            <img class="car-thumb" src="../../assets/cars/painted-ship_of_line_small_240.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/8da631ff59b44c063e10272a69665035" target="_blank" rel="noopener" title="View on Nitro Type">jeeremiH</a> <a class="stats-link" href="racer/70344759/" title="jeeremiH's stats on TypeTrack">📊</a>
+          </td>
+          <td>May 21, 2026</td>
+          <td>62</td>
+          <td>88</td>
+          <td>1,213</td>
+          <td><span class="pill low">89.6%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(186 85% 65%)">J</span>
+            <img class="car-thumb" src="../../assets/cars/ship_of_line_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/logan7wpm" target="_blank" rel="noopener" title="View on Nitro Type">jesus can heal</a> <a class="stats-link" href="racer/55563097/" title="jesus can heal's stats on TypeTrack">📊</a><span class="role-pill gold">Gold</span>
+          </td>
+          <td>Jul 6, 2024</td>
+          <td>43</td>
+          <td>60</td>
+          <td>9,676</td>
+          <td><span class="pill low">84.48%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(76 85% 65%)">J</span>
+            <img class="car-thumb" src="../../assets/cars/painted-scream_small_220.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/theo1524" target="_blank" rel="noopener" title="View on Nitro Type">jh 3 16</a> <a class="stats-link" href="racer/66911100/" title="jh 3 16's stats on TypeTrack">📊</a>
+          </td>
+          <td>Jul 1, 2026</td>
+          <td>53</td>
+          <td>69</td>
+          <td>4,008</td>
+          <td><span class="pill low">86.23%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(29 85% 65%)">N</span>
+            <img class="car-thumb" src="../../assets/cars/painted-libertys7a_small_200.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/528340f36a8f2a046ddfde86f836da5c" target="_blank" rel="noopener" title="View on Nitro Type">New Creatn in Christ</a> <a class="stats-link" href="racer/79713333/" title="New Creatn in Christ's stats on TypeTrack">📊</a>
+          </td>
+          <td>Jul 11, 2024</td>
+          <td>66</td>
+          <td>86</td>
+          <td>18,650</td>
+          <td><span class="pill ok">94.64%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(110 85% 65%)">N</span>
+            <img class="car-thumb" src="../../assets/cars/painted-f35_small_180.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/notjonnyboii" target="_blank" rel="noopener" title="View on Nitro Type">NOTJonnyBoii</a> <a class="stats-link" href="racer/79375634/" title="NOTJonnyBoii's stats on TypeTrack">📊</a>
+          </td>
+          <td>Nov 7, 2024</td>
+          <td>120</td>
+          <td>134</td>
+          <td>9,637</td>
+          <td><span class="pill ok">94.35%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(281 85% 65%)">O</span>
+            <img class="car-thumb" src="../../assets/cars/painted-underworld_small_20.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/gchoi00" target="_blank" rel="noopener" title="View on Nitro Type">ogracer</a> <a class="stats-link" href="racer/29994294/" title="ogracer's stats on TypeTrack">📊</a>
+          </td>
+          <td>May 8, 2026</td>
+          <td>100</td>
+          <td>132</td>
+          <td>4,205</td>
+          <td><span class="pill good">97.2%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(205 85% 65%)">P</span>
+            <img class="car-thumb" src="../../assets/cars/painted-underworld_small_180.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/sophiaash" target="_blank" rel="noopener" title="View on Nitro Type">Patty Persimmon 3</a> <a class="stats-link" href="racer/51321031/" title="Patty Persimmon 3's stats on TypeTrack">📊</a>
+          </td>
+          <td>Jun 19, 2026</td>
+          <td>96</td>
+          <td>120</td>
+          <td>7,725</td>
+          <td><span class="pill ok">94.21%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(246 85% 65%)">P</span>
+            <img class="car-thumb" src="../../assets/cars/sprintervapor_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/ehamilt1" target="_blank" rel="noopener" title="View on Nitro Type">Phillipians 4-13</a> <a class="stats-link" href="racer/26050309/" title="Phillipians 4-13's stats on TypeTrack">📊</a>
+          </td>
+          <td>Feb 23, 2025</td>
+          <td>89</td>
+          <td>115</td>
+          <td>6,860</td>
+          <td><span class="pill ok">90.32%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(208 85% 65%)">P</span>
+            <img class="car-thumb" src="../../assets/cars/ultima_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/maddz34" target="_blank" rel="noopener" title="View on Nitro Type">Praise God</a> <a class="stats-link" href="racer/36085663/" title="Praise God's stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span>
+          </td>
+          <td>Jan 15, 2026</td>
+          <td>104</td>
+          <td>135</td>
+          <td>17,516</td>
+          <td><span class="pill good">95.27%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(224 85% 65%)">R</span>
+            <img class="car-thumb" src="../../assets/cars/painted-blizferr_small_20.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/shelbythebrave14" target="_blank" rel="noopener" title="View on Nitro Type">revivaltime</a> <a class="stats-link" href="racer/62131015/" title="revivaltime's stats on TypeTrack">📊</a>
+          </td>
+          <td>Sep 10, 2026</td>
+          <td>89</td>
+          <td>114</td>
+          <td>4,449</td>
+          <td><span class="pill ok">94.98%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(164 85% 65%)">S</span>
+            <img class="car-thumb" src="../../assets/cars/painted-blitz_935_small_60.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/13b8f3b4c6e56347ef5c2924f90295e8" target="_blank" rel="noopener" title="View on Nitro Type">Sady Din</a> <a class="stats-link" href="racer/65203210/" title="Sady Din's stats on TypeTrack">📊</a>
+          </td>
+          <td>Aug 11, 2024</td>
+          <td>72</td>
+          <td>94</td>
+          <td>13,954</td>
+          <td><span class="pill ok">94.79%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(73 85% 65%)">S</span>
+            <img class="car-thumb" src="../../assets/cars/painted-linuxelipse_small_340.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/6caf17b76a5eeaf9e6921068a125b88d" target="_blank" rel="noopener" title="View on Nitro Type">Sasha Nkeumaleu</a> <a class="stats-link" href="racer/65313585/" title="Sasha Nkeumaleu's stats on TypeTrack">📊</a>
+          </td>
+          <td>Jul 12, 2026</td>
+          <td>34</td>
+          <td>41</td>
+          <td>253</td>
+          <td><span class="pill ok">94.42%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(183 85% 65%)">S</span>
+            
+            <a href="https://www.nitrotype.com/racer/sjbakke" target="_blank" rel="noopener" title="View on Nitro Type">SJBakke</a> <a class="stats-link" href="racer/67564544/" title="SJBakke's stats on TypeTrack">📊</a>
+          </td>
+          <td>Oct 10, 2025</td>
+          <td>43</td>
+          <td>77</td>
+          <td>3,907</td>
+          <td><span class="pill ok">90.38%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(209 85% 65%)">S</span>
+            
+            <a href="https://www.nitrotype.com/racer/collinfurzeisthebest" target="_blank" rel="noopener" title="View on Nitro Type">Slow Typer</a> <a class="stats-link" href="racer/44942263/" title="Slow Typer's stats on TypeTrack">📊</a>
+          </td>
+          <td>May 31, 2026</td>
+          <td>76</td>
+          <td>95</td>
+          <td>7,044</td>
+          <td><span class="pill ok">94.57%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(60 85% 65%)">S</span>
+            <img class="car-thumb" src="../../assets/cars/painted-birdy_small_220.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/catinstar" target="_blank" rel="noopener" title="View on Nitro Type">Starcat</a> <a class="stats-link" href="racer/65843001/" title="Starcat's stats on TypeTrack">📊</a>
+          </td>
+          <td>Jul 21, 2026</td>
+          <td>65</td>
+          <td>81</td>
+          <td>1,963</td>
+          <td><span class="pill na">—</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(195 85% 65%)">T</span>
+            
+            <a href="https://www.nitrotype.com/racer/tgoad40" target="_blank" rel="noopener" title="View on Nitro Type">TGOAD40</a> <a class="stats-link" href="racer/81817284/" title="TGOAD40's stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span>
+          </td>
+          <td>Jul 2, 2025</td>
+          <td>70</td>
+          <td>95</td>
+          <td>3,290</td>
+          <td><span class="pill good">95.15%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(297 85% 65%)">T</span>
+            <img class="car-thumb" src="../../assets/cars/radon620c_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/yodaisgood" target="_blank" rel="noopener" title="View on Nitro Type">The Dark Walrus</a> <a class="stats-link" href="racer/42407123/" title="The Dark Walrus's stats on TypeTrack">📊</a><span class="role-pill officer">Officer</span>
+          </td>
+          <td>Feb 2, 2026</td>
+          <td>82</td>
+          <td>101</td>
+          <td>8,932</td>
+          <td><span class="pill ok">93.87%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(177 85% 65%)">T</span>
+            <img class="car-thumb" src="../../assets/cars/painted-corsamystica_small_340.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/bf4cea8315e721b4c372edf8eeaa63ba" target="_blank" rel="noopener" title="View on Nitro Type">TortaEater</a> <a class="stats-link" href="racer/49288031/" title="TortaEater's stats on TypeTrack">📊</a>
+          </td>
+          <td>Sep 4, 2024</td>
+          <td>97</td>
+          <td>136</td>
+          <td>10,484</td>
+          <td><span class="pill ok">90.78%</span></td>
+        </tr>
+        <tr>
+          <td class="racer">
+            <span class="avatar" style="background:hsl(49 85% 65%)">T</span>
+            <img class="car-thumb" src="../../assets/cars/scarecrow_small.png" alt="" loading="lazy" onerror="this.remove()">
+            <a href="https://www.nitrotype.com/racer/flhjkinffg" target="_blank" rel="noopener" title="View on Nitro Type">TOTEL SKILL</a> <a class="stats-link" href="racer/66054964/" title="TOTEL SKILL's stats on TypeTrack">📊</a><span class="role-pill captain">Captain</span>
+          </td>
+          <td>Jul 20, 2023</td>
+          <td>88</td>
+          <td>138</td>
+          <td>18,126</td>
+          <td><span class="pill ok">94.77%</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div></div>
+    </div>
+</main>
+<footer class="site">Generated 2026-10-25T02:29:38.603Z</footer>
+</body>
+</html>

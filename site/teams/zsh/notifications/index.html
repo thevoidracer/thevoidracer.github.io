@@ -1,0 +1,841 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>[ZSH] Notifications</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Rajdhani:wght@600;700&family=Roboto+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+  :root {
+    --bg: #0a0c11;
+    --panel: #12151d;
+    --panel-2: #181c27;
+    --border: #272c3a;
+    --text: #f1f3f8;
+    --muted: #8d96a8;
+    /* Amber is the brand/chrome color - nav, buttons, the default card
+       accent. Cyan ("velocity") is spent in exactly one place: the
+       single most important number on any page (leaderboard points),
+       so it reads as a highlight instead of just another UI color. */
+    --accent: #ffb020;
+    --velocity: #29d3ff;
+    --good: #3ddc84;
+    --ok: #ffb020;
+    --low: #ff5c5c;
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    /* Flat dark fills read dead at this size - a faint diagonal
+       "tread" texture (two offset stripe layers, almost invisible,
+       fixed so it doesn't scroll with the page) gives the background
+       some depth without competing with the data on top of it. */
+    background-color: var(--bg);
+    background-image:
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.025) 0 2px, transparent 2px 64px),
+      repeating-linear-gradient(135deg, rgba(255,255,255,0.012) 0 10px, transparent 10px 64px);
+    background-attachment: fixed;
+    color: var(--text);
+    font-family: "Manrope", -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  header.site {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+    background: var(--panel);
+    box-shadow: 0 1px 24px rgba(255,176,32,0.06);
+    position: relative;
+    z-index: 1;
+  }
+  header.site .mark {
+    width: 30px; height: 30px; border-radius: 9px;
+    background: linear-gradient(135deg, #ffb020, #ff5e3d);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 15px; color: #1a0f00;
+    flex: none;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.08) inset, 0 4px 14px rgba(255,176,32,0.35);
+  }
+  header.site .name {
+    font-family: "Rajdhani", "Manrope", sans-serif;
+    font-weight: 700; font-size: 20px; letter-spacing: 0.3px; margin-right: 10px;
+    background: linear-gradient(135deg, #f6f7fb, #c7cedd);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  header.site .tagline { color: var(--muted); font-size: 13px; margin-left: 4px; }
+  .site-nav { display: flex; gap: 4px; margin-left: 6px; }
+  .site-nav-link {
+    color: var(--muted);
+    font-weight: 700;
+    font-size: 13.5px;
+    padding: 6px 11px;
+    border-radius: 7px;
+  }
+  .site-nav-link { position: relative; }
+  .site-nav-link:hover { color: var(--text); text-decoration: none; background: var(--panel-2); }
+  .site-nav-link.active { color: var(--accent); background: rgba(255,176,32,0.12); }
+  .site-nav-link.active::after {
+    content: "";
+    position: absolute; left: 11px; right: 11px; bottom: -11px;
+    height: 2px; border-radius: 2px;
+    background: var(--accent);
+  }
+
+  main { max-width: 1040px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  .crumb { color: var(--muted); font-size: 13px; margin-bottom: 18px; }
+
+  h1 { font-family: "Rajdhani", "Manrope", sans-serif; font-size: 25px; font-weight: 700; margin: 0 0 4px; }
+  h1 .tag-badge { padding: 2px 9px; border-radius: 6px; font-size: 14px; font-weight: 800; margin-right: 8px; }
+
+  .meta-row {
+    display: flex; gap: 22px; flex-wrap: wrap;
+    color: var(--muted); font-size: 13px; margin: 10px 0 22px;
+  }
+  .meta-row strong { color: var(--text); }
+
+  .hero {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    margin-bottom: 22px;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08), 0 10px 26px rgba(0,0,0,0.3);
+  }
+  /* The team's real tagColor is set inline as a flat fill (see above) -
+     this overlay adds a soft glow + diagonal sheen on top of whatever
+     that color is, so the banner reads like a lit card instead of a
+     flat paint swatch, without needing a photo behind it. */
+  .hero::before {
+    content: "";
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(520px 200px at 85% -20%, rgba(255,255,255,0.22), transparent 60%),
+      linear-gradient(120deg, rgba(255,255,255,0.1), transparent 40%),
+      linear-gradient(0deg, rgba(0,0,0,0.18), transparent 55%);
+    pointer-events: none;
+  }
+  /* A field of diagonal light-trail stripes, like a car's motion blur,
+     masked so it only shows on the right ~45% of the banner - it reads
+     as speed without ever crossing behind the team name/text on the
+     left. */
+  .hero::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(100deg, rgba(255,255,255,0.16) 0 3px, transparent 3px 28px);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 54%, rgba(0,0,0,1) 80%, rgba(0,0,0,1) 100%);
+    mask-image: linear-gradient(90deg, transparent 0%, transparent 54%, rgba(0,0,0,1) 80%, rgba(0,0,0,1) 100%);
+    pointer-events: none;
+  }
+  .hero > * { position: relative; }
+  .hero .name {
+    font-family: "Rajdhani", "Manrope", sans-serif;
+    font-size: 30px; font-weight: 700; letter-spacing: 0.3px;
+  }
+  .hero .sub { margin-top: 10px; font-size: 13px; opacity: 0.9; }
+  .hero .meta-stats {
+    display: flex; gap: 28px; margin-top: 14px; flex-wrap: wrap;
+  }
+  .hero .meta-stats .stat { font-size: 12px; opacity: 0.85; }
+  .hero .meta-stats .stat b { display: block; font-size: 15px; font-weight: 800; opacity: 1; margin-top: 2px; }
+
+  .req-bar {
+    display: flex; gap: 28px; flex-wrap: wrap; align-items: center;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    margin-bottom: 14px;
+    font-size: 13px;
+  }
+  .req-bar .req { color: var(--muted); }
+  .req-bar .req b { color: var(--text); font-weight: 700; }
+  .req-bar a.req.discord-invite {
+    color: var(--velocity);
+    font-weight: 700;
+    text-decoration: none;
+    margin-left: auto;
+  }
+  .req-bar a.req.discord-invite:hover { text-decoration: underline; }
+
+  .special-reqs {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 20px;
+    margin-bottom: 22px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .special-reqs .label {
+    text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px;
+    color: var(--muted); font-weight: 700; margin-bottom: 6px;
+  }
+  .special-reqs .text { color: var(--text); line-height: 1.5; word-break: break-word; }
+
+  .activity-chart {
+    display: flex; align-items: flex-end; gap: 4px;
+    height: 160px;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 12px 10px;
+    margin-bottom: 8px;
+  }
+  .activity-bar {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: flex-end; height: 100%; min-width: 0;
+  }
+  .activity-bar .bar {
+    width: 100%; max-width: 18px; height: var(--h);
+    background: var(--accent); border-radius: 3px 3px 0 0; min-height: 2px;
+  }
+  .activity-bar .bar-label {
+    font-size: 10px; color: var(--muted); margin-top: 6px; height: 14px;
+    white-space: nowrap;
+  }
+
+  .index-header {
+    display: flex; justify-content: space-between; align-items: flex-end;
+    flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
+  }
+  .search-box input {
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 9px 12px;
+    font-family: inherit;
+    font-size: 13px;
+    width: 220px;
+  }
+  .search-box input:focus { outline: 1px solid var(--accent); }
+  .search-box input::placeholder { color: var(--muted); }
+
+  .card .req-line { font-size: 12px; color: var(--muted); }
+  .card .req-line b { color: var(--text); }
+  .card .view-link {
+    margin-top: 4px;
+    display: inline-block;
+    color: var(--card-accent, var(--accent));
+    font-weight: 700;
+    font-size: 12.5px;
+    align-self: flex-start;
+  }
+  .card .view-link:hover { text-decoration: underline; }
+
+  .role-pill {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    padding: 1px 6px;
+    border-radius: 5px;
+    margin-left: 7px;
+    vertical-align: middle;
+  }
+  .role-pill.captain { background: rgba(255,176,32,0.18); color: var(--ok); }
+  .role-pill.officer { background: rgba(41,211,255,0.16); color: var(--velocity); }
+  .role-pill.gold { background: rgba(255,176,32,0.12); color: var(--ok); }
+
+  .squad-pill {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 800;
+    padding: 1px 7px;
+    border-radius: 5px;
+    margin-left: 7px;
+    vertical-align: middle;
+    border: 1px solid;
+  }
+  .squad-swatch {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+
+  .team-layout {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  .team-sidebar {
+    width: 190px;
+    flex: none;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px;
+    position: sticky;
+    top: 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .team-sidebar .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 10px;
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 13.5px;
+    font-weight: 600;
+    margin-bottom: 2px;
+  }
+  .team-sidebar .nav-item:hover { background: var(--panel-2); text-decoration: none; }
+  .team-sidebar .nav-item.active { background: rgba(255,176,32,0.15); color: var(--accent); }
+  .team-sidebar .nav-icon { font-size: 14px; flex: none; opacity: 0.9; }
+  .team-sidebar .soon-tag {
+    margin-left: auto;
+    font-size: 9px;
+    background: rgba(170,178,192,0.15);
+    color: var(--muted);
+    padding: 2px 6px;
+    border-radius: 999px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .team-sidebar .nav-section-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    font-weight: 700;
+    padding: 12px 10px 4px;
+  }
+  .team-content { flex: 1; min-width: 0; }
+
+  @media (max-width: 760px) {
+    .team-layout { flex-direction: column; }
+    .team-sidebar {
+      width: 100%;
+      position: static;
+      flex-direction: row;
+      flex-wrap: wrap;
+      gap: 4px;
+    }
+    .team-sidebar .nav-section-label { display: none; }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 14px;
+  }
+  /* Each card carries its own team's color as --card-accent (set inline
+     per card), used for the top edge, the hover glow, and the "View
+     roster" link below - so a grid of teams reads as a grid of
+     distinct teams, not one repeated card shape in a neutral blue. */
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--card-accent, var(--accent));
+    border-radius: var(--radius);
+    padding: 15px 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 28px color-mix(in srgb, var(--card-accent, var(--accent)) 30%, transparent);
+  }
+  .card .top { display: flex; align-items: center; gap: 10px; }
+  /* The tag (short, stable) links to this team's own TypeTrack page;
+     the full name links out to the team's real Nitro Type page - two
+     different destinations, so they get two separate link targets
+     instead of one link covering the whole header. */
+  .card .tag { font-weight: 800; font-size: 14px; color: var(--card-accent, var(--accent)); }
+  .card .tag:hover { text-decoration: underline; }
+  .card .display-name {
+    font-family: "Rajdhani", "Manrope", sans-serif;
+    color: var(--text); font-weight: 600; font-size: 15px;
+  }
+  .card .display-name:hover { text-decoration: underline; color: var(--card-accent, var(--accent)); }
+  .card .footer { margin-top: auto; font-size: 11.5px; color: var(--muted); }
+  .card a.cover { position: static; }
+  .card a.view { align-self: flex-start; font-size: 12.5px; font-weight: 700; }
+
+  .empty {
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    color: var(--muted);
+    text-align: center;
+    font-size: 14px;
+  }
+
+  .table-wrap {
+    overflow-x: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--panel);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+  }
+  table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  thead th {
+    text-align: left;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--muted);
+    font-weight: 700;
+    padding: 12px 14px;
+    border-bottom: 1px solid var(--border);
+    background: var(--panel-2);
+    position: sticky; top: 0;
+  }
+  /* Numeric/stat columns read like a data table (StarTrack-style) when
+     the digits line up on a fixed grid instead of a variable-width
+     text font - tabular-nums keeps this in Manrope rather than
+     switching the whole row to monospace. */
+  tbody td {
+    padding: 11px 14px;
+    font-size: 13.5px;
+    border-bottom: 1px solid var(--border);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) { background: rgba(255,255,255,0.015); }
+  tbody tr:hover { background: rgba(41,211,255,0.06); }
+  td.racer { display: flex; align-items: center; gap: 10px; white-space: nowrap; }
+  .avatar {
+    width: 26px; height: 26px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 800; color: #0b1220;
+    flex: none;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.08), 0 2px 6px rgba(0,0,0,0.3);
+  }
+  .car-thumb {
+    height: 22px; width: auto; max-width: 42px;
+    object-fit: contain; flex: none;
+    filter: drop-shadow(0 1px 3px rgba(0,0,0,0.4));
+  }
+  .stats-link {
+    display: inline-block; margin-left: 2px; font-size: 12px;
+    text-decoration: none; opacity: 0.75;
+  }
+  .stats-link:hover { opacity: 1; text-decoration: none; }
+
+  .pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .pill.good { background: rgba(61,220,132,0.15); color: var(--good); }
+  .pill.ok   { background: rgba(232,197,71,0.15); color: var(--ok); }
+  .pill.low  { background: rgba(255,107,107,0.15); color: var(--low); }
+  .pill.na   { background: rgba(170,178,192,0.12); color: var(--muted); }
+
+  .notif-day { margin-bottom: 22px; }
+  .notif-date { font-weight: 800; font-size: 13.5px; margin-bottom: 8px; }
+  .notif-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 14px;
+    margin-bottom: 8px;
+  }
+  .notif-icon { font-size: 18px; line-height: 1; flex: none; margin-top: 1px; }
+  .notif-headline { font-size: 13.5px; color: var(--text); }
+  .notif-meta { font-size: 11.5px; color: var(--muted); margin-top: 3px; }
+
+  .lb-controls {
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 10px;
+    margin-bottom: 18px;
+  }
+  .seg {
+    display: inline-flex;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+    padding: 3px;
+    gap: 2px;
+  }
+  .seg-btn {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 12.5px;
+    padding: 7px 13px;
+    border-radius: 7px;
+    cursor: pointer;
+  }
+  .seg-btn:hover { color: var(--text); }
+  .seg-btn.active { background: var(--accent); color: #0b1220; }
+  .seg-btn .soon-tag { vertical-align: 1px; }
+
+  .lb-rank {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px; height: 24px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 800;
+    font-family: "Roboto Mono", "Courier New", monospace;
+    background: var(--panel-2);
+    color: var(--muted);
+  }
+  /* Podium colors get a filled badge + soft glow instead of just a
+     tinted background, so #1-3 actually pop out of the list the way
+     a medal would, not just read as "slightly different gray". */
+  .lb-rank.top1 {
+    background: linear-gradient(135deg, #ffd166, #e8a93a);
+    color: #3a2a00;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.15) inset, 0 2px 8px rgba(232,169,58,0.45);
+  }
+  .lb-rank.top2 {
+    background: linear-gradient(135deg, #e3e8f2, #aab4c6);
+    color: #1c2330;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.15) inset, 0 2px 8px rgba(170,180,198,0.35);
+  }
+  .lb-rank.top3 {
+    background: linear-gradient(135deg, #ff9d66, #d9703a);
+    color: #3a1a00;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.15) inset, 0 2px 8px rgba(217,112,58,0.4);
+  }
+
+  .lb-team-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 6px;
+    margin-left: 8px;
+    text-decoration: none;
+  }
+  .lb-team-tag:hover { text-decoration: none; opacity: 0.85; }
+  td.racer a { color: inherit; }
+  td.racer a:hover { text-decoration: underline; }
+
+  /* Points is the one number every leaderboard page is organized around -
+     it's the only place --velocity (cyan) appears, so it reads as the
+     stat that matters rather than another UI color. */
+  .points {
+    font-weight: 700;
+    color: var(--velocity);
+    font-size: 14px;
+    font-family: "Roboto Mono", "Courier New", monospace;
+    letter-spacing: 0.2px;
+  }
+  .lb-score-note {
+    color: var(--muted);
+    font-size: 12px;
+    margin: 10px 2px 0;
+  }
+
+  /* Tournament bracket - a side-scrolling row of round columns, each
+     column's matches spaced out with flex gap rather than real connector
+     lines (no SVG/canvas tree) - a deliberate simplification given no
+     fixed per-match height to route lines between. */
+  .bracket-wrap { overflow-x: auto; padding-bottom: 6px; }
+  .bracket-grid { display: flex; gap: 26px; min-width: max-content; }
+  .bracket-col { display: flex; flex-direction: column; justify-content: space-around; gap: 14px; min-width: 172px; }
+  .bracket-col-title {
+    font-size: 11.5px; font-weight: 800; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 0.05em;
+    margin-bottom: 8px; text-align: center;
+  }
+  .bracket-match { display: flex; flex-direction: column; gap: 3px; }
+  .bracket-slot {
+    display: flex; align-items: center; gap: 6px;
+    padding: 7px 9px; border-radius: 7px;
+    background: var(--panel-2); border: 1px solid var(--border);
+    font-size: 12.5px; white-space: nowrap;
+  }
+  .bracket-slot-empty { color: var(--muted); justify-content: center; }
+  .bracket-slot-winner { border-color: var(--accent); background: rgba(255,176,32,0.12); font-weight: 700; }
+  .bracket-seed { color: var(--muted); font-size: 11px; width: 16px; flex: none; }
+  .bracket-name { flex: 1; overflow: hidden; text-overflow: ellipsis; }
+  .bracket-score { color: var(--velocity); font-weight: 700; font-size: 12px; flex: none; }
+  .bracket-dnq { color: var(--low); font-size: 10px; font-weight: 800; flex: none; }
+
+  footer.site {
+    text-align: center;
+    color: var(--muted);
+    font-size: 12px;
+    padding: 30px 20px 50px;
+  }
+
+  @media (max-width: 560px) {
+    main { padding: 20px 14px 50px; }
+    .hero .name { font-size: 21px; }
+  }
+
+  /* Forms - account pages (sign in/up, connect) and the captain events
+     manager share this small set of classes. */
+  .form-input {
+    width: 100%;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    border-radius: 8px;
+    padding: 10px 12px;
+    font: inherit;
+    font-family: "Manrope", -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  .form-input:focus { outline: 1px solid var(--accent); }
+  .form-input::placeholder { color: var(--muted); }
+  label.form-input-wrap { font-size: 12px; color: var(--muted); display: flex; flex-direction: column; gap: 4px; }
+  .btn-primary, .btn-secondary, .btn-danger {
+    font: inherit;
+    font-weight: 700;
+    font-size: 13.5px;
+    border-radius: 8px;
+    padding: 10px 14px;
+    border: 1px solid transparent;
+    cursor: pointer;
+  }
+  .btn-primary { background: var(--accent); color: #06121f; }
+  .btn-primary:hover { opacity: 0.9; }
+  .btn-secondary { background: var(--panel-2); color: var(--text); border-color: var(--border); }
+  .btn-secondary:hover { border-color: var(--accent); }
+  .btn-danger { background: rgba(255,107,107,0.12); color: var(--low); border-color: rgba(255,107,107,0.3); }
+  .btn-danger:hover { background: rgba(255,107,107,0.2); }
+  .form-error { color: var(--low); font-size: 12.5px; }
+  .form-note { font-size: 12.5px; }
+  .site-nav-link[data-account-nav] { white-space: nowrap; }
+</style>
+</head>
+<body>
+<script src="../../../assets/app.js"></script>
+
+    <header class="site">
+      <div class="mark">T</div>
+      <div class="name">TypeTrack</div>
+      <nav class="site-nav">
+        <a class="site-nav-link active" href="../../../">Teams</a>
+        <a class="site-nav-link" href="../../../leaderboards/">Leaderboards</a>
+        <a class="site-nav-link" href="../../../account/" data-account-nav>Account</a>
+      </nav>
+    </header>
+<main>
+<div class="crumb"><a href="../../../">← all teams</a></div>
+
+    <div class="team-layout">
+      
+    <nav class="team-sidebar">
+      <a class="nav-item" href="../"><span class="nav-icon">👥</span>Roster</a><a class="nav-item" href="../events/"><span class="nav-icon">📅</span>Events</a><a class="nav-item" href="../activity/"><span class="nav-icon">📈</span>Activity</a><a class="nav-item" href="../tournaments/"><span class="nav-icon">🏆</span>Tournaments</a><a class="nav-item" href="../trackers/"><span class="nav-icon">📌</span>Trackers</a><a class="nav-item active" href="../notifications/"><span class="nav-icon">🔔</span>Notifications</a>
+      <div class="nav-section-label">Manage</div>
+      <a class="nav-item" href="../admin/"><span class="nav-icon">⚙️</span>Team Admin</a>
+    </nav>
+      <div class="team-content">
+    <div class="hero" style="background:#ee1f25;color:#ffffff">
+      <div class="name">[ZSH] IPX TEAM 2</div>
+      <div class="sub">
+        Captain: -IIllIIlIIlllIIIlII- · 26 racers tracked · last synced 10/25/2026, 2:21:27 AM</div>
+    </div>
+    <h2 style="margin:28px 0 14px;">Notifications</h2>
+    <p class="meta-row">Auto-detected from every sync — new members and race milestones, newest first.</p>
+    
+        <div class="notif-day">
+          <div class="notif-date">Sunday, October 25, 2026</div>
+          
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, melihaslan66!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, G H O S T E D!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, lnieb0!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, rekcilyssup!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, ZSHxIPX!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, Stedoid!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, -IIllIIlIIlllIIIlII-!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, Pursuer!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, -StrikeRacer-!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, pen pen charge!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, Car_Collecter_7000!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, OriginalBeigePrawn!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, Camera!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, SweetBronzeBarracuda!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, Neil The Real Deal!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, thefallen22!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, Amen thompson!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, HopefulSapphireJellyfish!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, PeriwinkleAquaElk!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, temu99!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, WHOAMI!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, 5K soon!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, KOROBOV!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, NYCLazzy!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, StopTypingFast!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+            <div class="notif-item">
+              <span class="notif-icon">👋</span>
+              <div>
+                <div class="notif-headline">Welcome to ZSH, Dhtefft!</div>
+                <div class="notif-meta">New member · 2:21 AM</div>
+              </div>
+            </div>
+        </div></div>
+    </div>
+</main>
+<footer class="site">Generated 2026-10-25T02:30:40.967Z</footer>
+</body>
+</html>
