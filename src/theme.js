@@ -461,6 +461,14 @@ function racersLeaderboardTable(rows, rangeLabel, teamHref, season, assetsHref =
     <p class="lb-score-note">Points = (avg speed ÷ 2 + accuracy) × races completed since the last sync, earned race by race — not an official Nitro Type stat.${rangeLabel === "Seasonal" ? ` ${seasonalNote(season)}` : ""}</p>`;
 }
 
+// Points per race - the same ratio StarTrack's own team leaderboard shows
+// as "PPR" - computed here rather than stored, since it's fully derived
+// from points/races (both already on the row).
+function pointsPerRace(points, races) {
+  if (!races) return null;
+  return Math.round((points / races) * 100) / 100;
+}
+
 function teamsLeaderboardTable(rows, rangeLabel, teamHref, season) {
   if (!rows.length) {
     return emptyLeaderboard("teams", rangeLabel, season);
@@ -469,8 +477,9 @@ function teamsLeaderboardTable(rows, rangeLabel, teamHref, season) {
     .map((t, i) => {
       const rank = i + 1;
       const bg = teamColor(t.tag, t.tag_color);
+      const ppr = pointsPerRace(t.points, t.races);
       return `
-        <tr>
+        <tr data-points="${t.points ?? 0}" data-races="${t.races ?? 0}" data-wpm="${t.avg_speed ?? ""}" data-accuracy="${t.accuracy ?? ""}" data-ppr="${ppr ?? ""}" data-racers="${t.racer_count ?? 0}">
           <td><span class="lb-rank${rankBadgeClass(rank)}">${rank}</span></td>
           <td class="racer">
             <span class="avatar" style="background:${bg};color:${textOnColor(bg)}">${escapeHtml((t.tag || "?").slice(0, 1).toUpperCase())}</span>
@@ -481,20 +490,77 @@ function teamsLeaderboardTable(rows, rangeLabel, teamHref, season) {
           <td>${formatNumber(t.races)}</td>
           <td>${formatNumber(t.avg_speed ?? "-")}</td>
           <td>${t.accuracy == null ? "—" : `${t.accuracy}%`}</td>
+          <td>${ppr == null ? "—" : formatNumber(ppr)}</td>
           <td>${formatNumber(t.racer_count)}</td>
         </tr>`;
     })
     .join("");
   return `
-    <div class="table-wrap">
+    <div class="table-wrap teams-table">
       <table>
         <thead>
-          <tr><th>#</th><th>Team</th><th>Points</th><th>Total races</th><th>Team WPM</th><th>Team accuracy</th><th>Racers earning</th></tr>
+          <tr>
+            <th>#</th>
+            <th>Team</th>
+            <th data-sort="points" class="sort-desc">Points</th>
+            <th data-sort="races">Total races</th>
+            <th data-sort="wpm">Team WPM</th>
+            <th data-sort="accuracy">Team accuracy</th>
+            <th data-sort="ppr">PPR</th>
+            <th data-sort="racers">Racers earning</th>
+          </tr>
         </thead>
         <tbody>${body}</tbody>
       </table>
     </div>
-    <p class="lb-score-note">Points = the sum of every member's points — races completed since joining this tracker × (avg speed ÷ 2 + accuracy). Team WPM/accuracy are races-weighted averages over this window.${rangeLabel === "Seasonal" ? ` ${seasonalNote(season)}` : ""}</p>`;
+    <p class="lb-score-note">Points = the sum of every member's points — races completed since joining this tracker × (avg speed ÷ 2 + accuracy). Team WPM/accuracy are races-weighted averages over this window. PPR = points per race. Click a column header to sort, like StarTrack's team board.${rangeLabel === "Seasonal" ? ` ${seasonalNote(season)}` : ""}</p>`;
+}
+
+// Click-to-sort for the Teams leaderboard tables, StarTrack-style: any
+// th[data-sort] re-orders its own table's rows by that column (toggling
+// asc/desc), using the raw numeric data-* attributes set on each <tr>
+// above rather than re-parsing the formatted/comma'd cell text. One
+// delegated listener covers every range's table (each range panel renders
+// its own .teams-table), so this only needs to run once regardless of how
+// many panels exist. Re-numbers the rank badge (and podium coloring) to
+// match the new order, same as StarTrack re-ranks when you sort.
+function teamsSortScript() {
+  return `
+    <script>
+      (function () {
+        function num(v) {
+          if (v === "" || v === null || v === undefined) return -Infinity;
+          var n = parseFloat(v);
+          return isNaN(n) ? -Infinity : n;
+        }
+        document.addEventListener("click", function (e) {
+          var th = e.target.closest(".teams-table th[data-sort]");
+          if (!th) return;
+          var table = th.closest("table");
+          var tbody = table.querySelector("tbody");
+          var key = th.getAttribute("data-sort");
+          var dir = th.classList.contains("sort-desc") ? "asc" : "desc";
+          Array.prototype.forEach.call(table.querySelectorAll("th[data-sort]"), function (h) {
+            h.classList.remove("sort-asc", "sort-desc");
+          });
+          th.classList.add(dir === "asc" ? "sort-asc" : "sort-desc");
+          var rows = Array.prototype.slice.call(tbody.querySelectorAll("tr"));
+          rows.sort(function (a, b) {
+            var av = num(a.getAttribute("data-" + key));
+            var bv = num(b.getAttribute("data-" + key));
+            return dir === "asc" ? av - bv : bv - av;
+          });
+          rows.forEach(function (r, i) {
+            var badge = r.querySelector(".lb-rank");
+            if (badge) {
+              badge.textContent = i + 1;
+              badge.className = "lb-rank" + (i === 0 ? " top1" : i === 1 ? " top2" : i === 2 ? " top3" : "");
+            }
+            tbody.appendChild(r);
+          });
+        });
+      })();
+    </script>`;
 }
 
 // Builds the full leaderboards page body (controls + all panels) from
@@ -518,7 +584,8 @@ function leaderboardsBody(data, teamHref, assetsHref = "/assets/") {
     <h1>Leaderboards</h1>
     <p class="meta-row">Ranked across every team this tracker follows — not all of Nitro Type.</p>
     ${leaderboardControls()}
-    ${panels.join("")}`;
+    ${panels.join("")}
+    ${teamsSortScript()}`;
 }
 
 // ---------------------------------------------------------------------
@@ -1550,6 +1617,22 @@ const BASE_CSS = `
     background: var(--panel-2);
     position: sticky; top: 0;
   }
+  /* Teams board, StarTrack-style click-to-sort columns (see
+     theme.js's teamsSortScript). */
+  .teams-table th[data-sort] {
+    cursor: pointer;
+    user-select: none;
+  }
+  .teams-table th[data-sort]:hover { color: var(--text); }
+  .teams-table th[data-sort].sort-asc::after,
+  .teams-table th[data-sort].sort-desc::after {
+    display: inline-block;
+    margin-left: 4px;
+    font-size: 9px;
+    color: var(--accent);
+  }
+  .teams-table th[data-sort].sort-desc::after { content: "▼"; }
+  .teams-table th[data-sort].sort-asc::after { content: "▲"; }
   /* Numeric/stat columns read like a data table (StarTrack-style) when
      the digits line up on a fixed grid instead of a variable-width
      text font - tabular-nums keeps this in Manrope rather than
